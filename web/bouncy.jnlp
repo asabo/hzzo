@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <jnlp spec="1.0+" codebase="http://www.sunce.biz/hzzo" href="bouncy.jnlp">
+    <information>
+        <title>Bouncy</title>
+        <vendor>BouncyCastle</vendor>
+    </information>
+    <resources>
+        <jar href="lib/bouncy.jar"/>
+    </resources>
+    <component-desc/>
+</jnlp>

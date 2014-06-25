@@ -1,0 +1,1608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ERDiagram version="1.1">
+  <Connection session="opticar" database="OPTICAR" />
+  <Drawing gridVisible="false" snapOn="false" fastRouting="false" labelsVisible="true" />
+  <Tables>
+    <Table name="ARTIKLI">
+      <Drawing expanded="true" location="38,574" dimensions="222,148" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="7" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="POREZNA_STOPA" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="OCNO_POMAGALO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="PO_CIJENI" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="BOJE">
+      <Drawing expanded="true" location="2711,0" dimensions="189,108" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIFNAOCALE" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="OZNAKABOJE" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="4" />
+        </Column>
+        <Column name="BARCODE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DECIMAL" size="13" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="DIOPTRIJA_LECA">
+      <Drawing expanded="true" location="1371,2410" dimensions="211,308" />
+      <Columns>
+        <Column name="DL" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="BAZKRIV" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="DIJAMETAR" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="DSPH" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="AX" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="SPECIZRADA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="BOJA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="ID" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DCYL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="DIOPTRIJA_NAOCALA">
+      <Drawing expanded="true" location="1115,2410" dimensions="211,348" />
+      <Columns>
+        <Column name="DL" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="DB" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="DSPH" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="DCYL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="AX" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="ID" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PD" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PRIS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="BPRIS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="ADICIJA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="DJELATNICI">
+      <Drawing expanded="true" location="1594,1470" dimensions="212,247" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="IME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="PREZIME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="LOZINKA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="ADMINISTRATOR" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="USERNAME" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="DRZAVE">
+      <Drawing expanded="true" location="697,2236" dimensions="165,129" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="CC" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="2" />
+        </Column>
+        <Column name="CC3" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="3" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="HZZO_VRSTE_POMAGALA">
+      <Drawing expanded="true" location="854,1549" dimensions="183,89" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="IZDANE_LECE">
+      <Drawing expanded="true" location="3095,436" dimensions="228,246" />
+      <Columns>
+        <Column name="ID" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATUM" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="-1" />
+        </Column>
+        <Column name="VRSTALECE" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PODVRSTALECE" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="MODEL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="40" />
+        </Column>
+        <Column name="SIF_PROIZVODJACA" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="IZDANE_NAOCALE">
+      <Drawing expanded="true" location="833,2410" dimensions="237,449" />
+      <Columns>
+        <Column name="ID" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATUM" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="-1" />
+        </Column>
+        <Column name="VOD" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="VOS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="RAZZJENICA1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="RAZZJENICA2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="MODEL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="SIFBOJE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="BROJ_KARTICE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="NUMERIC" size="16" />
+        </Column>
+        <Column name="ZA_SUNCE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="64" />
+        </Column>
+        <Column name="SIF_PROIZV_STAKALA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="FI1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="FI2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="ADD_STAKLA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="KVALITETA_LECA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="64" />
+        </Column>
+        <Column name="SLOJ" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="KERATOMETRIJA">
+      <Drawing expanded="true" location="0,2420" dimensions="196,148" />
+      <Columns>
+        <Column name="DL" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="1" />
+        </Column>
+        <Column name="BAZA1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="BAZA2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="AX" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="VISUS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="SIFPREGLEDA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="KLIJENTI">
+      <Drawing expanded="true" location="528,1300" dimensions="222,588" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="IME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="PREZIME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="ADRESA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="48" />
+        </Column>
+        <Column name="SPOL" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="DATRODJENJA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="-1" />
+        </Column>
+        <Column name="DATUPISA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="-1" />
+        </Column>
+        <Column name="TEL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="GSM" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="EMAIL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="64" />
+        </Column>
+        <Column name="ZANIMANJE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="48" />
+        </Column>
+        <Column name="JMBG" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="13" />
+        </Column>
+        <Column name="HZZO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="14" />
+        </Column>
+        <Column name="UMRO" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="PREPORUCIO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIFMJESTA" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SLIJEDECIPREGLED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATE" size="-1" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="SLIKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BLOB" size="65535" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="MJESTO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="DRZAVA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="ZIP" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="PRIMA_INFO" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="LIJECNICI">
+      <Drawing expanded="true" location="1627,2410" dimensions="199,209" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="IME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="PREZIME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="TITULA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="LOGIRANJE">
+      <Drawing expanded="true" location="2094,604" dimensions="233,88" />
+      <Columns>
+        <Column name="SIF_DJELATNIKA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="LOGIN" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="LOGOUT" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="LOYALTY_KARTICE">
+      <Drawing expanded="true" location="360,604" dimensions="199,88" />
+      <Columns>
+        <Column name="SERIJSKIBROJ" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="NUMERIC" size="16" />
+        </Column>
+        <Column name="SIFKLIJENTA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATIZDAVANJA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATE" size="-1" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="MARKE">
+      <Drawing expanded="true" location="2699,505" dimensions="215,108" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="SIFPROIZVODJACA" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="MJESTA">
+      <Drawing expanded="true" location="674,1988" dimensions="211,148" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="SIFDRZAVE" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="POREDMJESTA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ZIP" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIF_PODR_UREDA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="NAOCALE">
+      <Drawing expanded="true" location="2703,208" dimensions="205,128" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="KATOZNAKA" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="SIFMARKE" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PROIZVEDENO1" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PROIZVEDENO2" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="NOVOSTI">
+      <Drawing expanded="true" location="2424,2410" dimensions="211,109" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NASLOV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="TEKST" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="BLOB" size="1048576" />
+        </Column>
+        <Column name="DATVRIJEME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="OBRACUNI_HZZO">
+      <Drawing expanded="true" location="1447,555" dimensions="236,187" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATUM" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="10" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="SIF_PODRUZNICE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="OSIGURANJE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="POREZNE_STOPE">
+      <Drawing expanded="true" location="0,1549" dimensions="158,89" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="64" />
+        </Column>
+        <Column name="STOPA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="PORUKE">
+      <Drawing expanded="true" location="1119,525" dimensions="228,247" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIF_KLIJENTA" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="TIP_PORUKE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PORUKA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CLOB" size="1048576" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="SENT" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="VRSTA_PORUKE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ADRESA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="POSTAVKE">
+      <Drawing expanded="true" location="244,3352" dimensions="189,69" />
+      <Columns>
+        <Column name="NAZIV" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="VRIJEDNOST" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="PREDLOSCI">
+      <Drawing expanded="true" location="2427,545" dimensions="227,207" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="TEKST" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CLOB" size="1048576" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="TIP_PODATAKA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="PREGLEDI">
+      <Drawing expanded="true" location="269,2678" dimensions="250,629" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATVRIJEME" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="SIFLIJECNIKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="OBAVLJEN" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="KONTROLAZAMJESECI" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+        <Column name="ANAMNEZA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CLOB" size="1048576" />
+        </Column>
+        <Column name="ORDVOD" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="ORDVOS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="ORDRAZZJL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="ORDRAZZJD" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="ORDNAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="40" />
+        </Column>
+        <Column name="VISUS_SC_L" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="VISUS_SC_D" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="VISUS_L" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="VISUS_D" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="PRIJEORDBLIZU" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PRIJEORDDALEKO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="PRIJEORDLECE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ORDBLIZU" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ORDDALEKO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ORDLECE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIFKLIJENTA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="SUNCANENAOCALE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIF_POSLOVNICE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="PROIZVODJACI">
+      <Drawing expanded="true" location="2748,782" dimensions="234,149" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="PROIZVODI_STAKLA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="PROIZVODI_LECE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="HZZO_SIFRA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="PROIZVODJACI_PROIZVODA">
+      <Drawing expanded="true" location="1871,2410" dimensions="252,188" />
+      <Columns>
+        <Column name="SIF_ARTIKLA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="VARCHAR" size="7" />
+        </Column>
+        <Column name="SIF_PROIZVODJACA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="BROJAC" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="RACUNI">
+      <Drawing expanded="true" location="659,267" dimensions="360,763" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DOPUNSKO_OSIGURANJE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="OSNOVNO_OSIGURANJE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="IZNOS_SUDJELOVANJA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="IZNOS_SUDJELOVANJA_OSNOVNO_OSIG" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIF_KLIJENTA" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="DATUM_NARUDZBE" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="10" />
+        </Column>
+        <Column name="DATUM_IZDAVANJA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="DATE" size="10" />
+        </Column>
+        <Column name="SIF_PROIZVODJACA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="9" />
+        </Column>
+        <Column name="BROJ_POTVRDE1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="3" />
+        </Column>
+        <Column name="BROJ_POTVRDE2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="9" />
+        </Column>
+        <Column name="BROJ_POLICE_DOPUNSKO" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="9" />
+        </Column>
+        <Column name="SIF_PODRUZNICE" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="POZIV_NA_BR1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="2" />
+        </Column>
+        <Column name="POZIV_NA_BR2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="64" />
+        </Column>
+        <Column name="SIF_LIJECNIKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIF_DRZAVE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="BROJ_ISKAZNICE1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="3" />
+        </Column>
+        <Column name="BROJ_ISKAZNICE2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="INO_BROJ_LISTA1" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="3" />
+        </Column>
+        <Column name="INO_BROJ_LISTA2" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="8" />
+        </Column>
+        <Column name="BROJ_OSOBNOG_RACUNA_OSN" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="22" />
+        </Column>
+        <Column name="BROJ_OSOBNOG_RACUNA_DOP" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="22" />
+        </Column>
+        <Column name="UZET_SKUPLJI_MODEL" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="VRSTA_POMAGALA" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ROBA_ISPORUCENA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="SIF_PREPORUCIO" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATUM_SLIJEDECEG_PRAVA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="DATE" size="10" />
+        </Column>
+        <Column name="AKTIVNOST_ZZR" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="8" />
+        </Column>
+        <Column name="AKTIVNOST_DOP" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="CHAR" size="8" />
+        </Column>
+        <Column name="BROJ_POTVRDE_LIJECNIKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="14" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="REFRAKTOMETAR">
+      <Drawing expanded="true" location="592,2430" dimensions="196,128" />
+      <Columns>
+        <Column name="DL" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="DSPH" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="DCYL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="AX" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="SIFPREGLEDA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="SKIASKOPIJA">
+      <Drawing expanded="true" location="296,2410" dimensions="196,168" />
+      <Columns>
+        <Column name="DL" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="VISUS_SC" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="DSPH" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="DCYL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="AX" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="VISUS" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="12" />
+        </Column>
+        <Column name="SIFPREGLEDA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="SLIKEBOJA">
+      <Drawing expanded="true" location="2680,2410" dimensions="179,90" />
+      <Columns>
+        <Column name="SIFBOJE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SLIKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BLOB" size="65535" />
+        </Column>
+        <Column name="REDNIBROJ" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="SLIKENAOCALA">
+      <Drawing expanded="true" location="2904,2410" dimensions="179,70" />
+      <Columns>
+        <Column name="SIFNAOCALE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SLIKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BLOB" size="65000" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="STAVKE_RACUNA">
+      <Drawing expanded="true" location="50,0" dimensions="221,167" />
+      <Columns>
+        <Column name="SIF_RACUNA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="SIF_ARTIKLA" primary_key="true" foreign_key="true" required="true" unique="false">
+          <Data type="VARCHAR" size="7" />
+        </Column>
+        <Column name="KOLICINA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+        <Column name="PO_CIJENI" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="POREZNA_STOPA" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+        <Column name="SIF_PROIZVODJACA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="TVRTKA_SIFRA_ART" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="16" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="SYNCH">
+      <Drawing expanded="true" location="0,3352" dimensions="199,69" />
+      <Columns>
+        <Column name="DATVRIJEME" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="USPJEH" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="SYSTEM_LOG">
+      <Drawing expanded="true" location="2168,2410" dimensions="211,170" />
+      <Columns>
+        <Column name="RAZINA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="SMALLINT" size="5" />
+        </Column>
+        <Column name="IZNIMKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="PORUKA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="-1" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="TIPOVI_LECA">
+      <Drawing expanded="true" location="3112,802" dimensions="195,108" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="128" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="PODVRSTAOD" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="TIPOVI_TRANSAKCIJA">
+      <Drawing expanded="true" location="478,3352" dimensions="162,69" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="TRANSAKCIJE">
+      <Drawing expanded="true" location="1783,475" dimensions="211,347" />
+      <Columns>
+        <Column name="ID" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="TIP" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="VRSTA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="DATVRIJEME" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="SIFBOJE" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="ARTIKL" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+        <Column name="ODLAZNA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="SADRZAJ" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="BLOB" size="1048576" />
+        </Column>
+        <Column name="NAPOMENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="VARCHAR" size="255" />
+        </Column>
+        <Column name="SIFKLIJENTA" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="STATUS" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="CHAR" size="1" />
+        </Column>
+        <Column name="ODOBRENA" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="CREATED_BY" primary_key="false" foreign_key="true" required="true" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="UPDATED_BY" primary_key="false" foreign_key="true" required="false" unique="false">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="CREATED" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+        <Column name="UPDATED" primary_key="false" foreign_key="false" required="false" unique="false">
+          <Data type="TIMESTAMP" size="10,6" />
+        </Column>
+      </Columns>
+    </Table>
+    <Table name="VRSTE_REZERVNIH_DIJELOVA">
+      <Drawing expanded="true" location="3128,2410" dimensions="210,69" />
+      <Columns>
+        <Column name="SIFRA" primary_key="true" foreign_key="false" required="true" unique="true">
+          <Data type="INTEGER" size="10" />
+        </Column>
+        <Column name="NAZIV" primary_key="false" foreign_key="false" required="true" unique="false">
+          <Data type="VARCHAR" size="32" />
+        </Column>
+      </Columns>
+    </Table>
+  </Tables>
+  <Relationships>
+    <Relationship name="ART_POR_STOPE">
+      <Details primary_table="POREZNE_STOPE" foreign_table="ARTIKLI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="POREZNA_STOPA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="BOJE_NAOCALE">
+      <Details primary_table="NAOCALE" foreign_table="BOJE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFNAOCALE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050513093207340">
+      <Details primary_table="DJELATNICI" foreign_table="DJELATNICI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="UPDATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050513092651220">
+      <Details primary_table="DJELATNICI" foreign_table="DJELATNICI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050513093207310">
+      <Details primary_table="DJELATNICI" foreign_table="DJELATNICI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050513092651620">
+      <Details primary_table="DJELATNICI" foreign_table="DJELATNICI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="UPDATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="ILT2">
+      <Details primary_table="TIPOVI_LECA" foreign_table="IZDANE_LECE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="PODVRSTALECE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="ILTL">
+      <Details primary_table="TIPOVI_LECA" foreign_table="IZDANE_LECE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="VRSTALECE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="IZLPR">
+      <Details primary_table="PROIZVODJACI" foreign_table="IZDANE_LECE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_PROIZVODJACA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050627034223010">
+      <Details primary_table="PREGLEDI" foreign_table="KERATOMETRIJA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFPREGLEDA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="KLIJENTI_MJESTA">
+      <Details primary_table="MJESTA" foreign_table="KLIJENTI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFMJESTA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FOREIGN_DJELATNIK">
+      <Details primary_table="DJELATNICI" foreign_table="LOGIRANJE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_DJELATNIKA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050513092652610">
+      <Details primary_table="KLIJENTI" foreign_table="LOYALTY_KARTICE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFKLIJENTA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050513093208850">
+      <Details primary_table="KLIJENTI" foreign_table="LOYALTY_KARTICE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFKLIJENTA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="MARKE_PROIZVODJACI">
+      <Details primary_table="PROIZVODJACI" foreign_table="MARKE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFPROIZVODJACA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="DRZAVE_MJESTA">
+      <Details primary_table="DRZAVE" foreign_table="MJESTA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFDRZAVE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="NM8">
+      <Details primary_table="MARKE" foreign_table="NAOCALE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFMARKE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="NAOCALE_MARKE">
+      <Details primary_table="MARKE" foreign_table="NAOCALE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFMARKE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="OBR_HZZO_UPBY">
+      <Details primary_table="DJELATNICI" foreign_table="OBRACUNI_HZZO">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="UPDATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="OBR_HZZO_CRBY">
+      <Details primary_table="DJELATNICI" foreign_table="OBRACUNI_HZZO">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="PORUKE_DJELATNICI_C">
+      <Details primary_table="DJELATNICI" foreign_table="PORUKE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="PORUKE_KLIJENTI">
+      <Details primary_table="KLIJENTI" foreign_table="PORUKE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_KLIJENTA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="PREDLOSCI_DJELATNICI">
+      <Details primary_table="DJELATNICI" foreign_table="PREDLOSCI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="PREDLOSCI_DJELATNICI2">
+      <Details primary_table="DJELATNICI" foreign_table="PREDLOSCI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="UPDATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="RAC_SIFKL">
+      <Details primary_table="KLIJENTI" foreign_table="RACUNI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_KLIJENTA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="RAC_PODRUZNICE">
+      <Details primary_table="MJESTA" foreign_table="RACUNI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_PODRUZNICE" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="RAC_UPBY">
+      <Details primary_table="DJELATNICI" foreign_table="RACUNI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="UPDATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL080422055121160">
+      <Details primary_table="KLIJENTI" foreign_table="RACUNI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_PREPORUCIO" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="RAC_CRBY">
+      <Details primary_table="DJELATNICI" foreign_table="RACUNI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="HZZO_VRS_POMAGALA">
+      <Details primary_table="HZZO_VRSTE_POMAGALA" foreign_table="RACUNI">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="VRSTA_POMAGALA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050627034156820">
+      <Details primary_table="PREGLEDI" foreign_table="REFRAKTOMETAR">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFPREGLEDA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="SQL050627034208490">
+      <Details primary_table="PREGLEDI" foreign_table="SKIASKOPIJA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIFPREGLEDA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="STR_SIFART">
+      <Details primary_table="ARTIKLI" foreign_table="STAVKE_RACUNA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_ARTIKLA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="STR_SIFRAC">
+      <Details primary_table="RACUNI" foreign_table="STAVKE_RACUNA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="SIF_RACUNA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="FK_POR_STOPA">
+      <Details primary_table="POREZNE_STOPE" foreign_table="STAVKE_RACUNA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="POREZNA_STOPA" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="TIL2">
+      <Details primary_table="TIPOVI_LECA" foreign_table="TIPOVI_LECA">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="PODVRSTAOD" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="TR_CBY">
+      <Details primary_table="DJELATNICI" foreign_table="TRANSAKCIJE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="CREATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+    <Relationship name="TR_UPBY">
+      <Details primary_table="DJELATNICI" foreign_table="TRANSAKCIJE">
+        <PrimaryKeys>
+          <ColumnName name="SIFRA" />
+        </PrimaryKeys>
+        <ForeignKeys>
+          <ColumnName name="UPDATED_BY" />
+        </ForeignKeys>
+      </Details>
+      <Drawing routingType="0" />
+    </Relationship>
+  </Relationships>
+</ERDiagram>
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jnlp spec="1.0+" codebase="http://www.sunce.biz/hzzo" href="start.jnlp">
+    <information>
+        <title>Sunce*HZZO</title>
+        <vendor>Sunce mikrosustavi d.o.o.</vendor>
+         <icon href="img/sunce-hzzo.png" />
+         <icon href="img/sunce-splash.png" kind="splash"/>
+         <homepage href="hzzo.jsp"/>
+         <description kind="tooltip">Sunce*HZZO - program za kreiranje HZZO računa</description>
+          <offline-allowed/>
+      <shortcut online="true">
+      <!-- create desktop shortcut -->
+       <desktop/>
+      </shortcut>
+    </information>
+      <security>
+         <all-permissions/> 
+      </security>
+    <resources>
+        <java version="1.6+" href="http://java.sun.com/products/autodl/j2se" java-vm-args="-ea" initial-heap-size="128m" max-heap-size="512m"/>       
+        
+        <jar href="hzzo.jar" main="true" download="eager" />    
+        
+        <jar href="lib/derby.jar" main="false" download="eager" />   
+        <jar href="lib/commons-codec-1.4.jar" main="false" download="lazy" />
+        <jar href="lib/commons-compress-1.3.jar" main="false" download="lazy" /> 
+        <jar href="lib/commons-logging-1.1.1.jar" main="false" download="lazy" /> 
+        <jar href="lib/httpclient-4.1.2.jar" main="false" download="lazy" /> 
+        <jar href="lib/httpcore-4.1.2.jar" main="false" download="lazy" />
+        <jar href="lib/httpmime-4.1.2.jar" main="false" download="lazy" />  
+        <jar href="lib/swingx-0.9.3.jar" main="false" download="lazy" />
+        <jar href="lib/ansaDAO.jar" main="false" download="lazy" />
+        <jar href="hzzo_install.jar" main="false" download="eager" />
+          
+        <extension name="BouncyCastle" href="bouncy.jnlp"/>   
+        
+    </resources>
+   
+      <application-desc main-class="biz.sunce.optika.GlavniFrame">
+        <argument>sva_pomagala</argument>
+    </application-desc>
+    
+  
+</jnlp>

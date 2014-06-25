@@ -1,0 +1,10 @@
+[PropertyInfo]
+imaKljuc,boolean,false,false, , ,false,<default>
+slatiModelPriSortiranju,boolean,false,false, , ,false,<default>
+slusac,asabo.util.tablice.SlusacTablice,false,false, , ,true,<default>
+sortiranje,boolean,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

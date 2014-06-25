@@ -1,0 +1,8 @@
+[PropertyInfo]
+naziv,String,false,false, , ,true,<default>
+podaci,java.util.Collection,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

@@ -1,0 +1,30 @@
+[PropertyInfo]
+artikl,biz.sunce.opticar.vo.ArtiklVO,false,false, , ,false,<default>
+jbSlika,javax.swing.JButton,false,false, , ,false,<default>
+JLabel,javax.swing.JLabel,false,false, , ,false,<default>
+JLabel1,javax.swing.JLabel,false,false, , ,false,<default>
+JLabel2,javax.swing.JLabel,false,false, , ,false,<default>
+JLabel3,javax.swing.JLabel,false,false, , ,false,<default>
+JLabel4,javax.swing.JLabel,false,false, , ,false,<default>
+JLabel5,javax.swing.JLabel,false,false, , ,false,<default>
+JLabel6,javax.swing.JLabel,false,false, , ,false,<default>
+jlNazivSvojstva,javax.swing.JLabel,false,false, , ,true,<default>
+jtAxD,javax.swing.JTextField,false,false, , ,true,<default>
+jtAxL,javax.swing.JTextField,false,false, , ,true,<default>
+jtDcylD,javax.swing.JTextField,false,false, , ,true,<default>
+jtDcylL,javax.swing.JTextField,false,false, , ,true,<default>
+jtDsphD,javax.swing.JTextField,false,false, , ,true,<default>
+jtDsphL,javax.swing.JTextField,false,false, , ,true,<default>
+jtModelNaocala,javax.swing.JTextField,false,false, , ,false,<default>
+jtNapomenaD,javax.swing.JTextField,false,false, , ,true,<default>
+jtNapomenaL,javax.swing.JTextField,false,false, , ,true,<default>
+min,java.awt.Dimension,false,false, , ,false,<default>
+naziv,String,false,false, , ,true,<default>
+nosac,javax.swing.JFrame,false,false, , ,false,<default>
+pretrazivanje,biz.sunce.util.PretrazivanjeProzor,false,false, , ,false,<default>
+ulazni,biz.sunce.opticar.vo.NaocaleVO,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

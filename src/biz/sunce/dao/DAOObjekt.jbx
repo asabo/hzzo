@@ -1,0 +1,19 @@
+[PropertyInfo]
+columnCount,int,false,false, , ,true,<default>
+GUIEditor,biz.sunce.dao.GUIEditor,false,false, , ,true,<default>
+insert,String,false,false, , ,false,<default>
+kljucevi,int[],false,false, , ,true,<default>
+kolone,String[],false,false, , ,false,<default>
+naziv,String,false,false, , ,false,<default>
+read,String,false,false, , ,false,<default>
+rowCount,int,false,false, , ,true,<default>
+select,String,false,false, , ,false,<default>
+tipoviKolona,int[],false,false, , ,false,<default>
+update,String,false,false, , ,false,<default>
+valueObject,Class,false,false, , ,false,<default>
+VOClass,Class,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

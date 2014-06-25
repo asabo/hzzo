@@ -1,0 +1,15 @@
+[PropertyInfo]
+con,java.net.URLConnection,false,false, , ,false,<default>
+in,java.io.InputStream,false,false, , ,false,<default>
+out,java.io.OutputStream,false,false, , ,false,<default>
+pki,biz.sunce.util.PKIUtils,false,false, , ,false,<default>
+postotak,int,false,false, , ,false,<default>
+serverAdr,String,false,false, , ,false,<default>
+SYNCH_DATABASE,String,false,false, , ,false,<default>
+SYNCH_SERVER_PORT,int,false,false, , ,false,<default>
+zipanje,boolean,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

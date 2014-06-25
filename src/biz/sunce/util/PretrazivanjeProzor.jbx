@@ -1,0 +1,42 @@
+[PropertyInfo]
+akcijaPomicanja,boolean,false,false, , ,false,<default>
+cellEditorValue,Object,false,false, , ,true,<default>
+descriptorColumn,String,false,false, , ,false,<default>
+editor,java.awt.Component,false,false, , ,false,<default>
+enabled,boolean,false,false, , ,true,<default>
+filter,String,false,false, , ,true,<default>
+frameNosac,javax.swing.JFrame,false,false, , ,false,<default>
+kr,java.util.List,false,false, , ,false,<default>
+kriterij,biz.sunce.dao.SearchCriteria,false,false, , ,true,<default>
+labele,java.util.List,false,false, , ,false,<default>
+maks,int,false,false, , ,false,<default>
+maksimumZaPretrazivanje,int,false,false, , ,true,<default>
+minimumZnakovaZaPretrazivanje,int,false,false, , ,true,<default>
+mjesto,java.awt.Point,false,false, , ,true,<default>
+nadjeno,java.util.List,false,false, , ,false,<default>
+objekt,biz.sunce.dao.DAO,false,false, , ,false,<default>
+oznacena,biz.sunce.util.Labela,false,false, , ,true,<default>
+oznaciPrviElement,boolean,false,false, , ,false,<default>
+podaci,java.util.List,false,false, , ,false,<default>
+podaciUEditoruMjenjani,boolean,false,false, , ,false,<default>
+pretrazivac,biz.sunce.util.PretrazivanjeProzor.PretrazivacDretva,false,false, , ,false,<default>
+rbOznaceneBoje,int,false,false, , ,false,<default>
+redak,int,false,false, , ,false,<default>
+sb,javax.swing.JScrollBar,false,false, , ,false,<default>
+sidro,java.awt.Component,false,false, , ,false,<default>
+sirina,int,false,false, , ,false,<default>
+sirinaScrollbara,int,false,false, , ,false,<default>
+slusaci,java.util.Vector,false,false, , ,false,<default>
+soKriterij,biz.sunce.dao.SearchCriteriaObject,false,false, , ,true,<default>
+stupac,int,false,false, , ,false,<default>
+tablica,javax.swing.JTable,false,false, , ,false,<default>
+trebaBarcode,boolean,false,false, , ,false,<default>
+vis,int,false,false, , ,false,<default>
+visina,int,false,false, , ,false,<default>
+x,int,false,false, , ,false,<default>
+y,int,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

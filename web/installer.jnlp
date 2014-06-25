@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <jnlp spec="1.0+" codebase="http://www.sunce.biz/hzzo" href="hzzo_install.jnlp">
+    <information>
+        <title>HZZO installer</title>
+        <vendor>HzzoInstaller</vendor>
+    </information>
+    <resources>
+        <jar href="hzzo_install.jar"/>
+         <jar href="lib/ansaDAO.jar" main="false" download="lazy" />
+    </resources>
+    <component-desc/>
+</jnlp>
