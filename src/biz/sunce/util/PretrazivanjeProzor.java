@@ -43,12 +43,6 @@ import biz.sunce.optika.Logger;
 
 /**
  * <p>
- * Title: Optika Passage
- * </p>
- * <p>
- * Description: software za web trgovinu tvrtke optika-passage d.o.o.
- * </p>
- * <p>
  * Copyright: Copyright (c) 2002
  * </p>
  * <p>

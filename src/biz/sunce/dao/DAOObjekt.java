@@ -28,8 +28,6 @@ import biz.sunce.optika.net.Kolona;
  *
  * <p>Copyright: Copyright (c) 2005</p>
  *
- * <p>Company: Optika Passage d.o.o.</p>
- *
  * @author Ante Sabo; Davor Staniæ
  * @version 0.8
  */

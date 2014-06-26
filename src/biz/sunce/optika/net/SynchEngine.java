@@ -30,9 +30,6 @@ import biz.sunce.util.beans.PostavkeBean;
 
 /**
  * <p>
- * Title: Optika Passage
- * </p>
- * <p>
  * Company: ANSA
  * </p>
  * 

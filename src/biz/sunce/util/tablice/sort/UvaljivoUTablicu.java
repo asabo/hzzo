@@ -3,8 +3,6 @@ package biz.sunce.util.tablice.sort;
 /**
  * svaki BEAN koji bi se htio predstaviti u sortabilnoj tablici mora implementirati ovaj interface
  * na taj nacin se implementiraju pozivi pozivajuci koje se dobivaju potrebni podaci u zeljenim kolonama
- * <p>Title: Optika Passage</p>
- * <p>Description: software za web trgovinu tvrtke optika-passage d.o.o.</p>
  * <p>Copyright: Copyright (c) 2002</p>
  * <p>Company: ANSA</p>
  * @author Ante Sabo

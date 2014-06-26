@@ -17,12 +17,11 @@ import javax.swing.JScrollPane;
  *
  * <p>Copyright: Copyright (c) 2005</p>
  *
- * <p>Company: Optika Passage d.o.o.</p>
  *
  * @author Ante Sabo; Davor Staniæ
  * @version 0.8
  */
-public class PorukaSustavaFrame extends JFrame {
+public final class PorukaSustavaFrame extends JFrame {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     JLabel jLabel1 = new JLabel();
     JLabel jLabel2 = new JLabel();
