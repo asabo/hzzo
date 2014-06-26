@@ -81,11 +81,13 @@ public final class HzzoIzvjescePanel extends JPanel implements
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
 				this.setName("Ucitavac podataka u HzzoIzvjesce");
+				GlavniFrame.getInstanca().busy();
 				try {
 					Thread.sleep(50);
 				} catch (InterruptedException e) {
 					return;
 				}
+				yield();
 				Calendar c = Calendar.getInstance();
 				boolean lenient = c.isLenient();
 				c.setLenient(true);
@@ -94,6 +96,9 @@ public final class HzzoIzvjescePanel extends JPanel implements
 				dOd.setDatum(c);
 
 				napuniPodatke();
+				
+				podaci.packAll();
+				GlavniFrame.getInstanca().idle();
 			}
 		};
 
@@ -456,9 +461,8 @@ public final class HzzoIzvjescePanel extends JPanel implements
 		SearchCriteria sc = new SearchCriteria();
 		sc.dodajPodatak(this.datOd);
 		sc.dodajPodatak(this.datDo);
-	 
-		try 
-		{
+
+		try {
 			// l=(ArrayList)
 			// DAOFactory.getInstance().getHzzoIzvjesca().findAll(sc);
 			// this.model.setData(l);
@@ -542,9 +546,7 @@ public final class HzzoIzvjescePanel extends JPanel implements
 				}// run
 			};
 			SwingUtilities.invokeLater(t);
-		} 
-		catch (Exception e) 
-		{
+		} catch (Exception e) {
 			Logger.fatal("iznimka kod traženja raèuna za Hzzo izvješæe", e);
 			GlavniFrame
 					.alert("Nastao je problem kod traženja raèuna. Provjerite poruke sustava!");

@@ -3,6 +3,7 @@ package biz.sunce.util.tablice.sort;
 import java.text.Collator;
 import java.util.Collections;
 import java.util.List;
+
 import javax.swing.event.TableModelListener;
 
 import biz.sunce.dao.DAO;

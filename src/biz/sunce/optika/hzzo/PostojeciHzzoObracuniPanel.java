@@ -77,7 +77,13 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 
 		Thread t = new Thread() {
 			public void run() {
+				setPriority(Thread.MIN_PRIORITY);
+				GlavniFrame.getInstanca().busy();
 				getObracuni().packAll();
+				obracuni.setModel(obracuniModel);
+				yield();
+				obracuniModel.reload();
+				GlavniFrame.getInstanca().idle();				
 			}
 		};
 
@@ -115,8 +121,7 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 			this.obracuniModel = new TableModel(DAOFactory.getInstance()
 					.getHzzoObracuni(), this.obracuni);
 			this.obracuniModel.dodajSlusaca(this);
-			this.obracuni.setModel(this.obracuniModel);
-			this.obracuniModel.reload();
+			
 		}
 		return obracuni;
 	}

@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.Toolkit;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -29,6 +28,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+ 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreProtocolPNames;
@@ -111,7 +111,8 @@ public final class Racun extends JPanel implements GUIEditor,
 	private javax.swing.JTextField jtIznosSudjelovanja = null;
 	
 	Font arial = new Font("Arial", Font.PLAIN, 11);
-
+	Font arial12 = new Font("Arial", Font.PLAIN, 11);
+	
 	RacunVO oznaceni = null;
 	KlijentVO oznaceniKlijent = null;
 	MjestoVO oznacenaPodruznica = null;
@@ -580,6 +581,7 @@ public final class Racun extends JPanel implements GUIEditor,
 			jtbOsnovno.setText("Osnovno");
 			jtbOsnovno.setSelected(true);
 			jtbOsnovno.setMnemonic(java.awt.event.KeyEvent.VK_O);
+			jtbOsnovno.setFont(arial12);
 			jtbOsnovno
 					.setToolTipText("kliknite ili pritisnite ALT-O ako radite raèun sa osnovnim osiguranjem");
 			jtbOsnovno.addActionListener(new java.awt.event.ActionListener() {
@@ -607,6 +609,7 @@ public final class Racun extends JPanel implements GUIEditor,
 			jtbDopunsko = new javax.swing.JToggleButton();
 			jtbDopunsko.setText("Dopunsko");
 			jtbDopunsko.setMnemonic(java.awt.event.KeyEvent.VK_D);
+			jtbDopunsko.setFont(arial12);
 			jtbDopunsko
 					.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);
 			jtbDopunsko
@@ -2246,6 +2249,7 @@ public final class Racun extends JPanel implements GUIEditor,
 			jcVrstaPomagala = new javax.swing.JComboBox();
 			jcVrstaPomagala.setPreferredSize(new java.awt.Dimension(121, 25));
 			jcVrstaPomagala.setMinimumSize(new java.awt.Dimension(121, 25));
+			jcVrstaPomagala.setFont(arial12);
 			jcVrstaPomagala
 					.setToolTipText("ovisno o vrsti pomagala za koje izdajete raèun, odaberite opciju, oèna, ortopedska ili popravak");
 			try {

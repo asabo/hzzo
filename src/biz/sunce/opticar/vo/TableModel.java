@@ -17,9 +17,9 @@ import biz.sunce.util.tablice.sort.SabotovSortModel;
 //            ValueObject, SlusacModelaTablice
 //ne moze biti final
 public class TableModel extends SabotovSortModel {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	public TableModel(DAO objekt, JXTable tablica) {
 		super(false);
 		filter = null;
@@ -80,12 +80,14 @@ public class TableModel extends SabotovSortModel {
 		ValueObject vo = null;
 		if (podaci != null)
 			vo = (ValueObject) podaci.get(redak);
-		return objekt==null? super.isCellEditable(redak, kolona):objekt.isCellEditable(vo, kolona);
+		return objekt == null ? super.isCellEditable(redak, kolona) : objekt
+				.isCellEditable(vo, kolona);
 	}
 
 	@Override
 	public Class getColumnClass(int arg0) {
-		return objekt == null ? super.getColumnClass(arg0) : objekt.getColumnClass(arg0);
+		return objekt == null ? super.getColumnClass(arg0) : objekt
+				.getColumnClass(arg0);
 	}
 
 	@Override
@@ -93,7 +95,8 @@ public class TableModel extends SabotovSortModel {
 		ValueObject vo = null;
 		if (podaci != null && podaci.size() > redak)
 			vo = (ValueObject) podaci.get(redak);
-		return objekt==null?vo.getValue(kolona): objekt.getValueAt(vo, kolona);
+		return objekt == null ? vo.getValue(kolona) : objekt.getValueAt(vo,
+				kolona);
 	}
 
 	@Override
@@ -103,7 +106,7 @@ public class TableModel extends SabotovSortModel {
 			return;
 		} else {
 			vo = (ValueObject) podaci.get(redak);
-			if (objekt==null) 
+			if (objekt == null)
 				super.setValueAt(vrijednost, redak, kolona);
 			else
 				objekt.setValueAt(vo, vrijednost, kolona);
@@ -113,7 +116,8 @@ public class TableModel extends SabotovSortModel {
 
 	@Override
 	public String getColumnName(int kolona) {
-		return objekt==null? super.getColumnName(kolona): objekt.getColumnName(kolona);
+		return objekt == null ? super.getColumnName(kolona) : objekt
+				.getColumnName(kolona);
 	}
 
 	@Override
@@ -124,7 +128,9 @@ public class TableModel extends SabotovSortModel {
 		if (this.podaci != null) {
 			int kom = this.podaci.size();
 			fireTableRowsDeleted(0, kom);
+			this.podaci = null;
 		}
+
 		this.podaci = podaci;
 		if (this.podaci != null)
 			fireTableRowsInserted(0, this.podaci.size());

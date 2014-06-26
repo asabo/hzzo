@@ -28,7 +28,6 @@ import org.jdesktop.swingx.JXTable;
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.KlijentDAO;
 import biz.sunce.dao.SearchCriteria;
-import biz.sunce.dao.gui.Racun;
 import biz.sunce.opticar.vo.KlijentVO;
 import biz.sunce.opticar.vo.PregledVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
@@ -38,21 +37,8 @@ import biz.sunce.optika.hzzo.HzzoRacunPanel;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.Util;
 import biz.sunce.util.tablice.sort.JSortTable;
-
-import com.ansa.util.beans.PostavkeBeanOpce;
-
-/**
- * This code was edited or generated using CloudGarden's Jigloo
- * SWT/Swing GUI Builder, which is free for non-commercial
- * use. If Jigloo is being used commercially (ie, by a corporation,
- * company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details.
- * Use of Jigloo implies acceptance of these licensing terms.
- * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
- * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
- * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
- */
+ 
+ 
 /**
  * <p>
  * Title:
@@ -70,7 +56,7 @@ import com.ansa.util.beans.PostavkeBeanOpce;
  * Company:
  * </p>
  * 
- * @author not attributable
+ * @author Ante Sabo
  * @version 1.0
  */
 public final class DobroDosliPanel extends JPanel implements
@@ -121,19 +107,20 @@ public final class DobroDosliPanel extends JPanel implements
 
 						ArrayList<ValueObject> lista = nadjiIstekleArtikle();
 
-						istekliArtikliModel.setData(lista);
+						if (lista != null && lista.size() > 0)
+							istekliArtikliModel.setData(lista);
 						istekliArtikliModel
 								.setColumnIdentifiers(koloneIstekliArtikli);
 
 						trebaZakazatiModel.dodajSlusaca(ja);
 						istekliArtikliModel.dodajSlusaca(ja);
 						jxIstekliArtikli.packAll();
-						
+
 						yield();
-						//samo da se instancira i kick-in module
+						// samo da se instancira i kick-in module
 						HzzoRacunPanel racun = new HzzoRacunPanel(null);
 						racun = null;
-						
+
 					} finally {
 						ja.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 					}
@@ -179,11 +166,13 @@ public final class DobroDosliPanel extends JPanel implements
 						System.err.println("Greška: " + e);
 					} finally {
 						try {
-							if (rs!=null)  rs.close();
+							if (rs != null)
+								rs.close();
 						} catch (SQLException sqle) {
 						}
 						try {
-							if (st!=null) st.close();
+							if (st != null)
+								st.close();
 						} catch (SQLException sqle) {
 						}
 						try {
@@ -245,7 +234,7 @@ public final class DobroDosliPanel extends JPanel implements
 		String istekliTT = "popis prodanih artikala koji su istekli i za koje klijenti imaju pravo ponovno tražiti doznaku od HZZO-a";
 		jspIstekli.setToolTipText(istekliTT);
 		jspIstekli.getViewport().setToolTipText(istekliTT);
-		
+
 		jxIstekliArtikli.setPreferredSize(new java.awt.Dimension(497, 56));
 		jxIstekliArtikli.setToolTipText(istekliTT);
 		jScrollPane1.getViewport().add(jtNovosti);
@@ -372,12 +361,14 @@ public final class DobroDosliPanel extends JPanel implements
 	// priprema dokument i ispisuje ga na papir
 	private void ispisiPodsjetnik() {
 		HtmlPrintParser parser = new HtmlPrintParser();
-		String ispis = parser.ucitajHtmlPredlozak(Konstante.PREDLOZAK_PODSJETNIK);
+		String ispis = parser
+				.ucitajHtmlPredlozak(Konstante.PREDLOZAK_PODSJETNIK);
 		ispis = ugradiPodsjetnikUHTmlDokument(ispis);
-		String dokumentNaziv="Podsjetnik na dan "+Util.convertCalendarToString(Calendar.getInstance());
-		
-		HtmlPrintParser.ispisHTMLDokumentaNaStampac(ispis,dokumentNaziv);
-		
+		String dokumentNaziv = "Podsjetnik na dan "
+				+ Util.convertCalendarToString(Calendar.getInstance());
+
+		HtmlPrintParser.ispisHTMLDokumentaNaStampac(ispis, dokumentNaziv);
+
 	}
 
 	private String ugradiPodsjetnikUHTmlDokument(String ispis) {
@@ -454,7 +445,7 @@ public final class DobroDosliPanel extends JPanel implements
 				.getData();
 		b.append("<thead><tr style='font-weight:bold' align='bottom'><td>Klijent<td>mjesto<td>telefon<td>roðen");
 		b.append("<td>dat.kupnje<td align='center'>kupio<td>rok mj.</tr></thead>");
- 
+
 		int pSize = p.size();
 		for (int i = 0; i < pSize; i++) {
 			ValueObject kvo = (ValueObject) p.get(i);
@@ -462,9 +453,9 @@ public final class DobroDosliPanel extends JPanel implements
 			b.append(kvo.getValue("prezime") + "<td>");
 			b.append(kvo.getValue("mjesto") + "<td>");
 			String telefon = (String) kvo.getValue("telefon");
-			b.append(telefon==null?"(nema)":telefon);
+			b.append(telefon == null ? "(nema)" : telefon);
 			String rodj = (String) kvo.getValue("roð.");
-			b.append("<td>" + (rodj==null?"":rodj) + "<td>");
+			b.append("<td>" + (rodj == null ? "" : rodj) + "<td>");
 			b.append(kvo.getValue("dat. izd."));
 			b.append("<td>" + kvo.getValue("kupljeni artikl"));
 			b.append("<td>" + kvo.getValue("mj."));
@@ -474,7 +465,7 @@ public final class DobroDosliPanel extends JPanel implements
 		b.append("</table>");
 		String res = b.toString();
 		b.setLength(0);
-		b=null;		
+		b = null;
 		return res;
 	}// vratiIstekleArtikleKaoHtml
 

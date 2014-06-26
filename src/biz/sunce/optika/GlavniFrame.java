@@ -184,7 +184,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private javax.swing.JMenuItem jmPredlosci = null;
 	private javax.swing.JMenuItem jmAktivacija = null;
 
-	public static JFrame getInstanca() {
+	public static GlavniFrame getInstanca() {
 		return instanca;
 	}
 
