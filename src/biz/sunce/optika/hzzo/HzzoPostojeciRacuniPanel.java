@@ -62,6 +62,8 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 		SlusacModelaTablice, SlusacOznaceneLabelePretrazivanja,
 		SlusacDateChoosera {
 	private static final long serialVersionUID = 1L;
+	private static final char STATUS_STORNIRAN = DAO.STATUS_STORNIRAN_PS.charAt(0);
+
 	private javax.swing.JLabel jLabel = null;
 	private JDateChooser datumOd = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -129,11 +131,12 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 
 		boolean rez = true;
 		int storniranih = 0;
+		List racunData = this.racuniModel.getData();
 
 		for (int i = 0; i < rlen; i++) {
-			RacunVO rvo = (RacunVO) this.racuniModel.getData().get(retci[i]);
-			boolean vecStorniran = rvo.getStatus() == DAO.STATUS_STORNIRAN_PS
-					.charAt(0);
+			
+			RacunVO rvo = (RacunVO) racunData.get(retci[i]);
+			boolean vecStorniran = rvo.getStatus() == STATUS_STORNIRAN;
 			if (rlen == 1 && vecStorniran) {
 				GlavniFrame.alert("Raèun je veè storniran otprije!");
 				return;
