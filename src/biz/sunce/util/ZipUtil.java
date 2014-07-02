@@ -18,13 +18,8 @@ import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-/**
- * datum:2005.09.01
- * 
- * @author dstanic
- * 
- */
-public class ZipUtil {
+ 
+public final class ZipUtil {
 
 	public static boolean sprasiZip(String imeNovogZipa,
 			String direktorijZaZipat) {

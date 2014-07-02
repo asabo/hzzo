@@ -111,7 +111,7 @@ public final class Racun extends JPanel implements GUIEditor,
 	private javax.swing.JTextField jtIznosSudjelovanja = null;
 	
 	Font arial = new Font("Arial", Font.PLAIN, 11);
-	Font arial12 = new Font("Arial", Font.PLAIN, 11);
+	Font arial12 = new Font("Arial", Font.PLAIN, 12);
 	
 	RacunVO oznaceni = null;
 	KlijentVO oznaceniKlijent = null;

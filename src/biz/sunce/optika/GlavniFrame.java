@@ -39,6 +39,10 @@ import javax.swing.filechooser.FileFilter;
 
 import org.jdesktop.swingx.JXTable;
 
+import com.ansa.util.ZipUtil;
+import com.ansa.util.SimpleEncryptUtils;
+import com.ansa.util.beans.ActivationBean;
+
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.opticar.install.Installer;
 import biz.sunce.opticar.vo.DjelatnikVO;
@@ -59,11 +63,10 @@ import biz.sunce.optika.zakrpe.IspraviCijenuZaRevin;
 import biz.sunce.optika.zakrpe.Zakrpe;
 import biz.sunce.util.GUI;
 import biz.sunce.util.HtmlPrintParser;
+ 
 import biz.sunce.util.beans.PostavkeBean;
 
-import com.ansa.util.SimpleEncryptUtils;
-import com.ansa.util.ZipUtil;
-import com.ansa.util.beans.ActivationBean;
+ 
 
 
 public final class GlavniFrame extends JFrame implements SlusacModelaTablice {

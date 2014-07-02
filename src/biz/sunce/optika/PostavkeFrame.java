@@ -4,12 +4,13 @@
  */
 package biz.sunce.optika;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import javax.swing.JButton;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -41,6 +42,8 @@ public final class PostavkeFrame extends JFrame {
 
 	String[] tipoviRacuna = { "", "R-1", "R-2" };
 
+	Font arial = new Font("Arial", Font.PLAIN, 11);
+	
 	private javax.swing.JPanel jContentPane = null;
 
 	private javax.swing.JLabel jLabel = null;
@@ -112,13 +115,13 @@ public final class PostavkeFrame extends JFrame {
 		this.setContentPane(getJContentPane());
 
 		this.setTitle("Postavke");
-		this.setSize(335, 281);
 		biz.sunce.util.GUI.centrirajFrame(this);
 		Thread t = new Thread() {
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
 				validate();
+				setSize(375, 321);
 				pack();
 			}
 		};
@@ -530,6 +533,7 @@ public final class PostavkeFrame extends JFrame {
 			jbSpremi.setText("Spremi");
 			jbSpremi.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 			jbSpremi.setMnemonic(java.awt.event.KeyEvent.VK_S);
+			jbSpremi.setFont(arial);
 			jbSpremi.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					spremiPodatke();
@@ -551,6 +555,7 @@ public final class PostavkeFrame extends JFrame {
 			jbOdustani.setText("Odustani");
 			jbOdustani.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 			jbOdustani.setMnemonic(java.awt.event.KeyEvent.VK_O);
+			jbOdustani.setFont(arial);
 			jbOdustani.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					dispose();
@@ -602,6 +607,7 @@ public final class PostavkeFrame extends JFrame {
 			jbHzzo.setText("Hzzo");
 			jbHzzo.setToolTipText("Hzzo postavke");
 			jbHzzo.setMnemonic(java.awt.event.KeyEvent.VK_H);
+			jbHzzo.setFont(arial);
 			jbHzzo.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					HzzoPostavkeFrame hzzo = new HzzoPostavkeFrame(postavke);
@@ -636,6 +642,7 @@ public final class PostavkeFrame extends JFrame {
 			jcTipRacuna = new javax.swing.JComboBox();
 			jcTipRacuna.setMinimumSize(new java.awt.Dimension(80, 25));
 			jcTipRacuna.setPreferredSize(new java.awt.Dimension(85, 25));
+			jcTipRacuna.setFont(arial);
 			if (tipoviRacuna != null)
 				for (int i = 0; i < tipoviRacuna.length; i++) {
 					jcTipRacuna.addItem(tipoviRacuna[i]);
@@ -664,6 +671,7 @@ public final class PostavkeFrame extends JFrame {
 		if(jbLogo == null) {
 			jbLogo = new JButton();
 			jbLogo.setText("logo tvrtke..");
+			jbLogo.setFont(arial);
 			jbLogo.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					logoTvrtke();					
