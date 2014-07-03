@@ -21,24 +21,14 @@ import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo
- * SWT/Swing GUI Builder, which is free for non-commercial
- * use. If Jigloo is being used commercially (ie, by a corporation,
- * company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details.
- * Use of Jigloo implies acceptance of these licensing terms.
- * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
- * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
- * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
- */
-/**
  * datum:2005.05.01
  * 
  * @author asabo
  * 
  */
 public final class PostavkeFrame extends JFrame {
+ 
+	private static final long serialVersionUID = 3756670833568648782L;
 
 	String[] tipoviRacuna = { "", "R-1", "R-2" };
 
@@ -121,8 +111,7 @@ public final class PostavkeFrame extends JFrame {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
 				validate();
-				setSize(375, 321);
-				pack();
+				setSize(365, 315);
 			}
 		};
 
@@ -319,6 +308,7 @@ public final class PostavkeFrame extends JFrame {
 		if (jtNazivTvtrke == null) {
 			jtNazivTvtrke = new javax.swing.JTextField();
 			jtNazivTvtrke.setPreferredSize(new java.awt.Dimension(120, 20));
+			jtNazivTvtrke.setFont(arial);
 		}
 		return jtNazivTvtrke;
 	}
@@ -344,6 +334,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtAdresa() {
 		if (jtAdresa == null) {
 			jtAdresa = new javax.swing.JTextField();
+			jtAdresa.setFont(arial);
 		}
 		return jtAdresa;
 	}
@@ -369,6 +360,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtMjesto() {
 		if (jtMjesto == null) {
 			jtMjesto = new javax.swing.JTextField();
+			jtMjesto.setFont(arial);
 		}
 		return jtMjesto;
 	}
@@ -394,6 +386,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtTelefon() {
 		if (jtTelefon == null) {
 			jtTelefon = new javax.swing.JTextField();
+			jtTelefon.setFont(arial);
 		}
 		return jtTelefon;
 	}
@@ -419,6 +412,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtFax() {
 		if (jtFax == null) {
 			jtFax = new javax.swing.JTextField();
+			jtFax.setFont(arial);
 		}
 		return jtFax;
 	}
@@ -444,6 +438,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtMaticniBroj() {
 		if (jtMaticniBroj == null) {
 			jtMaticniBroj = new javax.swing.JTextField();
+			jtMaticniBroj.setFont(arial);			
 			jtMaticniBroj.addFocusListener(new FocusAdapter() {
 				public void focusLost(FocusEvent evt) {
 					jtMaticniBrojFocusLost(evt);
@@ -474,6 +469,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtBrojRacuna() {
 		if (jtBrojRacuna == null) {
 			jtBrojRacuna = new javax.swing.JTextField();
+			jtBrojRacuna.setFont(arial);
 		}
 		return jtBrojRacuna;
 	}
@@ -499,6 +495,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtBanka() {
 		if (jtBanka == null) {
 			jtBanka = new javax.swing.JTextField();
+			jtBanka.setFont(arial);
 		}
 		return jtBanka;
 	}
@@ -587,6 +584,7 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtEmail() {
 		if (jtEmail == null) {
 			jtEmail = new javax.swing.JTextField();
+			jtEmail.setFont(arial);
 			jtEmail.addFocusListener(new FocusAdapter() {
 				public void focusLost(FocusEvent evt) {
 					jtEmailFocusLost(evt);
