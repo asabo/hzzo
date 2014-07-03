@@ -362,7 +362,7 @@ public final class Proizvodjaci extends CacheabilniDAO<ProizvodjacVO> implements
 		}
 	}
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(ProizvodjacVO objekt) {
 		if (objekt == null)
 			return "Ne mozemo provjeravati ispravnost praznog objekta";
 		ProizvodjacVO pvo = (ProizvodjacVO) objekt;

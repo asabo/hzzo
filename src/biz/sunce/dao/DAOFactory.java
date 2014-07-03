@@ -122,7 +122,7 @@ public final class DAOFactory {
 			try {
 				// connString+=";create=true";
 				broker = new ConnectionBroker(DAODriverClass, connString,
-						username, password, 200, 400, null, 60000.0d);
+						username, password, 10, 100, null, 60000.0d);
 				alive = true;
 			} catch (Exception e) {
 				alive = false;

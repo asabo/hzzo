@@ -299,7 +299,7 @@ public final class Postavke implements PostavkeDAO {
 		return false;
 	}
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(PostavkaVO objekt) {
 		 
 		return null;
 	}

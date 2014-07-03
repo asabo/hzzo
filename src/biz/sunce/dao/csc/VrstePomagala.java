@@ -264,7 +264,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 		return null;
 	}//constructLeca
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(VrstaPomagalaVO objekt) {
 		 
 		return null;
 	}

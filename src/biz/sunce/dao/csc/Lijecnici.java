@@ -370,7 +370,7 @@ public final class Lijecnici implements LijecnikDAO{
 		}
 	}//getGUIEditor
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(LijecnikVO objekt) {
 		return null;
 	}//getGUIEditor
 }

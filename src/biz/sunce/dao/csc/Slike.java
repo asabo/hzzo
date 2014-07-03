@@ -239,7 +239,7 @@ public final class Slike implements SlikeDAO {
 		return false;
 	}
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(SlikaVO objekt) {
 	 
 		return null;
 	}

@@ -19,5 +19,5 @@ public interface DAOSaKontrolomKonzistencije<VO extends ValueObject> extends DAO
  vraca String poruku koja opisuje 'jednostavnim' jezikom di je problem. Metoda vraca nazad 
  samo prvi problem. Popravljanje doticne greske ne garantira da ce ova metoda u slijedecem pozivu vratiti null
  metoda je duzna javiti samo prvu od nekoliko potencijalnih gresaka*/	
-public String narusavaLiObjektKonzistentnost(ValueObject objekt);
+public String narusavaLiObjektKonzistentnost(VO objekt);
 }

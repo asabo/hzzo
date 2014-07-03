@@ -242,7 +242,7 @@ public final class Mjesta extends CacheabilniDAO<MjestoVO> implements MjestoDAO 
 		return null;
 	}
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(MjestoVO objekt) {
 
 		return null;
 	}

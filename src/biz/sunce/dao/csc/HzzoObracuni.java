@@ -49,12 +49,10 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 	private DjelatnikDAO djelatnici = null;
 	private MjestoDAO mjesta = null; // 09.04.06. -asabo- dodano
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(HzzoObracunVO hvo) {
 
-		if (objekt == null)
+		if (hvo == null)
 			return "prazan objekt!";
-
-		HzzoObracunVO hvo = (HzzoObracunVO) objekt;
 
 		if (hvo.getDatum() == null)
 			return "datum obraèuna nije definiran!";

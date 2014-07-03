@@ -48,7 +48,7 @@ public final class Pomagala implements PomagaloDAO {
 			+ " updated_by"			
 			+ " FROM " + tablica;
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(PomagaloVO objekt) {
 		return null;
 	}
 

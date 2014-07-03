@@ -48,7 +48,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 	final String select = "select sr.sif_racuna,sr.sif_artikla,sr.kolicina,sr.po_cijeni,sr.porezna_stopa,sr.sif_proizvodjaca,sr.tvrtka_sifra_art";
 	final String from = " from " + tablica + " sr";
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(StavkaRacunaVO objekt) {
 		StavkaRacunaVO s = (StavkaRacunaVO) objekt;
 		boolean iso9999 = false;
 		if (s == null)

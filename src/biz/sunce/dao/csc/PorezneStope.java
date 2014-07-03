@@ -38,7 +38,7 @@ public final class PorezneStope implements PoreznaStopaDAO {
 	Hashtable<Integer, PoreznaStopaVO> porezneStopeCache = new Hashtable<Integer, PoreznaStopaVO>(
 			16);
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(PoreznaStopaVO objekt) {
 		PoreznaStopaVO psvo = (PoreznaStopaVO) objekt;
 		if (psvo == null)
 			return "ispravnost praznog objekta se ne može provjeravati";

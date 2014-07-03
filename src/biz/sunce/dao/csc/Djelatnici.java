@@ -18,7 +18,6 @@ import biz.sunce.dao.DjelatnikDAO;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.DjelatnikVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.Util;
 
@@ -426,9 +425,8 @@ public class Djelatnici extends CacheabilniDAO<DjelatnikVO> implements
 		}
 	}// getGUIEditor
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
-		DjelatnikVO dvo = (DjelatnikVO) objekt;
-		//String username = dvo.getUsername();
+	public String narusavaLiObjektKonzistentnost(DjelatnikVO dvo) {
+		// String username = dvo.getUsername();
 		String upit = "select sifra,username from djelatnici where not(sifra="
 				+ dvo.getSifra().intValue() + ") and username=?";
 		Connection con = null;

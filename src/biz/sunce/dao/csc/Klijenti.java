@@ -793,7 +793,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		return null;
 	}
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(KlijentVO objekt) {
 		// TODO Auto-generated method stub
 		return null;
 	}

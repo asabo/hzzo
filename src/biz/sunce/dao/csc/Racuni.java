@@ -88,7 +88,7 @@ public final class Racuni implements RacunDAO {
 		return this.djelatnici;
 	}
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(RacunVO objekt) {
 		RacunVO rvo = (RacunVO) objekt;
 		if (rvo == null)
 			return "ispravnost praznog objekta se ne mo\u017Ee provjeravati";
