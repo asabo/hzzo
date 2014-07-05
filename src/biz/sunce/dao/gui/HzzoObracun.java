@@ -24,7 +24,7 @@ import java.util.List;
 import javax.swing.*;
 
 public final class HzzoObracun extends JPanel
-    implements GUIEditor, SlusacDateChoosera, ItemListener
+    implements GUIEditor<HzzoObracunVO>, SlusacDateChoosera, ItemListener
 { 
 	private static final long serialVersionUID = 1L;
 	private JDateChooser datum;
@@ -113,7 +113,7 @@ public final class HzzoObracun extends JPanel
         setSize(327, 88);
     }
 
-    public void napuniPodatke(ValueObject ulaz)
+    public void napuniPodatke(HzzoObracunVO ulaz)
     {
         HzzoObracunVO hvo = (HzzoObracunVO)ulaz;
         this.oznaceni = hvo;
@@ -162,7 +162,7 @@ public final class HzzoObracun extends JPanel
          
     }
 
-    public ValueObject vratiPodatke()
+    public HzzoObracunVO vratiPodatke()
     {
         if( this.oznaceni == null ){
             Logger.log("VratiPodatke - oznaceni je null?!?");

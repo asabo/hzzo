@@ -1190,13 +1190,13 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 
 	private boolean spremiObracun() {
 		boolean rez;
-		ValueObject obj;
+		HzzoObracunVO obj;
 		rez = true;
 
 		if (!izmjeneMoguce)
 			return true;
 
-		obj = obracunEditor.vratiPodatke();
+		obj = (HzzoObracunVO) obracunEditor.vratiPodatke();
 
 		if (obj != null && obj.isModified()) {
 			obj.setCreated(Integer.valueOf(GlavniFrame.getSifDjelatnika()));
