@@ -150,49 +150,8 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		return dvo;
 	}// getDjelatnik
 
-	private static final String SERVER_URI = "http://localhost:8080/sunce_web/rest/v1/pomagala";
-
-	private static void azurirajPomagala() {
-		Thread t = new Thread() {
-
-			public void run() {
-				setPriority(MIN_PRIORITY);
-				Gson gson = new GsonBuilder().setDateFormat(
-						"yyyy-MM-dd HH:mm:ss").create();
-
-				yield();
-
-				TypeToken<List<PomagaloVO>> token = new TypeToken<List<PomagaloVO>>() {
-				};
-
-				String json = runURL(SERVER_URI);
-
-				List<PomagaloVO> pomagala = gson
-						.fromJson(json, token.getType());
-				yield();
-				System.out.println(pomagala);
-			}
-		};
-
-		t.start();
-	}
-
-	private static String runURL(String src) {
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpGet httpget = new HttpGet(src);
-		String responseBody = "";
-		BasicHttpParams params = new BasicHttpParams();
-		params.setParameter("timestamp", null);
-		try {
-			httpget.setParams(params);
-			HttpResponse response = httpclient.execute(httpget);
-			responseBody = EntityUtils.toString(response.getEntity(),"UTF-8");
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return responseBody;
-	}
+	
+	
 
 	public static final String getCharEncoding() {
 		return System.getProperty("file.encoding");
@@ -356,7 +315,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		t.start();
 
-		azurirajPomagala();
+		AzuriracPomagala.azurirajPomagala();
 
 	}// main
 
