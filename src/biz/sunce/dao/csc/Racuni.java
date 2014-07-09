@@ -78,7 +78,7 @@ public final class Racuni implements RacunDAO {
 	private final MjestoDAO getMjesta() {
 		if (this.mjesta == null)
 			this.mjesta = DAOFactory.getInstance().getMjesta();
-		
+
 		return this.mjesta;
 	}
 
@@ -137,12 +137,22 @@ public final class Racuni implements RacunDAO {
 				|| rvo.getBrojPotvrdePomagala().equals("")) {
 			if (rvo.getBrojPotvrde1() == null || rvo.getBrojPotvrde1() != null
 					&& rvo.getBrojPotvrde1().length() > 3
-					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde1()))
+					)
 				return "neispravan prvi dio broja potvrde/ra\u010Duna";
+			
+			if (rvo.getBrojPotvrde1() != null 
+					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde1()))
+			 return "prvi dio broja potvrde moze imati u sebi samo znamenke!";
+				
 			if (rvo.getBrojPotvrde2() == null || rvo.getBrojPotvrde2() != null
 					&& rvo.getBrojPotvrde2().length() > 10
-					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde2()))
+					)
 				return "neispravan drugi dio broja potvrde/ra\u010Duna";
+		
+			if (rvo.getBrojPotvrde2() != null 
+					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde2()))
+			 return "drugi dio broja potvrde moze imati u sebi samo znamenke!";
+			
 			if (rvo.getBrojPotvrde1() != null
 					&& rvo.getBrojPotvrde1().startsWith("0"))
 				return "prvi dio broja potvrde ne smije imati vode\u0107u nulu!";
@@ -1061,20 +1071,17 @@ public final class Racuni implements RacunDAO {
 		if (kriterij != null
 				&& kriterij.getKriterij().equals(
 						HzzoObracunDAO.KRITERIJ_SVI_RACUNI_ZA_OBRACUN)) {
-			upit += " order by r.BROJ_OSOBNOG_RACUNA_OSN asc";	
+			upit += " order by r.BROJ_OSOBNOG_RACUNA_OSN asc";
+		} else {
+			// po datumu izdavanja ih sortiraj (ne datumu narudzbe)
+			upit += " order by r.datum_izdavanja desc";
 		}
-		else
-		{
-		// po datumu izdavanja ih sortiraj (ne datumu narudzbe)
-		upit += " order by r.datum_izdavanja desc";
-		}
-		
-		
+
 		ResultSet rs = null;
 
 		rs = DAOFactory.performQuery(upit);
-		
-		upit=null;
+
+		upit = null;
 
 		try {
 			if (rs != null)
@@ -1088,7 +1095,8 @@ public final class Racuni implements RacunDAO {
 			// rs.getStatement().close();}catch(SQLException sqle){}
 			try {
 				if (rs != null)
-					rs.close(); rs=null;
+					rs.close();
+				rs = null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -1133,13 +1141,13 @@ public final class Racuni implements RacunDAO {
 	}
 
 	public final Class getColumnClass(int columnIndex) {
-		 
-			switch (columnIndex) {
-			// case 0: return Class.forName("java.lang.Integer");
-			default:
-				return STRING_CLASS;
-			}
-		 
+
+		switch (columnIndex) {
+		// case 0: return Class.forName("java.lang.Integer");
+		default:
+			return STRING_CLASS;
+		}
+
 	}// getColumnClass
 
 	public final Object getValueAt(RacunVO vo, int kolonas) {
@@ -1172,19 +1180,16 @@ public final class Racuni implements RacunDAO {
 			LijecnikVO lvo = null;
 			Integer sfl = r.getSifLijecnika();
 			if (sfl != null)
-				try 
-			    {
+				try {
 					lvo = (LijecnikVO) this.getLijecnici().read(sfl);
-				} 
-			    catch (SQLException e) 
-			    {
+				} catch (SQLException e) {
 					Logger.fatal(
 							"Iznimka kod CSC Racuni DAO getValueAt() - èitanje lijeènika",
 							e);
 					return "(problem)";
 				}
-			
-			 return lvo != null ? lvo.toString() : "?!?";
+
+			return lvo != null ? lvo.toString() : "?!?";
 
 		case 5:
 			MjestoVO mvo = null;
