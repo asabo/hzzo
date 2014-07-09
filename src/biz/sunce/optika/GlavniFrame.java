@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -37,17 +38,20 @@ import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileFilter;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.util.EntityUtils;
 import org.jdesktop.swingx.JXTable;
-
-import com.ansa.util.ZipUtil;
-import com.ansa.util.SimpleEncryptUtils;
-import com.ansa.util.beans.ActivationBean;
 
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.opticar.install.Installer;
 import biz.sunce.opticar.vo.DjelatnikVO;
 import biz.sunce.opticar.vo.KlijentVO;
 import biz.sunce.opticar.vo.LogiranjeVO;
+import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
@@ -63,20 +67,23 @@ import biz.sunce.optika.zakrpe.IspraviCijenuZaRevin;
 import biz.sunce.optika.zakrpe.Zakrpe;
 import biz.sunce.util.GUI;
 import biz.sunce.util.HtmlPrintParser;
- 
 import biz.sunce.util.beans.PostavkeBean;
 
- 
-
+import com.ansa.util.SimpleEncryptUtils;
+import com.ansa.util.ZipUtil;
+import com.ansa.util.beans.ActivationBean;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private static final String DIREKTORIJ_ZA_KREIRANJE_DISKETE = "direktorij_za_kreiranje_diskete";
 	private static final String WORKING_ROOT = ".opticar";
 	public static final String ODABRANI_PRINTER = "odabrani_printer";
-	
+
 	private static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(
 			"yyyy-MM-dd");
-	
+
 	private static final long serialVersionUID = 2048481288977710850L;
 	public static final byte[] SOFTWARE_VERSION = { 1, 0, 0, 4 };
 	public static final byte[] PROTOCOL_VERSION = { 1, 0, 0, 0 };
@@ -106,25 +113,23 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 	private javax.swing.JMenuItem jmNaruceniPregledi = null;
 
-	public static final int getSifDjelatnika() 
-	{
-		if (sifDjelatnika == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA) 
-		{
+	public static final int getSifDjelatnika() {
+		if (sifDjelatnika == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA) {
 			LogiranjeFrame lf = new LogiranjeFrame();
 			lf.setGlavni(instanca);
 			lf.setVisible(true);
-			
-			GUI.centrirajFrame(lf);	
-			 
+
+			GUI.centrirajFrame(lf);
+
 			try {
-				synchronized (instanca) {					
+				synchronized (instanca) {
 					instanca.wait();
 				}
 			} catch (InterruptedException e) {
 				sifDjelatnika = biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA;
 			}
 		}// if
-		
+
 		return sifDjelatnika;
 	}// getSifDjelatnika
 
@@ -144,6 +149,50 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		return dvo;
 	}// getDjelatnik
+
+	private static final String SERVER_URI = "http://localhost:8080/sunce_web/rest/v1/pomagala";
+
+	private static void azurirajPomagala() {
+		Thread t = new Thread() {
+
+			public void run() {
+				setPriority(MIN_PRIORITY);
+				Gson gson = new GsonBuilder().setDateFormat(
+						"yyyy-MM-dd HH:mm:ss").create();
+
+				yield();
+
+				TypeToken<List<PomagaloVO>> token = new TypeToken<List<PomagaloVO>>() {
+				};
+
+				String json = runURL(SERVER_URI);
+
+				List<PomagaloVO> pomagala = gson
+						.fromJson(json, token.getType());
+				yield();
+				System.out.println(pomagala);
+			}
+		};
+
+		t.start();
+	}
+
+	private static String runURL(String src) {
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpGet httpget = new HttpGet(src);
+		String responseBody = "";
+		BasicHttpParams params = new BasicHttpParams();
+		params.setParameter("timestamp", null);
+		try {
+			httpget.setParams(params);
+			HttpResponse response = httpclient.execute(httpget);
+			responseBody = EntityUtils.toString(response.getEntity(),"UTF-8");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return responseBody;
+	}
 
 	public static final String getCharEncoding() {
 		return System.getProperty("file.encoding");
@@ -220,10 +269,10 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		java.sql.Connection con = null;
 
 		parametri = args;
-		
+
 		Font font = new Font("Arial", Font.PLAIN, 12);
-		Font stari=(Font) UIManager.get("Label.font");
-		UIManager.put("Label.font", font==null?stari:font);
+		Font stari = (Font) UIManager.get("Label.font");
+		UIManager.put("Label.font", font == null ? stari : font);
 
 		String adr;
 		if ((adr = adresaHomeFoldera()) != null) {
@@ -262,15 +311,14 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 			if (con != null)
 				try {
 					DAOFactory.freeConnection(con);
-				} 
-			    catch (SQLException sqle) {
+				} catch (SQLException sqle) {
 				}
 		}
 
 		instanca = new GlavniFrame();
-		
-		//getSifDjelatnika();
-		
+
+		// getSifDjelatnika();
+
 		if (instanca != null)
 			instanca.setVisible(true);
 		else
@@ -287,34 +335,33 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 			Zakrpe zakrpa = new Zakrpe();
 			zakrpa.zakrpaj();
-			
+
 			getPublicKey();
-			
+
 			instanca.srediMenuStavkeSObziromNaPravaKorisnika();
-			
+
 		}// else
 
 		registrirajKontrolneTipke();
-      
+
 		Thread.currentThread().setName("Sunce*HZZO - ");
-		
-		Thread t = new Thread()
-		{
-			public void run()
-			{
+
+		Thread t = new Thread() {
+			public void run() {
 				setPriority(Thread.MIN_PRIORITY);
 				yield();
 				getSifDjelatnika();
 			}
 		};
-		
+
 		t.start();
-		
+
+		azurirajPomagala();
+
 	}// main
 
 	@SuppressWarnings("serial")
-	private static void registrirajKontrolneTipke() 
-	{	
+	private static void registrirajKontrolneTipke() {
 		JRootPane panel = instanca.getRootPane();
 		panel.getActionMap().put("akcije", new AbstractAction() {
 			public void actionPerformed(ActionEvent e) {
@@ -387,7 +434,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private void initialize() {
 		this.setSize(800, 600);
 		this.setJMenuBar(getJmMenu());
-		
+
 		this.setResizable(false);
 		this.setVisible(true);
 		this.setName("glavni");
@@ -401,26 +448,23 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 			}
 		});
 		// this.menu=new JMenuBar();
-		
-		
-		Thread t = new Thread ()
-		{
-		 public void run()
-		 {
-			 PostavkeBean postavke = new PostavkeBean();
-			 setTitle(postavke.getTvrtkaNaziv() + " "
+
+		Thread t = new Thread() {
+			public void run() {
+				PostavkeBean postavke = new PostavkeBean();
+				setTitle(postavke.getTvrtkaNaziv() + " "
 						+ postavke.getMjestoRada());
-		
-			setContentPane(new DobroDosliPanel());
-			ImageIcon ikona = getImageIcon();
-			 if (ikona != null)
-			  setIconImage(ikona.getImage());
-		 }
-			
+
+				setContentPane(new DobroDosliPanel());
+				ImageIcon ikona = getImageIcon();
+				if (ikona != null)
+					setIconImage(ikona.getImage());
+			}
+
 		};
-		
-		SwingUtilities.invokeLater( t );
-	
+
+		SwingUtilities.invokeLater(t);
+
 		this.centriraj();
 	}
 
@@ -617,12 +661,11 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		LogiranjeVO logiranjeVO2 = getLogiranjeVO();
 		if (logiranjeVO2 != null) {
 			try {
-				DAOFactory.getInstance().getLogiranja()
-						.update(logiranjeVO2);
+				DAOFactory.getInstance().getLogiranja().update(logiranjeVO2);
 			} catch (SQLException e) {
 				Logger.fatal(
-						"Problem pri zapisivanju cinjenice odlogiravanja korisnika id: "+logiranjeVO2.getSifDjelatnika(),
-						e);
+						"Problem pri zapisivanju cinjenice odlogiravanja korisnika id: "
+								+ logiranjeVO2.getSifDjelatnika(), e);
 			}
 		}// if
 			// 30.04.05 - asabo - obavezno DAOFactory-ju reci da pozatvara veze
@@ -1102,7 +1145,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 	// gdje ce lezati raznorazne konfiguracijske datoteke
 	public final static String vratiKonfiguracijskiDirektorijKorisnika() {
- 
+
 		return getWorkingHomeLocation();
 	}// vratiKonfiguracijskiDirektorijKorisnika
 
@@ -1117,7 +1160,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 			return pubKey;
 
 		byte[] podaci = null;
-		Date d = null; 
+		Date d = null;
 
 		// String dbDir = biz.sunce.dao.DAOFactory.getDAODBFileLocation();
 
@@ -1174,16 +1217,16 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							datValj = SimpleEncryptUtils.xorMessage(datValj);
 
 							try {
-								
-								if (datValj!=null && !datValj.startsWith("kreirano"))
-								{
-								 d = datValj==null?null:DATE_FORMATTER.parse(datValj);
-								 PostavkeBean.setDatumValjanosti(d);
+
+								if (datValj != null
+										&& !datValj.startsWith("kreirano")) {
+									d = datValj == null ? null : DATE_FORMATTER
+											.parse(datValj);
+									PostavkeBean.setDatumValjanosti(d);
 								}
-							} 
-							catch (Exception e) {
-								 Logger.warn("Problem kod parsiranja dat.valj: "+datValj,
-								 e);
+							} catch (Exception e) {
+								Logger.warn("Problem kod parsiranja dat.valj: "
+										+ datValj, e);
 							}
 						}
 					}
@@ -1194,7 +1237,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							+ " kod pokušaja uèitavanja public key datoteke...");
 
 			} catch (FileNotFoundException fnfe) {
-				//Logger.fatal("Nema public key datoteke", fnfe);
+				// Logger.fatal("Nema public key datoteke", fnfe);
 				return null;
 			} catch (IOException ioe) {
 				Logger.fatal("IO iznimka kod èitanja public key datoteke", ioe);
@@ -1210,12 +1253,12 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 			Logger.log("user dir je null kod èitanja public key-a ?!?");
 
 		pubKey = podaci;
-		
-		if (isDatumValjanostiIstekao())
-		{
-			alert("Licenca za korištenje proizvoda je istekla! Kontaktirajte Vašeg dobavljaèa! "+org.apache.http.impl.cookie.DateUtils.formatDate(d) );								
+
+		if (isDatumValjanostiIstekao()) {
+			alert("Licenca za korištenje proizvoda je istekla! Kontaktirajte Vašeg dobavljaèa! "
+					+ org.apache.http.impl.cookie.DateUtils.formatDate(d));
 		}
-		
+
 		return podaci;
 	}// getPublicKey
 
@@ -1379,9 +1422,14 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 				// false);
 				PostavkeBean.setPostavkaDB("proizvod_aktiviran", "true");
 
-				JOptionPane.showMessageDialog(this,
-						"Program uspješno aktiviran! "+(datValjOrig!=null?" Datum valjanosti aktivacije: "+datValjOrig:""), "Obavijest",
-						JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								this,
+								"Program uspješno aktiviran! "
+										+ (datValjOrig != null ? " Datum valjanosti aktivacije: "
+												+ datValjOrig
+												: ""), "Obavijest",
+								JOptionPane.INFORMATION_MESSAGE);
 
 				// iskopcati stavku menija da se vise ne vidi...
 				srediMenuStavkeSObziromNaPravaKorisnika();
@@ -1438,7 +1486,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 				idle();
 			}
 		};
-		
+
 		SwingUtilities.invokeLater(t);
 
 	}// kreirajHzzoRacun
@@ -1475,11 +1523,11 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		Thread t = new Thread() {
 			public void run() {
-				
+
 				// just in case
 				if (!isImaPravoNaHzzo())
 					return;
-				
+
 				busy();
 
 				HzzoPostojeciRacuniPanel racuni = new HzzoPostojeciRacuniPanel();
@@ -1630,7 +1678,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		if (isDatumValjanostiIstekao())
 			return false;
-		
+
 		if (getPublicKey() == null)
 			return false;
 
@@ -2194,7 +2242,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							JFileChooser jfc = new JFileChooser();
 							jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 							jfc.setToolTipText("Molimo, odaberite datoteku iz koju æete uèitati podatke");
-							//PostavkeBean p = new PostavkeBean();
+							// PostavkeBean p = new PostavkeBean();
 							Calendar c = Calendar.getInstance();
 							String dan = c.get(Calendar.DAY_OF_MONTH) + ". "
 									+ (c.get(Calendar.MONTH) + 1) + ". "
