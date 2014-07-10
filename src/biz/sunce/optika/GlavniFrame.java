@@ -315,7 +315,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		t.start();
 
-		AzuriracPomagala.azurirajPomagala();
+		//AzuriracPomagala.azurirajPomagala();
 
 	}// main
 
