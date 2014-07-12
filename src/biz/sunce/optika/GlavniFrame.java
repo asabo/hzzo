@@ -21,7 +21,6 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -38,12 +37,6 @@ import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileFilter;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.util.EntityUtils;
 import org.jdesktop.swingx.JXTable;
 
 import biz.sunce.dao.DAOFactory;
@@ -51,7 +44,6 @@ import biz.sunce.opticar.install.Installer;
 import biz.sunce.opticar.vo.DjelatnikVO;
 import biz.sunce.opticar.vo.KlijentVO;
 import biz.sunce.opticar.vo.LogiranjeVO;
-import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
@@ -72,9 +64,6 @@ import biz.sunce.util.beans.PostavkeBean;
 import com.ansa.util.SimpleEncryptUtils;
 import com.ansa.util.ZipUtil;
 import com.ansa.util.beans.ActivationBean;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private static final String DIREKTORIJ_ZA_KREIRANJE_DISKETE = "direktorij_za_kreiranje_diskete";
@@ -149,9 +138,6 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		return dvo;
 	}// getDjelatnik
-
-	
-	
 
 	public static final String getCharEncoding() {
 		return System.getProperty("file.encoding");
@@ -315,7 +301,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		t.start();
 
-		//AzuriracPomagala.azurirajPomagala();
+		 AzuriracPomagala.azurirajPomagala(DAOFactory.getInstance().getPomagala());
 
 	}// main
 
