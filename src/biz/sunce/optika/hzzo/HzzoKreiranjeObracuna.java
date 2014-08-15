@@ -42,6 +42,8 @@ import biz.sunce.opticar.vo.StavkaRacunaVO;
 import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.optika.hzzo.ispis.IspisRacunaDopunskoOsiguranje;
+import biz.sunce.optika.hzzo.ispis.IspisRacunaOsnovnoOsiguranje;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.RacuniUtil;
 import biz.sunce.util.StringUtils;
@@ -1277,14 +1279,29 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 		return jbIspravak;
 	}
 
-	private void ispravakObracuna() {
-		HzzoIspravakObracunaPanel panel = new HzzoIspravakObracunaPanel();
-		GlavniFrame.getInstanca().getContentPane().removeAll();
-		GlavniFrame.getInstanca().getContentPane().add(panel);
-		GlavniFrame.getInstanca().pack();
-		panel.setOznaceniObracun(obracun);
-		panel.revalidate();
-		dispose();
+	private void ispravakObracuna() 
+	{
+		
+		Thread t = new Thread()
+		{
+		 public void run()
+		 {
+		 this.setPriority(Thread.MIN_PRIORITY);
+		 GlavniFrame instanca2 = GlavniFrame.getInstanca();
+		 instanca2.busy();
+		 HzzoIspravakObracunaPanel panel = new HzzoIspravakObracunaPanel();
+		 
+		 instanca2.setContentPane(panel);
+		 instanca2.pack();
+		 panel.setOznaceniObracun(obracun);
+		 panel.revalidate();
+		 dispose();
+		 panel.getRacuni().packAll();
+		 instanca2.idle();
+		 }
+		};
+		
+		SwingUtilities.invokeLater(t);
 	}
 
 	public void disableIspravak() {

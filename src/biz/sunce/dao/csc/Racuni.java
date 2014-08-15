@@ -29,7 +29,6 @@ import biz.sunce.opticar.vo.LijecnikVO;
 import biz.sunce.opticar.vo.MjestoVO;
 import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.Util;
@@ -104,21 +103,19 @@ public final class Racuni implements RacunDAO {
 
 		if (!rvo.getOsnovnoOsiguranje().booleanValue()
 				&& rvo.getBrojPoliceDopunsko() != null
-				&& rvo.getBrojPoliceDopunsko().trim().length() == 8)
-		{
+				&& rvo.getBrojPoliceDopunsko().trim().length() == 8) {
 			try {
 				broj = Long.parseLong(rvo.getBrojPoliceDopunsko());
 			} catch (NumberFormatException nfe) {
 				return "Broj police dopunskog osiguranja nije ispravan jer sadrzi znakove koji nisu brojevi! "
 						+ rvo.getBrojPoliceDopunsko();
 			}
-		
-			if (broj==0L)
-			{
+
+			if (broj == 0L) {
 				return "Broj police dopunskog osiguranja nije ispravan!!!";
 			}
 		}
-		
+
 		if (rvo.getOsnovnoOsiguranje().booleanValue()
 				&& rvo.getDopunskoOsiguranje().booleanValue()) {
 			return "Raèun je za dopunsko i osnovno osiguranje?!?";
@@ -136,23 +133,21 @@ public final class Racuni implements RacunDAO {
 		if (rvo.getBrojPotvrdePomagala() == null
 				|| rvo.getBrojPotvrdePomagala().equals("")) {
 			if (rvo.getBrojPotvrde1() == null || rvo.getBrojPotvrde1() != null
-					&& rvo.getBrojPotvrde1().length() > 3
-					)
+					&& rvo.getBrojPotvrde1().length() > 3)
 				return "neispravan prvi dio broja potvrde/ra\u010Duna";
-			
-			if (rvo.getBrojPotvrde1() != null 
+
+			if (rvo.getBrojPotvrde1() != null
 					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde1()))
-			 return "prvi dio broja potvrde moze imati u sebi samo znamenke!";
-				
+				return "prvi dio broja potvrde moze imati u sebi samo znamenke!";
+
 			if (rvo.getBrojPotvrde2() == null || rvo.getBrojPotvrde2() != null
-					&& rvo.getBrojPotvrde2().length() > 10
-					)
+					&& rvo.getBrojPotvrde2().length() > 10)
 				return "neispravan drugi dio broja potvrde/ra\u010Duna";
-		
-			if (rvo.getBrojPotvrde2() != null 
+
+			if (rvo.getBrojPotvrde2() != null
 					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde2()))
-			 return "drugi dio broja potvrde moze imati u sebi samo znamenke!";
-			
+				return "drugi dio broja potvrde moze imati u sebi samo znamenke!";
+
 			if (rvo.getBrojPotvrde1() != null
 					&& rvo.getBrojPotvrde1().startsWith("0"))
 				return "prvi dio broja potvrde ne smije imati vode\u0107u nulu!";

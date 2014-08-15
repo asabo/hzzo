@@ -227,21 +227,21 @@ public final class Slike implements SlikeDAO {
 
  
 
-	@Override
-	public Object getValueAt(SlikaVO vo, int kolonas) {
-		 
-		return null;
-	}
-
-	@Override
-	public boolean setValueAt(SlikaVO vo, Object vrijednost, int kolona) {
-		 
-		return false;
-	}
+ 
 
 	public String narusavaLiObjektKonzistentnost(SlikaVO objekt) {
 	 
 		return null;
+	}
+
+	public Object getValueAt(SlikaVO vo, int kolonas) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean setValueAt(SlikaVO vo, Object vrijednost, int kolona) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }// Drzava klasa

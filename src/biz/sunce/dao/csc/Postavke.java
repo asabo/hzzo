@@ -281,27 +281,26 @@ public final class Postavke implements PostavkeDAO {
 
 	 
 
-	@Override
+ 
+
+	public String narusavaLiObjektKonzistentnost(PostavkaVO objekt) {
+		 
+		return null;
+	}
+
 	public Object getValueAt(PostavkaVO vo, int kolonas) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
 	public boolean setValueAt(PostavkaVO vo, Object vrijednost, int kolona) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean isCellEditable(PostavkaVO vo, int kolona) {
 		// TODO Auto-generated method stub
 		return false;
-	}
-
-	public String narusavaLiObjektKonzistentnost(PostavkaVO objekt) {
-		 
-		return null;
 	}
 }// klasa
 

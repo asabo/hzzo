@@ -37,41 +37,38 @@ public final class Artikli implements ArtiklDAO {
 	public void delete(Object kljuc) throws SQLException {
 	}
 
+	final String upitArtikli = "SELECT "
+			+ "		b.sifra,"
+			+ "		b.oznakaBoje,"
+			+ "		b.sifNaocale,"
+			+ "		n.katOznaka,"
+			+ "		n.sifMarke,"
+			+ "		m.naziv,"
+			+ "   n.proizvedeno1, "
+			+ "   n.proizvedeno2 "
+			+ " FROM "
+			+ "		boje b,"
+			+ "		naocale n, "
+			+ "   marke m "
+			+ " WHERE b.sifNaocale=n.sifra and m.sifra=n.sifMarke and b.sifra=?";
+
+	
 	public ArtiklVO read(Object obj) throws SQLException {
 		Integer ulaz = null;
-		SearchCriteria kriterij = null;
-
+		 
 		if (obj == null)
 			throw new SQLException(
 					"Ulazni parametar prazan! CSC Artikli.read()");
 
 		if (obj instanceof Integer)
 			ulaz = (Integer) obj;
-		else if (obj instanceof SearchCriteria) {
-			kriterij = (SearchCriteria) obj;
-		}
-
-		String upit = "SELECT "
-				+ "		b.sifra,"
-				+ "		b.oznakaBoje,"
-				+ "		b.sifNaocale,"
-				+ "		n.katOznaka,"
-				+ "		n.sifMarke,"
-				+ "		m.naziv,"
-				+ "   n.proizvedeno1, "
-				+ "   n.proizvedeno2 "
-				+ " FROM "
-				+ "		boje b,"
-				+ "		naocale n, "
-				+ "   marke m "
-				+ " WHERE b.sifNaocale=n.sifra and m.sifra=n.sifMarke and b.sifra=?";
-
+	 	
 		Connection c = DAOFactory.getConnection();
 		ResultSet rs = null;
 		PreparedStatement pst = null;
 		ArtiklVO artikl = null;
 		try {
-			pst = c.prepareStatement(upit);
+			pst = c.prepareStatement(upitArtikli);
 
 			if (ulaz != null)
 				pst.setInt(1, ulaz.intValue());
@@ -88,12 +85,12 @@ public final class Artikli implements ArtiklDAO {
 		} finally {
 			try {
 				if (rs != null)
-					rs.close();
+					rs.close(); rs=null;
 			} catch (SQLException sqle) {
 			}
 			try {
 				if (pst != null)
-					pst.close();
+					pst.close(); pst=null;
 			} catch (SQLException sqle) {
 			}
 			DAOFactory.freeConnection(c);
@@ -101,22 +98,24 @@ public final class Artikli implements ArtiklDAO {
 		return artikl;
 	}// read
 
-	public List findAll(Object kljuc) throws SQLException {
+	final String upitArtikliSvi = "SELECT " + "		b.sifra," + "		b.oznakaBoje,"
+			+ "		b.sifNaocale," + "		n.katOznaka," + "		n.sifMarke,"
+			+ "		m.naziv," + "   n.proizvedeno1, " + "   n.proizvedeno2 "
+			+ " FROM " + "		boje b," + "		naocale n, " + "   marke m "
+			+ " WHERE b.sifNaocale=n.sifra and m.sifra=n.sifMarke ";
+	
+	public List<ArtiklVO> findAll(Object kljuc) throws SQLException {
 		Integer ulaz = null;
 		String art = null;
 
-		List lista = new ArrayList();
+		List<ArtiklVO> lista = new ArrayList<ArtiklVO>();
 
 		if (kljuc instanceof Integer)
 			ulaz = (Integer) kljuc;
 		else if (kljuc instanceof String)
 			art = (String) kljuc;
-
-		String upit = "SELECT " + "		b.sifra," + "		b.oznakaBoje,"
-				+ "		b.sifNaocale," + "		n.katOznaka," + "		n.sifMarke,"
-				+ "		m.naziv," + "   n.proizvedeno1, " + "   n.proizvedeno2 "
-				+ " FROM " + "		boje b," + "		naocale n, " + "   marke m "
-				+ " WHERE b.sifNaocale=n.sifra and m.sifra=n.sifMarke ";
+		
+		String upit = upitArtikliSvi;
 
 		Connection c = DAOFactory.getConnection();
 		ResultSet rs = null;

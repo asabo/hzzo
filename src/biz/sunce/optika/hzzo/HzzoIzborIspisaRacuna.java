@@ -8,6 +8,10 @@ import javax.swing.JFrame;
 
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.optika.GlavniFrame;
+import biz.sunce.optika.hzzo.ispis.IspisRacunaDopunskoOsiguranje;
+import biz.sunce.optika.hzzo.ispis.IspisRacunaOsnovnoOsiguranje;
+ 
+import biz.sunce.optika.hzzo.ispis.IspisRacunaNaObrazac;
 import biz.sunce.util.beans.PostavkeBean;
 
 /**
@@ -24,7 +28,7 @@ public final class HzzoIzborIspisaRacuna extends JFrame {
 
 	private javax.swing.JButton jbRacOsZO = null;
 	private javax.swing.JButton jbRacDopZO = null;
-	private javax.swing.JButton jbPotOc5 = null;
+ 
 	private javax.swing.JButton jbPotOc3 = null;
 	private javax.swing.JButton jButton = null;
 
@@ -87,7 +91,7 @@ public final class HzzoIzborIspisaRacuna extends JFrame {
 			jContentPane.setLayout(new java.awt.GridBagLayout());
 			jContentPane.add(getJbRacOsZO(), consGridBagConstraints3);
 			jContentPane.add(getJbRacDopZO(), consGridBagConstraints4);
-			jContentPane.add(getJbPotOc5(), consGridBagConstraints5);
+			 
 			jContentPane.add(getJbPotOc3(), consGridBagConstraints6);
 			jContentPane.add(getJButton(), consGridBagConstraints7);
 		}
@@ -154,29 +158,7 @@ public final class HzzoIzborIspisaRacuna extends JFrame {
 		return jbRacDopZO;
 	}
 
-	/**
-	 * This method initializes jbPotOc5
-	 * 
-	 * @return javax.swing.JButton
-	 */
-	private javax.swing.JButton getJbPotOc5() {
-		if (jbPotOc5 == null) {
-			jbPotOc5 = new javax.swing.JButton();
-			jbPotOc5.setText("Obrazac PotOc");
-			jbPotOc5.setToolTipText("Potvrda za oèna pomagala");
-			jbPotOc5.setMnemonic(java.awt.event.KeyEvent.VK_C);
-			jbPotOc5.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e) {
-					if (getRacun() != null) {
-						IspisRacunaPotOc ispis = new IspisRacunaPotOc(
-								getRacun());
-						ispis.printDialog();
-					}
-				}
-			});
-		}
-		return jbPotOc5;
-	}
+ 
 
 	/**
 	 * This method initializes jbPotOc3
@@ -186,13 +168,13 @@ public final class HzzoIzborIspisaRacuna extends JFrame {
 	private javax.swing.JButton getJbPotOc3() {
 		if (jbPotOc3 == null) {
 			jbPotOc3 = new javax.swing.JButton();
-			jbPotOc3.setText("Obrazac PotOrt");
-			jbPotOc3.setToolTipText("Potvrda za ortopedska pomagala");
+			jbPotOc3.setText("Ispis na HZZO doznaku");
+			jbPotOc3.setToolTipText("ispis na poleðinu HZZO-ve doznake za ortopedska/oèna pomagala");
 			jbPotOc3.setMnemonic(java.awt.event.KeyEvent.VK_P);
 			jbPotOc3.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					if (getRacun() != null) {
-						IspisRacunaPotOrt ispis = new IspisRacunaPotOrt(
+						IspisRacunaNaObrazac ispis = new IspisRacunaNaObrazac(
 								getRacun());
 						ispis.printDialog();
 					}

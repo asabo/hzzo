@@ -56,7 +56,7 @@ public final class PostavkeFrame extends JFrame {
 	private PostavkeBean postavke = null;
 	private javax.swing.JPanel doljnjiPanel = null;
 	private javax.swing.JButton jbSpremi = null;
-	private JButton jbLogo;
+	private JButton jbLogo = null;
 	private javax.swing.JButton jbOdustani = null;
 	private javax.swing.JLabel jLabel8 = null;
 	private javax.swing.JTextField jtEmail = null;
@@ -80,6 +80,8 @@ public final class PostavkeFrame extends JFrame {
 		final PostavkeFrame ja = this;
 		Thread t = new Thread() {
 			public void run() {
+				this.setPriority(Thread.MIN_PRIORITY);
+				yield();
 				biz.sunce.util.GUI.centrirajFrame(ja);
 				try {
 					sleep(500);
@@ -91,6 +93,7 @@ public final class PostavkeFrame extends JFrame {
 				
 			}
 		};
+		
 		SwingUtilities.invokeLater(t);
 	}
 
@@ -283,6 +286,7 @@ public final class PostavkeFrame extends JFrame {
 					.setToolTipText("Naziv Vaše tvrtke, adresa, ostali podaci ");
 			jContentPane.setPreferredSize(new java.awt.Dimension(320, 235));
 		}
+		
 		return jContentPane;
 	}
 

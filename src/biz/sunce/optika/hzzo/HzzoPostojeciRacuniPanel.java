@@ -42,6 +42,8 @@ import biz.sunce.opticar.vo.StavkaRacunaVO;
 import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.optika.hzzo.ispis.IspisRacunaDopunskoOsiguranje;
+import biz.sunce.optika.hzzo.ispis.IspisRacunaOsnovnoOsiguranje;
 import biz.sunce.util.Labela;
 import biz.sunce.util.PretrazivanjeProzor;
 import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;

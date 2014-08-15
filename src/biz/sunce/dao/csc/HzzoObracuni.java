@@ -23,7 +23,6 @@ import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.DjelatnikVO;
 import biz.sunce.opticar.vo.HzzoObracunVO;
 import biz.sunce.opticar.vo.MjestoVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.Util;
@@ -150,6 +149,11 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 
 	}// insert
 
+	final String upitUpdate = " update " + tablica + " set " + "		  datum=?, " // 1
+			+ "sif_podruznice=?," // 2 09.04.06. -asabo- dodano
+			+ "osiguranje=?" + " where sifra=?"; // primary key ...
+
+	
 	// 28.03.06. -asabo- kreirano
 	public boolean update(Object objekt) throws SQLException {
 		HzzoObracunVO ul = (HzzoObracunVO) objekt;
@@ -158,10 +162,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 			throw new SQLException("Update " + tablica
 					+ ", ulazna vrijednost je null!");
 
-		String upit = " update " + tablica + " set " + "		  datum=?, " // 1
-				+ "sif_podruznice=?," // 2 09.04.06. -asabo- dodano
-				+ "osiguranje=?" + " where sifra=?"; // primary key ...
-
+		
 		Connection conn = null;
 		PreparedStatement ps = null;
 
@@ -172,7 +173,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 
 			conn = DAOFactory.getConnection();
 
-			ps = conn.prepareStatement(upit);
+			ps = conn.prepareStatement( upitUpdate );
 
 			Date dat = new java.sql.Date(ul.getDatum().getTimeInMillis());
 
@@ -287,7 +288,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 				&& krit.getKriterij().equals(
 						HzzoObracunDAO.KRITERIJ_OBRACUN_DATUM_SIFRA_PODRUZNICE)) {
 			krit = (SearchCriteria) kljuc;
-			ArrayList l = (ArrayList) krit.getPodaci();
+			ArrayList<Object> l = (ArrayList<Object>) krit.getPodaci();
 			Calendar c = (Calendar) l.get(0);
 			Integer sifp = (Integer) l.get(1);
 
@@ -325,8 +326,8 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 	}// read
 
 	// 08.01.06. -asabo- kreirano
-	public List findAll(Object kljuc) throws SQLException {
-		ArrayList list = new ArrayList(10);
+	public List<HzzoObracunVO> findAll(Object kljuc) throws SQLException {
+		ArrayList<HzzoObracunVO> list = new ArrayList<HzzoObracunVO>(10);
 
 		// String sKljuc = null;
 		SearchCriteria krit = null;
@@ -345,7 +346,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 						KRITERIJ_SVI_OBRACUNI_ZA_PODRUZNICU_HZZO)) {
 			Calendar datum = null;
 			Integer sifPodruznice = null, godina = null, osiguranje = null;
-			ArrayList l = (ArrayList) krit.getPodaci();
+			ArrayList<Object> l = (ArrayList<Object>) krit.getPodaci();
 			Object o = l.get(0);
 			if (o != null)
 				datum = (Calendar) o;
@@ -419,9 +420,9 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 		return Class.forName("biz.sunce.opticar.vo.HzzoObracunVO");
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<HzzoObracunVO> getGUIEditor() {
 		try {
-			return (GUIEditor) Class.forName(DAO.GUI_DAO_ROOT + ".HzzoObracun")
+			return (GUIEditor<HzzoObracunVO>) Class.forName(DAO.GUI_DAO_ROOT + ".HzzoObracun")
 					.newInstance();
 
 		} catch (InstantiationException ie) {
@@ -452,12 +453,16 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 		return kolone != null ? kolone.length : 0;
 	}
 
+	Class<Integer> integerClass = Integer.class;
+	Class<String> stringClass = String.class;
+	
+	@SuppressWarnings("unchecked")
 	public Class getColumnClass(int columnIndex) {
 		try {
 
 			switch (columnIndex) {
 			case 0:
-				return Class.forName("java.lang.Integer");
+				return integerClass;
 			case 1:
 			case 2:
 			case 3:
@@ -465,13 +470,13 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 			case 5:
 			case 6:
 			case 7:
-				return Class.forName("java.lang.String");
+				return stringClass;
 			default:
 				return null;
 			}
-		} catch (ClassNotFoundException cnfe) {
+		} catch (Exception cnfe) {
 			Logger.fatal("Problem kod tablice " + tablica
-					+ " CSC - Integer ili String kao klase ne postoje?!?", cnfe);
+					+ " CSC - nesto se dogadja: ", cnfe);
 			return null;
 		}
 	}// getColumnClass

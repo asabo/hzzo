@@ -23,6 +23,7 @@ import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.util.StringUtils;
 
 /**
  * datum:2006.01.31
@@ -49,33 +50,54 @@ public final class Pomagala implements PomagaloDAO {
 			+ " FROM " + tablica;
 
 	public String narusavaLiObjektKonzistentnost(PomagaloVO objekt) {
+		if (objekt==null) return null;
+
+		String sifra = objekt.getSifraArtikla() ;
+		String naziv = objekt.getNaziv() ;
+				
+		if ( sifra==null || sifra.trim().equals("") )
+			return "Šifra artikla nije unesena!";
+
+		if ( !sifra.trim().equals(sifra) || sifra.indexOf(' ')!=-1 )
+			return "U šifri artikla postoji razmak, koji nije dopušten!";
+		
+		if (!StringUtils.imaSamoBrojeveISlova(sifra))
+		   return "Šifra može sadržavati samo slova i brojeve!";
+
+		if ( sifra.length()<7 )
+			return "Šifra artikla mora imati barem 7 znakova!";
+
+		if ( naziv==null || naziv.trim().equals("") )
+			return "naziv artikla nije unešen!";
+		
+		if ( !naziv.trim().equals(naziv) )
+			return "U nazivu artikla postoji razmak na kraju/poèetku, koji nije dopušten!";
+
+		if ( naziv.length()<4 )
+			return "Naziv artikla mora imati barem 4 znaka!";
+		
 		return null;
 	}
 
+	final String insertUpit = "INSERT INTO " + tablica + " "
+			+ "(SIFRA,naziv,porezna_stopa,po_cijeni,ocno_pomagalo,created,created_by,updated,updated_by) " + // 12.04.06.
+			" VALUES (?,?,?,?,?,?,?,?,?)"; // ovoj je tablici sifra string i sastavni je dio inserta
+
 	public void insert(Object objekt) throws SQLException {
-		final String upit;
+		 
 		PomagaloVO ul = (PomagaloVO) objekt;
 
 		if (ul == null)
 			throw new SQLException("Insert " + tablica
 					+ ", ulazna vrijednost je null!");
-
-		int sifra = DAO.NEPOSTOJECA_SIFRA; // sifra unesenog retka
-
-		upit = "INSERT INTO " + tablica + " "
-				+ "(SIFRA,naziv,porezna_stopa,po_cijeni,ocno_pomagalo,created,created_by,updated,updated_by) " + // 12.04.06.
-																			// -asabo-
-																			// dodano
-				" VALUES (?,?,?,?,?,?,?,?,?)"; // ovoj je tablici sifra string i
-										// sastavni je dio inserta
-
+   	
 		Connection conn = null;
 		PreparedStatement ps = null;
 
 		try {
 			conn = DAOFactory.getConnection();
 
-			ps = conn.prepareStatement(upit);
+			ps = conn.prepareStatement( insertUpit );
 
 			ps.setString(1, ul.getSifraArtikla());
 			ps.setString(2, ul.getNaziv());
@@ -113,7 +135,7 @@ public final class Pomagala implements PomagaloDAO {
 		finally {
 			try {
 				if (ps != null)
-					ps.close();
+					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
 			DAOFactory.freeConnection(conn);
@@ -121,6 +143,16 @@ public final class Pomagala implements PomagaloDAO {
 
 	}// insert
 
+	final String updateUpit = " update " + tablica + " set "
+			+ "		  naziv=?," // 1
+			+ " porezna_stopa=?, " // 2
+			+ " status=" + DAO.STATUS_UPDATED + "," 
+			+ " po_cijeni=?,"
+			+ "ocno_pomagalo=?," // 12.04.06. -asabo- dodano
+			+ "updated=?,"
+			+ "updated_by=?"
+			+ " where sifra=?"; // primary key ...
+	
 	// 07.01.06. -asabo- kreirano
 	public boolean update(Object objekt) throws SQLException {
 		PomagaloVO ul = (PomagaloVO) objekt;
@@ -129,15 +161,6 @@ public final class Pomagala implements PomagaloDAO {
 			throw new SQLException("Update " + tablica
 					+ ", ulazna vrijednost je null!");
 
-		String upit = " update " + tablica + " set "
-				+ "		  naziv=?," // 1
-				+ " porezna_stopa=?, " // 2
-				+ " status=" + DAO.STATUS_UPDATED + "," 
-				+ " po_cijeni=?,"
-				+ "ocno_pomagalo=?," // 12.04.06. -asabo- dodano
-				+ "updated=?,"
-				+ "updated_by=?"
-				+ " where sifra=?"; // primary key ...
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -145,7 +168,7 @@ public final class Pomagala implements PomagaloDAO {
 		try {
 			conn = DAOFactory.getConnection();
 
-			ps = conn.prepareStatement(upit);
+			ps = conn.prepareStatement( updateUpit );
 
 			ps.setString(1, ul.getNaziv());
 			ps.setInt(2, ul.getPoreznaSkupina().intValue());
@@ -185,7 +208,7 @@ public final class Pomagala implements PomagaloDAO {
 		finally {
 			try {
 				if (ps != null)
-					ps.close();
+					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
 			DAOFactory.freeConnection(conn);
@@ -262,7 +285,7 @@ public final class Pomagala implements PomagaloDAO {
 			}
 			try {
 				if (rs != null)
-					rs.close();
+					rs.close(); rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -331,7 +354,7 @@ public final class Pomagala implements PomagaloDAO {
 			}
 			try {
 				if (rs != null)
-					rs.close();
+					rs.close(); rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -344,10 +367,10 @@ public final class Pomagala implements PomagaloDAO {
 		return biz.sunce.opticar.vo.PomagaloVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public GUIEditor<PomagaloVO> getGUIEditor() {
 		try {
-			return (GUIEditor) Class.forName(DAO.GUI_DAO_ROOT + POMAGALO)
-					.newInstance();
+			return (GUIEditor) Class.forName(DAO.GUI_DAO_ROOT + POMAGALO).newInstance();
 
 		} catch (InstantiationException ie) {
 			Logger.log(

@@ -78,7 +78,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		super();
 		initialize();
 	}
-
+	
 	/**
 	 * This method initializes this
 	 * 
@@ -137,9 +137,9 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		this.add(getJbKreirajDisketu(), consGridBagConstraints12);
 		this.add(getJbIspisiDopis(), consGridBagConstraints13);
 		this.add(getJLabel3(), consGridBagConstraints1);
-		this.setSize(790, 393);
+		this.setSize(790, 574);
 		this.setToolTipText("Ispravak obraèuna... ");
-		this.setPreferredSize(new java.awt.Dimension(790, 374));
+		this.setPreferredSize(new java.awt.Dimension(790, 574));
 	}
 
 	/**
@@ -202,10 +202,10 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 	 * 
 	 * @return javax.swing.JTable
 	 */
-	private JXTable getRacuni() {
+	public JXTable getRacuni() {
 		if (racuni == null) {
-			racuni = new JXTable();
-			racuni.setToolTipText("");
+			//racuni = new JXTable();
+			//racuni.setToolTipText("");
 			if (true) {
 				this.tRacuni = new JXTable();
 				this.model = new TableModel(DAOFactory.getInstance()

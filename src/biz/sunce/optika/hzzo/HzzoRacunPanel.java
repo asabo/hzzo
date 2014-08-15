@@ -5,6 +5,7 @@
 package biz.sunce.optika.hzzo;
 
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
@@ -37,21 +38,8 @@ import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.RacuniUtil;
 import biz.sunce.util.beans.PostavkeBean;
-
-
-
-/**
-* This code was edited or generated using CloudGarden's Jigloo
-* SWT/Swing GUI Builder, which is free for non-commercial
-* use. If Jigloo is being used commercially (ie, by a corporation,
-* company or business for any purpose whatever) then you
-* should purchase a license for each developer using Jigloo.
-* Please visit www.cloudgarden.com for details.
-* Use of Jigloo implies acceptance of these licensing terms.
-* A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
-* THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
-* LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
-*/
+ 
+ 
 /**
  * datum:2006.03.04
  * 
@@ -61,12 +49,15 @@ import biz.sunce.util.beans.PostavkeBean;
 public final class HzzoRacunPanel extends JPanel implements
 		SlusacModelaTablice, GUIEditor.SlusacSpremnostiPodataka {
 
+	//IDovi poreznih stopa
 	private static final int POREZNA_STOPA_0 = 2;
 	private static final int POREZNA_STOPA_5 = 12;
 
 	private static final long serialVersionUID = -5137132339677509200L;
 
 	private static final Calendar prviPrvi2013 = Calendar.getInstance();
+	private static final Font arial9 = new Font("Arial", Font.PLAIN, 9);
+	
 	static{
 		prviPrvi2013.set(Calendar.YEAR, 2013);
 		prviPrvi2013.set(Calendar.MONTH, 0);
@@ -139,7 +130,7 @@ public final class HzzoRacunPanel extends JPanel implements
 
 	// tjera seditora da mu vrati najsvjezije podatke prije vracanja objekta
 	// ne pristupati this.oznaceni zato direktno!
-	private final RacunVO getOznaceni() {
+	private RacunVO getOznaceni() {
 		GUIEditor ed = (GUIEditor) this.getJpRacunPanel();
 		this.oznaceni = (RacunVO) ed.vratiPodatke();
 		return this.oznaceni;
@@ -470,6 +461,7 @@ public final class HzzoRacunPanel extends JPanel implements
 			jbDodaj.setText("Dodaj");
 			jbDodaj.setMnemonic(java.awt.event.KeyEvent.VK_A);
 			jbDodaj.setToolTipText("ALT-A za dodati stavku u raèun");
+			jbDodaj.setFont(arial9);
 			jbDodaj.setPreferredSize(new java.awt.Dimension(63, 21));
 			jbDodaj.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {

@@ -21,6 +21,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -33,6 +34,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.UIDefaults;
 import javax.swing.UIManager;
 import javax.swing.event.TableModelEvent;
 import javax.swing.filechooser.FileFilter;
@@ -219,6 +221,25 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		Font stari = (Font) UIManager.get("Label.font");
 		UIManager.put("Label.font", font == null ? stari : font);
 
+		 UIDefaults defaults = UIManager.getDefaults();
+	        System.out.println(defaults.size()+ " properties deffined !");
+	        String[ ] colName = {"Key", "Value"};
+	        String[ ][ ] rowData = new String[ defaults.size() ][ 2 ];
+	        int i = 0;
+	        for(Enumeration e = defaults.keys(); e.hasMoreElements(); i++){
+	            Object key = e.nextElement();
+	            
+	            String keyS = key.toString();
+	            
+	            if (keyS.indexOf("font")==-1)
+	            	continue;
+	            
+				rowData[ i ] [ 0 ] = keyS;
+	            rowData[ i ] [ 1 ] = ""+defaults.get(key);
+	            System.out.println(rowData[i][0]+" ,, "+rowData[i][1]);
+	        }
+		
+		
 		String adr;
 		if ((adr = adresaHomeFoldera()) != null) {
 			File f = new File(adr);

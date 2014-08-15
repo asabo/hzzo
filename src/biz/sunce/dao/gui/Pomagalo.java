@@ -19,7 +19,7 @@ import biz.sunce.optika.Logger;
  * 
  * @author asabo
  */
-public final class Pomagalo extends JPanel implements GUIEditor {
+public final class Pomagalo extends JPanel implements GUIEditor<PomagaloVO> {
 
 	private static final long serialVersionUID = -3302442603460739747L;
 	private javax.swing.JLabel jLabel = null;
@@ -27,7 +27,7 @@ public final class Pomagalo extends JPanel implements GUIEditor {
 	private javax.swing.JLabel jLabel1 = null;
 	private javax.swing.JTextField jtNaziv = null;
 	private javax.swing.JLabel jLabel2 = null;
-	@SuppressWarnings("rawtypes")
+ 
 	private javax.swing.JComboBox jcPoreznaSkupina = null;
 
 	PomagaloVO oznaceni = null;
@@ -103,7 +103,7 @@ public final class Pomagalo extends JPanel implements GUIEditor {
 		this.setPreferredSize(new java.awt.Dimension(508, 96));
 	}
 
-	public void napuniPodatke(ValueObject ulaz) {
+	public void napuniPodatke(PomagaloVO ulaz) {
 
 		if (ulaz == null) {
 			pobrisiFormu();
@@ -135,7 +135,7 @@ public final class Pomagalo extends JPanel implements GUIEditor {
 		}// for i
 	}
 
-	public ValueObject vratiPodatke() {
+	public PomagaloVO vratiPodatke() {
 		if (this.oznaceni == null) {
 			return null;
 		}
@@ -154,8 +154,10 @@ public final class Pomagalo extends JPanel implements GUIEditor {
 		return this.oznaceni;
 	}// vratiPodatke
 
+	final String p = "";
+	
 	public void pobrisiFormu() {
-		final String p = "";
+		
 		this.jtSifra.setText(p);
 		this.jtNaziv.setText(p);
 		this.jcOptickoPomagalo.setSelected(false);
@@ -266,7 +268,7 @@ public final class Pomagalo extends JPanel implements GUIEditor {
 	 * 
 	 * @return javax.swing.JComboBox
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SuppressWarnings({ "rawtypes" })
 	private javax.swing.JComboBox getJcPoreznaSkupina() {
 		if (jcPoreznaSkupina == null) {
 			jcPoreznaSkupina = new javax.swing.JComboBox();
