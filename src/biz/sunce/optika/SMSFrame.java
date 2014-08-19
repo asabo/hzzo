@@ -24,7 +24,7 @@ import biz.sunce.util.beans.PostavkeBean;
  * @author asabo
  *
  */
-public class SMSFrame extends JFrame 
+public final class SMSFrame extends JFrame 
 {
   private KlijentVO klijent=null;
   private PredlozakVO predlozak=null;
@@ -75,7 +75,8 @@ public class SMSFrame extends JFrame
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(300*faktor, 200*faktor);
 		this.setContentPane(getJContentPane());
 		this.setName("SMSFrame");
 		this.setTitle("SMS poruka klijentu");

@@ -188,8 +188,9 @@ public final class ObvezePanel extends JPanel implements
 		this.add(getJLabel6(), consGridBagConstraints5);
 		this.add(getJButton(), consGridBagConstraints14);
 		this.add(getJButton1(), consGridBagConstraints17);
-		this.setSize(790, 580);
-		this.setPreferredSize(new java.awt.Dimension(790, 580));
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 580*faktor);
+		this.setPreferredSize(new java.awt.Dimension(790*faktor, 580*faktor));
 	}
 
 	/**
@@ -486,8 +487,9 @@ public final class ObvezePanel extends JPanel implements
 		if (jspTrebaZakazati == null) {
 			jspTrebaZakazati = new javax.swing.JScrollPane();
 			jspTrebaZakazati.setViewportView(getJtbTrebaZakazati());
-			jspTrebaZakazati.setPreferredSize(new java.awt.Dimension(200, 150));
-			jspTrebaZakazati.setMaximumSize(new java.awt.Dimension(200, 50));
+			int faktor = GlavniFrame.getFaktor();
+			jspTrebaZakazati.setPreferredSize(new java.awt.Dimension(300*faktor, 150*faktor));
+			jspTrebaZakazati.setMaximumSize(new java.awt.Dimension(300*faktor, 50*faktor));
 		}
 		return jspTrebaZakazati;
 	}

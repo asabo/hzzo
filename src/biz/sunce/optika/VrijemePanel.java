@@ -36,6 +36,7 @@ public class VrijemePanel extends JPanel {
 		layFlowLayout4.setAlignment(java.awt.FlowLayout.LEFT);
 		this.setLayout(layFlowLayout4);
 		this.add(getJtVrijeme(), null);
+		
 		Dimension s=new Dimension(50,20);
 		this.setSize(s);
 		this.setMaximumSize(s);

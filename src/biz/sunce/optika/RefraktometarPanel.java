@@ -17,8 +17,10 @@ import biz.sunce.opticar.vo.RefraktometarVO;
  * @author asabo
  *
  */
-public class RefraktometarPanel extends JPanel {
+public final class RefraktometarPanel extends JPanel {
 
+	 
+	private static final long serialVersionUID = -6699536374593484124L;
 	private javax.swing.JTextField jtDsphD = null;
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -189,7 +191,8 @@ public void napuniFormu(RefraktometarVO ulazni)
 		this.add(getJLabel4(), consGridBagConstraints29);
 		this.add(getJtAXD(), consGridBagConstraints30);
 		this.add(getJtAXL(), consGridBagConstraints31);
-		this.setSize(226, 61);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(226*faktor, 61*faktor);
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(BevelBorder.RAISED), "Refraktometar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
 
 	}

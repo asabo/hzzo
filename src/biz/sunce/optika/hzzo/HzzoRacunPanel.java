@@ -72,7 +72,7 @@ public final class HzzoRacunPanel extends JPanel implements
 	private StavkaRacunaDAO stavke = null;
 
 	private RacunVO oznaceni = null;
-	private TableModel stavkeRacunaModel = null;
+	private TableModel<StavkaRacunaVO> stavkeRacunaModel = null;
 	private ArrayList<StavkaRacunaVO> stavkeRacuna = null;
 	private javax.swing.JButton jbPohrani = null; // @jve:visual-info
 													// decl-index=0
@@ -131,8 +131,8 @@ public final class HzzoRacunPanel extends JPanel implements
 	// tjera seditora da mu vrati najsvjezije podatke prije vracanja objekta
 	// ne pristupati this.oznaceni zato direktno!
 	private RacunVO getOznaceni() {
-		GUIEditor ed = (GUIEditor) this.getJpRacunPanel();
-		this.oznaceni = (RacunVO) ed.vratiPodatke();
+		GUIEditor<RacunVO> ed = (GUIEditor<RacunVO>) this.getJpRacunPanel();
+		this.oznaceni =  ed.vratiPodatke();
 		return this.oznaceni;
 	}// getOznaceni
 
@@ -188,9 +188,10 @@ public final class HzzoRacunPanel extends JPanel implements
 		this.add(getJbPohrani(), consGridBagConstraints11);
 		this.add(getJpStavkaSaDodajGumbom(), new GridBagConstraints(3, 1, 1, 2, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 1, 0), 2, 2));
 		this.add(getJlUkupno(), consGridBagConstraints12);
-		this.setSize(790, 580);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 580*faktor);
 		this.setToolTipText("forma za unos hzzo raèuna");
-		this.setPreferredSize(new java.awt.Dimension(790, 560));
+		this.setPreferredSize(new java.awt.Dimension(790*faktor, 560*faktor));
 		this.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);
 		this.setLocation(2, 18);
 		this.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -241,9 +242,10 @@ public final class HzzoRacunPanel extends JPanel implements
 					.getGUIEditor() : null;
 			if (true)
 				this.jpStavkaRacuna = (JPanel) (stavka);
-			jpStavkaRacuna.setPreferredSize(new java.awt.Dimension(435, 114));
-			jpStavkaRacuna.setMaximumSize(new java.awt.Dimension(435, 114));
-			jpStavkaRacuna.setMinimumSize(new java.awt.Dimension(435, 114));
+			int faktor = GlavniFrame.getFaktor();
+			jpStavkaRacuna.setPreferredSize(new java.awt.Dimension(435*faktor, 114*faktor));
+			jpStavkaRacuna.setMaximumSize(new java.awt.Dimension(435*faktor, 114*faktor));
+			jpStavkaRacuna.setMinimumSize(new java.awt.Dimension(435*faktor, 114*faktor));
 			jpStavkaRacuna.setToolTipText("stavka raèuna");
 			stavka.dodajSlusacaSpremnostiPodataka(this);
 
@@ -487,10 +489,11 @@ public final class HzzoRacunPanel extends JPanel implements
 
 			jpStavkaSaDodajGumbom.add(getJpStavkaRacuna(), null);
 			jpStavkaSaDodajGumbom.add(getJbDodaj());
-			jpStavkaSaDodajGumbom.setPreferredSize(new java.awt.Dimension(515,
-					112));
-			jpStavkaSaDodajGumbom.setMinimumSize(new java.awt.Dimension(515,
-					112));
+			int faktor = GlavniFrame.getFaktor();
+			jpStavkaSaDodajGumbom.setPreferredSize(new java.awt.Dimension(515*faktor,
+					112*faktor));
+			jpStavkaSaDodajGumbom.setMinimumSize(new java.awt.Dimension(515*faktor,
+					112*faktor));
 		}
 		return jpStavkaSaDodajGumbom;
 	}

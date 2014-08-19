@@ -50,7 +50,7 @@ import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 import biz.sunce.util.gui.DaNeUpit;
 import biz.sunce.util.gui.SlikaPanel;
-import biz.sunce.util.tablice.sort.JSortTable;
+
 import com.toedter.calendar.JDateChooser;
 
 /**
@@ -59,7 +59,7 @@ import com.toedter.calendar.JDateChooser;
  * To change the template for this generated type comment go to
  * Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
-public class KlijentFrame extends JFrame implements SlusacOznaceneLabelePretrazivanja,SlusacModelaTablice,PopupMenuListener,ActionListener
+public final class KlijentFrame extends JFrame implements SlusacOznaceneLabelePretrazivanja,SlusacModelaTablice,PopupMenuListener,ActionListener
  {
  	final KlijentFrame ja=this;
 	List predlosci=null;
@@ -254,7 +254,8 @@ public class KlijentFrame extends JFrame implements SlusacOznaceneLabelePretrazi
   }
 
 	private void initialize() {
-		this.setSize(785, 564);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(785*faktor, 564*faktor);
 		this.setContentPane(this.getGlavniPanel());
 		this.setName("KlijentFrame");
 		this.setTitle("Kartica klijenta ");
@@ -630,12 +631,14 @@ public class KlijentFrame extends JFrame implements SlusacOznaceneLabelePretrazi
 		if(slika == null) {
 			slika = new SlikaPanel();
 			slika.setLayout(null);
-			slika.setSize(100,200);
+			int faktor = GlavniFrame.getFaktor();
+			slika.setSize(100*faktor,200*faktor);
 			slika.setToolTipText("Slika Vašeg klijenta, desnim klikom prebacujete je iz \nmeðuspremnika");
 			slika.setPreferredSize(new java.awt.Dimension(150,200));
 			slika.setBackground(java.awt.Color.WHITE);
 			slika.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 		}
+		
 		return slika;
 	}
 	/**
@@ -2159,7 +2162,8 @@ public class KlijentFrame extends JFrame implements SlusacOznaceneLabelePretrazi
 		if(jtfNapomena == null) {
 			jtfNapomena = new javax.swing.JTextPane();
 			jtfNapomena.setMaximumSize(new Dimension(300,100));
-			jtfNapomena.setSize(new Dimension(300,100));
+			int faktor = GlavniFrame.getFaktor();
+			jtfNapomena.setSize(new Dimension(300*faktor,100*faktor));
 			jtfNapomena.setMinimumSize(new Dimension(300,50));
 		}
 		return jtfNapomena;

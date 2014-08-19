@@ -8,16 +8,18 @@ import javax.swing.JPanel;
 
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.LijecnikVO;
-import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.GlavniFrame;
 
 /**
  * datum:2005.11.30
  * @author asabo
  *
  */
-public class Lijecnik extends JPanel implements GUIEditor 
+public class Lijecnik extends JPanel implements GUIEditor<LijecnikVO>
 {
- LijecnikVO objekt;
+ 
+	private static final long serialVersionUID = -3282689237539924777L;
+	LijecnikVO objekt;
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JTextField jtIme = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -73,12 +75,13 @@ public class Lijecnik extends JPanel implements GUIEditor
 		this.add(getJtPrezime(), consGridBagConstraints9);
 		this.add(getJLabel2(), consGridBagConstraints10);
 		this.add(getJtTitula(), consGridBagConstraints11);
-		this.setSize(290, 68);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(290*faktor, 68*faktor);
 		this.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 		this.setPreferredSize(new java.awt.Dimension(290,68));
 		this.setMinimumSize(new java.awt.Dimension(290,68));
 	}
-	public void napuniPodatke(ValueObject ulaz) 
+	public void napuniPodatke(LijecnikVO ulaz) 
 	{
 	if (ulaz==null) {pobrisiFormu(); return;	}
 	this.omoguci();
@@ -88,7 +91,7 @@ public class Lijecnik extends JPanel implements GUIEditor
 	this.jtTitula.setText(this.objekt.getTitula());
 	}
 	
-	public ValueObject vratiPodatke() {
+	public LijecnikVO vratiPodatke() {
 		if (this.objekt==null) return null;
 		//ovo se mora prvo postaviti, nema smisla nakon postavljanja vrijednosti ga namjestati
 		this.objekt.setModified(this.jeliIzmjenjen());

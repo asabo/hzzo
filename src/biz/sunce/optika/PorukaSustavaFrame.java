@@ -99,7 +99,8 @@ public final class PorukaSustavaFrame extends JFrame {
 
         jScrollPane1.getViewport().add(jtaIznimka);
         jLabel2.setText("Poruka:");
-        this.setSize(500,500);
+    	int faktor = GlavniFrame.getFaktor();
+        this.setSize(500*faktor,500*faktor);
     }
 
     public void jbOk_actionPerformed(ActionEvent e)

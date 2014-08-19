@@ -8,16 +8,17 @@ import javax.swing.JPanel;
 
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.KlijentVO;
-import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.GlavniFrame;
 
 /**
  * datum:2005.11.30
  * @author asabo
  *
  */
-public final class Klijent extends JPanel implements GUIEditor
+public final class Klijent extends JPanel implements GUIEditor<KlijentVO>
  {
-  KlijentVO objekt=null;
+	private static final long serialVersionUID = 7883290862092978064L;
+	KlijentVO objekt=null;
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JTextField jtIme = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -63,11 +64,12 @@ public final class Klijent extends JPanel implements GUIEditor
 		this.add(getJLabel1(), consGridBagConstraints3);
 		this.add(getJtPrezime(), consGridBagConstraints4);
 		this.add(getJLabel2(), consGridBagConstraints5);
-		this.setSize(300, 200);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(300*faktor, 200*faktor);
 	}
-	public void napuniPodatke(ValueObject ulaz) {
+	public void napuniPodatke(KlijentVO ulaz) {
 	}
-	public ValueObject vratiPodatke() {
+	public KlijentVO vratiPodatke() {
 		if (this.objekt==null) return null;
 		
 		this.objekt.setModified(this.jeliIzmjenjen());

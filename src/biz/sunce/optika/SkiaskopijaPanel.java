@@ -16,7 +16,7 @@ import biz.sunce.opticar.vo.SkiaskopijaVO;
  * @author asabo
  *
  */
-public class SkiaskopijaPanel extends JPanel {
+public final class SkiaskopijaPanel extends JPanel {
 
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -242,7 +242,8 @@ public class SkiaskopijaPanel extends JPanel {
 		this.add(getJtDcylL(), consGridBagConstraints61);
 		this.add(getJtAXL(), consGridBagConstraints71);
 		this.add(getJtVisusL(), consGridBagConstraints81);
-		this.setSize(346, 63);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(346*faktor, 63*faktor);
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(BevelBorder.RAISED), "skiaskopija", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
 	}
 	/**

@@ -99,7 +99,8 @@ public final class HzzoPostavkeFrame extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(405, 318);
+		int faktor = GlavniFrame.getFaktor();		
+		this.setSize(405*faktor, 318*faktor);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Hzzo postavke");
 		this.setIconImage(GlavniFrame.getImageIcon().getImage());

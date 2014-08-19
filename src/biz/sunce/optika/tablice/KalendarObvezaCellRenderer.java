@@ -22,6 +22,9 @@ import biz.sunce.opticar.vo.PregledVO;
  */
 public class KalendarObvezaCellRenderer extends JPanel implements TableCellRenderer
 {
+ 
+	private static final long serialVersionUID = -2836138787367356536L;
+
 	KlijentVO klijent;
 
 	private javax.swing.JLabel jlNaziv = null;
@@ -46,7 +49,7 @@ public class KalendarObvezaCellRenderer extends JPanel implements TableCellRende
         this.setLayout(layGridLayout1);
         this.add(getJlNaziv(), null);
         this.add(getJlAdresa(), null);
-        this.setSize(94, 52);
+        //this.setSize(94, 52);
         this.setBackground(java.awt.Color.white);
 			
 	}

@@ -16,11 +16,11 @@ import biz.sunce.util.tablice.sort.SabotovSortModel;
 // Referenced classes of package biz.sunce.opticar.vo:
 //            ValueObject, SlusacModelaTablice
 //ne moze biti final
-public class TableModel extends SabotovSortModel {
+public class TableModel<VO extends ValueObject> extends SabotovSortModel<VO> {
 
 	private static final long serialVersionUID = 1L;
 
-	public TableModel(DAO objekt, JXTable tablica) {
+	public TableModel(DAO<VO> objekt, JXTable tablica) {
 		super(false);
 		filter = null;
 		this.objekt = objekt;
@@ -77,35 +77,35 @@ public class TableModel extends SabotovSortModel {
 
 	@Override
 	public boolean isCellEditable(int redak, int kolona) {
-		ValueObject vo = null;
+		VO vo = null;
 		if (podaci != null)
-			vo = (ValueObject) podaci.get(redak);
+			vo =  podaci.get(redak);
 		return objekt == null ? super.isCellEditable(redak, kolona) : objekt
 				.isCellEditable(vo, kolona);
 	}
 
 	@Override
-	public Class getColumnClass(int arg0) {
+	public Class<?> getColumnClass(int arg0) {
 		return objekt == null ? super.getColumnClass(arg0) : objekt
 				.getColumnClass(arg0);
 	}
 
 	@Override
 	public Object getValueAt(int redak, int kolona) {
-		ValueObject vo = null;
+		VO vo = null;
 		if (podaci != null && podaci.size() > redak)
-			vo = (ValueObject) podaci.get(redak);
+			vo =  podaci.get(redak);
 		return objekt == null ? vo.getValue(kolona) : objekt.getValueAt(vo,
 				kolona);
 	}
 
 	@Override
 	public void setValueAt(Object vrijednost, int redak, int kolona) {
-		ValueObject vo = null;
+		VO vo = null;
 		if (podaci == null) {
 			return;
 		} else {
-			vo = (ValueObject) podaci.get(redak);
+			vo =  podaci.get(redak);
 			if (objekt == null)
 				super.setValueAt(vrijednost, redak, kolona);
 			else
@@ -124,7 +124,7 @@ public class TableModel extends SabotovSortModel {
 	public void removeTableModelListener(TableModelListener tablemodellistener) {
 	}
 
-	public void setData(List podaci) {
+	public void setData(List<VO> podaci) {
 		if (this.podaci != null) {
 			int kom = this.podaci.size();
 			fireTableRowsDeleted(0, kom);
@@ -139,7 +139,7 @@ public class TableModel extends SabotovSortModel {
 	}
 
 	@Override
-	public List getData() {
+	public List<VO> getData() {
 		return podaci;
 	}
 
@@ -172,7 +172,7 @@ public class TableModel extends SabotovSortModel {
 	}
 
 	@Override
-	public DAO getDAO() {
+	public DAO<VO> getDAO() {
 		return objekt;
 	}
 
@@ -183,8 +183,8 @@ public class TableModel extends SabotovSortModel {
 		}
 	}
 
-	DAO objekt;
-	List podaci;
+	DAO<VO> objekt;
+	List<VO> podaci;
 	List<SlusacModelaTablice> slusaci;
 	JXTable tablica;
 	private Object filter;

@@ -137,9 +137,10 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		this.add(getJbKreirajDisketu(), consGridBagConstraints12);
 		this.add(getJbIspisiDopis(), consGridBagConstraints13);
 		this.add(getJLabel3(), consGridBagConstraints1);
-		this.setSize(790, 574);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 574*faktor);
 		this.setToolTipText("Ispravak obraèuna... ");
-		this.setPreferredSize(new java.awt.Dimension(790, 574));
+		this.setPreferredSize(new java.awt.Dimension(790*faktor, 574*faktor));
 	}
 
 	/**

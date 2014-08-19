@@ -39,6 +39,8 @@ import com.toedter.calendar.SlusacDateChoosera;
 public final class HzzoStatistikaArtikliPanel extends JPanel implements
 		SlusacDateChoosera, SlusacOznaceneLabelePretrazivanja {
 
+	 
+	private static final long serialVersionUID = 5778488582058501536L;
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JLabel jLabel1 = null;
 	private javax.swing.JLabel jLabel2 = null;
@@ -248,7 +250,8 @@ public final class HzzoStatistikaArtikliPanel extends JPanel implements
 		this.add(getJlUkupanIznos(), consGridBagConstraints18);
 		this.add(getJLabel8(), consGridBagConstraints14);
 		this.add(getJlTeretHzzo(), consGridBagConstraints3);
-		this.setSize(790, 580);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 580*faktor);
 		this.setToolTipText("Statistike o izlazu robe po više kriterija");
 	}
 

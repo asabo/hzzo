@@ -123,7 +123,8 @@ public class DAOObjektPanel extends JPanel implements SlusacModelaTablice {
 		this.add(getJbBrisi(), consGridBagConstraints3);
 		this.add(getJbNovi(), consGridBagConstraints4);
 		this.add(getJbSpremi(), consGridBagConstraints11);
-		this.setSize(800, 600);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(800*faktor, 600*faktor);
 		this.setPreferredSize(new java.awt.Dimension(800, 600));
 		this.setBorder(javax.swing.BorderFactory
 				.createBevelBorder(javax.swing.border.BevelBorder.RAISED));

@@ -180,7 +180,8 @@ public class KlijentiPanel extends JPanel implements SlusacModelaTablice,
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJpFilteri(), consGridBagConstraints2);
 		this.add(getJspPodaci(), consGridBagConstraints3);
-		this.setSize(800, 580);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(800*faktor, 580*faktor);
 		this.setPreferredSize(new java.awt.Dimension(800, 580));
 		this.setMinimumSize(new java.awt.Dimension(800, 580));
 		this.setLocation(0, 10);

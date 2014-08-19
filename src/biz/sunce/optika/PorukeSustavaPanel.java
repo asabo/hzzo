@@ -60,8 +60,9 @@ public class PorukeSustavaPanel extends JPanel implements SlusacModelaTablice
 		this.setLayout(new java.awt.GridBagLayout());
 		this.add(getJScrollPane(), consGridBagConstraints1);
 		this.add(getJbIzbrisiLog(), consGridBagConstraints11);
-		this.setSize(800, 600);
-		this.setMinimumSize(new Dimension(500, 200));
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(800*faktor, 600*faktor);
+		this.setMinimumSize(new Dimension(500*faktor, 200*faktor));
 		this.setToolTipText("poruke sustava...");
 	}
 	/**

@@ -890,11 +890,12 @@ public final class OsobineNaocalaPanel extends JPanel implements
 		this.add(getJLabel18(), consGridBagConstraints16);
 		this.add(getJtAddD(), consGridBagConstraints26);
 		this.add(getJtAddL(), consGridBagConstraints33);
-		this.setSize(690, 170);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(690*faktor, 170*faktor);
 		this.setBorder(new javax.swing.border.SoftBevelBorder(
 				BevelBorder.RAISED));
-		this.setPreferredSize(new java.awt.Dimension(690, 170));
-		this.setMinimumSize(new java.awt.Dimension(590, 170));
+		this.setPreferredSize(new java.awt.Dimension(690*faktor, 170*faktor));
+		this.setMinimumSize(new java.awt.Dimension(590*faktor, 170*faktor));
 		this.setToolTipText("FI stakala...");
 	}
 

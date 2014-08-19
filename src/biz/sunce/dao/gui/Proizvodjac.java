@@ -8,16 +8,17 @@ import javax.swing.JPanel;
 
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.ProizvodjacVO;
-import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.GlavniFrame;
 
 /**
  * datum:2006.06.07
  * @author asabo
  *
  */
-public class Proizvodjac extends JPanel implements GUIEditor
+public final class Proizvodjac extends JPanel implements GUIEditor<ProizvodjacVO>
 {
 
+	private static final long serialVersionUID = 6458146553716879749L;
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JTextField jtNaziv = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -62,9 +63,10 @@ public class Proizvodjac extends JPanel implements GUIEditor
 		this.add(getJtNaziv(), consGridBagConstraints2);
 		this.add(getJLabel1(), consGridBagConstraints3);
 		this.add(getJtHzzoSifra(), consGridBagConstraints4);
-		this.setSize(247, 80);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(247*faktor, 80*faktor);
 	}
-	public void napuniPodatke(ValueObject ulaz) {
+	public void napuniPodatke(ProizvodjacVO ulaz) {
 		if (ulaz!=null && ulaz instanceof ProizvodjacVO)
 		this.oznaceni=(ProizvodjacVO)ulaz;
 		else {this.pobrisiFormu(); return;} 
@@ -73,7 +75,7 @@ public class Proizvodjac extends JPanel implements GUIEditor
 		this.jtHzzoSifra.setText(this.oznaceni.getHzzoSifra()!=null?""+this.oznaceni.getHzzoSifra().intValue():"");
 		this.omoguci();
 	}
-	public ValueObject vratiPodatke() {
+	public ProizvodjacVO vratiPodatke() {
 		if (this.oznaceni==null) return null;
 		
 		this.oznaceni.setModified(this.jeliIzmjenjen());

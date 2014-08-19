@@ -79,6 +79,9 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	public static final byte[] SOFTWARE_VERSION = { 1, 0, 0, 4 };
 	public static final byte[] PROTOCOL_VERSION = { 1, 0, 0, 0 };
 	private static String DAO_DB_ADR = "dao_db_adr";
+	
+	//faktor povecanja ekrana, u slucaju potrebe
+	private static int faktor = 2;
 
 	static String workingHomeLocation = null;
 
@@ -103,6 +106,11 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private static LogiranjeVO logiranjeVO = null;
 
 	private javax.swing.JMenuItem jmNaruceniPregledi = null;
+	
+	public static int getFaktor()
+	{
+		return faktor;
+	}
 
 	public static final int getSifDjelatnika() {
 		if (sifDjelatnika == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA) {
@@ -192,7 +200,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private javax.swing.JMenuItem jmTrenutneObveze = null;
 	private javax.swing.JMenuItem jmAzuriranjePodataka = null;
 	private javax.swing.JMenuItem jmPorukeSustava = null;
-	private javax.swing.JMenu jmHzzo = null;
+	private javax.swing.JMenu 	  jmHzzo = null;
 	private javax.swing.JMenuItem jmiKreiranjeHzzoRacuna = null;
 	private javax.swing.JMenuItem jmPostojeciRacuni = null;
 	private javax.swing.JMenuItem jmKreiranjeDiskete = null;
@@ -222,24 +230,23 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		UIManager.put("Label.font", font == null ? stari : font);
 
 		 UIDefaults defaults = UIManager.getDefaults();
-	        System.out.println(defaults.size()+ " properties deffined !");
-	        String[ ] colName = {"Key", "Value"};
-	        String[ ][ ] rowData = new String[ defaults.size() ][ 2 ];
-	        int i = 0;
-	        for(Enumeration e = defaults.keys(); e.hasMoreElements(); i++){
+	        
+	        for(Enumeration e = defaults.keys(); e.hasMoreElements(); )
+	        {
 	            Object key = e.nextElement();
 	            
 	            String keyS = key.toString();
 	            
 	            if (keyS.indexOf("font")==-1)
-	            	continue;
+	            	continue;	            
+				
+	            java.awt.Font  val = (java.awt.Font)defaults.get(key);
 	            
-				rowData[ i ] [ 0 ] = keyS;
-	            rowData[ i ] [ 1 ] = ""+defaults.get(key);
-	            System.out.println(rowData[i][0]+" ,, "+rowData[i][1]);
+	            val = new java.awt.Font(val.getName(), val.getStyle(), val.getSize()*faktor);
+	            
+	            UIManager.put( keyS, val);
 	        }
-		
-		
+	 
 		String adr;
 		if ((adr = adresaHomeFoldera()) != null) {
 			File f = new File(adr);
@@ -320,6 +327,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 			}
 		};
 
+		//SwingUtilities.invokeLater(t);
 		t.start();
 
 		 AzuriracPomagala.azurirajPomagala(DAOFactory.getInstance().getPomagala());
@@ -398,7 +406,8 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(800, 600);
+		
+		this.setSize(800*faktor, 600*faktor);
 		this.setJMenuBar(getJmMenu());
 
 		this.setResizable(false);
@@ -417,16 +426,16 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		Thread t = new Thread() {
 			public void run() {
+				this.setPriority(Thread.MIN_PRIORITY);
 				PostavkeBean postavke = new PostavkeBean();
 				setTitle(postavke.getTvrtkaNaziv() + " "
 						+ postavke.getMjestoRada());
-
+				yield();
 				setContentPane(new DobroDosliPanel());
 				ImageIcon ikona = getImageIcon();
 				if (ikona != null)
 					setIconImage(ikona.getImage());
 			}
-
 		};
 
 		SwingUtilities.invokeLater(t);

@@ -151,7 +151,8 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 		this.setLayout(new java.awt.GridBagLayout());
 		this.add(getJpDatumskiDio(), consGridBagConstraints2);
 		this.add(getJtpPregled(), consGridBagConstraints3);
-		this.setSize(963, 604);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(963*faktor, 604*faktor);
 		this.addFocusListener(new java.awt.event.FocusAdapter() {
 			public void focusLost(java.awt.event.FocusEvent e)
                         {

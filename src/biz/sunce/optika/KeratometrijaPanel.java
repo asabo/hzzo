@@ -204,7 +204,8 @@ public class KeratometrijaPanel extends JPanel {
 		this.add(getJtBaza2L(), consGridBagConstraints16);
 		this.add(getJtAXL(), consGridBagConstraints17);
 		this.add(getJtVisusL(), consGridBagConstraints18);
-		this.setSize(319, 67);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(319*faktor, 67*faktor);
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(BevelBorder.RAISED), "Keratometrija", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
 	}
 	/**

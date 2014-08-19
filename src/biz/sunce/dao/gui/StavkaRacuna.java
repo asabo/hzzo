@@ -40,7 +40,7 @@ import biz.sunce.util.StringUtils;
  * @author asabo
  * 
  */
-public final class StavkaRacuna extends JPanel implements GUIEditor,
+public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacunaVO>,
 		SlusacOznaceneLabelePretrazivanja {
 
 	private static final String SIF_PROIZVODJACA = "SIF_PROIZVODJACA";
@@ -77,6 +77,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor,
 		initialize();
 		Thread t = new Thread() {
 			public void run() {
+				this.setPriority(Thread.MIN_PRIORITY);
 				this.setName("Validator stavki racuna");
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
@@ -175,11 +176,12 @@ public final class StavkaRacuna extends JPanel implements GUIEditor,
 				new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJtSifraProizvoda(), consGridBagConstraints12);
 		this.add(getJLabel5(), consGridBagConstraints22);
-		this.setSize(405, 82);
-		this.setMinimumSize(new Dimension(393, 82));
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(405*faktor, 82*faktor);
+		this.setMinimumSize(new Dimension(393*faktor, 82*faktor));
 		this.setBorder(javax.swing.BorderFactory
 				.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-		this.setPreferredSize(new java.awt.Dimension(520, 82));
+		this.setPreferredSize(new java.awt.Dimension(520*faktor, 82*faktor));
 	}
 
 	/**
@@ -369,8 +371,8 @@ public final class StavkaRacuna extends JPanel implements GUIEditor,
 		}
 	}// posaljiObavijestOSpremnostiPodataka
 
-	public void napuniPodatke(ValueObject ulaz) {
-		this.oznaceni = (StavkaRacunaVO) ulaz;
+	public void napuniPodatke(StavkaRacunaVO ulaz) {
+		this.oznaceni =  ulaz;
 		if (this.oznaceni == null) {
 			this.pobrisiFormu();
 			return;
@@ -434,7 +436,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor,
 		return this.oznaceniPomagalo;
 	}// nadjiPomagalo
 
-	public ValueObject vratiPodatke() {
+	public StavkaRacunaVO vratiPodatke() {
 		if (this.oznaceni == null) {
 			this.oznaceni = new StavkaRacunaVO();
 			// this.oznaceni.setSifra()

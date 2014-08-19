@@ -510,8 +510,9 @@ public class OsobineLecaPanel extends JPanel implements SlusacOznaceneLabelePret
 		this.add(getJtModelLeca(), consGridBagConstraints2);
 		this.add(getJLabel12(), consGridBagConstraints110);
 		this.add(getJtNapomena(), consGridBagConstraints26);
-		this.setSize(515, 115);
-		this.setMinimumSize(new java.awt.Dimension(515, 115));
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(515*faktor, 115*faktor);
+		this.setMinimumSize(new java.awt.Dimension(515*faktor, 115*faktor));
 
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(BevelBorder.RAISED), "leæe", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
 		this.setPreferredSize(new java.awt.Dimension(515,115));

@@ -17,22 +17,19 @@ import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.opticar.vo.TransakcijaVO;
 import biz.sunce.util.GUI;
-import biz.sunce.util.tablice.sort.JSortTable;
 
 /**
  * datum:2006.11.06
  * @author asabo
  *
  */
-public class TransakcijePanel extends JPanel implements SlusacModelaTablice
-
+public final class TransakcijePanel extends JPanel implements SlusacModelaTablice<TransakcijaVO>
 {
-
 	private javax.swing.JLabel jLabel = null;
 	private JXTable transakcije = null;
-	TableModel transModel=null;
+	TableModel<TransakcijaVO> transModel=null;
 	private javax.swing.JScrollPane jspTransakcije = null;
-  TransakcijeDAO tdao=null;
+	TransakcijeDAO tdao=null;
 	/**
 	 * This is the default constructor
 	 */
@@ -59,7 +56,8 @@ public class TransakcijePanel extends JPanel implements SlusacModelaTablice
 		this.setLayout(new java.awt.GridBagLayout());
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJspTransakcije(), consGridBagConstraints2);
-		this.setSize(790, 580);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 580*faktor);
 		this.setPreferredSize(new java.awt.Dimension(790,580));
 		this.setMinimumSize(new java.awt.Dimension(790,580));
 		this.setToolTipText("popis transakcija");
@@ -83,10 +81,12 @@ public class TransakcijePanel extends JPanel implements SlusacModelaTablice
 		new Thread("PunjacTranskacija"){
 			@Override
 			public void run()
-			{			
+			{
+			this.setPriority(Thread.MIN_PRIORITY);
 			//try{this.sleep(500);}catch(Exception e){}
 			transModel=new TableModel(tdao,transakcije);
 			transakcije.setModel(transModel);
+			yield();
 			transModel.dodajSlusaca(ja);
 			transModel.setFilter(null);
 			 

@@ -78,9 +78,10 @@ public class PoslanePorukePanel extends JPanel implements SlusacModelaTablice
 		this.setLayout(new java.awt.GridBagLayout());
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJScrollPane(), consGridBagConstraints2);
-		this.setSize(790, 580);
-		this.setPreferredSize(new java.awt.Dimension(790,580));
-		this.setMinimumSize(new java.awt.Dimension(790,580));
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 580*faktor);
+		this.setPreferredSize(new java.awt.Dimension(790*faktor,580*faktor));
+		this.setMinimumSize(new java.awt.Dimension(790*faktor,580*faktor));
 	}
 	/**
 	 * This method initializes jLabel

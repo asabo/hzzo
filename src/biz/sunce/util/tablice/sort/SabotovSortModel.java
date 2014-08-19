@@ -10,7 +10,7 @@ import biz.sunce.dao.DAO;
 import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.util.tablice.SlusacTablice;
 
-public abstract class SabotovSortModel extends DefaultSortTableModel {
+public abstract class SabotovSortModel<VO extends ValueObject> extends DefaultSortTableModel {
 
 	private static final long serialVersionUID = -8412418959046397554L;
 	public boolean sortiranje = false;
@@ -46,9 +46,9 @@ public abstract class SabotovSortModel extends DefaultSortTableModel {
 
 	public abstract void updateRows();
 
-	public abstract List getData(); // 01.05.05. - asabo -
+	public abstract List<VO> getData(); // 01.05.05. - asabo -
 
-	public abstract DAO getDAO(); // 01.05.05. - asabo -
+	public abstract DAO<VO> getDAO(); // 01.05.05. - asabo -
 
 	/**
 	 * svaki sortModel koji nasljedjuje SabotovSortModel morat ce imati ovu
@@ -70,13 +70,13 @@ public abstract class SabotovSortModel extends DefaultSortTableModel {
 	// po defaultu ova metoda ne radi nista pametno, ne sortira nista konkretno,
 	// trebao bi ju nadjacati
 	// sortModel koji osjeca da ima potrebu to napraviti
-	public int usporediDvaRetka(Object prviRedak, Object drugiRedak, int kolona) {
+	public int usporediDvaRetka(VO prviRedak, VO drugiRedak, int kolona) {
 		int rez = 0;
-		DAO d = this.getDAO();
+		DAO<VO> d = this.getDAO();
 		Object prvi, drugi;
 
-		prvi = d.getValueAt((ValueObject) prviRedak, kolona);
-		drugi = d.getValueAt((ValueObject) drugiRedak, kolona);
+		prvi = d.getValueAt( prviRedak, kolona);
+		drugi = d.getValueAt( drugiRedak, kolona);
 
 		if (prvi instanceof String && drugi instanceof String)
 			return this.croTextOrder.compare(prvi, drugi);
@@ -92,7 +92,7 @@ public abstract class SabotovSortModel extends DefaultSortTableModel {
 
 	@Override
 	public void sortColumn(int col, boolean ascending) {
-		List v;
+		List<VO> v;
 		sortiranje = true;
 		v = this.getData();
 

@@ -29,6 +29,7 @@ import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.KlijentDAO;
 import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.KlijentVO;
+import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.PregledVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
@@ -70,8 +71,8 @@ public final class DobroDosliPanel extends JPanel implements
 	JLabel jLabel2 = new JLabel();
 	JScrollPane jspIstekli = new JScrollPane();
 	JXTable jxIstekliArtikli = new JXTable();
-	TableModel trebaZakazatiModel = null;
-	TableModel istekliArtikliModel = null;
+	TableModel<KlijentVO> trebaZakazatiModel = null;
+	TableModel<ValueObject> istekliArtikliModel = null;
 	JLabel jLabel3 = new JLabel();
 	JScrollPane jScrollPane1 = new JScrollPane();
 	JSortTable jtNovosti = new JSortTable();
@@ -96,7 +97,7 @@ public final class DobroDosliPanel extends JPanel implements
 
 						DAOFactory inst = DAOFactory.getInstance();
 						KlijentDAO kdao = inst.getKlijenti();
-						trebaZakazatiModel = new TableModel(kdao, jtPregledi);
+						trebaZakazatiModel = new TableModel<KlijentVO>(kdao, jtPregledi);
 						jtPregledi.setModel(trebaZakazatiModel);
 						Calendar c = Calendar.getInstance();
 						trebaZakazatiModel.setFilter(c);
@@ -194,11 +195,12 @@ public final class DobroDosliPanel extends JPanel implements
 	private void jbInit() throws Exception {
 		this.setLayout(gridBagLayout1);
 		jLabel1.setText("Pregledi koje bi trebalo zakazati: ");
-		jspPregledi.setMinimumSize(new Dimension(500, 180));
-		jspPregledi.setPreferredSize(new Dimension(500, 180));
+		int faktor = GlavniFrame.getFaktor();
+		jspPregledi.setMinimumSize(new Dimension(500*faktor, 180*faktor));
+		jspPregledi.setPreferredSize(new Dimension(500*faktor, 180*faktor));
 		jLabel2.setText("Prodaje koje se mogu pokušati obnoviti:");
-		this.setMinimumSize(new Dimension(500, 200));
-		this.setPreferredSize(new java.awt.Dimension(790, 580));
+		this.setMinimumSize(new Dimension(500*faktor, 200*faktor));
+		this.setPreferredSize(new java.awt.Dimension(790*faktor, 580*faktor));
 		java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints1 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints(
@@ -213,12 +215,12 @@ public final class DobroDosliPanel extends JPanel implements
 		consGridBagConstraints1.gridx = 2;
 		consGridBagConstraints1.anchor = java.awt.GridBagConstraints.NORTH;
 		consGridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		jtPregledi.setPreferredSize(new Dimension(800, 400));
-		jspIstekli.setMinimumSize(new Dimension(500, 200));
-		jspIstekli.setPreferredSize(new Dimension(600, 120));
+		jtPregledi.setPreferredSize(new Dimension(800*faktor, 400*faktor));
+		jspIstekli.setMinimumSize(new Dimension(500*faktor, 200*faktor));
+		jspIstekli.setPreferredSize(new Dimension(600*faktor, 120*faktor));
 		jLabel3.setText("Novosti: ");
-		jScrollPane1.setMinimumSize(new Dimension(500, 120));
-		jScrollPane1.setPreferredSize(new Dimension(500, 150));
+		jScrollPane1.setMinimumSize(new Dimension(500*faktor, 120*faktor));
+		jScrollPane1.setPreferredSize(new Dimension(500*faktor, 150*faktor));
 		jLabel4.setText("Dobrodošli!");
 		jbSinkronizacija.setText("Ažuriraj podatke");
 		jbSinkronizacija
@@ -235,7 +237,7 @@ public final class DobroDosliPanel extends JPanel implements
 		jspIstekli.setToolTipText(istekliTT);
 		jspIstekli.getViewport().setToolTipText(istekliTT);
 
-		jxIstekliArtikli.setPreferredSize(new java.awt.Dimension(497, 56));
+		jxIstekliArtikli.setPreferredSize(new java.awt.Dimension(497*faktor, 56*faktor));
 		jxIstekliArtikli.setToolTipText(istekliTT);
 		jScrollPane1.getViewport().add(jtNovosti);
 		this.add(jLabel2, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0,

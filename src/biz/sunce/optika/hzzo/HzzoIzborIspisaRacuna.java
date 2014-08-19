@@ -51,7 +51,8 @@ public final class HzzoIzborIspisaRacuna extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(300*faktor, 200*faktor);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Izbor ispisa raèuna");
 		this.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);

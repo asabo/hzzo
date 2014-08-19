@@ -28,7 +28,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
- 
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreProtocolPNames;
@@ -45,7 +44,6 @@ import biz.sunce.opticar.vo.LijecnikVO;
 import biz.sunce.opticar.vo.MjestoVO;
 import biz.sunce.opticar.vo.ProizvodjacVO;
 import biz.sunce.opticar.vo.RacunVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.opticar.vo.VrstaPomagalaVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
@@ -80,7 +78,7 @@ import com.toedter.calendar.SlusacDateChoosera;
  * 
  */
 @SuppressWarnings("serial")
-public final class Racun extends JPanel implements GUIEditor,
+public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera {
 
 	private static final String Y2 = "y";
@@ -541,7 +539,8 @@ public final class Racun extends JPanel implements GUIEditor,
 				0.0, 0.0, GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
 
-		int sir = 705, duz = 395;
+		int faktor = GlavniFrame.getFaktor();
+		int sir = 705*faktor, duz = 395*faktor;
 		this.setSize(sir, duz);
 
 		//this.setPreferredSize(new java.awt.Dimension(842, 386));
@@ -764,7 +763,7 @@ public final class Racun extends JPanel implements GUIEditor,
 		return datumIsporuke;
 	}
 
-	public void napuniPodatke(ValueObject ulaz) {
+	public void napuniPodatke(RacunVO ulaz) {
 		this.omoguci();
 		this.getJtSifraProizvodjaca().setEnabled(false);
 
@@ -984,7 +983,7 @@ public final class Racun extends JPanel implements GUIEditor,
 		}
 	}// postaviOsnovnoOsiguranje
 
-	public ValueObject vratiPodatke() {
+	public RacunVO vratiPodatke() {
 		// osnovna filozofija, ako je forma prazna, oznaceni==null, kreiramo
 		// novi objekt i vracamo ga a onaj iznad gleda po sifri jeli novi ili
 		// nije

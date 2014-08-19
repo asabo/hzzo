@@ -23,7 +23,7 @@ import biz.sunce.util.beans.PostavkeBean;
  * @author asabo
  *
  */
-public class MailFrame extends JFrame {
+public final class MailFrame extends JFrame {
 	
 	KlijentVO klijent=null;
   PregledVO pregled=null;
@@ -66,7 +66,8 @@ public class MailFrame extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(300*faktor, 200*faktor);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Mail poruka klijentu");
 		this.setName("MailFrame");

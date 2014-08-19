@@ -8,16 +8,17 @@ import javax.swing.JPanel;
 
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.DjelatnikVO;
-import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.GlavniFrame;
 
 /**
  * datum:2005.12.05
  * @author asabo
  *
  */
-public class Djelatnik extends JPanel implements GUIEditor
+public class Djelatnik extends JPanel implements GUIEditor<DjelatnikVO>
 {
-
+	private static final long serialVersionUID = 5017398451483247714L;
+	
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JTextField jtIme = null;
 	private javax.swing.JLabel jLabel1 = null;
@@ -31,6 +32,8 @@ public class Djelatnik extends JPanel implements GUIEditor
 	
 	private javax.swing.JLabel jLabel4 = null;
 	private javax.swing.JTextField jtKorisnickoIme = null;
+	
+	int faktor = GlavniFrame.getFaktor();
 	/**
 	 * This is the default constructor
 	 */
@@ -99,10 +102,10 @@ public class Djelatnik extends JPanel implements GUIEditor
 		this.add(getJcAdministrator(), consGridBagConstraints10);
 		this.add(getJLabel4(), consGridBagConstraints11);
 		this.add(getJtKorisnickoIme(), consGridBagConstraints31);
-		this.setSize(294, 107);
+		this.setSize(294*faktor, 107*faktor);
 		this.setPreferredSize(new java.awt.Dimension(294,107));
 	}
-	public void napuniPodatke(ValueObject ulaz) 
+	public void napuniPodatke(DjelatnikVO ulaz) 
 	{
 	if (ulaz==null) {this.pobrisiFormu(); return;}
 	
@@ -115,7 +118,7 @@ public class Djelatnik extends JPanel implements GUIEditor
 	this.omoguci();
 	}//napuniPodatke
 	
-	public ValueObject vratiPodatke() 
+	public DjelatnikVO vratiPodatke() 
 	{
 		if (this.objekt==null) return null;
 		

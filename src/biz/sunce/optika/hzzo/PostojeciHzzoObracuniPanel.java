@@ -26,12 +26,12 @@ import biz.sunce.util.GUI;
  * 
  */
 public final class PostojeciHzzoObracuniPanel extends JPanel implements
-		SlusacModelaTablice {
+		SlusacModelaTablice<HzzoObracunVO> {
 	private static final long serialVersionUID = 1L;
 	private javax.swing.JPanel jpPretrazivanjeKriteriji = null;
 	private javax.swing.JScrollPane jspObracuni = null;
 	private JXTable obracuni = null;
-	private TableModel obracuniModel = null;
+	private TableModel<HzzoObracunVO> obracuniModel = null;
 
 	private javax.swing.JLabel jLabel = null; // @jve:visual-info decl-index=0
 												// visual-constraint="371,571"
@@ -72,7 +72,8 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 		this.add(getJpPretrazivanjeKriteriji(), consGridBagConstraints3);
 		this.add(getJspObracuni(), consGridBagConstraints4);
 		this.add(getJLabel(), consGridBagConstraints5);
-		this.setSize(790, 560);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 560*faktor);
 		this.setPreferredSize(new java.awt.Dimension(790, 560));
 
 		Thread t = new Thread() {
@@ -97,12 +98,13 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 	 */
 	private javax.swing.JPanel getJpPretrazivanjeKriteriji() {
 		if (jpPretrazivanjeKriteriji == null) {
+			int faktor = GlavniFrame.getFaktor();
 			jpPretrazivanjeKriteriji = new javax.swing.JPanel();
 			jpPretrazivanjeKriteriji.setLayout(new java.awt.GridBagLayout());
 			jpPretrazivanjeKriteriji.setPreferredSize(new java.awt.Dimension(
-					500, 200));
-			jpPretrazivanjeKriteriji.setMinimumSize(new java.awt.Dimension(500,
-					100));
+					500*faktor, 200*faktor));
+			jpPretrazivanjeKriteriji.setMinimumSize(new java.awt.Dimension(500*faktor,
+					100*faktor));
 
 		}
 		return jpPretrazivanjeKriteriji;
@@ -118,7 +120,7 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 			obracuni = new JXTable();
 			obracuni.setToolTipText("dvostrukim klikom otvarate podatke o obraèunu");
 
-			this.obracuniModel = new TableModel(DAOFactory.getInstance()
+			this.obracuniModel = new TableModel<HzzoObracunVO>(DAOFactory.getInstance()
 					.getHzzoObracuni(), this.obracuni);
 			this.obracuniModel.dodajSlusaca(this);
 			
@@ -157,7 +159,7 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 	}
 
 	public void redakOznacen(final int redak, MouseEvent event,
-			TableModel posiljatelj) {
+			TableModel<HzzoObracunVO> posiljatelj) {
 		if (event.getClickCount() == 2) {
 			Thread t = new Thread() {
 
@@ -181,6 +183,6 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 	}
 
 	public void redakIzmjenjen(int redak, TableModelEvent dogadjaj,
-			TableModel posiljatelj) {
+			TableModel<HzzoObracunVO> posiljatelj) {
 	}
 } // @jve:visual-info decl-index=0 visual-constraint="10,10"

@@ -11,7 +11,7 @@ import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.PoreznaStopaVO;
-import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 
 /**
@@ -99,7 +99,8 @@ public final class Pomagalo extends JPanel implements GUIEditor<PomagaloVO> {
 				new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJLabel3(), consGridBagConstraints11);
 		this.add(getJcOptickoPomagalo(), consGridBagConstraints21);
-		this.setSize(367, 94);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(367*faktor, 94*faktor);
 		this.setPreferredSize(new java.awt.Dimension(508, 96));
 	}
 

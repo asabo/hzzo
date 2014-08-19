@@ -2,14 +2,16 @@ package biz.sunce.util.tablice.sort;
 
 import java.util.*;
 
-public class ColumnComparator
-  implements Comparator
+import biz.sunce.opticar.vo.ValueObject;
+
+public class ColumnComparator<VO extends ValueObject>
+  implements Comparator<VO>
 {
   protected int index;
   protected boolean ascending;
 
   //private Collator croTextOrder;
-  private SabotovSortModel model=null;
+  private SabotovSortModel<VO> model=null;
   private final boolean modelPrisutan;
 
 
@@ -22,20 +24,17 @@ public class ColumnComparator
     this.modelPrisutan=false;
   }
 
-  public ColumnComparator(int index, boolean ascending, SabotovSortModel model)
+  public ColumnComparator(int index, boolean ascending, SabotovSortModel<VO> model)
   {
     this.index = index;
-    this.ascending = ascending;
-    //this.croTextOrder= Collator.getInstance(new java.util.Locale("hr", "hr"));
+    this.ascending = ascending; 
     this.model=model;
     if (this.model!=null) this.modelPrisutan=true; else this.modelPrisutan=false;
   }
 
-  public int compare(Object one, Object two)
+  public int compare(VO one, VO two)
   {
-   Object oOne=null;
-   Object oTwo=null;
-
+    
    if (this.modelPrisutan)
    {
     if (ascending)
@@ -43,37 +42,6 @@ public class ColumnComparator
      else
       return this.model.usporediDvaRetka(two,one,index);
    }
-   else
-   {
-
-    if (one instanceof Vector &&
-        two instanceof Vector)
-    {
-     Vector vOne = (Vector) one;
-     Vector vTwo = (Vector) two;
-     oOne= vOne.elementAt(index);
-     oTwo = vTwo.elementAt(index);
-    }
-    if (one instanceof UvaljivoUTablicu &&
-        two instanceof UvaljivoUTablicu)
-    {
-     UvaljivoUTablicu uOne, uTwo;
-     uOne=(UvaljivoUTablicu)one;
-     uTwo=(UvaljivoUTablicu)two;
-     if (ascending)
-         {
-           //return this.croTextOrder.compare(cOne,cTwo);
-           return uOne.compareAtColumn(uTwo,index);
-         }
-         else
-         {
-          // return this.croTextOrder.compare(cTwo,cOne);
-           return uTwo.compareAtColumn(uOne,index);
-         }
-    }//if
-
-   }//else 
-   
     return 1;
   }//compare
 

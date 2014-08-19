@@ -76,7 +76,7 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 	private javax.swing.JTextField jtPodrucniUred = null;
 	private javax.swing.JScrollPane jspPodaci = null;
 	private JXTable podaci = null;
-	private TableModel racuniModel = null;
+	private TableModel<RacunVO> racuniModel = null;
 	private SearchCriteria kriterij = null;
 	private static KlijentVO oznaceniKlijent = null;
 	private PretrazivanjeProzor pretrazivanjeKlijenti = null;
@@ -133,7 +133,7 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 
 		boolean rez = true;
 		int storniranih = 0;
-		List racunData = this.racuniModel.getData();
+		List<RacunVO> racunData = this.racuniModel.getData();
 
 		for (int i = 0; i < rlen; i++) {
 			
@@ -421,10 +421,11 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 		this.add(getJtArtikl(), consGridBagConstraints4);
 		this.add(getJLabel6(), consGridBagConstraints15);
 		this.add(getJtBrojOsobnogRacuna(), consGridBagConstraints21);
-		this.setSize(790, 560);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(790*faktor, 560*faktor);
 		this.setLocation(3, 22);
-		this.setPreferredSize(new java.awt.Dimension(790, 560));
-		this.setMinimumSize(new java.awt.Dimension(790, 560));
+		this.setPreferredSize(new java.awt.Dimension(790*faktor, 560*faktor));
+		this.setMinimumSize(new java.awt.Dimension(790*faktor, 560*faktor));
 	}
 
 	/**
@@ -650,7 +651,7 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 	private JXTable getPodaci() {
 		if (podaci == null) {
 			podaci = new JXTable();
-			this.racuniModel = new TableModel(DAOFactory.getInstance()
+			this.racuniModel = new TableModel<RacunVO>(DAOFactory.getInstance()
 					.getRacuni(), podaci);
 			// koristit ce se kasnije pri osvjezavanju tablice
 			kriterij = new SearchCriteria();

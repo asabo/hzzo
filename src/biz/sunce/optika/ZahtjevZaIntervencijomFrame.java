@@ -18,7 +18,7 @@ import biz.sunce.opticar.vo.TransakcijaVO;
  * @author asabo
  *
  */
-public class ZahtjevZaIntervencijomFrame extends JFrame {
+public final class ZahtjevZaIntervencijomFrame extends JFrame {
 
 	private javax.swing.JPanel jContentPane = null;
 
@@ -39,7 +39,8 @@ public class ZahtjevZaIntervencijomFrame extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(300*faktor, 200*faktor);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Zahtjev za intervencijom u sustav");
 	}

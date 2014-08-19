@@ -8,16 +8,19 @@ import javax.swing.JPanel;
 
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.PredlozakVO;
-import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.GlavniFrame;
 
 /**
  * datum:2006.01.08
  * @author asabo
  *
  */
-public class Predlozak extends JPanel implements GUIEditor
+public class Predlozak extends JPanel implements GUIEditor<PredlozakVO>
 {
-  PredlozakVO objekt=null;
+ 
+	private static final long serialVersionUID = 4021174022603291559L;
+
+	PredlozakVO objekt=null;
   
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JTextField jtNaziv = null;
@@ -60,9 +63,10 @@ public class Predlozak extends JPanel implements GUIEditor
 		this.add(getJtNaziv(), consGridBagConstraints2);
 		this.add(getJLabel1(), consGridBagConstraints3);
 		this.add(getJtaTekst(), consGridBagConstraints5);
-		this.setSize(315, 179);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(315*faktor, 179*faktor);
 	}
-	public void napuniPodatke(ValueObject ulaz) {
+	public void napuniPodatke(PredlozakVO ulaz) {
 	if (ulaz==null) {pobrisiFormu(); return;	}
  	
 	this.objekt=(PredlozakVO)ulaz;
@@ -74,7 +78,7 @@ public class Predlozak extends JPanel implements GUIEditor
 	this.jtNaziv.setText(this.objekt.getNaziv());
 	this.jtaTekst.setText(this.objekt.getTekst());
 	}
-	public ValueObject vratiPodatke() 
+	public PredlozakVO vratiPodatke() 
 	{
 		if (this.objekt==null) return null;
 		

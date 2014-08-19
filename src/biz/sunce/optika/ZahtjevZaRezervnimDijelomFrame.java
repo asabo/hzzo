@@ -27,7 +27,7 @@ import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;
  * @author asabo
  *
  */
-public class ZahtjevZaRezervnimDijelomFrame extends JFrame implements SlusacOznaceneLabelePretrazivanja 
+public final class ZahtjevZaRezervnimDijelomFrame extends JFrame implements SlusacOznaceneLabelePretrazivanja 
  {
 
 	private javax.swing.JPanel jContentPane = null;
@@ -64,7 +64,8 @@ public class ZahtjevZaRezervnimDijelomFrame extends JFrame implements SlusacOzna
 	 * @return void
 	 */
 	private void initialize() {
-		this.setSize(300, 200);
+		int faktor = GlavniFrame.getFaktor();
+		this.setSize(300*faktor, 200*faktor);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Zahtjev za rezervnim dijelovima");
 		this.addWindowListener(new java.awt.event.WindowAdapter() { 
