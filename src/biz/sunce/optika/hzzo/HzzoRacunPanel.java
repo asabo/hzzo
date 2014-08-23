@@ -190,7 +190,7 @@ public final class HzzoRacunPanel extends JPanel implements
 		this.add(getJpStavkaSaDodajGumbom(), new GridBagConstraints(3, 1, 1, 2, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 1, 0), 2, 2));
 		this.add(getJlUkupno(), consGridBagConstraints12);
 		int faktor = GlavniFrame.getFaktor();
-		this.setSize(790*faktor, 580*faktor);
+		//this.setSize(790*faktor, 580*faktor);
 		this.setToolTipText("forma za unos hzzo raèuna");
 		this.setPreferredSize(new Dimension(800, 596));
 		this.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);

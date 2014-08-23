@@ -107,7 +107,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JLabel jLabel5 = null;
 	private javax.swing.JTextField jtBrojPotvrde1 = null;
 	private javax.swing.JTextField jtBrojPotvrde2 = null;
-	private javax.swing.JLabel jLabel6 = null;
+	private javax.swing.JLabel jlBrojDopunskogOsig = null;
 	private javax.swing.JTextField jtBrojPoliceDopunsko = null;
 	private javax.swing.JLabel jLabel7 = null;
 	private javax.swing.JTextField jtIznosSudjelovanja = null;
@@ -126,7 +126,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			pretrazivanjePodruznica = null, pretrazivanjeDrzave = null,
 			pretrazivanjeLijecnici = null;
 	private JTextField jtSifraAktivnostiDop;
-	private JLabel jLabel19;
+	private JLabel jlSifraDopunskeAkt;
 	private JTextField jtBrojPotvrdeLijecnik;
 	private JLabel jlBrojPotvrde;
 	private JTextField jtSifraAktivnosti;
@@ -147,16 +147,16 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField jtBrojIskaznice1 = null;
 	private javax.swing.JTextField jtBrojIskaznice2 = null;
 	private javax.swing.JCheckBox jcIno = null;
-	private javax.swing.JLabel jLabel13 = null;
+	private javax.swing.JLabel jlBrojBolesnickogLista = null;
 	private javax.swing.JTextField jtBrojInoLista1 = null;
 	private javax.swing.JTextField jtBrojInoLista2 = null;
-	private javax.swing.JLabel jLabel14 = null;
+	private javax.swing.JLabel jlDrzavaKlijenta = null;
 	private javax.swing.JTextField jtDrzavaInoOsobe = null;
 	private javax.swing.JLabel jLabel15 = null;
 	private javax.swing.JTextField jtLijecnik = null;
-	private javax.swing.JLabel jLabel16 = null;
+	private javax.swing.JLabel jlBrojOsoRacZaOsnOsig = null;
 	private javax.swing.JTextField jtBrojOsobnogRacunaOsnovno = null;
-	private javax.swing.JLabel jLabel17 = null;
+	private javax.swing.JLabel jlBrojOsobRacZaDopOsig = null;
 	private javax.swing.JTextField jtBrojOsobnogRacunaDopunsko = null;
 	private javax.swing.JCheckBox jcStrankaUzelaSkupljiModel = null;
 	private javax.swing.JLabel jLabel18 = null;
@@ -230,8 +230,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		java.awt.GridBagConstraints consGridBagConstraints19 = new java.awt.GridBagConstraints();
 		consGridBagConstraints19.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints20 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints17 = new java.awt.GridBagConstraints();
-		consGridBagConstraints17.insets = new Insets(0, 0, 5, 5);
+		java.awt.GridBagConstraints gbc_jlBrojDopunskogOsig = new java.awt.GridBagConstraints();
+		gbc_jlBrojDopunskogOsig.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints41 = new java.awt.GridBagConstraints();
 		consGridBagConstraints41.insets = new Insets(0, 0, 5, 5);
@@ -244,24 +244,24 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		java.awt.GridBagConstraints consGridBagConstraints111 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints112 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints113 = new java.awt.GridBagConstraints();
+		java.awt.GridBagConstraints gbc_jlBrojBolesnickogLista = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints42 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
+		java.awt.GridBagConstraints gbc_jlDrzavaKlijenta = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints114 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints121 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints131 = new java.awt.GridBagConstraints();
 		consGridBagConstraints131.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints43 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints141 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints23 = new java.awt.GridBagConstraints();
-		consGridBagConstraints23.insets = new Insets(0, 0, 5, 5);
+		java.awt.GridBagConstraints gbc_jlBrojOsoRacZaOsnOsig = new java.awt.GridBagConstraints();
+		gbc_jlBrojOsoRacZaOsnOsig.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints31 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints52 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints116 = new java.awt.GridBagConstraints();
 		consGridBagConstraints116.insets = new Insets(0, 0, 0, 5);
 		java.awt.GridBagConstraints consGridBagConstraints24 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints44 = new java.awt.GridBagConstraints();
-		consGridBagConstraints44.insets = new Insets(0, 0, 1, 5);
+		java.awt.GridBagConstraints gbc_jlBrojOsobRacZaDopOsig = new java.awt.GridBagConstraints();
+		gbc_jlBrojOsobRacZaDopOsig.insets = new Insets(0, 0, 1, 5);
 		java.awt.GridBagConstraints consGridBagConstraints117 = new java.awt.GridBagConstraints();
 		consGridBagConstraints117.gridy = 12;
 		consGridBagConstraints117.gridx = 5;
@@ -283,12 +283,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints52.gridwidth = 2;
 		consGridBagConstraints52.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints52.insets = new Insets(0, 2, 1, 0);
-		consGridBagConstraints44.gridy = 10;
-		consGridBagConstraints44.gridx = 3;
-		consGridBagConstraints44.gridwidth = 2;
-		consGridBagConstraints44.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints23.gridy = 10;
-		consGridBagConstraints23.gridx = 0;
+		gbc_jlBrojOsobRacZaDopOsig.gridy = 10;
+		gbc_jlBrojOsobRacZaDopOsig.gridx = 3;
+		gbc_jlBrojOsobRacZaDopOsig.gridwidth = 2;
+		gbc_jlBrojOsobRacZaDopOsig.anchor = java.awt.GridBagConstraints.EAST;
+		gbc_jlBrojOsoRacZaOsnOsig.gridy = 10;
+		gbc_jlBrojOsoRacZaOsnOsig.gridx = 0;
 		consGridBagConstraints31.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints31.weightx = 1.0;
 		consGridBagConstraints31.gridy = 10;
@@ -321,11 +321,11 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints43.gridy = 5;
 		consGridBagConstraints43.gridx = 5;
 		consGridBagConstraints43.gridwidth = 2;
-		consGridBagConstraints3.gridy = 5;
-		consGridBagConstraints3.gridx = 4;
-		consGridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints113.gridy = 4;
-		consGridBagConstraints113.gridx = 4;
+		gbc_jlDrzavaKlijenta.gridy = 5;
+		gbc_jlDrzavaKlijenta.gridx = 4;
+		gbc_jlDrzavaKlijenta.anchor = java.awt.GridBagConstraints.EAST;
+		gbc_jlBrojBolesnickogLista.gridy = 4;
+		gbc_jlBrojBolesnickogLista.gridx = 4;
 		consGridBagConstraints42.gridy = 4;
 		consGridBagConstraints42.gridx = 3;
 		consGridBagConstraints112.gridy = 4;
@@ -372,9 +372,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints18.weightx = 1.0;
 		consGridBagConstraints18.gridy = 8;
 		consGridBagConstraints18.gridx = 1;
-		consGridBagConstraints17.gridy = 8;
-		consGridBagConstraints17.gridx = 0;
-		consGridBagConstraints17.anchor = java.awt.GridBagConstraints.EAST;
+		gbc_jlBrojDopunskogOsig.gridy = 8;
+		gbc_jlBrojDopunskogOsig.gridx = 0;
+		gbc_jlBrojDopunskogOsig.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints14.gridy = 7;
 		consGridBagConstraints14.gridx = 4;
 		consGridBagConstraints14.anchor = java.awt.GridBagConstraints.EAST;
@@ -437,19 +437,19 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints43.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints43.insets = new Insets(1, 2, 1, 0);
 		consGridBagConstraints43.ipady = -5;
-		consGridBagConstraints113.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints113.ipady = 0;
+		gbc_jlBrojBolesnickogLista.anchor = java.awt.GridBagConstraints.EAST;
+		gbc_jlBrojBolesnickogLista.ipady = 0;
 		consGridBagConstraints112.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints18.gridwidth = 2;
 		consGridBagConstraints42.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints42.insets = new java.awt.Insets(0, 0, 0, 0);
 		consGridBagConstraints2.gridwidth = 2;
 		consGridBagConstraints7.gridwidth = 2;
-		consGridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gbc_jlDrzavaKlijenta.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints141.insets = new Insets(0, 2, 0, 0);
 		consGridBagConstraints141.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints22.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints113.fill = java.awt.GridBagConstraints.HORIZONTAL;
+		gbc_jlBrojBolesnickogLista.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
@@ -490,7 +490,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		gbc_jpBrojPotvrdeHzzo.gridx = 5;
 		gbc_jpBrojPotvrdeHzzo.gridy = 7;
 		add(getJpBrojPotvrdeHzzo(), gbc_jpBrojPotvrdeHzzo);
-		this.add(getJLabel6(), consGridBagConstraints17);
+		this.add(getJlBrojDopunskogOsig(), gbc_jlBrojDopunskogOsig);
 		this.add(getJtBrojPoliceDopunsko(), consGridBagConstraints18);
 		this.add(getJLabel7(), consGridBagConstraints19);
 		this.add(getJtIznosSudjelovanja(), consGridBagConstraints20);
@@ -504,14 +504,14 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getJtAdresaPodruznice(), consGridBagConstraints22);
 		this.add(getJLabel12(), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJcIno(), new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(getJLabel13(), consGridBagConstraints113);
-		this.add(getJLabel14(), consGridBagConstraints3);
+		this.add(getJlBrojBolesnickogLista(), gbc_jlBrojBolesnickogLista);
+		this.add(getJlDrzavaKlijenta(), gbc_jlDrzavaKlijenta);
 		this.add(getJtDrzavaInoOsobe(), consGridBagConstraints43);
 		this.add(getJLabel15(), consGridBagConstraints131);
 		this.add(getJtLijecnik(), consGridBagConstraints141);
-		this.add(getJLabel16(), consGridBagConstraints23);
+		this.add(getJlBrojOsoRacZaOsnOsig(), gbc_jlBrojOsoRacZaOsnOsig);
 		this.add(getJtBrojOsobnogRacunaOsnovno(), consGridBagConstraints31);
-		this.add(getJLabel17(), consGridBagConstraints44);
+		this.add(getJlBrojOsobRacZaDopOsig(), gbc_jlBrojOsobRacZaDopOsig);
 		this.add(getJtBrojOsobnogRacunaDopunsko(), consGridBagConstraints52);
 		this.add(getJLabel18(), consGridBagConstraints116);
 		this.add(getJcVrstaPomagala(), consGridBagConstraints24);
@@ -530,14 +530,14 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getJtBrojPotvrdeLijecnik(), new GridBagConstraints(5, 11, 2,
 				1, 0.0, 0.0, GridBagConstraints.WEST,
 				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 0), 0, 0));
-		this.add(getJLabel19(), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
+		this.add(getJlSifraDopunskeAkt(), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
 				GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJtSifraAktivnostiDop(), new GridBagConstraints(5, 0, 2, 1,
 				0.0, 0.0, GridBagConstraints.WEST,
 				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
  
 		this.setPreferredSize(new Dimension(795, 414));
-		this.setMinimumSize(new Dimension(705, 408));
+		this.setMinimumSize(new Dimension(755, 408));
 		//this.setMaximumSize(new java.awt.Dimension(sir, duz));
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(
 				new javax.swing.border.SoftBevelBorder(
@@ -951,6 +951,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.jtBrojInoLista1.setEnabled(true);
 		this.jtBrojInoLista2.setEnabled(true);
 		this.jtDrzavaInoOsobe.setEnabled(true);
+		this.jlBrojBolesnickogLista.setEnabled(true);
+		this.jlDrzavaKlijenta.setEnabled(true);
 		this.jcIno.setSelected(true);
 	}
 
@@ -958,6 +960,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.jtBrojInoLista1.setEnabled(false);
 		this.jtBrojInoLista2.setEnabled(false);
 		this.jtDrzavaInoOsobe.setEnabled(false);
+		this.jlBrojBolesnickogLista.setEnabled(false);
+		this.jlDrzavaKlijenta.setEnabled(false);
 		this.jcIno.setSelected(false);
 	}
 
@@ -969,12 +973,18 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			this.jtBrojPoliceDopunsko.setEnabled(false);
 			this.jtBrojOsobnogRacunaDopunsko.setEnabled(false);
 			this.jtSifraAktivnostiDop.setEnabled(false);
+			this.jlBrojOsobRacZaDopOsig.setEnabled(false);
+			this.jlBrojDopunskogOsig.setEnabled(false);
+			this.jlSifraDopunskeAkt.setEnabled(false);
 		} else {
 			this.jtbOsnovno.setSelected(false);
 			this.jtbDopunsko.setSelected(true);
 			this.jtBrojPoliceDopunsko.setEnabled(true);
-			this.jtBrojOsobnogRacunaDopunsko.setEnabled(true);
+			this.jtBrojOsobnogRacunaDopunsko.setEnabled(true);			
 			this.jtSifraAktivnostiDop.setEnabled(true);
+			this.jlBrojOsobRacZaDopOsig.setEnabled(true);
+			this.jlBrojDopunskogOsig.setEnabled(true);
+			this.jlSifraDopunskeAkt.setEnabled(true);
 		}
 	}// postaviOsnovnoOsiguranje
 
@@ -1425,6 +1435,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JLabel getJLabel4() {
 		if (jLabel4 == null) {
 			jLabel4 = new javax.swing.JLabel();
+			jLabel4.setEnabled(false);
+			jLabel4.setToolTipText("ne koristi se vise!");
 			jLabel4.setText("Šifra proizvoðaèa: ");
 		}
 		return jLabel4;
@@ -1444,7 +1456,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtSifraProizvodjaca.setMinimumSize(new java.awt.Dimension(120, 20));
 
 			jtSifraProizvodjaca
-					.setToolTipText("neobavezan brojèani podatak, maks. 9 znakova");
+					.setToolTipText("ne koristi se vise!");
 
 			jtSifraProizvodjaca
 					.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1513,12 +1525,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJLabel6() {
-		if (jLabel6 == null) {
-			jLabel6 = new javax.swing.JLabel();
-			jLabel6.setText("Broj dopunskog osig.: ");
+	private javax.swing.JLabel getJlBrojDopunskogOsig() {
+		if (jlBrojDopunskogOsig == null) {
+			jlBrojDopunskogOsig = new javax.swing.JLabel();
+			jlBrojDopunskogOsig.setText("Broj dopunskog osig.: ");
 		}
-		return jLabel6;
+		return jlBrojDopunskogOsig;
 	}
 
 	/**
@@ -1944,17 +1956,17 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJLabel13() {
-		if (jLabel13 == null) {
-			jLabel13 = new javax.swing.JLabel();
-			jLabel13.setText("Br. bolesni\u010Dkog lista: ");
-			jLabel13.setPreferredSize(new Dimension(136, 20));
-			jLabel13.setMinimumSize(new Dimension(132, 20));
-			jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-			jLabel13.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
-			jLabel13.setVisible(true);
+	private javax.swing.JLabel getJlBrojBolesnickogLista() {
+		if (jlBrojBolesnickogLista == null) {
+			jlBrojBolesnickogLista = new javax.swing.JLabel();
+			jlBrojBolesnickogLista.setText("Br. bolesni\u010Dkog lista: ");
+			jlBrojBolesnickogLista.setPreferredSize(new Dimension(136, 20));
+			jlBrojBolesnickogLista.setMinimumSize(new Dimension(132, 20));
+			jlBrojBolesnickogLista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+			jlBrojBolesnickogLista.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
+			jlBrojBolesnickogLista.setVisible(true);
 		}
-		return jLabel13;
+		return jlBrojBolesnickogLista;
 	}
 
 	/**
@@ -1995,15 +2007,15 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJLabel14() {
-		if (jLabel14 == null) {
-			jLabel14 = new javax.swing.JLabel();
-			jLabel14.setText("Država klijenta: ");
-			jLabel14.setPreferredSize(new java.awt.Dimension(89, 20));
-			jLabel14.setMinimumSize(new java.awt.Dimension(89, 20));
-			jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+	private javax.swing.JLabel getJlDrzavaKlijenta() {
+		if (jlDrzavaKlijenta == null) {
+			jlDrzavaKlijenta = new javax.swing.JLabel();
+			jlDrzavaKlijenta.setText("Država klijenta: ");
+			jlDrzavaKlijenta.setPreferredSize(new java.awt.Dimension(89, 20));
+			jlDrzavaKlijenta.setMinimumSize(new java.awt.Dimension(89, 20));
+			jlDrzavaKlijenta.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 		}
-		return jLabel14;
+		return jlDrzavaKlijenta;
 	}
 
 	/**
@@ -2110,13 +2122,13 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJLabel16() {
-		if (jLabel16 == null) {
-			jLabel16 = new javax.swing.JLabel();
-			jLabel16.setText("Broj oso. raè. za osn. osig: ");
-			jLabel16.setToolTipText("Broj osobnog raèuna za osnovno osiguranje");
+	private javax.swing.JLabel getJlBrojOsoRacZaOsnOsig() {
+		if (jlBrojOsoRacZaOsnOsig == null) {
+			jlBrojOsoRacZaOsnOsig = new javax.swing.JLabel();
+			jlBrojOsoRacZaOsnOsig.setText("Broj oso. raè. za osn. osig: ");
+			jlBrojOsoRacZaOsnOsig.setToolTipText("Broj osobnog raèuna za osnovno osiguranje");
 		}
-		return jLabel16;
+		return jlBrojOsoRacZaOsnOsig;
 	}
 
 	/**
@@ -2161,12 +2173,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJLabel17() {
-		if (jLabel17 == null) {
-			jLabel17 = new javax.swing.JLabel();
-			jLabel17.setText("Broj osob. raè. za dop. osig:");
+	private javax.swing.JLabel getJlBrojOsobRacZaDopOsig() {
+		if (jlBrojOsobRacZaDopOsig == null) {
+			jlBrojOsobRacZaDopOsig = new javax.swing.JLabel();
+			jlBrojOsobRacZaDopOsig.setText("Broj osob. raè. za dop. osig:");
 		}
-		return jLabel17;
+		return jlBrojOsobRacZaDopOsig;
 	}
 
 	/**
@@ -2695,12 +2707,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		// SwingUtilities.invokeLater(t);
 	}// postaviPorukuZaFlidId
 
-	private JLabel getJLabel19() {
-		if (jLabel19 == null) {
-			jLabel19 = new JLabel();
-			jLabel19.setText("\u0160ifra dop. aktivnosti: ");
+	private JLabel getJlSifraDopunskeAkt() {
+		if (jlSifraDopunskeAkt == null) {
+			jlSifraDopunskeAkt = new JLabel();
+			jlSifraDopunskeAkt.setText("\u0160ifra dop. aktivnosti: ");
 		}
-		return jLabel19;
+		return jlSifraDopunskeAkt;
 	}
 
 	private JTextField getJtSifraAktivnostiDop() {

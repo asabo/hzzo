@@ -73,7 +73,7 @@ public final class PostojeciHzzoObracuniPanel extends JPanel implements
 		this.add(getJspObracuni(), consGridBagConstraints4);
 		this.add(getJLabel(), consGridBagConstraints5);
 		int faktor = GlavniFrame.getFaktor();
-		this.setSize(790*faktor, 560*faktor);
+		//this.setSize(790*faktor, 560*faktor);
 		this.setPreferredSize(new java.awt.Dimension(790, 560));
 
 		Thread t = new Thread() {
