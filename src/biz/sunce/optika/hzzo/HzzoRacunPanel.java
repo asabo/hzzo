@@ -38,6 +38,7 @@ import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.RacuniUtil;
 import biz.sunce.util.beans.PostavkeBean;
+import java.awt.Dimension;
  
  
 /**
@@ -162,7 +163,7 @@ public final class HzzoRacunPanel extends JPanel implements
 		consGridBagConstraints3.weightx = 1.0;
 		consGridBagConstraints3.gridy = 3;
 		consGridBagConstraints3.gridx = 0;
-		consGridBagConstraints1.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints1.weighty = 1.0;
 		consGridBagConstraints1.weightx = 1.0;
 		consGridBagConstraints1.gridy = 0;
@@ -191,7 +192,7 @@ public final class HzzoRacunPanel extends JPanel implements
 		int faktor = GlavniFrame.getFaktor();
 		this.setSize(790*faktor, 580*faktor);
 		this.setToolTipText("forma za unos hzzo raèuna");
-		this.setPreferredSize(new java.awt.Dimension(790*faktor, 560*faktor));
+		this.setPreferredSize(new Dimension(800, 596));
 		this.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);
 		this.setLocation(2, 18);
 		this.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -219,12 +220,14 @@ public final class HzzoRacunPanel extends JPanel implements
 	private javax.swing.JPanel getJpRacunPanel() {
 		if (jpRacunPanel == null) {
 			jpRacunPanel = new JPanel();
+			jpRacunPanel.setToolTipText("glava ra\u010Duna");
 			jpRacunPanel.setLayout(null);
 			if (true)
 				this.jpRacunPanel = (JPanel) (getRacuni() != null ? getRacuni()
 						.getGUIEditor() : null);
 
 			jpRacunPanel.setToolTipText("zaglavlje raèuna, opæi podaci... ");
+			
 			// jpRacunPanel.revalidate();
 		}
 		return jpRacunPanel;
@@ -490,8 +493,7 @@ public final class HzzoRacunPanel extends JPanel implements
 			jpStavkaSaDodajGumbom.add(getJpStavkaRacuna(), null);
 			jpStavkaSaDodajGumbom.add(getJbDodaj());
 			int faktor = GlavniFrame.getFaktor();
-			jpStavkaSaDodajGumbom.setPreferredSize(new java.awt.Dimension(515*faktor,
-					112*faktor));
+			jpStavkaSaDodajGumbom.setPreferredSize(new Dimension(524, 112));
 			jpStavkaSaDodajGumbom.setMinimumSize(new java.awt.Dimension(515*faktor,
 					112*faktor));
 		}

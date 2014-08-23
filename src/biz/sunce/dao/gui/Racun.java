@@ -57,6 +57,10 @@ import biz.sunce.util.beans.PostavkeBean;
 import com.toedter.calendar.DatumskoPolje;
 import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.SlusacDateChoosera;
+import javax.swing.SwingConstants;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 
 
 /**
@@ -161,6 +165,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 	// broj kartice zadnje povuceni preko neta
 	private String povuceniBroj = null;
+	private JPanel jpBrojBolesnickogL;
+	private JPanel jpBrojPotvrdeHzzo;
+	private JPanel jpBrojOsiguranjaKlijenta;
 
 	/**
 	 * This is the default constructor
@@ -208,24 +215,31 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		java.awt.GridBagConstraints consGridBagConstraints4 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints5 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints6 = new java.awt.GridBagConstraints();
+		consGridBagConstraints6.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints7 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints9 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints8 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
+		consGridBagConstraints12.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints10 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints14 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints15 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints16 = new java.awt.GridBagConstraints();
+		consGridBagConstraints14.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints13 = new java.awt.GridBagConstraints();
+		consGridBagConstraints13.gridwidth = 2;
 		java.awt.GridBagConstraints consGridBagConstraints18 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints19 = new java.awt.GridBagConstraints();
+		consGridBagConstraints19.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints20 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints17 = new java.awt.GridBagConstraints();
+		consGridBagConstraints17.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints41 = new java.awt.GridBagConstraints();
+		consGridBagConstraints41.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints51 = new java.awt.GridBagConstraints();
+		consGridBagConstraints51.anchor = GridBagConstraints.WEST;
 		java.awt.GridBagConstraints consGridBagConstraints2 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints110 = new java.awt.GridBagConstraints();
+		consGridBagConstraints110.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints21 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints111 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
@@ -233,64 +247,61 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		java.awt.GridBagConstraints consGridBagConstraints113 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints42 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints91 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints101 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints114 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints121 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints131 = new java.awt.GridBagConstraints();
+		consGridBagConstraints131.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints43 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints141 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints23 = new java.awt.GridBagConstraints();
+		consGridBagConstraints23.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints31 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints52 = new java.awt.GridBagConstraints();
-		java.awt.GridBagConstraints consGridBagConstraints115 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints116 = new java.awt.GridBagConstraints();
+		consGridBagConstraints116.insets = new Insets(0, 0, 0, 5);
 		java.awt.GridBagConstraints consGridBagConstraints24 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints44 = new java.awt.GridBagConstraints();
+		consGridBagConstraints44.insets = new Insets(0, 0, 1, 5);
 		java.awt.GridBagConstraints consGridBagConstraints117 = new java.awt.GridBagConstraints();
 		consGridBagConstraints117.gridy = 12;
 		consGridBagConstraints117.gridx = 5;
 		consGridBagConstraints117.gridwidth = 2;
-		consGridBagConstraints116.gridy = 12;
+		consGridBagConstraints116.gridy = 11;
 		consGridBagConstraints116.gridx = 0;
 		consGridBagConstraints116.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints24.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints24.weightx = 1.0;
-		consGridBagConstraints24.gridy = 12;
+		consGridBagConstraints24.gridy = 11;
 		consGridBagConstraints24.gridx = 1;
 		consGridBagConstraints24.gridwidth = 2;
 		consGridBagConstraints24.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints24.insets = new java.awt.Insets(0, 5, 0, 0);
-		consGridBagConstraints115.gridy = 1;
-		consGridBagConstraints115.gridx = 4;
-		consGridBagConstraints115.gridwidth = 3;
-		consGridBagConstraints115.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints52.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints24.insets = new Insets(0, 2, 1, 0);
+		consGridBagConstraints52.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints52.weightx = 1.0;
-		consGridBagConstraints52.gridy = 11;
+		consGridBagConstraints52.gridy = 10;
 		consGridBagConstraints52.gridx = 5;
 		consGridBagConstraints52.gridwidth = 2;
 		consGridBagConstraints52.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints52.insets = new java.awt.Insets(0, 5, 0, 0);
-		consGridBagConstraints44.gridy = 11;
+		consGridBagConstraints52.insets = new Insets(0, 2, 1, 0);
+		consGridBagConstraints44.gridy = 10;
 		consGridBagConstraints44.gridx = 3;
 		consGridBagConstraints44.gridwidth = 2;
 		consGridBagConstraints44.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints23.gridy = 11;
+		consGridBagConstraints23.gridy = 10;
 		consGridBagConstraints23.gridx = 0;
-		consGridBagConstraints31.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints31.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints31.weightx = 1.0;
-		consGridBagConstraints31.gridy = 11;
+		consGridBagConstraints31.gridy = 10;
 		consGridBagConstraints31.gridx = 1;
 		consGridBagConstraints31.gridwidth = 2;
-		consGridBagConstraints31.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints31.insets = new Insets(0, 5, 1, 0);
 		consGridBagConstraints31.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints141.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints141.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints141.weightx = 1.0;
-		consGridBagConstraints141.gridy = 6;
+		consGridBagConstraints141.gridy = 5;
 		consGridBagConstraints141.gridx = 1;
 		consGridBagConstraints141.gridwidth = 2;
-		consGridBagConstraints131.gridy = 6;
+		consGridBagConstraints131.gridy = 5;
 		consGridBagConstraints131.gridx = 0;
 		consGridBagConstraints131.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints114.insets = new java.awt.Insets(0, 5, 0, 0);
@@ -299,31 +310,18 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints114.gridy = 4;
 		consGridBagConstraints114.gridx = 1;
 		consGridBagConstraints114.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints91.insets = new java.awt.Insets(0, 5, 0, 0);
-		consGridBagConstraints91.fill = java.awt.GridBagConstraints.NONE;
-		consGridBagConstraints91.weightx = 1.0;
-		consGridBagConstraints91.gridy = 4;
-		consGridBagConstraints91.gridx = 5;
 		consGridBagConstraints121.insets = new java.awt.Insets(0, 0, 0, 0);
 		consGridBagConstraints121.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints121.weightx = 1.0;
 		consGridBagConstraints121.gridy = 4;
 		consGridBagConstraints121.gridx = 2;
-		consGridBagConstraints101.insets = new java.awt.Insets(0, 0, 0, 0);
-		consGridBagConstraints101.ipady = 0;
-		consGridBagConstraints101.ipadx = 0;
-		consGridBagConstraints101.fill = java.awt.GridBagConstraints.NONE;
-		consGridBagConstraints101.weightx = 1.0;
-		consGridBagConstraints101.gridy = 4;
-		consGridBagConstraints101.gridx = 6;
-		consGridBagConstraints101.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints121.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints43.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints43.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints43.weightx = 1.0;
-		consGridBagConstraints43.gridy = 6;
+		consGridBagConstraints43.gridy = 5;
 		consGridBagConstraints43.gridx = 5;
 		consGridBagConstraints43.gridwidth = 2;
-		consGridBagConstraints3.gridy = 6;
+		consGridBagConstraints3.gridy = 5;
 		consGridBagConstraints3.gridx = 4;
 		consGridBagConstraints3.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints113.gridy = 4;
@@ -341,12 +339,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints22.gridy = 2;
 		consGridBagConstraints22.gridx = 5;
 		consGridBagConstraints22.gridwidth = 2;
-		consGridBagConstraints110.gridy = 10;
+		consGridBagConstraints110.gridy = 9;
 		consGridBagConstraints110.gridx = 0;
 		consGridBagConstraints110.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints21.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints21.weightx = 1.0;
-		consGridBagConstraints21.gridy = 10;
+		consGridBagConstraints21.gridy = 9;
 		consGridBagConstraints21.gridx = 1;
 		consGridBagConstraints21.gridwidth = 6;
 		consGridBagConstraints41.gridy = 3;
@@ -354,74 +352,61 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints41.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints51.gridy = 3;
 		consGridBagConstraints51.gridx = 5;
-		consGridBagConstraints51.gridwidth = 3;
-		consGridBagConstraints51.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints51.gridwidth = 2;
+		consGridBagConstraints51.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints11.gridy = 2;
 		consGridBagConstraints11.gridx = 0;
 		consGridBagConstraints11.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints2.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints2.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints2.weightx = 1.0;
 		consGridBagConstraints2.gridy = 2;
 		consGridBagConstraints2.gridx = 1;
-		consGridBagConstraints19.gridy = 9;
+		consGridBagConstraints19.gridy = 8;
 		consGridBagConstraints19.gridx = 4;
 		consGridBagConstraints20.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints20.weightx = 1.0;
-		consGridBagConstraints20.gridy = 9;
+		consGridBagConstraints20.gridy = 8;
 		consGridBagConstraints20.gridx = 5;
 		consGridBagConstraints20.gridwidth = 3;
-		consGridBagConstraints18.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints18.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints18.weightx = 1.0;
-		consGridBagConstraints18.gridy = 9;
+		consGridBagConstraints18.gridy = 8;
 		consGridBagConstraints18.gridx = 1;
-		consGridBagConstraints17.gridy = 9;
+		consGridBagConstraints17.gridy = 8;
 		consGridBagConstraints17.gridx = 0;
 		consGridBagConstraints17.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints16.fill = java.awt.GridBagConstraints.NONE;
-		consGridBagConstraints16.weightx = 1.0;
-		consGridBagConstraints16.gridy = 8;
-		consGridBagConstraints16.gridx = 6;
-		consGridBagConstraints16.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints16.ipady = 0;
-		consGridBagConstraints16.ipadx = 5;
-		consGridBagConstraints14.gridy = 8;
+		consGridBagConstraints14.gridy = 7;
 		consGridBagConstraints14.gridx = 4;
 		consGridBagConstraints14.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints15.fill = java.awt.GridBagConstraints.NONE;
-		consGridBagConstraints15.weightx = 1.0;
-		consGridBagConstraints15.gridy = 8;
-		consGridBagConstraints15.gridx = 5;
-		consGridBagConstraints15.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints15.insets = new java.awt.Insets(0, 5, 0, 0);
-		consGridBagConstraints13.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints13.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints13.weightx = 1.0;
-		consGridBagConstraints13.gridy = 8;
+		consGridBagConstraints13.gridy = 7;
 		consGridBagConstraints13.gridx = 1;
-		consGridBagConstraints12.gridy = 8;
+		consGridBagConstraints12.gridy = 7;
 		consGridBagConstraints12.gridx = 0;
 		consGridBagConstraints10.gridy = 1;
 		consGridBagConstraints10.gridx = 1;
 		consGridBagConstraints10.fill = java.awt.GridBagConstraints.BOTH;
 		consGridBagConstraints10.gridwidth = 3;
-		consGridBagConstraints6.gridy = 7;
+		consGridBagConstraints6.gridy = 6;
 		consGridBagConstraints6.gridx = 0;
 		consGridBagConstraints7.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints7.weightx = 1.0;
-		consGridBagConstraints7.gridy = 7;
+		consGridBagConstraints7.gridy = 6;
 		consGridBagConstraints7.gridx = 1;
 		consGridBagConstraints9.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints9.weightx = 1.0;
-		consGridBagConstraints9.gridy = 7;
+		consGridBagConstraints9.gridy = 6;
 		consGridBagConstraints9.gridx = 5;
 		consGridBagConstraints9.gridwidth = 3;
-		consGridBagConstraints8.gridy = 7;
+		consGridBagConstraints8.gridy = 6;
 		consGridBagConstraints8.gridx = 4;
 		consGridBagConstraints8.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints5.fill = java.awt.GridBagConstraints.NONE;
+		consGridBagConstraints5.fill = GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints5.weightx = 1.0;
 		consGridBagConstraints5.gridy = 3;
 		consGridBagConstraints5.gridx = 1;
-		consGridBagConstraints5.gridwidth = 4;
+		consGridBagConstraints5.gridwidth = 2;
 		consGridBagConstraints5.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints4.gridy = 3;
 		consGridBagConstraints4.gridx = 0;
@@ -429,62 +414,82 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints1.gridy = 1;
 		consGridBagConstraints1.gridx = 0;
 		consGridBagConstraints1.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints5.insets = new java.awt.Insets(0, 5, 0, 0);
-		consGridBagConstraints8.insets = new java.awt.Insets(0, 5, 0, 0);
-		consGridBagConstraints18.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints8.insets = new Insets(0, 5, 5, 5);
+		consGridBagConstraints18.insets = new Insets(0, 2, 1, 0);
 		consGridBagConstraints7.ipadx = 0;
 		consGridBagConstraints7.ipady = 0;
-		consGridBagConstraints7.insets = new java.awt.Insets(0, 5, 0, 5);
+		consGridBagConstraints7.insets = new Insets(0, 2, 2, 0);
 
-		consGridBagConstraints13.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints13.insets = new Insets(0, 2, 1, 0);
 		consGridBagConstraints6.anchor = java.awt.GridBagConstraints.SOUTHEAST;
 		consGridBagConstraints18.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints13.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints51.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints51.insets = new java.awt.Insets(0, 0, 0, 0);
+		consGridBagConstraints51.insets = new Insets(0, 2, 0, 0);
 		consGridBagConstraints2.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints2.insets = new java.awt.Insets(0, 5, 0, 0);
 		consGridBagConstraints7.anchor = java.awt.GridBagConstraints.SOUTHWEST;
-		consGridBagConstraints21.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints21.insets = new Insets(0, 5, 1, 0);
 		consGridBagConstraints12.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints9.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints19.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints9.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints9.insets = new Insets(0, 2, 2, 0);
 		consGridBagConstraints20.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints20.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints20.insets = new Insets(0, 2, 1, 0);
 		consGridBagConstraints43.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints43.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints43.insets = new Insets(1, 2, 1, 0);
 		consGridBagConstraints43.ipady = -5;
 		consGridBagConstraints113.anchor = java.awt.GridBagConstraints.EAST;
-		consGridBagConstraints113.insets = new java.awt.Insets(0, 0, 0, 0);
 		consGridBagConstraints113.ipady = 0;
 		consGridBagConstraints112.fill = java.awt.GridBagConstraints.NONE;
 		consGridBagConstraints18.gridwidth = 2;
 		consGridBagConstraints42.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints42.insets = new java.awt.Insets(0, 0, 0, 0);
-		consGridBagConstraints13.gridwidth = 2;
 		consGridBagConstraints2.gridwidth = 2;
 		consGridBagConstraints7.gridwidth = 2;
 		consGridBagConstraints3.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		consGridBagConstraints141.insets = new java.awt.Insets(0, 5, 0, 0);
+		consGridBagConstraints141.insets = new Insets(0, 2, 0, 0);
 		consGridBagConstraints141.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints22.anchor = java.awt.GridBagConstraints.WEST;
-		consGridBagConstraints22.insets = new java.awt.Insets(0, 5, 0, 0);
 		consGridBagConstraints113.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		this.setLayout(new java.awt.GridBagLayout());
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0};
+		this.setLayout(gridBagLayout);
+		java.awt.GridBagConstraints consGridBagConstraints115 = new java.awt.GridBagConstraints();
+		consGridBagConstraints115.gridy = 0;
+		consGridBagConstraints115.gridx = 0;
+		consGridBagConstraints115.gridwidth = 3;
+		consGridBagConstraints115.anchor = GridBagConstraints.WEST;
+		this.add(getJcStrankaUzelaSkupljiModel(), consGridBagConstraints115);
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJLabel1(), consGridBagConstraints4);
 		this.add(getJtKlijent(), consGridBagConstraints5);
+		GridBagConstraints gbc_jpBrojOsiguranjaKlijenta = new GridBagConstraints();
+		gbc_jpBrojOsiguranjaKlijenta.gridwidth = 2;
+		gbc_jpBrojOsiguranjaKlijenta.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jpBrojOsiguranjaKlijenta.gridx = 1;
+		gbc_jpBrojOsiguranjaKlijenta.gridy = 4;
+		add(getJpBrojOsiguranjaKlijenta(), gbc_jpBrojOsiguranjaKlijenta);
+		GridBagConstraints gbc_jpBrojBolesnickogL = new GridBagConstraints();
+		gbc_jpBrojBolesnickogL.insets = new Insets(0, 2, 0, 0);
+		gbc_jpBrojBolesnickogL.anchor = GridBagConstraints.WEST;
+		gbc_jpBrojBolesnickogL.gridwidth = 2;
+		gbc_jpBrojBolesnickogL.gridx = 5;
+		gbc_jpBrojBolesnickogL.gridy = 4;
+		add(getJpBrojBolesnickogL(), gbc_jpBrojBolesnickogL);
 		this.add(getJLabel2(), consGridBagConstraints6);
 		this.add(getDatumNarudzbe(), consGridBagConstraints7);
 		this.add(getJLabel3(), consGridBagConstraints8);
 		this.add(getDatumIsporuke(), consGridBagConstraints9);
-		this.add(getJpnTipOsiguranja(), consGridBagConstraints10);
+		this.add(getJpnTipOsiguranja(), new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 2, 0, 0), 0, 0));
 		this.add(getJLabel4(), consGridBagConstraints12);
 		this.add(getJtSifraProizvodjaca(), consGridBagConstraints13);
 		this.add(getJLabel5(), consGridBagConstraints14);
-		this.add(getJtBrojPotvrde1(), consGridBagConstraints15);
-		this.add(getJtBrojPotvrde2(), consGridBagConstraints16);
+		GridBagConstraints gbc_jpBrojPotvrdeHzzo = new GridBagConstraints();
+		gbc_jpBrojPotvrdeHzzo.gridwidth = 2;
+		gbc_jpBrojPotvrdeHzzo.fill = GridBagConstraints.HORIZONTAL;
+		gbc_jpBrojPotvrdeHzzo.gridx = 5;
+		gbc_jpBrojPotvrdeHzzo.gridy = 7;
+		add(getJpBrojPotvrdeHzzo(), gbc_jpBrojPotvrdeHzzo);
 		this.add(getJLabel6(), consGridBagConstraints17);
 		this.add(getJtBrojPoliceDopunsko(), consGridBagConstraints18);
 		this.add(getJLabel7(), consGridBagConstraints19);
@@ -497,55 +502,43 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getJtNapomena(), consGridBagConstraints21);
 		this.add(getJLabel11(), consGridBagConstraints111);
 		this.add(getJtAdresaPodruznice(), consGridBagConstraints22);
-		this.add(getJLabel12(), consGridBagConstraints112);
+		this.add(getJLabel12(), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJcIno(), new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJLabel13(), consGridBagConstraints113);
 		this.add(getJLabel14(), consGridBagConstraints3);
 		this.add(getJtDrzavaInoOsobe(), consGridBagConstraints43);
-		this.add(getJtBrojInoLista1(), consGridBagConstraints91);
-		this.add(getJtBrojInoLista2(), consGridBagConstraints101);
-		this.add(getJtBrojIskaznice1(), new GridBagConstraints(1, 4, 1, 1, 1.0,
-				0.0, GridBagConstraints.EAST, GridBagConstraints.NONE,
-				new Insets(0, 5, 0, 6), 0, 0));
-		this.add(getJtBrojIskaznice2(), consGridBagConstraints121);
 		this.add(getJLabel15(), consGridBagConstraints131);
 		this.add(getJtLijecnik(), consGridBagConstraints141);
 		this.add(getJLabel16(), consGridBagConstraints23);
 		this.add(getJtBrojOsobnogRacunaOsnovno(), consGridBagConstraints31);
 		this.add(getJLabel17(), consGridBagConstraints44);
 		this.add(getJtBrojOsobnogRacunaDopunsko(), consGridBagConstraints52);
-		this.add(getJcStrankaUzelaSkupljiModel(), consGridBagConstraints115);
 		this.add(getJLabel18(), consGridBagConstraints116);
 		this.add(getJcVrstaPomagala(), consGridBagConstraints24);
-		this.add(getJcRobaIsporucena(), new GridBagConstraints(3, 12, 2, 1,
+		this.add(getJcRobaIsporucena(), new GridBagConstraints(3, 11, 2, 1,
 				0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE,
-				new Insets(0, 0, 0, 0), 0, 0));
+				new Insets(0, 0, 1, 0), 0, 0));
 		this.add(getJlSifraAktivnost(), new GridBagConstraints(4, 1, 1, 1, 0.0,
 				0.0, GridBagConstraints.EAST, GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJtSifraAktivnosti(), new GridBagConstraints(5, 1, 2, 1,
 				0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
-		this.add(getJlBrojPotvrde(), new GridBagConstraints(4, 12, 1, 1, 0.0,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(getJlBrojPotvrde(), new GridBagConstraints(4, 11, 1, 1, 0.0,
 				0.0, GridBagConstraints.EAST, GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 5), 0, 0));
-		this.add(getJtBrojPotvrdeLijecnik(), new GridBagConstraints(5, 12, 2,
+		this.add(getJtBrojPotvrdeLijecnik(), new GridBagConstraints(5, 11, 2,
 				1, 0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
+				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 0), 0, 0));
 		this.add(getJLabel19(), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0,
-						0, 0, 0), 0, 0));
+				GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJtSifraAktivnostiDop(), new GridBagConstraints(5, 0, 2, 1,
 				0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL, new Insets(0, 5, 0, 0), 0, 0));
-
-		int faktor = GlavniFrame.getFaktor();
-		int sir = 705*faktor, duz = 395*faktor;
-		this.setSize(sir, duz);
-
-		//this.setPreferredSize(new java.awt.Dimension(842, 386));
-		this.setMinimumSize(new java.awt.Dimension(sir, duz));
-		this.setMaximumSize(new java.awt.Dimension(sir, duz));
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+ 
+		this.setPreferredSize(new Dimension(795, 414));
+		this.setMinimumSize(new Dimension(705, 408));
+		//this.setMaximumSize(new java.awt.Dimension(sir, duz));
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(
 				new javax.swing.border.SoftBevelBorder(
 						javax.swing.border.SoftBevelBorder.RAISED),
@@ -554,6 +547,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
 		this.setToolTipText("podaci o raèunu");
 		this.setEnabled(false);
+		
 	}
 
 	/**
@@ -652,6 +646,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtKlijent() {
 		if (jtKlijent == null) {
 			jtKlijent = new javax.swing.JTextField();
+			jtKlijent.setHorizontalAlignment(SwingConstants.LEFT);
 			jtKlijent.setPreferredSize(new java.awt.Dimension(160, 20));
 			jtKlijent.setMinimumSize(new java.awt.Dimension(160, 20));
 			jtKlijent
@@ -1409,12 +1404,13 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jpnTipOsiguranja == null) {
 			jpnTipOsiguranja = new javax.swing.JPanel();
 			java.awt.FlowLayout layFlowLayout1 = new java.awt.FlowLayout();
+			layFlowLayout1.setAlignment(FlowLayout.LEFT);
 			layFlowLayout1.setHgap(2);
 			layFlowLayout1.setVgap(0);
 			jpnTipOsiguranja.setLayout(layFlowLayout1);
 			jpnTipOsiguranja.add(getJtbOsnovno(), null);
 			jpnTipOsiguranja.add(getJtbDopunsko(), null);
-			jpnTipOsiguranja.setPreferredSize(new java.awt.Dimension(170, 36));
+			jpnTipOsiguranja.setPreferredSize(new Dimension(155, 27));
 			jpnTipOsiguranja
 					.setToolTipText("osiguranje može biti osnovno ili dopunsko");
 		}
@@ -1442,6 +1438,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtSifraProizvodjaca() {
 		if (jtSifraProizvodjaca == null) {
 			jtSifraProizvodjaca = new javax.swing.JTextField();
+			jtSifraProizvodjaca.setHorizontalAlignment(SwingConstants.LEFT);
 			jtSifraProizvodjaca
 					.setPreferredSize(new java.awt.Dimension(120, 20));
 			jtSifraProizvodjaca.setMinimumSize(new java.awt.Dimension(120, 20));
@@ -1488,8 +1485,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojPotvrde1() {
 		if (jtBrojPotvrde1 == null) {
 			jtBrojPotvrde1 = new javax.swing.JTextField();
-			jtBrojPotvrde1.setPreferredSize(new java.awt.Dimension(35, 20));
-			jtBrojPotvrde1.setMinimumSize(new java.awt.Dimension(35, 20));
+			jtBrojPotvrde1.setPreferredSize(new Dimension(45, 22));
+			jtBrojPotvrde1.setMinimumSize(new Dimension(45, 22));
 			jtBrojPotvrde1
 					.setToolTipText("šifra podruènog ureda, automatski æe se postaviti");
 		}
@@ -1504,8 +1501,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojPotvrde2() {
 		if (jtBrojPotvrde2 == null) {
 			jtBrojPotvrde2 = new javax.swing.JTextField();
-			jtBrojPotvrde2.setPreferredSize(new java.awt.Dimension(65, 20));
-			jtBrojPotvrde2.setMinimumSize(new java.awt.Dimension(65, 20));
+			jtBrojPotvrde2.setPreferredSize(new Dimension(97, 22));
+			jtBrojPotvrde2.setMinimumSize(new Dimension(85, 22));
 			jtBrojPotvrde2.setToolTipText("broj potvrde HZZO-a");
 		}
 		return jtBrojPotvrde2;
@@ -1532,6 +1529,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojPoliceDopunsko() {
 		if (jtBrojPoliceDopunsko == null) {
 			jtBrojPoliceDopunsko = new javax.swing.JTextField();
+			jtBrojPoliceDopunsko.setHorizontalAlignment(SwingConstants.LEFT);
 			jtBrojPoliceDopunsko
 					.setToolTipText("broj kartice dopunskog osiguranja, 8 znakova, obavezan podatak ako radite raèun za dopunsko osiguranje");
 			jtBrojPoliceDopunsko.setPreferredSize(new java.awt.Dimension(120,
@@ -1664,8 +1662,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	public javax.swing.JTextField getJtPodruznica() {
 		if (jtPodruznica == null) {
 			jtPodruznica = new javax.swing.JTextField();
-			jtPodruznica.setPreferredSize(new java.awt.Dimension(160, 20));
-			jtPodruznica.setMinimumSize(new java.awt.Dimension(160, 20));
+			jtPodruznica.setToolTipText("naziv HZZO podru\u017Enice");
+			jtPodruznica.setHorizontalAlignment(SwingConstants.LEFT);
+			jtPodruznica.setPreferredSize(new java.awt.Dimension(160, 22));
+			jtPodruznica.setMinimumSize(new java.awt.Dimension(160, 22));
 			jtPodruznica.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusGained(java.awt.event.FocusEvent e) {
 					jtPodruznica.selectAll();
@@ -1712,13 +1712,14 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jpPozivNaBroj == null) {
 			jpPozivNaBroj = new javax.swing.JPanel();
 			java.awt.FlowLayout layFlowLayout4 = new java.awt.FlowLayout();
-			layFlowLayout4.setHgap(2);
+			layFlowLayout4.setAlignment(FlowLayout.LEFT);
+			layFlowLayout4.setHgap(0);
 			layFlowLayout4.setVgap(0);
 			jpPozivNaBroj.setLayout(layFlowLayout4);
 			jpPozivNaBroj.add(getJtPozivNaBroj1(), null);
 			jpPozivNaBroj.add(getJtPozivNaBroj2(), null);
-			jpPozivNaBroj.setPreferredSize(new java.awt.Dimension(130, 25));
-			jpPozivNaBroj.setMinimumSize(new java.awt.Dimension(130, 25));
+			jpPozivNaBroj.setPreferredSize(new Dimension(200, 25));
+			jpPozivNaBroj.setMinimumSize(new Dimension(166, 25));
 			jpPozivNaBroj
 					.setToolTipText("poziv na broj, sam æe se postaviti ako ste tako htjeli");
 		}
@@ -1733,8 +1734,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtPozivNaBroj1() {
 		if (jtPozivNaBroj1 == null) {
 			jtPozivNaBroj1 = new javax.swing.JTextField();
-			jtPozivNaBroj1.setPreferredSize(new java.awt.Dimension(25, 20));
-			jtPozivNaBroj1.setMinimumSize(new java.awt.Dimension(25, 20));
+			jtPozivNaBroj1.setPreferredSize(new Dimension(30, 22));
+			jtPozivNaBroj1.setMinimumSize(new java.awt.Dimension(25, 22));
 			jtPozivNaBroj1.setToolTipText("prvi dio poziva na broj");
 			jtPozivNaBroj1
 					.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1750,7 +1751,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtPozivNaBroj2() {
 		if (jtPozivNaBroj2 == null) {
 			jtPozivNaBroj2 = new javax.swing.JTextField();
-			jtPozivNaBroj2.setPreferredSize(new java.awt.Dimension(92, 20));
+			jtPozivNaBroj2.setPreferredSize(new Dimension(150, 22));
 			jtPozivNaBroj2.setToolTipText("drugi dio poziva na broj");
 			jtPozivNaBroj2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
 			jtPozivNaBroj2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1807,7 +1808,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JLabel getJLabel11() {
 		if (jLabel11 == null) {
 			jLabel11 = new javax.swing.JLabel();
-			jLabel11.setText("Adresa podr.: ");
+			jLabel11.setText("Adresa podru\u017Enice: ");
 		}
 		return jLabel11;
 	}
@@ -1820,6 +1821,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtAdresaPodruznice() {
 		if (jtAdresaPodruznice == null) {
 			jtAdresaPodruznice = new javax.swing.JTextField();
+			jtAdresaPodruznice.setHorizontalAlignment(SwingConstants.LEFT);
 			jtAdresaPodruznice
 					.setToolTipText("adresa HZZO podružnice za koju radite raèun");
 			jtAdresaPodruznice
@@ -1870,8 +1872,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojIskaznice1() {
 		if (jtBrojIskaznice1 == null) {
 			jtBrojIskaznice1 = new javax.swing.JTextField();
-			jtBrojIskaznice1.setPreferredSize(new java.awt.Dimension(35, 20));
-			jtBrojIskaznice1.setMinimumSize(new java.awt.Dimension(35, 20));
+			jtBrojIskaznice1.setPreferredSize(new Dimension(40, 24));
+			jtBrojIskaznice1.setMinimumSize(new Dimension(40, 24));
 			jtBrojIskaznice1.setToolTipText("prvi dio, 3 broja");
 		}
 		return jtBrojIskaznice1;
@@ -1885,8 +1887,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojIskaznice2() {
 		if (jtBrojIskaznice2 == null) {
 			jtBrojIskaznice2 = new javax.swing.JTextField();
-			jtBrojIskaznice2.setPreferredSize(new java.awt.Dimension(90, 20));
-			jtBrojIskaznice2.setMinimumSize(new java.awt.Dimension(90, 20));
+			jtBrojIskaznice2.setPreferredSize(new Dimension(111, 24));
+			jtBrojIskaznice2.setMinimumSize(new Dimension(90, 24));
 			jtBrojIskaznice2.setToolTipText("drugi dio, 8 brojeva");
 			jtBrojIskaznice2.setNextFocusableComponent(getJtLijecnik());
 			jtBrojIskaznice2.addFocusListener(new FocusAdapter() {
@@ -1915,8 +1917,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jcIno.setText("INO");
 			jcIno.setToolTipText("ako je osoba stranac ukljuèite ovu opciju");
 			jcIno.setMnemonic(java.awt.event.KeyEvent.VK_I);
-			jcIno.setPreferredSize(new java.awt.Dimension(54, 20));
-			jcIno.setMinimumSize(new java.awt.Dimension(54, 20));
+			jcIno.setPreferredSize(new java.awt.Dimension(54, 24));
+			jcIno.setMinimumSize(new Dimension(54, 24));
 			jcIno.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 			jcIno.setFont(arial);
 			jcIno.addActionListener(new java.awt.event.ActionListener() {
@@ -1945,9 +1947,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JLabel getJLabel13() {
 		if (jLabel13 == null) {
 			jLabel13 = new javax.swing.JLabel();
-			jLabel13.setText("Broj bolesnièkog lista: ");
-			jLabel13.setPreferredSize(new java.awt.Dimension(128, 20));
-			jLabel13.setMinimumSize(new java.awt.Dimension(128, 20));
+			jLabel13.setText("Br. bolesni\u010Dkog lista: ");
+			jLabel13.setPreferredSize(new Dimension(136, 20));
+			jLabel13.setMinimumSize(new Dimension(132, 20));
 			jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
 			jLabel13.setVerticalTextPosition(javax.swing.SwingConstants.CENTER);
 			jLabel13.setVisible(true);
@@ -1963,9 +1965,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojInoLista1() {
 		if (jtBrojInoLista1 == null) {
 			jtBrojInoLista1 = new javax.swing.JTextField();
-			jtBrojInoLista1.setPreferredSize(new java.awt.Dimension(35, 20));
-			jtBrojInoLista1.setMinimumSize(new java.awt.Dimension(35, 20));
-			jtBrojInoLista1.setMaximumSize(new java.awt.Dimension(35, 20));
+			jtBrojInoLista1.setPreferredSize(new Dimension(40, 24));
+			jtBrojInoLista1.setMinimumSize(new Dimension(40, 24));
+			jtBrojInoLista1.setMaximumSize(new Dimension(40, 24));
 			jtBrojInoLista1
 					.setToolTipText("prvi dio broja bolesnièkog lista stranca - 3 znamenke - obavezan podatak ");
 		}
@@ -1980,8 +1982,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojInoLista2() {
 		if (jtBrojInoLista2 == null) {
 			jtBrojInoLista2 = new javax.swing.JTextField();
-			jtBrojInoLista2.setPreferredSize(new java.awt.Dimension(90, 20));
-			jtBrojInoLista2.setMinimumSize(new java.awt.Dimension(90, 20));
+			jtBrojInoLista2.setPreferredSize(new Dimension(120, 24));
+			jtBrojInoLista2.setMinimumSize(new Dimension(90, 24));
 			jtBrojInoLista2
 					.setToolTipText("drugi dio bolesnièkog lista stranca - 8 znamenki - obavezan podatak ");
 		}
@@ -2012,7 +2014,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtDrzavaInoOsobe() {
 		if (jtDrzavaInoOsobe == null) {
 			jtDrzavaInoOsobe = new javax.swing.JTextField();
-			jtDrzavaInoOsobe.setPreferredSize(new java.awt.Dimension(120, 25));
+			jtDrzavaInoOsobe.setPreferredSize(new Dimension(147, 25));
 			jtDrzavaInoOsobe.setMinimumSize(new java.awt.Dimension(120, 25));
 
 			jtDrzavaInoOsobe
@@ -2126,9 +2128,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jtBrojOsobnogRacunaOsnovno == null) {
 			jtBrojOsobnogRacunaOsnovno = new javax.swing.JTextField();
 			jtBrojOsobnogRacunaOsnovno.setPreferredSize(new java.awt.Dimension(
-					120, 20));
+					120, 22));
 			jtBrojOsobnogRacunaOsnovno.setMinimumSize(new java.awt.Dimension(
-					120, 20));
+					120, 22));
 			jtBrojOsobnogRacunaOsnovno
 					.setToolTipText("broj osobnog raèuna za osnovno osiguranje, obavezan podatak, ako ne stavite ništa, upisat æe se broj raèuna");
 			jtBrojOsobnogRacunaOsnovno
@@ -2176,9 +2178,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jtBrojOsobnogRacunaDopunsko == null) {
 			jtBrojOsobnogRacunaDopunsko = new javax.swing.JTextField();
 			jtBrojOsobnogRacunaDopunsko
-					.setPreferredSize(new java.awt.Dimension(120, 20));
+					.setPreferredSize(new Dimension(161, 22));
 			jtBrojOsobnogRacunaDopunsko.setMinimumSize(new java.awt.Dimension(
-					120, 20));
+					120, 22));
 			jtBrojOsobnogRacunaDopunsko
 					.setToolTipText("broj osobnog raèuna za dopunsko osiguranje, nije obavezan podatak");
 			jtBrojOsobnogRacunaDopunsko
@@ -2312,8 +2314,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private JTextField getJtSifraAktivnosti() {
 		if (jtSifraAktivnosti == null) {
 			jtSifraAktivnosti = new JTextField();
-			jtSifraAktivnosti.setPreferredSize(new java.awt.Dimension(206, 21));
+			jtSifraAktivnosti.setPreferredSize(new Dimension(100, 21));
 			jtSifraAktivnosti.setText("A6900059");
+			jtSifraAktivnosti.setMinimumSize(new Dimension(100, 21));
 			jtSifraAktivnosti
 					.setToolTipText("\u0161ifra aktivnosti za hzzo/hzzo zzr");
 		}
@@ -2703,7 +2706,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private JTextField getJtSifraAktivnostiDop() {
 		if (jtSifraAktivnostiDop == null) {
 			jtSifraAktivnostiDop = new JTextField();
+			jtSifraAktivnostiDop.setHorizontalAlignment(SwingConstants.LEFT);
 			jtSifraAktivnostiDop.setText("A6900737");
+			jtSifraAktivnostiDop.setMinimumSize(new Dimension(100, 21));
+			jtSifraAktivnostiDop.setPreferredSize(new Dimension(100, 21));
 			jtSifraAktivnostiDop
 					.setToolTipText("Ako je raèun za dopunsko osiguranje, tu navodite šifru aktivnosti za dop. osiguranje");
 		}
@@ -2718,5 +2724,44 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			if (c.before(this.datumIsporuke.getDatum()))
 				this.jcRobaIsporucena.setSelected(false);
 		}
+	}
+	private JPanel getJpBrojBolesnickogL() {
+		if (jpBrojBolesnickogL == null) {
+			jpBrojBolesnickogL = new JPanel();
+			 
+			jpBrojBolesnickogL.setToolTipText("broj bolesni\u010Dkog lista");
+			jpBrojBolesnickogL.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
+			jpBrojBolesnickogL.add(getJtBrojInoLista1());
+			jpBrojBolesnickogL.add(getJtBrojInoLista2());
+			jpBrojBolesnickogL.setMinimumSize(new Dimension(172, 25));
+			jpBrojBolesnickogL.setPreferredSize(new Dimension(200, 25));
+		}
+		return jpBrojBolesnickogL;
+	}
+	private JPanel getJpBrojPotvrdeHzzo() {
+		if (jpBrojPotvrdeHzzo == null) {
+			jpBrojPotvrdeHzzo = new JPanel();
+			jpBrojPotvrdeHzzo.setToolTipText("broj potvrde HZZO-a");
+			FlowLayout flowLayout = (FlowLayout) jpBrojPotvrdeHzzo.getLayout();
+			flowLayout.setVgap(0);
+			flowLayout.setHgap(2);
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			jpBrojPotvrdeHzzo.add(getJtBrojPotvrde1());
+			jpBrojPotvrdeHzzo.add(getJtBrojPotvrde2());
+		}
+		return jpBrojPotvrdeHzzo;
+	}
+	private JPanel getJpBrojOsiguranjaKlijenta() {
+		if (jpBrojOsiguranjaKlijenta == null) {
+			jpBrojOsiguranjaKlijenta = new JPanel();
+			jpBrojOsiguranjaKlijenta.setToolTipText("broj osiguranja klijenta");
+			FlowLayout flowLayout = (FlowLayout) jpBrojOsiguranjaKlijenta.getLayout();
+			flowLayout.setAlignment(FlowLayout.LEFT);
+			flowLayout.setVgap(0);
+			flowLayout.setHgap(2);
+			jpBrojOsiguranjaKlijenta.add(getJtBrojIskaznice1());
+			jpBrojOsiguranjaKlijenta.add(getJtBrojIskaznice2());
+		}
+		return jpBrojOsiguranjaKlijenta;
 	}
 } // @jve:visual-info decl-index=0 visual-constraint="10,10"

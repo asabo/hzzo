@@ -72,8 +72,8 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private static final String WORKING_ROOT = ".opticar";
 	public static final String ODABRANI_PRINTER = "odabrani_printer";
 
-	private static SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(
-			"yyyy-MM-dd");
+	private static SimpleDateFormat DATE_FORMATTER 
+	= new SimpleDateFormat(	"yyyy-MM-dd" );
 
 	private static final long serialVersionUID = 2048481288977710850L;
 	public static final byte[] SOFTWARE_VERSION = { 1, 0, 0, 4 };
@@ -81,7 +81,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private static String DAO_DB_ADR = "dao_db_adr";
 	
 	//faktor povecanja ekrana, u slucaju potrebe
-	private static int faktor = 2;
+	private static int faktor = 1;
 
 	static String workingHomeLocation = null;
 
@@ -219,10 +219,13 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private javax.swing.JMenuItem jmPovratIzDatoteke = null;
 	static String[] parametri;
 
+ 
+	
+	
 	public static void main(String[] args) {
 		boolean problemi = false;
 		java.sql.Connection con = null;
-
+	 		
 		parametri = args;
 
 		Font font = new Font("Arial", Font.PLAIN, 12);
@@ -324,6 +327,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 				setPriority(Thread.MIN_PRIORITY);
 				yield();
 				getSifDjelatnika();
+				instanca.setResizable(true);
 			}
 		};
 
@@ -432,6 +436,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 						+ postavke.getMjestoRada());
 				yield();
 				setContentPane(new DobroDosliPanel());
+				yield();
 				ImageIcon ikona = getImageIcon();
 				if (ikona != null)
 					setIconImage(ikona.getImage());
@@ -1007,7 +1012,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	// se ispisivati
 	// procedura kreiranja slike kasnije ce se napraviti na ovaj ili onaj nacin
 	public static final BufferedImage getZaglavljeDokumenata() {
-		int sw = 550, sh = 55;
+		 
 		BufferedImage slika = null;
 
 		slika = HtmlPrintParser.ucitajSliku(getLokacijaLogoSlike());
