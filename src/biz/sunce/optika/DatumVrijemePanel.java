@@ -15,8 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.TitledBorder;
+
+import biz.sunce.toedter.calendar.JCalendar;
 import biz.sunce.util.Util;
-import com.toedter.calendar.JCalendar;
 
 /**
  * datum:2005.05.30

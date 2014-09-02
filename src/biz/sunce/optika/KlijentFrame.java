@@ -41,6 +41,7 @@ import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.opticar.vo.TipTransakcijeVO;
 import biz.sunce.opticar.vo.TransakcijaVO;
+import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.GUI;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.Labela;
@@ -51,7 +52,6 @@ import biz.sunce.util.beans.PostavkeBean;
 import biz.sunce.util.gui.DaNeUpit;
 import biz.sunce.util.gui.SlikaPanel;
 
-import com.toedter.calendar.JDateChooser;
 
 /**
  * @author Administrator

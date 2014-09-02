@@ -26,13 +26,13 @@ import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.optika.tablice.KalendarObvezaCellRenderer;
 import biz.sunce.optika.tablice.KalendarObvezaModel;
+import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.PretrazivanjeProzor;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
 import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.SlusacDateChoosera;
 
 /**

@@ -44,6 +44,7 @@ import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.optika.hzzo.ispis.IspisRacunaDopunskoOsiguranje;
 import biz.sunce.optika.hzzo.ispis.IspisRacunaOsnovnoOsiguranje;
+import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.Labela;
 import biz.sunce.util.PretrazivanjeProzor;
 import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;
@@ -51,7 +52,6 @@ import biz.sunce.util.beans.PostavkeBean;
 import biz.sunce.util.gui.DaNeUpit;
 
 import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.SlusacDateChoosera;
 
 /**

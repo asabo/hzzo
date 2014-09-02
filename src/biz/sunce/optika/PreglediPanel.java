@@ -7,7 +7,9 @@ package biz.sunce.optika;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -15,9 +17,13 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.TableModelEvent;
+
+import org.jdesktop.swingx.JXTable;
 
 import biz.sunce.dao.DAO;
 import biz.sunce.dao.DAOFactory;
@@ -33,23 +39,18 @@ import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
-import biz.sunce.util.tablice.sort.JSortTable;
-import biz.sunce.util.tablice.sort.SortTableModel;
-import javax.swing.JMenuItem;
-import javax.swing.event.PopupMenuEvent;
-
-import org.jdesktop.swingx.JXTable;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseListener;
 import biz.sunce.util.gui.DaNeUpit;
+import biz.sunce.util.tablice.sort.SortTableModel;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 /**
  * datum:2005.05.17
  * @author asabo
  *
  */
-public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.swing.event.PopupMenuListener, java.awt.event.ActionListener, MouseListener
+public final class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.swing.event.PopupMenuListener, java.awt.event.ActionListener, MouseListener
 {
 	private int KONTROLA_ZA_MJESECI;
 
@@ -113,7 +114,6 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 	private javax.swing.JButton jbIspisi = null;
 	private javax.swing.JLabel jLabel11 = null;
 	private javax.swing.JLabel jLabel12 = null;
-	private javax.swing.JButton jbSpremi = null;
 	private javax.swing.JButton jbIsipisOrdinirano = null;
 	private javax.swing.JButton jbSpremi2 = null;
         private javax.swing.JPopupMenu jPopUpTablicaPregleda=null;
@@ -151,8 +151,8 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 		this.setLayout(new java.awt.GridBagLayout());
 		this.add(getJpDatumskiDio(), consGridBagConstraints2);
 		this.add(getJtpPregled(), consGridBagConstraints3);
-		int faktor = GlavniFrame.getFaktor();
-		this.setSize(963*faktor, 604*faktor);
+		 
+		//this.setSize(963, 604);
 		this.addFocusListener(new java.awt.event.FocusAdapter() {
 			public void focusLost(java.awt.event.FocusEvent e)
                         {
@@ -177,10 +177,16 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 
 	private void napuniLijecnike()
 	{
-		List l=null;
+		boolean uPogonu = GlavniFrame.getInstanca().running;
+		
+		if (!uPogonu)
+			return;
+
+		List<LijecnikVO> l=null;
 		try
 		{
 			l=DAOFactory.getInstance().getLijecnici().findAll(null);
+			
 			if (l!=null)
 			{
 		    JComboBox jc=this.getJcLijecnik();
@@ -189,7 +195,8 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 
 				jc.removeAllItems();
 
-				for (int i=0; i<l.size(); i++)
+				int size = l.size();
+				for (int i=0; i<size; i++)
 				jc.addItem(l.get(i));
 
 			}//if
@@ -213,7 +220,7 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 
 		this.updateajTablicuSaPregledima();
 
-                this.napuniFormuSaPodacimaOPregledu();
+        this.napuniFormuSaPodacimaOPregledu();
 
 		}//if
 		else
@@ -267,7 +274,6 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
             this.getJtVisusSCD().setEnabled(s);
 
             this.getJtVisusSCL().setEnabled(s);
-            this.jbSpremi.setEnabled(s);
             this.jbSpremi2.setEnabled(s);
             this.jbIsipisOrdinirano.setEnabled(s);
         }//postaviStatuse
@@ -275,7 +281,9 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 	// odvojena je metoda jer ce u nekim situacijama trebati samo puniti dio sa pregledima
 	public void napuniFormuSaPodacimaOPregledu()
 	{
-		if (this.oznaceniPregled!=null)
+		boolean uPogonu = GlavniFrame.getInstanca().running;
+		
+		if (uPogonu && this.oznaceniPregled!=null)
 		{
 			this.jpDatumPregleda.setDatumVrijeme(this.oznaceniPregled.getDatVrijeme());
 
@@ -873,33 +881,39 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 		if(jpPregled == null) {
 			jpPregled = new javax.swing.JPanel();
 			java.awt.GridBagConstraints consGridBagConstraints23 = new java.awt.GridBagConstraints();
+			consGridBagConstraints23.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints32 = new java.awt.GridBagConstraints();
 			java.awt.GridBagConstraints consGridBagConstraints19 = new java.awt.GridBagConstraints();
 			java.awt.GridBagConstraints consGridBagConstraints45 = new java.awt.GridBagConstraints();
+			consGridBagConstraints45.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints321 = new java.awt.GridBagConstraints();
 			java.awt.GridBagConstraints consGridBagConstraints331 = new java.awt.GridBagConstraints();
+			consGridBagConstraints331.fill = GridBagConstraints.HORIZONTAL;
 			java.awt.GridBagConstraints consGridBagConstraints310 = new java.awt.GridBagConstraints();
+			consGridBagConstraints310.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
+			consGridBagConstraints11.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints13 = new java.awt.GridBagConstraints();
+			consGridBagConstraints13.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints24 = new java.awt.GridBagConstraints();
+			consGridBagConstraints24.insets = new Insets(0, 0, 0, 5);
 			java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
-			java.awt.GridBagConstraints consGridBagConstraints311 = new java.awt.GridBagConstraints();
+			consGridBagConstraints12.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints33 = new java.awt.GridBagConstraints();
+			consGridBagConstraints33.insets = new Insets(0, 0, 5, 0);
 			consGridBagConstraints33.gridy = 6;
 			consGridBagConstraints33.gridx = 0;
 			consGridBagConstraints33.anchor = java.awt.GridBagConstraints.CENTER;
-			consGridBagConstraints33.gridwidth = 6;
+			consGridBagConstraints33.gridwidth = 5;
 
 			consGridBagConstraints13.gridy = 8;
 			consGridBagConstraints13.gridx = 1;
 			consGridBagConstraints13.anchor = java.awt.GridBagConstraints.SOUTH;
-			consGridBagConstraints13.gridwidth = 4;
-			consGridBagConstraints311.gridy = 7;
-			consGridBagConstraints311.gridx = 4;
+			consGridBagConstraints13.gridwidth = 3;
 			consGridBagConstraints24.gridy = 9;
 			consGridBagConstraints24.gridx = 1;
 			consGridBagConstraints24.anchor = java.awt.GridBagConstraints.SOUTH;
-			consGridBagConstraints24.gridwidth = 4;
+			consGridBagConstraints24.gridwidth = 3;
 			consGridBagConstraints12.gridy = 7;
 			consGridBagConstraints12.gridx = 3;
 			consGridBagConstraints11.gridy = 0;
@@ -927,10 +941,12 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 			consGridBagConstraints32.gridx = 0;
 			consGridBagConstraints32.anchor = java.awt.GridBagConstraints.NORTH;
 			consGridBagConstraints32.gridwidth = 2;
-			consGridBagConstraints11.gridwidth = 3;
+			consGridBagConstraints11.gridwidth = 2;
 			consGridBagConstraints310.anchor = java.awt.GridBagConstraints.WEST;
 			consGridBagConstraints310.gridwidth = 2;
-			jpPregled.setLayout(new java.awt.GridBagLayout());
+			GridBagLayout gbl_jpPregled = new GridBagLayout();
+			gbl_jpPregled.columnWidths = new int[]{0, 212, 0, 108, 0};
+			jpPregled.setLayout(gbl_jpPregled);
 			jpPregled.add(getJcLijecnik(), consGridBagConstraints23);
 			jpPregled.add(getJpSkiaskopija(), consGridBagConstraints32);
 			jpPregled.add(getJLabel6(), consGridBagConstraints45);
@@ -942,9 +958,10 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 			jpPregled.add(getJbIspisi(), consGridBagConstraints12);
 			jpPregled.add(getJLabel11(), consGridBagConstraints13);
 			jpPregled.add(getJLabel12(), consGridBagConstraints24);
-			jpPregled.add(getJbSpremi(), consGridBagConstraints311);
 			jpPregled.add(getJpOrdiniraneNaocaleOpciPodaci(), consGridBagConstraints33);
-			jpPregled.setPreferredSize(new java.awt.Dimension(443,803));
+			Dimension minSize = new java.awt.Dimension(443,803);
+			jpPregled.setMinimumSize(minSize);
+			jpPregled.setPreferredSize(minSize);
 		}
 		return jpPregled;
 	}
@@ -1665,7 +1682,8 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
    if (this.oznaceniPregled==null) return "?!?";
 
 	 html=html.replaceFirst("<!--klijent_podaci-->",this.oznaceniPregled.getKlijent().toHtmlForEnvelope());
-         html=html.replaceFirst("<!--jmbg-->",this.oznaceniPregled.getKlijent().getJmbg());
+     String jmbg = this.oznaceniPregled.getKlijent()==null?"":this.oznaceniPregled.getKlijent().getJmbg();
+	html=html.replaceFirst("<!--jmbg-->",jmbg);
 
 	 html=html.replaceFirst("<!--datum_pregleda-->",Util.convertCalendarToString(this.oznaceniPregled.getDatVrijeme()));
 	 html=html.replaceFirst("<!--pregled_obavio-->",this.oznaceniPregled.getLijecnik().toString());
@@ -1702,27 +1720,6 @@ public class PreglediPanel extends JPanel implements SlusacModelaTablice,javax.s
 			jLabel12.setText("ako ste greškom nešto krivo unijeli, zatvorite prozor i ništa neæe biti pohranjeno");
 		}
 		return jLabel12;
-	}
-	/**
-	 * This method initializes jbSpremi
-	 *
-	 * @return javax.swing.JButton
-	 */
-	private javax.swing.JButton getJbSpremi() {
-		if(jbSpremi == null) {
-			jbSpremi = new javax.swing.JButton();
-			jbSpremi.setText("Spremi");
-			jbSpremi.setToolTipText("pohranjuje sve izmjene koje ste trenutno napravili na ovom pregledu");
-			jbSpremi.addActionListener(new java.awt.event.ActionListener() {
-				public void actionPerformed(java.awt.event.ActionEvent e)
-				{
-				spremiPregledUBazu();
-				getJtbPregledi().clearSelection();
-                                updateajTablicuSaPregledima();
-				}
-			});
-		}
-		return jbSpremi;
 	}
 	/**
 	 * This method initializes jbIsipisOrdinirano

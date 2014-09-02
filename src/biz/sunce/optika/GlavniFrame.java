@@ -219,8 +219,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	private javax.swing.JMenuItem jmPovratIzDatoteke = null;
 	static String[] parametri;
 
- 
-	
+    public static boolean running = false;
 	
 	public static void main(String[] args) {
 		boolean problemi = false;
@@ -335,6 +334,8 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		t.start();
 
 		 AzuriracPomagala.azurirajPomagala(DAOFactory.getInstance().getPomagala());
+		 
+		 running = true;
 
 	}// main
 

@@ -27,11 +27,11 @@ import biz.sunce.opticar.vo.PoreznaStopaVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Konstante;
 import biz.sunce.optika.Logger;
+import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.Util;
 
 import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.SlusacDateChoosera;
 
 /**

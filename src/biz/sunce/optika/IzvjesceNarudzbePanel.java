@@ -34,6 +34,7 @@ import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.PoreznaStopaVO;
 import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.optika.hzzo.KreiranjeHzzoIzvjescaNapredakFrame;
+import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.GUI;
 import biz.sunce.util.HtmlPrintParser;
 import biz.sunce.util.Labela;
@@ -43,7 +44,6 @@ import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
 import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.SlusacDateChoosera;
 
 // Referenced classes of package biz.sunce.optika:

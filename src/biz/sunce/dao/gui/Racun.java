@@ -47,6 +47,7 @@ import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.VrstaPomagalaVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.Labela;
 import biz.sunce.util.PretrazivanjeProzor;
@@ -55,7 +56,6 @@ import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
 import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.SlusacDateChoosera;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;

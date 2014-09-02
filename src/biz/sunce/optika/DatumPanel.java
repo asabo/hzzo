@@ -13,8 +13,8 @@ import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import biz.sunce.toedter.calendar.JCalendar;
 import biz.sunce.util.Util;
-import com.toedter.calendar.JCalendar;
 
 
 /**
