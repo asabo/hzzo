@@ -6,14 +6,18 @@ package biz.sunce.optika;
 
 import java.awt.Font;
 import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import say.swing.JFontChooser;
+import say.swing.JFontChooserPanel;
 import biz.sunce.optika.hzzo.HzzoPostavkeFrame;
 import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
@@ -26,7 +30,8 @@ import biz.sunce.util.beans.PostavkeBean;
  * @author asabo
  * 
  */
-public final class PostavkeFrame extends JFrame {
+public final class PostavkeFrame extends JFrame
+{
  
 	private static final long serialVersionUID = 3756670833568648782L;
 
@@ -63,6 +68,8 @@ public final class PostavkeFrame extends JFrame {
 	private javax.swing.JButton jbHzzo = null;
 	private javax.swing.JLabel jLabel9 = null;
 	private javax.swing.JComboBox jcTipRacuna = null;
+	private JLabel lblGlavniFont;
+	private JFontChooserPanel jfcGlavniFont;
 
 	/**
 	 * This is the default constructor
@@ -114,13 +121,13 @@ public final class PostavkeFrame extends JFrame {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
 				validate();
-				setSize(365, 315);
+				setSize(365, 350);
+				yield();
+				centriraj();
 			}
 		};
 
 		SwingUtilities.invokeLater(t);
-		centriraj();
-
 	}
 
 	public void napuniPodatke() {
@@ -135,6 +142,9 @@ public final class PostavkeFrame extends JFrame {
 		this.jtTelefon.setText(this.postavke.getTvrtkaTelefon());
 		this.jtEmail.setText(this.postavke.getTvrtkaEmail());
 		this.jcTipRacuna.setSelectedItem(PostavkeBean.getTipRacuna());
+		Font font = this.postavke.getFont();
+		this.jfcGlavniFont.setSelectedFont(font);
+		
 	}// napuniPodatke
 
 	public void spremiPodatke() {
@@ -148,7 +158,14 @@ public final class PostavkeFrame extends JFrame {
 		this.postavke.setTvrtkaRacun(this.jtBrojRacuna.getText().trim());
 		this.postavke.setTvrtkaTelefon(this.jtTelefon.getText().trim());
 		PostavkeBean.setTipRacuna((String) this.jcTipRacuna.getSelectedItem());
+		Font selectedFont = this.jfcGlavniFont.getSelectedFont();
+		this.postavke.setFont(selectedFont);
+		
 		this.postavke.saveData();
+		
+		if (selectedFont!=null)
+			GlavniFrame.getInstanca().podesiFontove(postavke);
+
 		
 	}// spremiPodatke
 
@@ -161,25 +178,44 @@ public final class PostavkeFrame extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new javax.swing.JPanel();
 			java.awt.GridBagConstraints consGridBagConstraints2 = new java.awt.GridBagConstraints();
+			consGridBagConstraints2.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints1 = new java.awt.GridBagConstraints();
+			consGridBagConstraints1.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
+			consGridBagConstraints3.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints4 = new java.awt.GridBagConstraints();
+			consGridBagConstraints4.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints5 = new java.awt.GridBagConstraints();
+			consGridBagConstraints5.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints7 = new java.awt.GridBagConstraints();
+			consGridBagConstraints7.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints8 = new java.awt.GridBagConstraints();
+			consGridBagConstraints8.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints9 = new java.awt.GridBagConstraints();
+			consGridBagConstraints9.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints10 = new java.awt.GridBagConstraints();
+			consGridBagConstraints10.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
+			consGridBagConstraints11.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
+			consGridBagConstraints12.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints6 = new java.awt.GridBagConstraints();
+			consGridBagConstraints6.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints13 = new java.awt.GridBagConstraints();
+			consGridBagConstraints13.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints15 = new java.awt.GridBagConstraints();
+			consGridBagConstraints15.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints16 = new java.awt.GridBagConstraints();
+			consGridBagConstraints16.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints17 = new java.awt.GridBagConstraints();
+			consGridBagConstraints17.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints19 = new java.awt.GridBagConstraints();
 			java.awt.GridBagConstraints consGridBagConstraints21 = new java.awt.GridBagConstraints();
+			consGridBagConstraints21.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
+			consGridBagConstraints22.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints14 = new java.awt.GridBagConstraints();
+			consGridBagConstraints14.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints31 = new java.awt.GridBagConstraints();
 			consGridBagConstraints31.fill = java.awt.GridBagConstraints.NONE;
 			consGridBagConstraints31.weightx = 1.0;
@@ -199,7 +235,7 @@ public final class PostavkeFrame extends JFrame {
 			consGridBagConstraints19.fill = java.awt.GridBagConstraints.BOTH;
 			consGridBagConstraints19.weighty = 1.0;
 			consGridBagConstraints19.weightx = 1.0;
-			consGridBagConstraints19.gridy = 10;
+			consGridBagConstraints19.gridy = 11;
 			consGridBagConstraints19.gridx = 0;
 			consGridBagConstraints19.gridwidth = 2;
 			consGridBagConstraints16.gridy = 9;
@@ -257,7 +293,10 @@ public final class PostavkeFrame extends JFrame {
 			consGridBagConstraints2.weightx = 1.0;
 			consGridBagConstraints2.gridy = 0;
 			consGridBagConstraints2.gridx = 1;
-			jContentPane.setLayout(new java.awt.GridBagLayout());
+			GridBagLayout gbl_jContentPane = new GridBagLayout();
+			gbl_jContentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
+			gbl_jContentPane.columnWeights = new double[]{0.0, 1.0};
+			jContentPane.setLayout(gbl_jContentPane);
 			jContentPane.add(getJLabel(), consGridBagConstraints1);
 			jContentPane.add(getJtNazivTvtrke(), consGridBagConstraints2);
 			jContentPane.add(getJLabel1(), consGridBagConstraints3);
@@ -274,13 +313,25 @@ public final class PostavkeFrame extends JFrame {
 			jContentPane.add(getJtBrojRacuna(), consGridBagConstraints15);
 			jContentPane.add(getJLabel7(), consGridBagConstraints16);
 			jContentPane.add(getJtBanka(), consGridBagConstraints17);
+			GridBagConstraints gbc_lblGlavniFont = new GridBagConstraints();
+			gbc_lblGlavniFont.anchor = GridBagConstraints.EAST;
+			gbc_lblGlavniFont.insets = new Insets(0, 0, 5, 5);
+			gbc_lblGlavniFont.gridx = 0;
+			gbc_lblGlavniFont.gridy = 10;
+			jContentPane.add(getLblGlavniFont(), gbc_lblGlavniFont);
+			GridBagConstraints gbc_jfcGlavniFont = new GridBagConstraints();
+			gbc_jfcGlavniFont.insets = new Insets(0, 0, 5, 0);
+			gbc_jfcGlavniFont.fill = GridBagConstraints.HORIZONTAL;
+			gbc_jfcGlavniFont.gridx = 1;
+			gbc_jfcGlavniFont.gridy = 10;
+			jContentPane.add(getJfcGlavniFont(), gbc_jfcGlavniFont);
 			jContentPane.add(getDoljnjiPanel(), consGridBagConstraints19);
 			jContentPane.add(getJLabel8(), consGridBagConstraints21);
 			jContentPane.add(getJtEmail(), consGridBagConstraints22);
 			jContentPane.add(getJLabel9(), consGridBagConstraints14);
 			jContentPane.add(getJcTipRacuna(), new GridBagConstraints(1, 8, 1,
 					1, 1.0, 0.0, GridBagConstraints.WEST,
-					GridBagConstraints.NONE, new Insets(1, 0, 1, 0), 0, 0));
+					GridBagConstraints.NONE, new Insets(1, 0, 5, 0), 0, 0));
 
 			jContentPane
 					.setToolTipText("Naziv Vaše tvrtke, adresa, ostali podaci ");
@@ -688,5 +739,18 @@ public final class PostavkeFrame extends JFrame {
 		
 		lf.setVisible(true);
 		GUI.centrirajFrame(lf);
+	}
+	private JLabel getLblGlavniFont() {
+		if (lblGlavniFont == null) {
+			lblGlavniFont = new JLabel("Glavni font:");
+		}
+		return lblGlavniFont;
+	}
+	private JFontChooserPanel getJfcGlavniFont() {
+		if (jfcGlavniFont == null) {
+			jfcGlavniFont = new JFontChooserPanel();
+			
+		}
+		return jfcGlavniFont;
 	}
 } // @jve:visual-info decl-index=0 visual-constraint="18,2"

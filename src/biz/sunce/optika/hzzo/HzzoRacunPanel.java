@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -92,7 +93,7 @@ public final class HzzoRacunPanel extends JPanel implements
 		initialize();
 		this.revalidate();
 		this.repaint();
-		GlavniFrame.getInstanca().pack();
+		//GlavniFrame.getInstanca().pack();
 		if (rvo != null)
 			ucitajRacun(rvo);
 
@@ -148,10 +149,10 @@ public final class HzzoRacunPanel extends JPanel implements
 		java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints31 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
+		consGridBagConstraints12.gridwidth = 2;
 		java.awt.GridBagConstraints consGridBagConstraints21 = new java.awt.GridBagConstraints();
-		consGridBagConstraints12.gridy = 5;
-		consGridBagConstraints12.gridx = 3;
-		consGridBagConstraints12.anchor = java.awt.GridBagConstraints.SOUTH;
+		consGridBagConstraints12.gridy = 4;
+		consGridBagConstraints12.gridx = 2;
 		consGridBagConstraints31.gridy = 2;
 		consGridBagConstraints31.gridx = 3;
 		consGridBagConstraints21.gridy = 1;
@@ -184,8 +185,7 @@ public final class HzzoRacunPanel extends JPanel implements
 		this.setLayout(new java.awt.GridBagLayout());
 		this.add(getJpRacunPanel(), consGridBagConstraints1);
 		this.add(getJScrollPane(), new GridBagConstraints(3, 3, 1, 1, 1.0, 1.0,
-				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(
-						2, 0, 2, 0), 0, 0));
+				GridBagConstraints.NORTH, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJbPohrani(), consGridBagConstraints11);
 		this.add(getJpStavkaSaDodajGumbom(), new GridBagConstraints(3, 1, 1, 2, 0.0, 0.0, GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(0, 0, 1, 0), 2, 2));
 		this.add(getJlUkupno(), consGridBagConstraints12);
@@ -281,7 +281,7 @@ public final class HzzoRacunPanel extends JPanel implements
 		if (jScrollPane == null) {
 			jScrollPane = new javax.swing.JScrollPane();
 			jScrollPane.setViewportView(getJtbStavkeRacuna());
-			jScrollPane.setPreferredSize(new java.awt.Dimension(545, 205));
+			jScrollPane.setPreferredSize(new Dimension(600, 222));
 			jScrollPane.setMinimumSize(new java.awt.Dimension(545, 205));
 
 			jScrollPane.setToolTipText("stavke raèuna");
@@ -448,7 +448,9 @@ public final class HzzoRacunPanel extends JPanel implements
 
 	public void redakOznacen(int redak, MouseEvent event, TableModel posiljatelj) {
 		GUIEditor ed = (GUIEditor) this.jpStavkaRacuna;
-		ed.napuniPodatke((ValueObject) posiljatelj.getData().get(redak));
+		List<ValueObject> data = posiljatelj.getData();
+		if (data!=null && data.size()>redak)
+		 ed.napuniPodatke((ValueObject) data.get(redak));
 	}
 
 	public void redakIzmjenjen(int redak, TableModelEvent dogadjaj,
@@ -466,7 +468,7 @@ public final class HzzoRacunPanel extends JPanel implements
 			jbDodaj.setText("Dodaj");
 			jbDodaj.setMnemonic(java.awt.event.KeyEvent.VK_A);
 			jbDodaj.setToolTipText("ALT-A za dodati stavku u raèun");
-			jbDodaj.setFont(arial9);
+			jbDodaj.setFont(new Font("Arial", Font.PLAIN, 11));
 			jbDodaj.setPreferredSize(new java.awt.Dimension(63, 21));
 			jbDodaj.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -486,7 +488,6 @@ public final class HzzoRacunPanel extends JPanel implements
 		if (jpStavkaSaDodajGumbom == null) {
 			jpStavkaSaDodajGumbom = new javax.swing.JPanel();
 			FlowLayout jpStavkaSaDodajGumbomLayout = new FlowLayout();
-			jpStavkaSaDodajGumbomLayout.setHgap(1);
 			jpStavkaSaDodajGumbomLayout.setVgap(1);
 			jpStavkaSaDodajGumbom.setLayout(jpStavkaSaDodajGumbomLayout);
 
@@ -545,8 +546,11 @@ public final class HzzoRacunPanel extends JPanel implements
 			}
 
 			if (!upozorenje) // necemo prikazivati upozorenja, zasada..
-				JOptionPane.showMessageDialog(this.getParent(), poruka,
-						"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+				GlavniFrame.alert(poruka);
+			else 
+				if (poruka!=null)
+					GlavniFrame.info(poruka+" - racun ce ipak biti proknjizen kao ispravan!");
+			
 			if (!upozorenje)
 				return false;
 		}// if poruka nije prazna

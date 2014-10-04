@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import biz.sunce.dao.DAOFactory;
+import biz.sunce.dao.DAOObjekt;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.PomagaloDAO;
 import biz.sunce.dao.SearchCriteria;
@@ -98,18 +99,24 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		java.awt.GridBagConstraints consGridBagConstraints1 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints4 = new java.awt.GridBagConstraints();
+		consGridBagConstraints4.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints5 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints6 = new java.awt.GridBagConstraints();
+		consGridBagConstraints6.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints2 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints7 = new java.awt.GridBagConstraints();
+		consGridBagConstraints7.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints8 = new java.awt.GridBagConstraints();
+		consGridBagConstraints8.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints21 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
+		consGridBagConstraints12.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
+		consGridBagConstraints22.insets = new Insets(0, 0, 1, 0);
 		consGridBagConstraints22.gridy = 3;
-		consGridBagConstraints22.gridx = 1;
-		consGridBagConstraints22.gridwidth = 2;
+		consGridBagConstraints22.gridx = 0;
+		consGridBagConstraints22.gridwidth = 3;
 		consGridBagConstraints22.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints12.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints12.weightx = 1.0;
@@ -159,7 +166,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJlSifraStavke(), new GridBagConstraints(1, 0, 1, 1, 0.0,
 				0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-				new Insets(0, 0, 0, 0), 0, 0));
+				new Insets(0, 1, 0, 0), 0, 0));
 		this.add(getJLabel1(), new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
 				new Insets(0, 0, 0, 0), 0, 0));
@@ -173,7 +180,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 						0, 0, 0), 0, 0));
 		this.add(getJtSifProizvodjaca(), new GridBagConstraints(3, 0, 1, 1,
 				1.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE,
-				new Insets(0, 0, 0, 0), 0, 0));
+				new Insets(0, 0, 1, 0), 0, 0));
 		this.add(getJtSifraProizvoda(), consGridBagConstraints12);
 		this.add(getJLabel5(), consGridBagConstraints22);
 		int faktor = GlavniFrame.getFaktor();
@@ -181,7 +188,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		this.setMinimumSize(new Dimension(393*faktor, 82*faktor));
 		this.setBorder(javax.swing.BorderFactory
 				.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-		this.setPreferredSize(new java.awt.Dimension(520*faktor, 82*faktor));
+		this.setPreferredSize(new Dimension(550, 100));
 	}
 
 	/**
@@ -192,7 +199,8 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel() {
 		if (jLabel == null) {
 			jLabel = new javax.swing.JLabel();
-			jLabel.setText("šifra stavke:");
+			jLabel.setToolTipText("\u0161ifra stavke");
+			jLabel.setText("\u0161ifra stavke: ");
 		}
 		return jLabel;
 	}
@@ -221,6 +229,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new javax.swing.JLabel();
+			jLabel1.setToolTipText("naziv stavke");
 			jLabel1.setText("Naziv stavke: ");
 		}
 		return jLabel1;
@@ -237,7 +246,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 			jtNazivStavke = new javax.swing.JTextField();
 			jtNazivStavke
 					.setToolTipText("ovdje upisujete šifru ili naziv stavke");
-			jtNazivStavke.setPreferredSize(new java.awt.Dimension(250, 20));
+			jtNazivStavke.setPreferredSize(new Dimension(250, 24));
 			jtNazivStavke.setMinimumSize(new java.awt.Dimension(250, 20));
 			jtNazivStavke
 					.setNextFocusableComponent(this.getJtSifProizvodjaca());
@@ -272,6 +281,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel2() {
 		if (jLabel2 == null) {
 			jLabel2 = new javax.swing.JLabel();
+			jLabel2.setToolTipText("koli\u010Dina");
 			jLabel2.setText("Kolièina: ");
 		}
 		return jLabel2;
@@ -285,7 +295,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField getJtKolicina() {
 		if (jtKolicina == null) {
 			jtKolicina = new javax.swing.JTextField();
-			jtKolicina.setPreferredSize(new java.awt.Dimension(60, 20));
+			jtKolicina.setPreferredSize(new Dimension(70, 24));
 			jtKolicina.setMinimumSize(new java.awt.Dimension(60, 20));
 			jtKolicina
 					.setToolTipText("kolièina robe ili usluge, mora biti CIJELI pozitivan broj");
@@ -331,7 +341,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField getJtPoCijeni() {
 		if (jtPoCijeni == null) {
 			jtPoCijeni = new javax.swing.JTextField();
-			jtPoCijeni.setPreferredSize(new java.awt.Dimension(80, 20));
+			jtPoCijeni.setPreferredSize(new Dimension(90, 24));
 			jtPoCijeni.setMinimumSize(new java.awt.Dimension(80, 20));
 			jtPoCijeni.setToolTipText("cijena izražena od strane hzzo-a");
 			jtPoCijeni.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -344,7 +354,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 			jtPoCijeni.addKeyListener(new java.awt.event.KeyAdapter() {
 				@Override
 				public void keyTyped(java.awt.event.KeyEvent e) {
-					if (e != null && e.getKeyChar() == KeyEvent.VK_ENTER) {
+					if (e != null && e.getKeyChar() == KeyEvent.VK_ENTER && jtPoCijeni.getText().length()>0) {
 						posaljiObavijestOSpremnostiPodataka();
 					}
 				}
@@ -413,7 +423,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 
 	private PomagaloVO nadjiPomagalo(String sifra) {
 		try {
-			if (sifra != null && !sifra.equals("")) {
+			if (sifra != null && !sifra.equals("") && GlavniFrame.running) {
 				this.oznaceniPomagalo = (PomagaloVO) DAOFactory.getInstance()
 						.getPomagala().read(sifra);
 				if (this.pretrazivanjeProizvodjaca != null)
@@ -520,6 +530,9 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		this.jtSifraProizvoda.setText(p);
 		if (this.pretrazivanjeProizvodjaca != null)
 			this.pretrazivanjeProizvodjaca.setEnabled(true);
+		
+		this.pretrazivanjePomagala.setOznacena(null);
+		
 		if (this.pretrazivanjeProizvodaProizvodjaca != null)
 			this.pretrazivanjeProizvodaProizvodjaca.setEnabled(false);
 
@@ -666,7 +679,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField getJtSifProizvodjaca() {
 		if (jtSifProizvodjaca == null) {
 			jtSifProizvodjaca = new javax.swing.JTextField();
-			jtSifProizvodjaca.setPreferredSize(new java.awt.Dimension(80, 20));
+			jtSifProizvodjaca.setPreferredSize(new Dimension(90, 20));
 			jtSifProizvodjaca.setMinimumSize(new java.awt.Dimension(80, 20));
 			jtSifProizvodjaca
 					.setToolTipText("šifra proizvodjaèa po HZZO šifarniku, obavezan podatak");
@@ -712,9 +725,10 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 			this.pretrazivanjeProizvodjaca.dodajSlusaca(this);
 
 			// inace nudimo samo one koji se nalaze registrirani za taj proizvod
+			DAOObjekt proizvodjaciProizvoda = GlavniFrame.running?DAOFactory.getInstance()
+					.getProizvodjaciProizvoda():null;
 			this.pretrazivanjeProizvodaProizvodjaca = new PretrazivanjeProzor(
-					GlavniFrame.getInstanca(), DAOFactory.getInstance()
-							.getProizvodjaciProizvoda(), 10, 12, 120, 100,
+					GlavniFrame.getInstanca(), proizvodjaciProizvoda, 10, 12, 120, 100,
 					jtSifProizvodjaca);
 			this.pretrazivanjeProizvodaProizvodjaca
 					.setMaksimumZaPretrazivanje(2);
@@ -732,10 +746,13 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 			this.pretrazivanjeProizvodaProizvodjaca
 					.setDescriptorColumn(SIF_PROIZVODJACA);
 
-			DAOFactory.getInstance().getProizvodjaciProizvoda()
+			if (proizvodjaciProizvoda!=null)
+			{
+			proizvodjaciProizvoda
 					.addOrderByKolona("UPDATED", false);
-			DAOFactory.getInstance().getProizvodjaciProizvoda()
+			proizvodjaciProizvoda
 					.addOrderByKolona("CREATED", false);
+			}
 			// DAOFactory.getInstance().getProizvodjaciProizvoda().setOrderByKolona("BROJAC",false);
 		}
 		return jtSifProizvodjaca;
@@ -776,4 +793,4 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		}
 		return jLabel5;
 	}
-} // @jve:visual-info decl-index=0 visual-constraint="10,10"
+}

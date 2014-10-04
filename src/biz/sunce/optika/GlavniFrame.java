@@ -1,9 +1,12 @@
 package biz.sunce.optika;
 
+import java.awt.Container;
 import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -67,7 +70,8 @@ import com.ansa.util.SimpleEncryptUtils;
 import com.ansa.util.ZipUtil;
 import com.ansa.util.beans.ActivationBean;
 
-public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
+public final class GlavniFrame extends JFrame
+ implements ComponentListener, SlusacModelaTablice<KlijentVO> {
 	private static final String DIREKTORIJ_ZA_KREIRANJE_DISKETE = "direktorij_za_kreiranje_diskete";
 	private static final String WORKING_ROOT = ".opticar";
 	public static final String ODABRANI_PRINTER = "odabrani_printer";
@@ -111,8 +115,9 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	{
 		return faktor;
 	}
-
+	
 	public static final int getSifDjelatnika() {
+		
 		if (sifDjelatnika == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA) {
 			LogiranjeFrame lf = new LogiranjeFrame();
 			lf.setGlavni(instanca);
@@ -170,10 +175,11 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	// provjerava jeli verzija softvera jednaka ulaznoj
 	private static boolean provjeriVerzijuSoftvera(byte[] ulaz) {
 
-		if (ulaz == null || ulaz.length != SOFTWARE_VERSION.length)
+		int swlen = SOFTWARE_VERSION.length;
+		if (ulaz == null || ulaz.length != swlen)
 			return false;
 
-		for (int i = 0; i < SOFTWARE_VERSION.length; i++)
+		for (int i = 0; i < swlen; i++)
 			if (SOFTWARE_VERSION[i] != ulaz[i])
 				return false;
 
@@ -226,28 +232,6 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		java.sql.Connection con = null;
 	 		
 		parametri = args;
-
-		Font font = new Font("Arial", Font.PLAIN, 12);
-		Font stari = (Font) UIManager.get("Label.font");
-		UIManager.put("Label.font", font == null ? stari : font);
-
-		 UIDefaults defaults = UIManager.getDefaults();
-	        
-	        for(Enumeration e = defaults.keys(); e.hasMoreElements(); )
-	        {
-	            Object key = e.nextElement();
-	            
-	            String keyS = key.toString();
-	            
-	            if (keyS.indexOf("font")==-1)
-	            	continue;	            
-				
-	            java.awt.Font  val = (java.awt.Font)defaults.get(key);
-	            
-	            val = new java.awt.Font(val.getName(), val.getStyle(), val.getSize()*faktor);
-	            
-	            UIManager.put( keyS, val);
-	        }
 	 
 		String adr;
 		if ((adr = adresaHomeFoldera()) != null) {
@@ -336,8 +320,32 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		 AzuriracPomagala.azurirajPomagala(DAOFactory.getInstance().getPomagala());
 		 
 		 running = true;
-
+		 
+		 instanca.addComponentListener(instanca);
+	 
 	}// main
+
+	public void podesiFontove(PostavkeBean postavke) 
+	{	
+		Font glavni = postavke.getFont();
+		
+		if (glavni==null)
+			return;
+		
+		 UIDefaults defaults = UIManager.getDefaults();
+	        
+	        for(Enumeration e = defaults.keys(); e.hasMoreElements(); )
+	        {
+	            Object key = e.nextElement();
+	            
+	            String keyS = key.toString();
+	            
+	            if (keyS.indexOf("font")==-1)
+	            	continue;	            
+					            
+	            UIManager.put( keyS, glavni);
+	        }
+	}
 
 	@SuppressWarnings("serial")
 	private static void registrirajKontrolneTipke() {
@@ -353,7 +361,6 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 				InputEvent.CTRL_MASK);
 
 		inputMap.put(controlA, "akcije");
-
 	}
 
 	private static void dogadjajPokrenut(ActionEvent e) {
@@ -367,14 +374,14 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	 * adresu home foldera, inaèe sa null oznaèava da nema posebno definirane
 	 * adrese home foldera
 	 */
-	private static String adresaHomeFoldera() {
+	private static String adresaHomeFoldera(){
 		if (parametri != null)
 			for (String par : parametri) {
 				if (par.startsWith("-w") && par.length() > 2) {
 					return par.substring(2);
 				}
 			}
-		return null;
+	return null;
 	}
 
 	public static final String getDirektorijZaPohranuObracuna() {
@@ -410,12 +417,13 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	 * 
 	 * @return void
 	 */
-	private void initialize() {
-		
+	private void initialize() 
+	{
 		this.setSize(800*faktor, 600*faktor);
+		
 		this.setJMenuBar(getJmMenu());
 
-		this.setResizable(false);
+		 
 		this.setVisible(true);
 		this.setName("glavni");
 		// this.setIconImage(
@@ -432,7 +440,9 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		Thread t = new Thread() {
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
+				yield();
 				PostavkeBean postavke = new PostavkeBean();
+				yield();
 				setTitle(postavke.getTvrtkaNaziv() + " "
 						+ postavke.getMjestoRada());
 				yield();
@@ -441,12 +451,15 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 				ImageIcon ikona = getImageIcon();
 				if (ikona != null)
 					setIconImage(ikona.getImage());
+				yield();
+				podesiFontove(postavke);			
 			}
 		};
 
 		SwingUtilities.invokeLater(t);
 
 		this.centriraj();
+		this.addComponentListener(this);
 	}
 
 	private static ImageIcon icon = null;
@@ -719,7 +732,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 							KlijentiPanel kp = new KlijentiPanel();
 							setContentPane(kp);
-							pack();
+							//pack();
 						}
 					});
 		}
@@ -732,11 +745,10 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	 * @see biz.sunce.opticar.vo.SlusacModelaTablice#redakOznacen(int,
 	 * java.awt.event.MouseEvent, biz.sunce.opticar.vo.TableModel)
 	 */
-	public void redakOznacen(int redak, MouseEvent event, TableModel posiljatelj) {
+	public void redakOznacen(int redak, MouseEvent event, TableModel<KlijentVO> posiljatelj) {
 		// ovako znamo koji imamo tableModel i koji ValueObject-i sjede unutra
-		if (posiljatelj == this.model && event.getClickCount() == 2
-				&& (this.model.getData().get(redak) instanceof KlijentVO)) {
-			KlijentVO kvo = (KlijentVO) this.model.getData().get(redak);
+		if (posiljatelj == this.model && event.getClickCount() == 2) {
+			KlijentVO kvo = posiljatelj.getData().get(redak);
 			KlijentFrame kf = new KlijentFrame();
 			kf.setOznaceni(kvo);
 			kf.setVisible(true);
@@ -750,8 +762,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	 * javax.swing.event.TableModelEvent, biz.sunce.opticar.vo.TableModel)
 	 */
 	public void redakIzmjenjen(int redak, TableModelEvent dogadjaj,
-			TableModel posiljatelj) {
-
+			TableModel<KlijentVO> posiljatelj) {
 	}
 
 	/**
@@ -787,7 +798,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							ObvezePanel obv = new ObvezePanel(ja);
 
 							setContentPane(obv);
-							pack();
+							//pack();
 						}
 					});
 		}
@@ -967,7 +978,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 					daop.setDAOObjekt(DAOFactory.getInstance().getLijecnici());
 					daop.setSviElementiSeMoguBrisati(false);
 					setContentPane(daop);
-					pack();
+					//pack();
 				}
 			});
 		}
@@ -1002,7 +1013,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 					daop.setDAOObjekt(DAOFactory.getInstance().getDjelatnici());
 					daop.setSviElementiSeMoguBrisati(false);
 					setContentPane(daop);
-					pack();
+					//pack();
 				}
 			});
 		}
@@ -1097,7 +1108,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 					daop.setDAOObjekt(DAOFactory.getInstance().getPredlosci());
 					daop.setSviElementiSeMoguBrisati(false);
 					setContentPane(daop);
-					GlavniFrame.getInstanca().pack();
+					//GlavniFrame.getInstanca().pack();
 				}
 			});
 		}
@@ -1459,11 +1470,12 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 		Thread t = new Thread() {
 			public void run() {
 				busy();
+				setPriority(MIN_PRIORITY);
 				HzzoRacunPanel racun = new HzzoRacunPanel(rvo);
-				repaint();
+				//repaint();
 				yield();
 				setContentPane(racun);
-				GlavniFrame.getInstanca().pack();
+				//GlavniFrame.getInstanca().pack();
 				idle();
 			}
 		};
@@ -1504,20 +1516,22 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 
 		Thread t = new Thread() {
 			public void run() {
-
+				setPriority(MIN_PRIORITY);
 				// just in case
 				if (!isImaPravoNaHzzo())
 					return;
 
 				busy();
-
+				
+				yield();
 				HzzoPostojeciRacuniPanel racuni = new HzzoPostojeciRacuniPanel();
 
 				yield();
 				setContentPane(racuni);
 
-				GlavniFrame.getInstanca().pack();
+				//GlavniFrame.getInstanca().pack();
 				idle();
+				
 			}
 		};
 
@@ -1538,7 +1552,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 	static Boolean koristiSvaPomagala = null;
 
 	public static final boolean isKoristiSvaPomagala() {
-		if (koristiSvaPomagala == null) {
+		if (koristiSvaPomagala == null && running) {
 			String postavka = PostavkeBean.getPostavkaDB(
 					Konstante.HZZO_POSTAVKA_SVA_POMAGALA, null);
 			final String p = "koristi";
@@ -1702,7 +1716,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							getContentPane().removeAll();
 							DobroDosliPanel dd = new DobroDosliPanel();
 							setContentPane(dd);
-							GlavniFrame.getInstanca().pack();
+							//GlavniFrame.getInstanca().pack();
 							repaint();
 						}
 					});
@@ -1749,7 +1763,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							PorukeSustavaPanel por = new PorukeSustavaPanel();
 
 							setContentPane(por);
-							GlavniFrame.getInstanca().pack();
+							//GlavniFrame.getInstanca().pack();
 						}
 					});
 		}
@@ -1911,7 +1925,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 											.getHzzoObracuni());
 									daop.setSviElementiSeMoguBrisati(true);
 									setContentPane(daop);
-									pack();
+									//pack();
 									idle();
 								}
 							};
@@ -1954,7 +1968,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 								}
 							});
 
-							GlavniFrame.getInstanca().pack();
+							//GlavniFrame.getInstanca().pack();
 							idle();
 						}
 					};
@@ -1983,7 +1997,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							PostojeciHzzoObracuniPanel pan = new PostojeciHzzoObracuniPanel();
 
 							setContentPane(pan);
-							GlavniFrame.getInstanca().pack();
+							//GlavniFrame.getInstanca().pack();
 						}
 					});
 		}
@@ -2015,7 +2029,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 					HzzoStatistikaArtikliPanel stat = new HzzoStatistikaArtikliPanel();
 					getContentPane().removeAll();
 					setContentPane(stat);
-					GlavniFrame.getInstanca().pack();
+					//GlavniFrame.getInstanca().pack();
 				}
 			});
 		}
@@ -2041,7 +2055,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							daop.setSviElementiSeMoguBrisati(false);
 							daop.setNemaBrisanja(true);
 							setContentPane(daop);
-							GlavniFrame.getInstanca().pack();
+							//GlavniFrame.getInstanca().pack();
 						}
 					});
 		}
@@ -2075,7 +2089,7 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							getContentPane().removeAll();
 							HzzoIzvjescePanel ip = new HzzoIzvjescePanel();
 							setContentPane(ip);
-							pack();
+							//pack();
 						}
 					});
 		}
@@ -2099,12 +2113,45 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							getContentPane().removeAll();
 							TransakcijePanel tp = new TransakcijePanel();
 							setContentPane(tp);
-							GlavniFrame.getInstanca().pack();
-							repaint();
+							//GlavniFrame.getInstanca().pack();
+							//repaint();
 						}
 					});
 		}
 		return jmTransakcije;
+	}
+	
+	int defSirina = -1, defVisina = -1; 
+	
+	@Override
+	public void setContentPane(Container contentPane) {
+		super.setContentPane(contentPane);
+		
+		Thread t=null;
+		//prilikom izmjene content panea treba vratiti prozor na izvornu velicinu koju je korisnik postavio 	 
+		if (defSirina==-1 || defSirina>0)
+		 t=new Thread()
+		 {
+		  public void run()
+		  {
+			  try{sleep(0);}catch(InterruptedException inte){return;}
+			    int sir = PostavkeBean.getIntPostavkaDb("sirina_prozora", 0);
+				if (sir==0) return;
+				yield();
+				int vis = PostavkeBean.getIntPostavkaDb("visina_prozora", 0); 
+				yield();
+			    setSize(sir, vis);
+			    defSirina=sir; defVisina=vis;
+			   		
+			    yield();
+			    instanca.getRootPane().updateUI();
+			    centriraj();
+		  }
+		 };
+		 		 
+		 if (t!=null)
+		  SwingUtilities.invokeLater(t);
+		 instanca.getRootPane().updateUI();
 	}
 
 	/**
@@ -2124,8 +2171,8 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 							getContentPane().removeAll();
 							PoslanePorukePanel pp = new PoslanePorukePanel();
 							setContentPane(pp);
-							GlavniFrame.getInstanca().pack();
-							repaint();
+							//GlavniFrame.getInstanca().pack();
+							//repaint();
 						}
 					});
 		}
@@ -2338,4 +2385,36 @@ public final class GlavniFrame extends JFrame implements SlusacModelaTablice {
 				"Unos", JOptionPane.QUESTION_MESSAGE);
 	}// input
 
-} // @jve:visual-info decl-index=0 visual-constraint="4,7"
+
+	boolean komponentaPrikazana=false;
+	boolean komponentaMaknuta = false;
+
+	 
+	public void componentHidden(ComponentEvent e) {
+		komponentaPrikazana = false;
+	}
+	
+	public void componentShown(ComponentEvent e) {
+		komponentaPrikazana = true;
+	}
+  
+	public void componentMoved(ComponentEvent e) {
+		komponentaMaknuta = true;	
+	}
+
+	public void componentResized(ComponentEvent e) {
+		 	  
+		//da bi efekt resizeanja korisnika misem bio prepoznat, moramo igrati na trik micanja prikazane komponente
+		if ( komponentaPrikazana  )
+		{
+		 int wdt = this.getWidth();
+		 int hgt = this.getHeight();
+		 
+		 PostavkeBean.setPostavkaDB("sirina_prozora", ""+wdt);
+		 PostavkeBean.setPostavkaDB("visina_prozora", ""+hgt);
+		  
+		 defSirina=wdt;
+		 defVisina=hgt;
+		}		
+	}
+}

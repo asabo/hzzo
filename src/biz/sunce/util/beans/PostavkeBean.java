@@ -4,10 +4,13 @@
  */
 package biz.sunce.util.beans;
 
+import java.awt.Font;
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.prefs.Preferences;
+
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.PostavkeDAO;
@@ -22,6 +25,8 @@ import biz.sunce.optika.Logger;
  */
 
 public final class PostavkeBean {
+	private static final String PRAZAN_STRING = "";
+
 	private static String LINK_NA_POSTAVKE = "Opticar_postavke";
 	// private File datoteka;
 
@@ -37,7 +42,11 @@ public final class PostavkeBean {
 	public static String TVRTKA_SIFRA_POSLOVNICE = "tvrtkaSifraPoslovnice";
 
 	public static String TIP_RACUNA = "tipRacuna";
-
+	
+	public static String FONT_NAME = "fontName";
+	public static String FONT_STYLE= "fontStyle";
+	public static String FONT_SIZE = "fontSize";
+	
 	public static String TVRTKA_HZZO_SIFRA_ISPORUCITELJA = "hzzo_sif_isporucitelja";
 	public static String TVRTKA_HZZO_RACUN_ODSKOK_X = "hzzo_racun_odskok_x";
 	public static String TVRTKA_HZZO_RACUN_ODSKOK_Y = "hzzo_racun_odskok_y";
@@ -59,25 +68,35 @@ public final class PostavkeBean {
 
 	public static String KONTROLA_OSOBNIH_RACUNA = "hzzo_kontrola_osobnih_racuna";
 
-	private String tvrtkaNaziv = "";
-	private String tvrtkaMB = "";
-	private String tvrtkaAdresa = "";
-	private String tvrtkaBanka = "";
-	private String tvrtkaRacun = "";
-	private String tvrtkaTelefon = "";
-	private String tvrtkaFax = "";
-	private String tvrtkaEmail = "";
+	private String tvrtkaNaziv = PRAZAN_STRING;
+	private String tvrtkaMB = PRAZAN_STRING;
+	private String tvrtkaAdresa = PRAZAN_STRING;
+	private String tvrtkaBanka = PRAZAN_STRING;
+	private String tvrtkaRacun = PRAZAN_STRING;
+	private String tvrtkaTelefon = PRAZAN_STRING;
+	private String tvrtkaFax = PRAZAN_STRING;
+	private String tvrtkaEmail = PRAZAN_STRING;
 	private int sifraTvrtke = 0;
 	private int sifraPoslovnice = 0;
 	private static String hzzoSifraIsporucitelja = null;
 	private static Date datumValjanosti=null;
+	
+	private Font font = null;
+
+	public Font getFont() {
+		return font;
+	}
+
+	public void setFont(Font font) {
+		this.font = font;
+	}
 
 	public static String getHzzoSifraIsporucitelja() {
 		//pri podizanju programa sifra hzzo isporucitelja postavit ce se iz .key datoteke
 		//ako ne bude postavljena, probat ce ju procitati iz baze
 		if (hzzoSifraIsporucitelja == null)
 			hzzoSifraIsporucitelja = PostavkeBean.getPostavkaDB(
-					TVRTKA_HZZO_SIFRA_ISPORUCITELJA, "");
+					TVRTKA_HZZO_SIFRA_ISPORUCITELJA, PRAZAN_STRING);
 		return hzzoSifraIsporucitelja;
 	}
 	
@@ -93,7 +112,7 @@ public final class PostavkeBean {
 		PostavkeBean.datumValjanosti= datumValjanosti;
 	}
 	
-	private String mjestoRada = "";
+	private String mjestoRada = PRAZAN_STRING;
 
 	private static PostavkeDAO postavke = null;
 
@@ -140,7 +159,7 @@ public final class PostavkeBean {
 
 	public static boolean setIntKorisnickaPostavka(String naziv, int vrijednost,
 			boolean userRelated) throws IllegalArgumentException {
-		return setPostavka(naziv, "" + vrijednost, userRelated);
+		return setPostavka(naziv, PRAZAN_STRING + vrijednost, userRelated);
 	}
 
 	public static boolean setPostavka(String naziv, String vrijednost,
@@ -156,7 +175,7 @@ public final class PostavkeBean {
 		if (prefs == null)
 			throw new IllegalArgumentException("Ne mozemo pristupiti podacima");
 
-		if (naziv == null || naziv.trim().equals(""))
+		if (naziv == null || naziv.trim().equals(PRAZAN_STRING))
 			throw new IllegalArgumentException("Naziv postavke nije ispravan");
 
 		prefs.put(naziv, vrijednost);
@@ -208,7 +227,7 @@ public final class PostavkeBean {
 		if (prefs == null)
 			throw new IllegalArgumentException("Ne mozemo pristupiti podacima");
 
-		if (naziv == null || naziv.trim().equals(""))
+		if (naziv == null || naziv.trim().equals(PRAZAN_STRING))
 			throw new IllegalArgumentException("Naziv postavke nije ispravan");
 
 		String vrijednost = prefs.get(naziv, defaultVrijednost);
@@ -227,12 +246,18 @@ public final class PostavkeBean {
 		}
 		return tmp;
 	}// getIntPostavka
-
+	
+	 
 	public static int getIntPostavkaDb(String naziv, int defaultVrijednost)
-			throws IllegalArgumentException {
-		String vr = getPostavkaDB(naziv, "(nema)");
-		int tmp = -1;
-		try {
+			throws IllegalArgumentException 
+		{		
+		 String vr;	
+		 
+		 vr = getPostavkaDB(naziv, "(nema)");
+		 
+		 int tmp = -1;
+		 
+		 try {
 			tmp = Integer.parseInt(vr);
 		} catch (NumberFormatException nfe) {
 			return defaultVrijednost;
@@ -243,7 +268,7 @@ public final class PostavkeBean {
 	public static final boolean setPostavkaDB(String naziv, String vrijednost)
 			throws IllegalArgumentException {
 		boolean rez = true;
-		if (naziv == null || naziv.trim().equals(""))
+		if (naziv == null || naziv.trim().equals(PRAZAN_STRING))
 			throw new IllegalArgumentException(
 					"naziv postavke ne moze biti null ili prazan string");
 
@@ -277,7 +302,12 @@ public final class PostavkeBean {
 		else {
 			pvo.setVrijednost(vrijednost);
 			try {
+				
 				getPostavke().update(pvo);
+				
+				if (dbPostavke.containsKey(naziv)) {
+					dbPostavke.remove(naziv);
+				}
 			} catch (SQLException e1) {
 				Logger.fatal(
 						"SQL iznimka kod pokusaja updateanja postavke u db", e1);
@@ -302,7 +332,7 @@ public final class PostavkeBean {
 	// vratiti ako podatka nema u bazi
 	public static String getPostavkaDB(String naziv, String defaultVrijednost)
 			throws IllegalArgumentException {
-		if (naziv == null || naziv.trim().equals(""))
+		if (naziv == null || naziv.trim().equals(PRAZAN_STRING))
 			throw new IllegalArgumentException(
 					"naziv postavke ne moze biti null ili prazan string");
 
@@ -330,32 +360,35 @@ public final class PostavkeBean {
 
 		try {
 		
-			
 			PostavkeBean.setPostavkaDB(TVRTKA_NAZIV,
 					this.getTvrtkaNaziv() != null ? this.getTvrtkaNaziv()
 							: "?!?!");
 			PostavkeBean.setPostavkaDB(TVRTKA_ADRESA,
 					this.getTvrtkaAdresa() != null ? this.getTvrtkaAdresa()
-							: "");
+							: PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(TVRTKA_BANKA,
-					this.getTvrtkaBanka() != null ? this.getTvrtkaBanka() : "");
+					this.getTvrtkaBanka() != null ? this.getTvrtkaBanka() : PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(TVRTKA_RACUN,
-					this.getTvrtkaRacun() != null ? this.getTvrtkaRacun() : "");
+					this.getTvrtkaRacun() != null ? this.getTvrtkaRacun() : PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(TVRTKA_MB,
-					this.getTvrtkaOIB() != null ? this.getTvrtkaOIB() : "");
+					this.getTvrtkaOIB() != null ? this.getTvrtkaOIB() : PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(TVRTKA_MJESTO_RADA,
 					this.getMjestoRada() != null ? this.getMjestoRada()
 							: "?!?!");
 			PostavkeBean.setPostavkaDB(TVRTKA_TELEFON,
 					this.getTvrtkaTelefon() != null ? this.getTvrtkaTelefon()
-							: "");
+							: PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(TVRTKA_FAX,
-					this.getTvrtkaFax() != null ? this.getTvrtkaFax() : "");
+					this.getTvrtkaFax() != null ? this.getTvrtkaFax() : PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(TVRTKA_EMAIL,
-					this.getTvrtkaEmail() != null ? this.getTvrtkaEmail() : "");
-			PostavkeBean.setPostavkaDB(TVRTKA_SIFRA, ""+this.getSifraTvrtke());
-			PostavkeBean.setPostavkaDB(TVRTKA_SIFRA_POSLOVNICE, ""+this.getSifraPoslovnice());
-			 
+					this.getTvrtkaEmail() != null ? this.getTvrtkaEmail() : PRAZAN_STRING);
+			PostavkeBean.setPostavkaDB(TVRTKA_SIFRA, PRAZAN_STRING+this.getSifraTvrtke());
+			PostavkeBean.setPostavkaDB(TVRTKA_SIFRA_POSLOVNICE, PRAZAN_STRING+this.getSifraPoslovnice());
+			
+			Font font = getFont();
+			PostavkeBean.setPostavkaDB(FONT_NAME, font==null?PRAZAN_STRING:font.getName()); 
+			PostavkeBean.setPostavkaDB(FONT_STYLE, font==null?PRAZAN_STRING:""+font.getStyle()); 
+			PostavkeBean.setPostavkaDB(FONT_SIZE, font==null?PRAZAN_STRING:""+font.getSize()); 
 
 		} catch (Exception ex) {
 			Logger.fatal(
@@ -403,7 +436,7 @@ public final class PostavkeBean {
 			if (sifraTvrtke == -1) {
 				sifraTvrtke = PostavkeBean.getIntPostavkaSustava(TVRTKA_SIFRA,
 						0);
-				PostavkeBean.setPostavkaDB(TVRTKA_SIFRA, "" + sifraTvrtke);
+				PostavkeBean.setPostavkaDB(TVRTKA_SIFRA, PRAZAN_STRING + sifraTvrtke);
 			}
 
 			this.setSifraTvrtke(sifraTvrtke);
@@ -415,11 +448,27 @@ public final class PostavkeBean {
 			if (sifraPoslovnice == -1) {
 				sifraPoslovnice = PostavkeBean.getIntPostavkaSustava(
 						TVRTKA_SIFRA_POSLOVNICE, 0);
-				PostavkeBean.setPostavkaDB(TVRTKA_SIFRA_POSLOVNICE, ""
+				PostavkeBean.setPostavkaDB(TVRTKA_SIFRA_POSLOVNICE, PRAZAN_STRING
 						+ sifraPoslovnice);
 			}
 
 			this.setSifraPoslovnice(sifraPoslovnice);
+			
+			String fontName= PostavkeBean.getPostavkaDB(FONT_NAME, PRAZAN_STRING);
+			int fontStyle= PostavkeBean.getIntPostavkaDb(FONT_STYLE, -1);
+			int fontSize= PostavkeBean.getIntPostavkaDb(FONT_SIZE,-1);
+
+			
+			if (fontName.equals(PRAZAN_STRING))
+			{
+				this.setFont(null);
+			}
+			else
+			{
+				Font fnt = new Font(fontName,fontStyle,fontSize);
+				this.setFont(fnt);
+			}
+			
 
 		} catch (Exception ex) {
 			Logger.fatal("Ne ide citanje podataka kod PostavkeBean.load(): ",
@@ -432,10 +481,10 @@ public final class PostavkeBean {
 
 	private String getProp(String property, Preferences rootPrefs) {
 
-		String dbp = PostavkeBean.getPostavkaDB(property, "");
+		String dbp = PostavkeBean.getPostavkaDB(property, PRAZAN_STRING);
 
-		if (dbp.equals("")) {
-			String rp = rootPrefs.get(property, "");
+		if (dbp.equals(PRAZAN_STRING)) {
+			String rp = rootPrefs.get(property, PRAZAN_STRING);
 
 			PostavkeBean.setPostavkaDB(property, rp);
 
@@ -450,39 +499,35 @@ public final class PostavkeBean {
 				javax.swing.JOptionPane.ERROR_MESSAGE);
 	}
 
-	private void info(String poruka) {
-		javax.swing.JOptionPane.showMessageDialog(null, poruka, "Obavijest",
-				javax.swing.JOptionPane.INFORMATION_MESSAGE);
-	}
-
+ 
 	public void setTvrtkaNaziv(String tvrtkaNaziv) {
 		this.tvrtkaNaziv = tvrtkaNaziv;
-		this.dbPostavke.clear();
+		dbPostavke.clear();
 	}
 
 	public void setTvrtkaAdresa(String adresa) {
 		this.tvrtkaAdresa = adresa;
-		this.dbPostavke.clear();
+		dbPostavke.clear();
 	}
 
 	public void setTvrtkaBanka(String banka) {
 		this.tvrtkaBanka = banka;
-		this.dbPostavke.clear();
+		dbPostavke.clear();
 	}
 
 	public void setTvrtkaOIB(String MB) {
 		this.tvrtkaMB = MB;
-		this.dbPostavke.clear();
+		dbPostavke.clear();
 	}
 
 	public void setTvrtkaRacun(String brojRacuna) {
 		this.tvrtkaRacun = brojRacuna;
-		this.dbPostavke.clear();
+		dbPostavke.clear();
 	}
 
 	public void setMjestoRada(String mjesto) {
 		this.mjestoRada = mjesto;
-		this.dbPostavke.clear();
+		dbPostavke.clear();
 	}
 
 	// ---- GETOVI ---
@@ -570,12 +615,11 @@ public final class PostavkeBean {
 	}
 
 	public static String getTipRacuna() {
-		return getPostavkaDB(TIP_RACUNA, "");
+		return getPostavkaDB(TIP_RACUNA, PRAZAN_STRING);
 	}
 
 	public static void setTipRacuna(String tip) {
-		setPostavkaDB(TIP_RACUNA, tip);
-		
+		setPostavkaDB(TIP_RACUNA, tip);	
 	}
 
 } // klasa PostavkeBean

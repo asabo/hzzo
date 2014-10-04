@@ -29,7 +29,6 @@ import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.KlijentDAO;
 import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.KlijentVO;
-import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.PregledVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
@@ -73,9 +72,6 @@ public final class DobroDosliPanel extends JPanel implements
 	JXTable jxIstekliArtikli = new JXTable();
 	TableModel<KlijentVO> trebaZakazatiModel = null;
 	TableModel<ValueObject> istekliArtikliModel = null;
-	JLabel jLabel3 = new JLabel();
-	JScrollPane jScrollPane1 = new JScrollPane();
-	JSortTable jtNovosti = new JSortTable();
 	JLabel jLabel4 = new JLabel();
 	JButton jbSinkronizacija = new JButton();
 	Calendar sad = Calendar.getInstance();
@@ -217,10 +213,7 @@ public final class DobroDosliPanel extends JPanel implements
 		consGridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		jtPregledi.setPreferredSize(new Dimension(800*faktor, 400*faktor));
 		jspIstekli.setMinimumSize(new Dimension(500*faktor, 200*faktor));
-		jspIstekli.setPreferredSize(new Dimension(600*faktor, 120*faktor));
-		jLabel3.setText("Novosti: ");
-		jScrollPane1.setMinimumSize(new Dimension(500*faktor, 120*faktor));
-		jScrollPane1.setPreferredSize(new Dimension(500*faktor, 150*faktor));
+		jspIstekli.setPreferredSize(new Dimension(700, 220));
 		jLabel4.setText("Dobrodošli!");
 		jbSinkronizacija.setText("Ažuriraj podatke");
 		jbSinkronizacija
@@ -231,33 +224,26 @@ public final class DobroDosliPanel extends JPanel implements
 		jbSinkronizacija
 				.addActionListener(new DobroDosliPanel_jbSinkronizacija_actionAdapter(
 						this));
-		jspPregledi.getViewport().add(jtPregledi);
-		jspIstekli.getViewport().add(jxIstekliArtikli);
+		jspPregledi.setViewportView(jtPregledi);
+		jspIstekli.setViewportView(jxIstekliArtikli);
 		String istekliTT = "popis prodanih artikala koji su istekli i za koje klijenti imaju pravo ponovno tražiti doznaku od HZZO-a";
 		jspIstekli.setToolTipText(istekliTT);
 		jspIstekli.getViewport().setToolTipText(istekliTT);
 
 		jxIstekliArtikli.setPreferredSize(new java.awt.Dimension(497*faktor, 56*faktor));
 		jxIstekliArtikli.setToolTipText(istekliTT);
-		jScrollPane1.getViewport().add(jtNovosti);
 		this.add(jLabel2, new GridBagConstraints(0, 3, 2, 1, 0.0, 0.0,
 				GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,
 						0, 0, 0), 0, 0));
 		this.add(jspPregledi, new GridBagConstraints(0, 2, 2, 1, 0.0, 0.0,
 				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
 						0, 0, 0, 0), 0, 0));
-		this.add(jspIstekli, new GridBagConstraints(0, 4, 2, 1, 0.0, 0.0,
-				GridBagConstraints.CENTER, GridBagConstraints.HORIZONTAL,
+		this.add(jspIstekli, new GridBagConstraints(0, 4, 3, 1, 0.0, 0.0,
+				GridBagConstraints.CENTER, GridBagConstraints.BOTH,
 				new Insets(0, 0, 0, 0), 0, 0));
 		this.add(jLabel1, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,
 						0, 0, 0), 0, 0));
-		this.add(jLabel3, new GridBagConstraints(0, 5, 2, 1, 0.0, 0.0,
-				GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0,
-						0, 0, 0), 0, 0));
-		this.add(jScrollPane1, new GridBagConstraints(0, 6, 2, 1, 0.0, 0.0,
-				GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(
-						0, 0, 0, 0), 0, 0));
 		this.add(jLabel4, new GridBagConstraints(0, 0, 2, 1, 0.0, 0.0,
 				GridBagConstraints.NORTH, GridBagConstraints.NONE, new Insets(
 						0, 0, 0, 0), 0, 0));

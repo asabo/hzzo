@@ -95,28 +95,31 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 		return this.pomagala;
 	}// getPomagala
 
-	public void insert(Object objekt) throws SQLException {
-		String upit;
+	
+	final String insUpit 
+	= "INSERT INTO "
+			+ tablica
+			+ " "
+			+ // INSERT da se ne zabunujemo vise
+			"(sif_racuna,sif_artikla,kolicina,po_cijeni,porezna_stopa,sif_proizvodjaca,tvrtka_sifra_art)"
+			+ " VALUES (?,?,?,?,?,?,?)";
+	
+	public void insert(Object objekt) throws SQLException 
+	{
+	 
 		StavkaRacunaVO ul = (StavkaRacunaVO) objekt;
 
 		if (ul == null)
 			throw new SQLException("Insert " + tablica
 					+ ", ulazna vrijednost je null!");
-
-		upit = "INSERT INTO "
-				+ tablica
-				+ " "
-				+ // INSERT da se ne zabunujemo vise
-				"(sif_racuna,sif_artikla,kolicina,po_cijeni,porezna_stopa,sif_proizvodjaca,tvrtka_sifra_art)"
-				+ " VALUES (?,?,?,?,?,?,?)";
-
+	
 		Connection conn = null;
 		PreparedStatement ps = null;
 
 		try {
 			conn = DAOFactory.getConnection();
 
-			ps = conn.prepareStatement(upit);
+			ps = conn.prepareStatement(insUpit);
 
 			ps.setInt(1, ul.getSifRacuna().intValue());
 			ps.setString(2, ul.getSifArtikla());
@@ -247,22 +250,23 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			}
 		}
 	}// azurirajStatistikuProizvodjacaZaArtikl
-
+	
+	final String updUpit=
+			        "update "
+					+ tablica
+					+ " set "
+					+ " kolicina=?,po_cijeni=?,porezna_stopa=?, sif_proizvodjaca=?, tvrtka_sifra_art=? "
+					+ // 19.09.06 -asabo- dodana tvrtka_sifra_art
+					" where sif_racuna=? and sif_artikla=?";
+	
 	// 23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
-	public boolean update(Object objekt) throws SQLException {
-		String upit;
+	public boolean update(Object objekt) throws SQLException
+	{
 		StavkaRacunaVO ul = (StavkaRacunaVO) objekt;
 
 		if (ul == null)
 			throw new SQLException("Update " + tablica
 					+ ", ulazna vrijednost je null!");
-
-		upit = "update "
-				+ tablica
-				+ " set "
-				+ " kolicina=?,po_cijeni=?,porezna_stopa=?, sif_proizvodjaca=?, tvrtka_sifra_art=? "
-				+ // 19.09.06 -asabo- dodana tvrtka_sifra_art
-				" where sif_racuna=? and sif_artikla=?";
 
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -273,7 +277,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 				throw new SQLException(
 						"Veza prema bazi podataka je prazna (CSC StavkeRacuna)!");
 
-			ps = conn.prepareStatement(upit);
+			ps = conn.prepareStatement(updUpit);
 
 			ps.setInt(1, ul.getKolicina().intValue());
 			ps.setInt(2, ul.getPoCijeni().intValue());
@@ -286,7 +290,6 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 
 			ps.setString(5, ul.getEkstraSifProizvoda()); // 15.09.06 -asabo-
 															// dodano
-
 			ps.setInt(6, ul.getSifRacuna().intValue());
 			ps.setString(7, ul.getSifArtikla());
 
@@ -313,7 +316,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 	}// update
 
 	public void delete(Object kljuc) throws SQLException {
-		String upit;
+		final String upit;
 		StavkaRacunaVO ul = (StavkaRacunaVO) kljuc;
 
 		if (ul == null)
@@ -345,7 +348,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			throw new SQLException("sifra parametar je null kod " + tablica
 					+ " read");
 
-		String upit = select + from + " where sif_racuna=" + sifra.intValue();
+		final String upit = select + from + " where sif_racuna=" + sifra.intValue();
 
 		ResultSet rs = null;
 
@@ -360,6 +363,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			try {
 				if (rs != null)
 					rs.close();
+				rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -482,16 +486,19 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			else
 				throw (SQLException) e;
 		}
+		
 		return null;
 	}// findAll
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public final Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.StavkaRacunaVO");
+		return StavkaRacunaVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	@SuppressWarnings("unchecked")
+	public GUIEditor<StavkaRacunaVO> getGUIEditor() {
 		try {
-			return (GUIEditor) Class
+			return (GUIEditor<StavkaRacunaVO>) Class
 					.forName(DAO.GUI_DAO_ROOT + ".StavkaRacuna").newInstance();
 
 		} catch (InstantiationException ie) {

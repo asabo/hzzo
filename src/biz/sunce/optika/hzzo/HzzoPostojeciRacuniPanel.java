@@ -305,7 +305,7 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 		super();
 		initialize();
 		osvjeziTablicuSaPodacima();
-		GlavniFrame.getInstanca().pack();
+		//GlavniFrame.getInstanca().pack();
 
 		popup = new JPopupMenu("opcije");
 		JMenuItem jmIspisiRacune = new JMenuItem("Ispiši raèun(e)");
@@ -323,6 +323,8 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 		{
 			public void run()
 			{
+				setPriority(Thread.MIN_PRIORITY);
+				yield();
 				podaci.packAll();
 			}
 		};
@@ -421,11 +423,11 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 		this.add(getJtArtikl(), consGridBagConstraints4);
 		this.add(getJLabel6(), consGridBagConstraints15);
 		this.add(getJtBrojOsobnogRacuna(), consGridBagConstraints21);
-		int faktor = GlavniFrame.getFaktor();
-		this.setSize(790*faktor, 560*faktor);
-		this.setLocation(3, 22);
-		this.setPreferredSize(new java.awt.Dimension(790*faktor, 560*faktor));
-		this.setMinimumSize(new java.awt.Dimension(790*faktor, 560*faktor));
+		//int faktor = GlavniFrame.getFaktor();
+		//this.setSize(790*faktor, 560*faktor);
+		//this.setLocation(3, 22);
+		//this.setPreferredSize(new java.awt.Dimension(790*faktor, 560*faktor));
+		//this.setMinimumSize(new java.awt.Dimension(790*faktor, 560*faktor));
 	}
 
 	/**
@@ -651,14 +653,28 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 	private JXTable getPodaci() {
 		if (podaci == null) {
 			podaci = new JXTable();
-			this.racuniModel = new TableModel<RacunVO>(DAOFactory.getInstance()
+			
+			final HzzoPostojeciRacuniPanel ja = this;
+			
+			Thread t=new Thread()
+			{			
+				public void run()
+				{
+				setPriority(MIN_PRIORITY);
+				ja.racuniModel = new TableModel<RacunVO>(DAOFactory.getInstance()
 					.getRacuni(), podaci);
-			// koristit ce se kasnije pri osvjezavanju tablice
-			kriterij = new SearchCriteria();
-			kriterij.setKriterij(RacunDAO.KRITERIJ_RACUNI_PO_VISE_KRITERIJA);
-			this.racuniModel.dodajSlusaca(this);
+				// koristit ce se kasnije pri osvjezavanju tablice
+				kriterij = new SearchCriteria();
+				kriterij.setKriterij(RacunDAO.KRITERIJ_RACUNI_PO_VISE_KRITERIJA);
+				racuniModel.dodajSlusaca(ja);
 
-			this.podaci.setModel(this.racuniModel);
+				yield();
+				podaci.setModel(ja.racuniModel);
+			}
+			};
+			
+			SwingUtilities.invokeLater(t);
+			
 		}
 		return podaci;
 	}

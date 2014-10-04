@@ -131,15 +131,21 @@ public final class Racuni implements RacunDAO {
 
 		// gledamo samo ako broj potvrde pomagala (lijecnika) nije postavljen...
 		if (rvo.getBrojPotvrdePomagala() == null
-				|| rvo.getBrojPotvrdePomagala().equals("")) {
+				|| rvo.getBrojPotvrdePomagala().trim().equals("")) {
 			if (rvo.getBrojPotvrde1() == null || rvo.getBrojPotvrde1() != null
 					&& rvo.getBrojPotvrde1().length() > 3)
 				return "neispravan prvi dio broja potvrde/ra\u010Duna";
 
+			if (rvo.getBrojPotvrde1() == null || rvo.getBrojPotvrde1().trim().equals(""))
+				return "morate unesti prvi dio broja potvrde HZZO-a, obzirom da nemate broj potvrde lijecnika!";		
+			
 			if (rvo.getBrojPotvrde1() != null
 					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde1()))
 				return "prvi dio broja potvrde moze imati u sebi samo znamenke!";
 
+			if (rvo.getBrojPotvrde2() == null || rvo.getBrojPotvrde2().trim().equals(""))
+				return "morate unesti drugi dio broja potvrde HZZO-a, obzirom da nemate broj potvrde lijecnika!";	
+			
 			if (rvo.getBrojPotvrde2() == null || rvo.getBrojPotvrde2() != null
 					&& rvo.getBrojPotvrde2().length() > 10)
 				return "neispravan drugi dio broja potvrde/ra\u010Duna";
