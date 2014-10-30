@@ -622,11 +622,11 @@ public final class DAOFactory {
 		if (isTableEmpty(tablica))
 			return odskokMedjuPoslovnicama * poslovnica + 1;
 
-		String upit = "select max(" + kljuc + ")+1 from " + tablica + " where "
+		final String upit = "select max(" + kljuc + ")+1 from " + tablica + " where "
 				+ kljuc + ">" + (odskokMedjuPoslovnicama * poslovnica)
 				+ " and " + kljuc + "<"
 				+ ((odskokMedjuPoslovnicama) * (poslovnica + 1));
-		boolean rez = true;
+		
 		java.sql.ResultSet rs = null;
 		int sifra = -1;
 
@@ -659,6 +659,7 @@ public final class DAOFactory {
 			try {
 				if (rs != null)
 					rs.close();
+				rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -909,14 +910,14 @@ public final class DAOFactory {
 
 	public DAOObjekt getDAOObjekt(String naziv) {
 		if (this.DAOObjekti == null)
-			this.DAOObjekti = new Hashtable(5, 1);
+			this.DAOObjekti = new Hashtable<String,DAOObjekt>(5, 1);
 
 		if (naziv == null)
 			return null;
 
 		DAOObjekt daoObjekt = null;
 
-		daoObjekt = (DAOObjekt) this.DAOObjekti.get(naziv);
+		daoObjekt = this.DAOObjekti.get(naziv);
 
 		if (daoObjekt == null) {
 			try {

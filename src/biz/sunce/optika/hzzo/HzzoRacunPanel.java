@@ -16,8 +16,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.event.TableModelEvent;
+import javax.swing.table.DefaultTableCellRenderer;
 
 import org.jdesktop.swingx.JXTable;
 
@@ -39,6 +41,7 @@ import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.RacuniUtil;
 import biz.sunce.util.beans.PostavkeBean;
+
 import java.awt.Dimension;
  
  
@@ -268,6 +271,11 @@ public final class HzzoRacunPanel extends JPanel implements
 					jtbStavkeRacuna);
 			this.stavkeRacunaModel.dodajSlusaca(this);
 			jtbStavkeRacuna.setModel(this.stavkeRacunaModel);
+		
+			DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+			rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+			jtbStavkeRacuna.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+			
 		}
 		return jtbStavkeRacuna;
 	}

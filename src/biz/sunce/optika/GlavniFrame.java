@@ -532,26 +532,6 @@ public final class GlavniFrame extends JFrame
 	 */
 
 	/**
-	 * This method initializes jcGlavniContentPane
-	 * 
-	 * @return javax.swing.JPanel
-	 */
-	private javax.swing.JPanel getJcGlavniContentPane() {
-		if (jcGlavniContentPane == null) {
-			jcGlavniContentPane = new javax.swing.JPanel();
-			java.awt.GridBagConstraints consGridBagConstraints1 = new java.awt.GridBagConstraints();
-			consGridBagConstraints1.fill = java.awt.GridBagConstraints.BOTH;
-			consGridBagConstraints1.weighty = 1.0;
-			consGridBagConstraints1.weightx = 1.0;
-			consGridBagConstraints1.gridy = 0;
-			consGridBagConstraints1.gridx = 0;
-			jcGlavniContentPane.setLayout(new java.awt.GridBagLayout());
-			jcGlavniContentPane.add(getJScrollPane(), consGridBagConstraints1);
-		}
-		return jcGlavniContentPane;
-	}
-
-	/**
 	 * This method initializes jmMenu
 	 * 
 	 * @return javax.swing.JMenuBar
@@ -1003,7 +983,7 @@ public final class GlavniFrame extends JFrame
 									.booleanValue()) {
 						JOptionPane.showMessageDialog(
 								GlavniFrame.getInstanca(),
-								"Nema ovlasti izvršiti dotiènu akciju",
+								"Nemate ovlasti izvršiti dotiènu akciju",
 								"Obavijest", JOptionPane.INFORMATION_MESSAGE);
 						return;
 					}
@@ -1237,7 +1217,7 @@ public final class GlavniFrame extends JFrame
 			} finally {
 				try {
 					if (fin != null)
-						fin.close();
+						fin.close(); fin=null;
 				} catch (IOException ioe) {
 				}
 			}
@@ -1788,6 +1768,7 @@ public final class GlavniFrame extends JFrame
 			jmHzzo.setText("HZZO");
 			jmHzzo.setVisible(GlavniFrame.isImaPravoNaHzzo());
 		}
+		
 		return jmHzzo;
 	}
 
@@ -1868,6 +1849,7 @@ public final class GlavniFrame extends JFrame
 				yield();
 				obr.pack();
 				obr.setVisible(true);
+				yield();
 				GUI.centrirajFrame(obr);
 				idle();
 			}
@@ -1920,12 +1902,15 @@ public final class GlavniFrame extends JFrame
 										return;
 									}
 									getContentPane().removeAll();
+									yield();
 									DAOObjektPanel daop = new DAOObjektPanel();
 									daop.setDAOObjekt(DAOFactory.getInstance()
 											.getHzzoObracuni());
+									yield();
 									daop.setSviElementiSeMoguBrisati(true);
 									setContentPane(daop);
 									//pack();
+									yield();
 									idle();
 								}
 							};
@@ -1954,11 +1939,13 @@ public final class GlavniFrame extends JFrame
 						public void run() {
 							busy();
 							getContentPane().removeAll();
+							yield();
 							DAOObjektPanel daop = new DAOObjektPanel();
 							daop.setDAOObjekt(DAOFactory.getInstance()
 									.getPomagala());
 							daop.setSviElementiSeMoguBrisati(true);
 							setContentPane(daop);
+							yield();
 							daop.dodajSlusaca(new SlusacDaoObjektPanela() {
 
 								public void objektSpremljen(ValueObject objekt) {

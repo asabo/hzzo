@@ -36,7 +36,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.CoreProtocolPNames;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
@@ -58,6 +57,7 @@ import biz.sunce.opticar.vo.VrstaPomagalaVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.toedter.calendar.JDateChooser;
+import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.Labela;
 import biz.sunce.util.PretrazivanjeProzor;
@@ -65,6 +65,8 @@ import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
+import com.modp.checkdigits.CheckDigit;
+import com.modp.checkdigits.CheckISO7064Mod11_10;
 import com.toedter.calendar.DatumskoPolje;
 import com.toedter.calendar.SlusacDateChoosera;
 
@@ -76,14 +78,15 @@ import com.toedter.calendar.SlusacDateChoosera;
  */
 @SuppressWarnings("serial")
 public final class Racun extends JPanel implements GUIEditor<RacunVO>,
-		SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera {
+		SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera 
+		{
 
 	private static final String HZZO_WEBSITE = "http://www.hzzo-net.hr";
 	private static final String Y2 = "y";
 	private static final String X2 = "x";
 	private static final String UPOSID = "uposid";
 	private static final String UPOSFLID = "uposflid";
-	private static final String UTF_8 = "UTF-8";
+ 
 	private static final String ISO_8859_2 = "iso-8859-2";
 
 	private javax.swing.JLabel jLabel = null;
@@ -218,7 +221,6 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		java.awt.GridBagConstraints consGridBagConstraints9 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints8 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
-		consGridBagConstraints12.insets = new Insets(0, 0, 2, 0);
 		java.awt.GridBagConstraints consGridBagConstraints10 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints14 = new java.awt.GridBagConstraints();
 		consGridBagConstraints14.insets = new Insets(0, 0, 2, 0);
@@ -244,7 +246,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		java.awt.GridBagConstraints consGridBagConstraints111 = new java.awt.GridBagConstraints();
 		consGridBagConstraints111.insets = new Insets(0, 0, 2, 0);
 		java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
-		consGridBagConstraints22.insets = new Insets(0, 0, 2, 0);
+		consGridBagConstraints22.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints112 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints gbc_jlBrojBolesnickogLista = new java.awt.GridBagConstraints();
 		gbc_jlBrojBolesnickogLista.insets = new Insets(0, 0, 2, 0);
@@ -403,7 +405,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints5.weightx = 1.0;
 		consGridBagConstraints5.gridy = 3;
 		consGridBagConstraints5.gridx = 1;
-		consGridBagConstraints5.gridwidth = 2;
+		consGridBagConstraints5.gridwidth = 3;
 		consGridBagConstraints5.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints4.gridy = 3;
 		consGridBagConstraints4.gridx = 0;
@@ -417,7 +419,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints7.ipady = 0;
 		consGridBagConstraints7.insets = new Insets(0, 2, 2, 0);
 
-		consGridBagConstraints13.insets = new Insets(0, 2, 2, 0);
+		consGridBagConstraints13.insets = new Insets(0, 2, 0, 0);
 		consGridBagConstraints6.anchor = java.awt.GridBagConstraints.SOUTHEAST;
 		consGridBagConstraints18.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints13.anchor = java.awt.GridBagConstraints.WEST;
@@ -478,7 +480,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getDatumNarudzbe(), consGridBagConstraints7);
 		this.add(getJLabel3(), consGridBagConstraints8);
 		this.add(getDatumIsporuke(), consGridBagConstraints9);
-		this.add(getJpnTipOsiguranja(), new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 2, 0), 0, 0));
+		this.add(getJpnTipOsiguranja(), new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJLabel4(), consGridBagConstraints12);
 		this.add(getJtSifraProizvodjaca(), consGridBagConstraints13);
 		this.add(getJLabel5(), consGridBagConstraints14);
@@ -521,7 +523,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				new Insets(0, 0, 2, 0), 0, 0));
 		this.add(getJtSifraAktivnosti(), new GridBagConstraints(5, 1, 1, 1,
 				0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJlBrojPotvrde(), new GridBagConstraints(4, 11, 1, 1, 0.0,
 				0.0, GridBagConstraints.EAST, GridBagConstraints.NONE,
 				new Insets(0, 0, 0, 0), 0, 0));
@@ -646,7 +648,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtKlijent = new javax.swing.JTextField();
 			jtKlijent.setHorizontalAlignment(SwingConstants.LEFT);
 			jtKlijent.setPreferredSize(new Dimension(160, 25));
-			jtKlijent.setMinimumSize(new java.awt.Dimension(160, 20));
+			jtKlijent.setMinimumSize(new Dimension(160, 23));
 			jtKlijent
 					.setToolTipText("obavezan podatak, ime Vašeg klijenta za kojeg izraðujete raèun, ako Vam se ne pokaže na popisu, vodite raèuna da ste prvo unijeli ime pa prezime");
 			jtKlijent.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -1414,11 +1416,11 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JPanel getJpnTipOsiguranja() {
 		if (jpnTipOsiguranja == null) {
 			jpnTipOsiguranja = new javax.swing.JPanel();
-			java.awt.FlowLayout layFlowLayout1 = new java.awt.FlowLayout();
-			layFlowLayout1.setAlignment(FlowLayout.LEFT);
-			layFlowLayout1.setHgap(2);
-			layFlowLayout1.setVgap(0);
-			jpnTipOsiguranja.setLayout(layFlowLayout1);
+			java.awt.FlowLayout tipOsiguranjaFlowLayout = new java.awt.FlowLayout();
+			tipOsiguranjaFlowLayout.setAlignment(FlowLayout.LEFT);
+			tipOsiguranjaFlowLayout.setHgap(2);
+			tipOsiguranjaFlowLayout.setVgap(0);
+			jpnTipOsiguranja.setLayout(tipOsiguranjaFlowLayout);
 			jpnTipOsiguranja.add(getJtbOsnovno(), null);
 			jpnTipOsiguranja.add(getJtbDopunsko(), null);
 			jpnTipOsiguranja.setPreferredSize(new Dimension(155, 27));
@@ -1499,8 +1501,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojPotvrde1() {
 		if (jtBrojPotvrde1 == null) {
 			jtBrojPotvrde1 = new javax.swing.JTextField();
-			jtBrojPotvrde1.setPreferredSize(new Dimension(45, 23));
-			jtBrojPotvrde1.setMinimumSize(new Dimension(45, 22));
+			jtBrojPotvrde1.setPreferredSize(new Dimension(45, 24));
+			jtBrojPotvrde1.setMinimumSize(new Dimension(45, 23));
 			jtBrojPotvrde1
 					.setToolTipText("šifra podruènog ureda, automatski æe se postaviti");
 		}
@@ -1515,12 +1517,47 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtBrojPotvrde2() {
 		if (jtBrojPotvrde2 == null) {
 			jtBrojPotvrde2 = new javax.swing.JTextField();
-			jtBrojPotvrde2.setPreferredSize(new Dimension(97, 23));
-			jtBrojPotvrde2.setMinimumSize(new Dimension(85, 22));
+			jtBrojPotvrde2.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusLost(FocusEvent arg0) {
+					provjeriIspravnostHzzoBrojaPotvrde();
+				}
+
+			});
+			jtBrojPotvrde2.setPreferredSize(new Dimension(100, 24));
+			jtBrojPotvrde2.setMinimumSize(new Dimension(91, 23));
 			jtBrojPotvrde2.setToolTipText("broj potvrde HZZO-a");
 		}
 		return jtBrojPotvrde2;
 	}
+	
+	private Thread ispitivacHzzoBrojaPotvrde=null;
+	private final static CheckDigit cd = new CheckISO7064Mod11_10();
+	/*
+	 * spina poseban thread koji provjerava jeli broj ispravan, i ako nije odradjuje animaciju kojom 
+	 * upozorava korisnika na neispravnost broja. Nazalost, jos uvijek su u opticaju brojevi koji nisu ispravni
+	 * po ISO standardu, ali kao takvi su propisani i odobreni od HZZO-a, pa moraju proci.. 
+	 */
+	private void provjeriIspravnostHzzoBrojaPotvrde() {
+
+		if (ispitivacHzzoBrojaPotvrde == null
+				|| !ispitivacHzzoBrojaPotvrde.isAlive()) {
+			ispitivacHzzoBrojaPotvrde = new Thread() {
+				@Override
+				public void run() {
+					final String broj = jtBrojPotvrde2.getText().trim();
+					
+					if (broj.length() > 8 && !cd.verify(broj)) 
+					{
+						GUI.odradiUpozorenjeNaElementu(jtBrojPotvrde2, "Neispavan broj potvrde!!!");						
+					}
+				}
+			};
+
+			ispitivacHzzoBrojaPotvrde.start();
+		}	
+	}
+
 
 	/**
 	 * This method initializes jLabel6
@@ -1692,7 +1729,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					GlavniFrame.getInstanca(), mjesta, 10, 20, 160, 60,
 					(Component) jtPodruznica);
 			SearchCriteria kr = new SearchCriteria();
-			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUDRUZNICE);
+			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUZNICE);
 
 			// filter ce ugradjivati upit u kriterij prije zvanja findAll
 			// metode...
@@ -1749,8 +1786,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtPozivNaBroj1() {
 		if (jtPozivNaBroj1 == null) {
 			jtPozivNaBroj1 = new javax.swing.JTextField();
-			jtPozivNaBroj1.setPreferredSize(new Dimension(30, 24));
-			jtPozivNaBroj1.setMinimumSize(new java.awt.Dimension(25, 22));
+			jtPozivNaBroj1.setPreferredSize(new Dimension(35, 24));
+			jtPozivNaBroj1.setMinimumSize(new Dimension(30, 22));
 			jtPozivNaBroj1.setToolTipText("prvi dio poziva na broj");
 			jtPozivNaBroj1
 					.setHorizontalAlignment(SwingConstants.LEFT);
@@ -1837,7 +1874,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jtAdresaPodruznice == null) {
 			jtAdresaPodruznice = new javax.swing.JTextField();
 			jtAdresaPodruznice.setHorizontalAlignment(SwingConstants.LEFT);
-			jtAdresaPodruznice.setPreferredSize(new Dimension(160, 23));
+			jtAdresaPodruznice.setPreferredSize(new Dimension(162, 22));
 			jtAdresaPodruznice
 					.setToolTipText("adresa HZZO podružnice za koju radite raèun");
 			jtAdresaPodruznice
@@ -2400,6 +2437,14 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			int kontrolni = Util.izracunajKontrolniBrojPotvrdeLijecnika(brpotv);
 			jtBrojPotvrdeLijecnik.setText(brpotv + kontrolni);
 		}
+		else
+			if (brpotv.length()==14)
+			{
+				if (!Util.brojPotvrdeLijecnikaIspravna(brpotv))
+				{
+					GUI.odradiUpozorenjeNaElementu(jtBrojPotvrdeLijecnik, "Broj potvrde lijecnika nije ispravan!");
+				}
+			}
 	}// jtBrojPotvrdeLijecnikFocusLost
 
 	protected void brojIskaznice2KeyTyped(KeyEvent ke) {
@@ -2817,7 +2862,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jpBrojPotvrdeHzzo = new JPanel();
 			jpBrojPotvrdeHzzo.setToolTipText("broj potvrde HZZO-a");
 			FlowLayout flowLayout = (FlowLayout) jpBrojPotvrdeHzzo.getLayout();
-			flowLayout.setVgap(0);
+			flowLayout.setVgap(1);
 			flowLayout.setHgap(2);
 			flowLayout.setAlignment(FlowLayout.LEFT);
 			jpBrojPotvrdeHzzo.add(getJtBrojPotvrde1());

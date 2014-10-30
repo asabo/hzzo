@@ -81,12 +81,6 @@ public final class Racuni implements RacunDAO {
 		return this.mjesta;
 	}
 
-	private final DjelatnikDAO getDjelatnici() {
-		if (this.djelatnici == null)
-			this.djelatnici = DAOFactory.getInstance().getDjelatnici();
-		return this.djelatnici;
-	}
-
 	public String narusavaLiObjektKonzistentnost(RacunVO objekt) {
 		RacunVO rvo = (RacunVO) objekt;
 		if (rvo == null)
@@ -127,27 +121,28 @@ public final class Racuni implements RacunDAO {
 		}
 
 		if (rvo.getPodrucniUred() == null)
-			return "podrucni ured HZZO-a nije definiran!";
+			return "podruèni ured HZZO-a nije definiran!";
 
 		// gledamo samo ako broj potvrde pomagala (lijecnika) nije postavljen...
-		if (rvo.getBrojPotvrdePomagala() == null
-				|| rvo.getBrojPotvrdePomagala().trim().equals("")) {
-			if (rvo.getBrojPotvrde1() == null || rvo.getBrojPotvrde1() != null
-					&& rvo.getBrojPotvrde1().length() > 3)
+		if (prazno(rvo.getBrojPotvrdePomagala())) 
+		  {
+			if (rvo.getBrojPotvrde1() == null 
+				|| (rvo.getBrojPotvrde1() != null && rvo.getBrojPotvrde1().length() > 3)
+				)
 				return "neispravan prvi dio broja potvrde/ra\u010Duna";
 
-			if (rvo.getBrojPotvrde1() == null || rvo.getBrojPotvrde1().trim().equals(""))
+			if ( prazno(rvo.getBrojPotvrde1()) )
 				return "morate unesti prvi dio broja potvrde HZZO-a, obzirom da nemate broj potvrde lijecnika!";		
 			
-			if (rvo.getBrojPotvrde1() != null
-					&& !Util.jeliCijeliBroj(rvo.getBrojPotvrde1()))
+			if (rvo.getBrojPotvrde1() != null && !Util.jeliCijeliBroj(rvo.getBrojPotvrde1()))
 				return "prvi dio broja potvrde moze imati u sebi samo znamenke!";
 
-			if (rvo.getBrojPotvrde2() == null || rvo.getBrojPotvrde2().trim().equals(""))
+			if (prazno(rvo.getBrojPotvrde2()))
 				return "morate unesti drugi dio broja potvrde HZZO-a, obzirom da nemate broj potvrde lijecnika!";	
 			
-			if (rvo.getBrojPotvrde2() == null || rvo.getBrojPotvrde2() != null
-					&& rvo.getBrojPotvrde2().length() > 10)
+			if (rvo.getBrojPotvrde2() == null 
+					|| (rvo.getBrojPotvrde2() != null
+					&& rvo.getBrojPotvrde2().length() > 10))
 				return "neispravan drugi dio broja potvrde/ra\u010Duna";
 
 			if (rvo.getBrojPotvrde2() != null
@@ -214,7 +209,7 @@ public final class Racuni implements RacunDAO {
 			try {
 				sfp = Integer.parseInt(rvo.getBrojInoBolesnickogLista1());
 			} catch (NumberFormatException nfe) {
-				return "prvi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan";
+				return "prvi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan "+sfp;
 			}
 			try {
 				sfp = Integer.parseInt(rvo.getBrojInoBolesnickogLista2());
@@ -263,7 +258,7 @@ public final class Racuni implements RacunDAO {
 				brDop = Integer.parseInt(rvo.getBrojPoliceDopunsko());
 			} catch (NumberFormatException nfe) {
 				return "Broj police dopunskog osiguranja ne sadr\u017Ei samo brojeve! - "
-						+ rvo.getBrojPoliceDopunsko();
+						+ rvo.getBrojPoliceDopunsko()+":"+brDop;
 			}
 		}
 		if (rvo.getIznosSudjelovanja() == null
@@ -280,13 +275,13 @@ public final class Racuni implements RacunDAO {
 			l.add(rvo.getSifra());
 			sc.setPodaci(l);
 			try {
-				@SuppressWarnings("unchecked")
+				 
 				ArrayList<RacunVO> rvol = (ArrayList<RacunVO>) findAll(sc);
 				if (rvol != null && rvol.size() > 0) {
 					RacunVO rvo2 = (RacunVO) rvol.get(0);
 					return "Ra\u010Dun sa brojem osobnog ra\u010Duna '"
 							+ rvo2.getBrojOsobnogRacunaOsnovno()
-							+ "' ve\u010D postoji (ra\u010Dun br. "
+							+ "' ve\u010D postoji (ra\u010Dun ID: "
 							+ rvo2.getSifra().intValue() + ")";
 				}
 				rvol.clear();
@@ -295,13 +290,14 @@ public final class Racuni implements RacunDAO {
 				Logger.fatal(
 						"SQL iznimka kod trazenja racuna sa brojem osobnog racuna",
 						sqle);
-				return "Nastao je problem pri trazenju broj osobnog racuna. Kontaktirajte administratora";
+				return "Nastao je problem pri trazenju broja osobnog racuna. Kontaktirajte administratora";
 			}
 		}
 		CheckDigit cd = new CheckISO7064Mod11_10();
 		if (rvo.getBrojPotvrde2().length() > 8
 				&& !cd.verify(rvo.getBrojPotvrde2()))
-			return "@drugi dio broja potvrde/ra\u010Duna nije ispravan po ISO7064 standardu (samo upozorenje)";
+			return "@drugi dio broja potvrde HZZO-a nije ispravan po ISO7064 standardu (samo upozorenje)";
+		
 		if (rvo.getAktivnostZZR() == null
 				|| rvo.getAktivnostZZR().trim().equals(""))
 			return "Morate unijeti \u0161ifru aktivnosti";
@@ -329,11 +325,22 @@ public final class Racuni implements RacunDAO {
 							: "(aktivnost mora biti 8 znakova)");
 		else
 			return null;
-		// TODO napraviti provjeru za broj potvrde lijecnika
-		// broj_potvrde_lijecnika
 	}// NarusavaLiKonzistentnost
 
-	public void insert(Object objekt) throws SQLException {
+	private boolean prazno(String vr) {
+		return vr == null || vr.trim().equals("");
+	}
+
+	private final String insUpit = "INSERT INTO "
+			+ tablica
+			+ " (sifra,dopunsko_osiguranje,osnovno_osiguranje,iznos_sudjelovanja,iznos_sudjelovanja_osnovno_osig,sif_klijenta,datum_narudzbe,"
+			+ "datum_izdavanja,created,created_by,SIF_PROIZVODJACA,broj_potvrde1,broj_potvrde2,broj_police_dopunsko,sif_podruznice,poziv_na_br1,"
+			+ "poziv_na_br2,napomena, sif_drzave,broj_iskaznice1,broj_iskaznice2,ino_broj_lista1,ino_broj_lista2,sif_lijecnika,broj_osobnog_racuna_osn,"
+			+ "broj_osobnog_racuna_dop,uzet_skuplji_model,vrsta_pomagala,roba_isporucena,status,sif_preporucio,datum_slijedeceg_prava,aktivnost_zzr,"
+			+ "aktivnost_dop,broj_potvrde_lijecnika) VALUES (";
+	
+	public void insert(Object objekt) throws SQLException 
+	{
 		String upit;
 		RacunVO ul = (RacunVO) objekt;
 		int sifRacuna = DAO.NEPOSTOJECA_SIFRA;
@@ -342,16 +349,9 @@ public final class Racuni implements RacunDAO {
 			throw new SQLException("Insert " + tablica
 					+ ", ulazna vrijednost je null!");
 
-		upit = "INSERT INTO "
-				+ tablica
-				+ " (sifra,dopunsko_osiguranje,osnovno_osiguranje,iznos_sudjelovanja,iznos_sudjelovanja_osnovno_osig,sif_klijenta,datum_narudzbe,"
-				+ "datum_izdavanja,created,created_by,  SIF_PROIZVODJACA,broj_potvrde1,broj_potvrde2,broj_police_dopunsko,sif_podruznice,poziv_na_br1,"
-				+ "poziv_na_br2,napomena, sif_drzave,broj_iskaznice1,broj_iskaznice2,ino_broj_lista1,ino_broj_lista2,sif_lijecnika,broj_osobnog_racuna_osn,"
-				+ "broj_osobnog_racuna_dop,uzet_skuplji_model,vrsta_pomagala,roba_isporucena,status,sif_preporucio,datum_slijedeceg_prava,aktivnost_zzr,"
-				+ "aktivnost_dop,broj_potvrde_lijecnika) VALUES ("
-				+ (sifRacuna = DAOFactory.vratiSlijedecuSlobodnuSifruZaTablicu(
-						"racuni", "sifra")) + ","
-				+ "?,?,?,?,?,?,?,current_timestamp,"
+		upit = insUpit
+				+ (sifRacuna = DAOFactory.vratiSlijedecuSlobodnuSifruZaTablicu("racuni", "sifra"))
+				+ ",?,?,?,?,?,?,?,current_timestamp,"
 				+ GlavniFrame.getSifDjelatnika() + ",?,?,?,?,?,?,?,?,"
 				+ "?,?,?,?,?,?,?,?,?,?,?,'U',?,?,?,?,?)";
 
@@ -366,14 +366,10 @@ public final class Racuni implements RacunDAO {
 				throw new SQLException(
 						"PreparedStatement je null kod inserta racuna!");
 
-			ps.setString(1, ul.getDopunskoOsiguranje().booleanValue() ? DAO.DA
-					: DAO.NE);
-			ps.setString(2, ul.getOsnovnoOsiguranje().booleanValue() ? DAO.DA
-					: DAO.NE);
-			ps.setInt(3, ul.getIznosSudjelovanja() != null ? ul
-					.getIznosSudjelovanja().intValue() : 0);
-			ps.setInt(4, ul.getIznosOsnovnogOsiguranja() != null ? ul
-					.getIznosOsnovnogOsiguranja().intValue() : 0);
+			ps.setString(1, ul.getDopunskoOsiguranje().booleanValue() ? DAO.DA : DAO.NE);
+			ps.setString(2, ul.getOsnovnoOsiguranje().booleanValue() ? DAO.DA : DAO.NE);
+			ps.setInt(3, ul.getIznosSudjelovanja() != null ? ul.getIznosSudjelovanja().intValue() : 0);
+			ps.setInt(4, ul.getIznosOsnovnogOsiguranja() != null ? ul.getIznosOsnovnogOsiguranja().intValue() : 0);
 
 			if (ul.getSifKlijenta() != null)
 				ps.setInt(5, ul.getSifKlijenta().intValue());
@@ -392,8 +388,7 @@ public final class Racuni implements RacunDAO {
 												// izmjeniti ...
 				ps.setDate(7, datNar);
 			else {
-				datIzd = new java.sql.Date(ul.getDatumIzdavanja()
-						.getTimeInMillis());
+				datIzd = new java.sql.Date(ul.getDatumIzdavanja().getTimeInMillis());
 				ps.setDate(7, datIzd);
 			}
 
@@ -435,8 +430,9 @@ public final class Racuni implements RacunDAO {
 			ps.setString(23, ul.getBrojOsobnogRacunaDopunsko());
 
 			// 07.05.06. -asabo- dodano
-			boolean skupljiModel = ul.getKupljenSkupljiArtikl() != null ? ul
-					.getKupljenSkupljiArtikl().booleanValue() : false;
+			boolean skupljiModel = ul.getKupljenSkupljiArtikl() != null ? 
+					ul.getKupljenSkupljiArtikl().booleanValue() : false;
+			
 			ps.setString(24, skupljiModel ? DAO.DA : DAO.NE);
 
 			ps.setInt(25, ul.getVrstaPomagala().intValue());
@@ -452,8 +448,8 @@ public final class Racuni implements RacunDAO {
 			else
 				ps.setNull(27, Types.INTEGER);
 
-			Date dt = new Date(ul.getDatumSlijedecegPrava() == null ? 0L : ul
-					.getDatumSlijedecegPrava().getTime());
+			Date dt = new Date(ul.getDatumSlijedecegPrava() == null ? 0L :
+					ul.getDatumSlijedecegPrava().getTime());
 			if (dt.getTime() == 0L)
 				dt = null;
 			ps.setDate(28, dt);
@@ -504,10 +500,20 @@ public final class Racuni implements RacunDAO {
 
 			if (conn != null)
 				DAOFactory.freeConnection(conn);
+			conn=null;
 		}// finally
 
 	}// insert
 
+	private final String updUpit=
+			 "dopunsko_osiguranje=?,osnovno_osiguranje=?,iznos_sudjelovanja=?,iznos_sudjelovanja_osnovno_osig=?,sif_klijenta=?, "
+					+ " status=?,datum_narudzbe=?,datum_izdavanja=?, "
+					+ " sif_proizvodjaca=?,broj_potvrde1=?,broj_potvrde2=?,broj_police_dopunsko=?,sif_podruznice=?,poziv_na_br1=?,poziv_na_br2=?,napomena=?,"
+					+ " sif_drzave=?,broj_iskaznice1=?,broj_iskaznice2=?,ino_broj_lista1=?,ino_broj_lista2=?,sif_lijecnika=?, "
+					+ " broj_osobnog_racuna_osn=?,broj_osobnog_racuna_dop=?,uzet_skuplji_model=?,vrsta_pomagala=?,roba_isporucena=?,sif_preporucio=?,"
+					+ " datum_slijedeceg_prava=?, aktivnost_zzr=?, aktivnost_dop=?, broj_potvrde_lijecnika=?"
+					+ " where sifra=?";
+	
 	// 23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
 	public boolean update(Object objekt) throws SQLException {
 		String upit;
@@ -543,15 +549,8 @@ public final class Racuni implements RacunDAO {
 		upit = "update "
 				+ tablica
 				+ " set "
-				+ ""
 				+ updBy
-				+ "dopunsko_osiguranje=?,osnovno_osiguranje=?,iznos_sudjelovanja=?,iznos_sudjelovanja_osnovno_osig=?,sif_klijenta=?, "
-				+ " status=?,datum_narudzbe=?,datum_izdavanja=?, "
-				+ " sif_proizvodjaca=?,broj_potvrde1=?,broj_potvrde2=?,broj_police_dopunsko=?,sif_podruznice=?,poziv_na_br1=?,poziv_na_br2=?,napomena=?,"
-				+ " sif_drzave=?,broj_iskaznice1=?,broj_iskaznice2=?,ino_broj_lista1=?,ino_broj_lista2=?,sif_lijecnika=?, "
-				+ " broj_osobnog_racuna_osn=?,broj_osobnog_racuna_dop=?,uzet_skuplji_model=?,vrsta_pomagala=?,roba_isporucena=?,sif_preporucio=?,"
-				+ " datum_slijedeceg_prava=?, aktivnost_zzr=?, aktivnost_dop=?, broj_potvrde_lijecnika=?"
-				+ " where sifra=?";
+				+ updUpit;
 
 		// String upd="update "+tablica+" set "+
 		// "" + updBy;
@@ -853,6 +852,7 @@ public final class Racuni implements RacunDAO {
 			try {
 				if (rs != null)
 					rs.close();
+				rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -897,7 +897,7 @@ public final class Racuni implements RacunDAO {
 			String brojOsobnogRacuna = null;
 			String strPomagalo = null;
 
-			List l = kriterij.getPodaci();
+			List<?> l = kriterij.getPodaci();
 
 			if (l.get(0) != null)
 				datumOd = (Calendar) l.get(0);
@@ -984,7 +984,7 @@ public final class Racuni implements RacunDAO {
 			Calendar datumObracunaDo = null, datumObracunaOd = null;
 			Integer sifPodruznice = null, osiguranje = null;
 
-			List l = kriterij.getPodaci();
+			List<?> l = kriterij.getPodaci();
 
 			// datumi za trazenje racuna, prvi moze biti null, drugi ne smije
 			// biti null
@@ -1058,7 +1058,7 @@ public final class Racuni implements RacunDAO {
 						RacunDAO.KRITERIJ_RACUNI_SA_BROJEM_OSOBNOG_RACUNA)) {
 			String brojOsobnogRacuna = "";
 			Integer sifRacuna;
-			List l = kriterij.getPodaci();
+			List<?> l = kriterij.getPodaci();
 			brojOsobnogRacuna = (String) l.get(0);
 			sifRacuna = (Integer) l.get(1);
 			String sfr = sifRacuna != null
@@ -1104,14 +1104,13 @@ public final class Racuni implements RacunDAO {
 
 	}// findAll
 
-	public final Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.RacunVO");
+	public final Class<RacunVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.RacunVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<RacunVO> getGUIEditor() {
 		try {
-			return (GUIEditor) Class.forName(DAO.GUI_DAO_ROOT + ".Racun")
-					.newInstance();
+			return (GUIEditor<RacunVO>) Class.forName(DAO.GUI_DAO_ROOT + ".Racun").newInstance();
 
 		} catch (InstantiationException ie) {
 			Logger.log(
@@ -1141,7 +1140,7 @@ public final class Racuni implements RacunDAO {
 		return kolone.length;
 	}
 
-	public final Class getColumnClass(int columnIndex) {
+	public final Class<?> getColumnClass(int columnIndex) {
 
 		switch (columnIndex) {
 		// case 0: return Class.forName("java.lang.Integer");

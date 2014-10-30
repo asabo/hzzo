@@ -636,7 +636,7 @@ public final class HzzoPostojeciRacuniPanel extends JPanel implements
 					GlavniFrame.getInstanca(), DAOFactory.getInstance()
 							.getMjesta(), 10, 20, 120, 60, jtPodrucniUred);
 			SearchCriteria kr = new SearchCriteria();
-			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUDRUZNICE);
+			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUZNICE);
 			// filter ce ugradjivati upit u kriterij prije zvanja findAll
 			// metode...
 			this.pretrazivanjePodruznice.setKriterij(kr);

@@ -19,7 +19,6 @@ import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.PostavkeDAO;
 import biz.sunce.opticar.vo.PostavkaVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.Logger;
 
 /**
@@ -62,7 +61,7 @@ public final class Postavke implements PostavkeDAO {
 
 			if (ul.getNaziv() == null) {
 				Logger.warn(
-						"Prilikom pohranjivanja postavke sustava doslo do ilegalnosg stanja objekta, naziv je null, vrijednost:"
+						"Prilikom pohranjivanja postavke sustava doslo do ilegalnog stanja objekta, naziv je null, vrijednost:"
 								+ ul.getVrijednost(), null);
 				throw new SQLException("Ilegalna vrijednost ulaznog objekta");
 			}
@@ -92,7 +91,7 @@ public final class Postavke implements PostavkeDAO {
 			} catch (SQLException e1) {
 			}
 			if (conn != null)
-				DAOFactory.freeConnection(conn);
+				DAOFactory.freeConnection(conn); conn=null;
 		}// finally
 	}// insert
 
@@ -114,7 +113,7 @@ public final class Postavke implements PostavkeDAO {
 					+ ", ulazna vrijednost naziva nije ispravna! vrijednost: "
 					+ ul.getVrijednost());
 
-		String upit = " update " + tablica + " set " + "	 vrijednost=?" // 1
+		final String upit = " update " + tablica + " set " + "	 vrijednost=?" // 1
 				+ "  where naziv=?"; // primary key ...
 
 		Connection conn = null;
@@ -151,7 +150,7 @@ public final class Postavke implements PostavkeDAO {
 			} catch (SQLException e1) {
 			}
 			if (conn != null)
-				DAOFactory.freeConnection(conn);
+				DAOFactory.freeConnection(conn); conn=null;
 
 		}// finally
 	}// update
@@ -246,8 +245,8 @@ public final class Postavke implements PostavkeDAO {
 		return lista;
 	}// findAll
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.PostavkaVO");
+	public Class<PostavkaVO> getVOClass() throws ClassNotFoundException {
+		return  biz.sunce.opticar.vo.PostavkaVO.class;
 	}
 
 	public String getColumnName(int rb) {
@@ -258,7 +257,7 @@ public final class Postavke implements PostavkeDAO {
 		return 0;
 	}
 
-	public Class getColumnClass(int columnIndex) {
+	public Class<?> getColumnClass(int columnIndex) {
 		return null;
 	}
 
@@ -275,13 +274,10 @@ public final class Postavke implements PostavkeDAO {
 		return pvo;
 	}// constructPostavka
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<PostavkaVO> getGUIEditor() {
 		return null;
 	}// constructLeca
 
-	 
-
- 
 
 	public String narusavaLiObjektKonzistentnost(PostavkaVO objekt) {
 		 

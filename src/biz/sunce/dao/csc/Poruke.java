@@ -68,14 +68,14 @@ public final class Poruke implements PorukaDAO
 			 {
 				conn=DAOFactory.getConnection();
 
-				ps=conn.prepareStatement(upit);
+					ps=conn.prepareStatement(upit);
 
 				   ps.setInt(1,ul.getSifKlijenta());
 				   ps.setInt(2,ul.getTipPoruke());
-				ps.setString(3,ul.getPoruka());
+				   ps.setString(3,ul.getPoruka());
 				   ps.setInt(4,GlavniFrame.getSifDjelatnika());
 				   ps.setInt(5,ul.getVrstaPoruke());
-				ps.setString(6,ul.getAdresa());
+				   ps.setString(6,ul.getAdresa());
 
 				int kom=ps.executeUpdate();
 
@@ -116,7 +116,7 @@ public final class Poruke implements PorukaDAO
 						if (ul==null)
 							throw new SQLException("Update "+tablica+", ulazna vrijednost je null!");
 
-						String upit =
+						final String upit =
 											" update "+tablica+" set "
 										+	"sif_klijenta=?,"			//1
 										+	"	 tip_poruke=?,"			//2
@@ -164,8 +164,8 @@ public final class Poruke implements PorukaDAO
 							}
 							//  -asabo- NEMA CATCH-anja! - sve ide pozivatelju...
 							finally{
-							try {if (ps!=null) ps.close();} catch (SQLException e1){}
-							DAOFactory.freeConnection(conn);
+							try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+							DAOFactory.freeConnection(conn); conn=null;
 						}//finally
 		}//update
 
@@ -217,7 +217,7 @@ public final class Poruke implements PorukaDAO
 							// -asabo- nema CATCH-anja ...
 							finally
 							{
-							try{if (rs!=null) rs.close();}catch(SQLException sqle){}
+							try{if (rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
 							}
 						return pvo;
 		}//read
@@ -225,7 +225,7 @@ public final class Poruke implements PorukaDAO
 
 	public List findAll(Object kljuc) throws SQLException
 	{
-		ArrayList list=new ArrayList(100);
+		ArrayList list=new ArrayList();
 
 		Integer sifra = null;
 					if (kljuc instanceof Integer){
@@ -325,24 +325,17 @@ public final class Poruke implements PorukaDAO
 	}
 
 	public Class getColumnClass(int columnIndex) {
-		try
-			{
-
+		 
 			switch(columnIndex){
-			case 0:		return Class.forName("java.lang.String");
-			case 1:		return Class.forName("java.lang.String");
-			case 2:		return Class.forName("java.lang.String");
-			case 3:		return Class.forName("java.lang.String");
-			case 4:		return Class.forName("java.lang.String");
-                        case 5:		return Class.forName("java.lang.String");
+			case 0:		return STRING_CLASS;
+			case 1:		return STRING_CLASS;
+			case 2:		return STRING_CLASS;
+			case 3:		return STRING_CLASS;
+			case 4:		return STRING_CLASS;
+            case 5:		return STRING_CLASS;
 			default:	return null;
 			}
-			}
-			catch(ClassNotFoundException cnfe)
-			{
-				Logger.fatal(tablica+" CSC - Integer ili String kao klase ne postoje?!?",cnfe);
-				return null;
-			}
+			
 	}
 
 	public Object getValueAt(ValueObject vo, int kolona)

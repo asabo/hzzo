@@ -12,13 +12,11 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
-import biz.sunce.dao.CacheabilniDAO;
 import biz.sunce.dao.DAO;
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.PoreznaStopaDAO;
 import biz.sunce.opticar.vo.PoreznaStopaVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.Logger;
 
 /**

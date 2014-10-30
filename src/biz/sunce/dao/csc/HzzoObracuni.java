@@ -318,7 +318,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 			// rs.getStatement().close();}catch(SQLException sqle){}
 			try {
 				if (rs != null)
-					rs.close();
+					rs.close(); rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -408,7 +408,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 			// rs.getStatement().close();}catch(SQLException sqle){}
 			try {
 				if (rs != null)
-					rs.close();
+					rs.close(); rs=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -416,8 +416,8 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 		return list;
 	}// findAll
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.HzzoObracunVO");
+	public Class<HzzoObracunVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.HzzoObracunVO.class;
 	}
 
 	public GUIEditor<HzzoObracunVO> getGUIEditor() {
@@ -453,11 +453,11 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 		return kolone != null ? kolone.length : 0;
 	}
 
-	Class<Integer> integerClass = Integer.class;
-	Class<String> stringClass = String.class;
+	Class<Integer> integerClass = INTEGER_CLASS;
+	Class<String> stringClass = STRING_CLASS;
 	
 	@SuppressWarnings("unchecked")
-	public Class getColumnClass(int columnIndex) {
+	public Class<?> getColumnClass(int columnIndex) {
 		try {
 
 			switch (columnIndex) {

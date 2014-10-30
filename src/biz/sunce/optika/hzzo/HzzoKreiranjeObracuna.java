@@ -1290,13 +1290,17 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 		 GlavniFrame instanca2 = GlavniFrame.getInstanca();
 		 instanca2.busy();
 		 HzzoIspravakObracunaPanel panel = new HzzoIspravakObracunaPanel();
+		 yield();
 		 
 		 instanca2.setContentPane(panel);
+		 yield();
 		 instanca2.pack();
 		 panel.setOznaceniObracun(obracun);
 		 panel.revalidate();
+		 yield();
 		 dispose();
 		 panel.getRacuni().packAll();
+		 yield();
 		 instanca2.idle();
 		 }
 		};
@@ -1398,11 +1402,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 				this.ispisiRacun(rvo, pJob);
 			}
 	}// ispisiSveRacune
-
-	private void ispisiRacun(RacunVO rvo) {
-		PrinterJob pJob = PrinterJob.getPrinterJob();
-		ispisiRacun(rvo, pJob);
-	}
+ 
 
 	private void ispisiRacun(RacunVO rvo, PrinterJob pJob) {
 		if (rvo == null)
@@ -1428,7 +1428,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 	private JButton jbIspisiDopis;
 	private JButton jbZatvori;
 	private HzzoObracunVO obracun;
-	private GUIEditor obracunEditor;
+	private GUIEditor<HzzoObracunVO> obracunEditor;
 	private HzzoObracunDAO obracunDao;
 	boolean izmjeneMoguce;
 	private JButton jbIspisiRacune;

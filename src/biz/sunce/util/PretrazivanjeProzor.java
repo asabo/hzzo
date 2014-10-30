@@ -192,7 +192,8 @@ public final class PretrazivanjeProzor extends javax.swing.JWindow implements
 				// profiltrirati 'rucno'.. zasada je tako, poslije ce se ovo
 				// tu ukinuti...
 
-				int tmpSize = temp.size();
+				int tmpSize = temp==null?0:temp.size();
+				
 				if (this.prozor.nadjeno == null && this.ziv && temp != null
 						&& f != null)
 					this.prozor.nadjeno = new HashSet<Object>(tmpSize);

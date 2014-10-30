@@ -27,7 +27,6 @@ import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.DrzavaVO;
 import biz.sunce.opticar.vo.KlijentVO;
 import biz.sunce.opticar.vo.MjestoVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.PictureUtil;
@@ -69,7 +68,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		// -------------------------------- METODE VEZANE UZ
 		// PRIKAZ----------------------------------
 
-	public Class getColumnClass(int columnIndex) {
+	public Class<?> getColumnClass(int columnIndex) {
 		 
 			switch (columnIndex) {
 			case 0:
@@ -113,8 +112,8 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		}
 	}// getValueAt
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.KlijentVO");
+	public Class<KlijentVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.KlijentVO.class;
 	}
 
 	public boolean setValueAt(KlijentVO vo, Object vrijednost, int kolona) {
@@ -146,7 +145,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 
 		int sifra = DAO.NEPOSTOJECA_SIFRA;
 
-		String upit = " INSERT INTO " + tablica + "	(sifra,"
+		final String upit = " INSERT INTO " + tablica + "	(sifra,"
 				+ "	ime,"
 				+ "	prezime,"
 				+ "	adresa,"
@@ -301,6 +300,20 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		}
 	}// insert
 
+
+	final String upitRead = "SELECT " + "			sifra," + "			ime," + "			prezime,"
+			+ "			adresa," + "			spol," + "			datrodjenja,"
+			+ "			datupisa," + "			tel," + "			gsm," + "			email,"
+			+ "			zanimanje," + "			jmbg," + "			hzzo," + "			umro,"
+			+ "			preporucio," + "			sifmjesta," + "			slijedecipregled,"
+			+ "			created," + "			updated," + "			slika,"
+			+ "			created_by," + "			updated_by," + "			mjesto,"
+			+ "			drzava," + "			zip," + "    prima_info," // 13.02.06.
+															// -asabo-
+															// dodano
+			+ "    napomena" // 23.02.06. -asabo- dodano
+			+ " FROM klijenti" + " WHERE ";
+	
 	public KlijentVO read(Object obj) throws SQLException {
 
 		KlijentVO klijent = null;
@@ -316,19 +329,8 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		if (obj instanceof String) {
 			ulazIme = (String) obj;
 		}
-
-		String upit = "SELECT " + "			sifra," + "			ime," + "			prezime,"
-				+ "			adresa," + "			spol," + "			datrodjenja,"
-				+ "			datupisa," + "			tel," + "			gsm," + "			email,"
-				+ "			zanimanje," + "			jmbg," + "			hzzo," + "			umro,"
-				+ "			preporucio," + "			sifmjesta," + "			slijedecipregled,"
-				+ "			created," + "			updated," + "			slika,"
-				+ "			created_by," + "			updated_by," + "			mjesto,"
-				+ "			drzava," + "			zip," + "    prima_info," // 13.02.06.
-																// -asabo-
-																// dodano
-				+ "    napomena" // 23.02.06. -asabo- dodano
-				+ " FROM klijenti" + " WHERE ";
+		
+		String upit = upitRead;
 
 		// nadograðivanje upita !!!! ocemo radit kombinacije ???? ostaje za
 		// vidit
@@ -372,8 +374,9 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 					ps.close(); ps=null;
 			} catch (SQLException sql1) {
 			}
-			DAOFactory.freeConnection(conn);
+			DAOFactory.freeConnection(conn); conn=null;
 		}
+		
 		return klijent;
 	}
 
@@ -381,7 +384,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		KlijentVO ulaz = (KlijentVO) obj;
 		if (ulaz == null)
 			throw new SQLException("ulazna vrijednost je null!");
-		String upit = " UPDATE KLIJENTI SET " + "		ime=?," + "		prezime=?,"
+		final String upit = " UPDATE KLIJENTI SET " + "		ime=?," + "		prezime=?,"
 				+ "		adresa=?," + "		spol=?," + "		datrodjenja=?,"
 				+ "		datupisa=?," + "		tel=?,"
 				+ "		gsm=?,"
@@ -516,11 +519,25 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
-			DAOFactory.freeConnection(conn);
+			DAOFactory.freeConnection(conn); conn=null;
 		}
 		return true;
 	}// update
 
+	final String upitFindAll = "SELECT " + "		klijenti.sifra," + "		ime," + "		prezime,"
+			+ "		adresa," + "		spol," + "		datrodjenja," + "		datupisa,"
+			+ "		tel," + "		gsm," + "		email," + "		zanimanje," + "		jmbg,"
+			+ "		hzzo," + "		umro," + "		preporucio," + "		sifmjesta,"
+			+ "		slijedeciPregled," + "		klijenti.created,"
+			+ "		klijenti.updated," + "		slika," + "		klijenti.created_by,"
+			+ "		klijenti.updated_by," + "	mjesto,"
+			+ "	drzava,"
+			+ " prima_info," // 16.12.05. -asabo- dodano
+			+ "	zip,"
+			+ " napomena" // 23.02.06. -asabo- dodano
+			+ " FROM " + "		klijenti" + " WHERE klijenti.status<>"
+			+ STATUS_DELETED;
+	
 	public List<KlijentVO> findAll(Object kljuc) throws SQLException {
 		// 22.07.05. -asabo- dodan datum kao ulazni parametar. Ako postoji datum
 		// kao ul.p.
@@ -528,7 +545,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		// zakazati pregled
 
 		Calendar datum = null;
-		String join = "";
+		 
 		SearchCriteria kriterij = null;
 
 		if (kljuc != null && kljuc instanceof Calendar) {
@@ -539,19 +556,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 
 		}
 
-		String upit = "SELECT " + "		klijenti.sifra," + "		ime," + "		prezime,"
-				+ "		adresa," + "		spol," + "		datrodjenja," + "		datupisa,"
-				+ "		tel," + "		gsm," + "		email," + "		zanimanje," + "		jmbg,"
-				+ "		hzzo," + "		umro," + "		preporucio," + "		sifmjesta,"
-				+ "		slijedeciPregled," + "		klijenti.created,"
-				+ "		klijenti.updated," + "		slika," + "		klijenti.created_by,"
-				+ "		klijenti.updated_by," + "	mjesto,"
-				+ "	drzava,"
-				+ " prima_info," // 16.12.05. -asabo- dodano
-				+ "	zip,"
-				+ " napomena" // 23.02.06. -asabo- dodano
-				+ " FROM " + "		klijenti" + " WHERE klijenti.status<>"
-				+ STATUS_DELETED;
+		String upit = upitFindAll;
 
 		if (datum != null) {
 			String d = Util.convertCalendarToStringForSQLQuery(datum);
@@ -589,7 +594,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		if (kriterij != null
 				&& kriterij.getKriterij().equals(
 						DAO.KRITERIJ_KLIJENT_DATUM_RODJENJA)) {
-			List pod = kriterij.getPodaci();
+			List<?> pod = kriterij.getPodaci();
 			if (pod == null)
 				return null;
 			datum = (Calendar) pod.get(0);
@@ -614,7 +619,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		if (kriterij != null
 				&& kriterij.getKriterij().equals(
 						DAO.KRITERIJ_KLIJENT_LIMIT_1000)) {
-			List pod = kriterij.getPodaci();
+			List<?> pod = kriterij.getPodaci();
 			String filter = null;
 			if (pod == null || pod.size() < 1)
 				return null;
@@ -789,7 +794,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		return k;
 	}// constructKlijent
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<KlijentVO> getGUIEditor() {
 		return null;
 	}
 

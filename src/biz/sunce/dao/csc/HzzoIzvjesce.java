@@ -41,13 +41,13 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public HzzoStavkaIzvjescaVO read(Object kljuc) throws SQLException {
 		return null;
 	}
 
-	public List findAll(Object kljuc) throws SQLException 
+	public List<HzzoStavkaIzvjescaVO> findAll(Object kljuc) throws SQLException 
 	{
-	ArrayList l=new ArrayList();
+	ArrayList<HzzoStavkaIzvjescaVO> l=new ArrayList<HzzoStavkaIzvjescaVO>();
 	SearchCriteria krit=null;
 	
 	if(kljuc==null) throw new SQLException("Kriterij pretrazivanja je prazan!");
@@ -87,14 +87,14 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
 	}
 	} //if krit!=null
 	this.zadnjiL=l;
-  return l;
+    return l;
 	}
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.HzzoStavkaIzvjescaVO");
+	public Class<HzzoStavkaIzvjescaVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.HzzoStavkaIzvjescaVO.class;
 	}
 	
-	private final HzzoStavkaIzvjescaVO constructStavkuIzvjesca(ResultSet rs) throws SQLException
+	private HzzoStavkaIzvjescaVO constructStavkuIzvjesca(ResultSet rs) throws SQLException
 	{
 		HzzoStavkaIzvjescaVO s=new HzzoStavkaIzvjescaVO();
 		
@@ -130,10 +130,10 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
      s.setKolicina(Integer.valueOf(rs.getInt("kolicina")));
      s.setNazivArtikla(rs.getString("naziv"));
      s.setIme(rs.getString("ime"));
-		 s.setPrezime(rs.getString("prezime"));
-		 s.setBrojPotvrde(rs.getString("broj_potvrde1")+"/"+rs.getString("broj_potvrde2"));
-		 s.setUzetSkupljiModel(Boolean.valueOf(rs.getString("tvrtka_sifra_art")!=null));
-		 s.setTvrtkaSifraNestandardnogArtikla(rs.getString("tvrtka_sifra_art"));
+	 s.setPrezime(rs.getString("prezime"));
+	 s.setBrojPotvrde(rs.getString("broj_potvrde1")+"/"+rs.getString("broj_potvrde2"));
+	 s.setUzetSkupljiModel(Boolean.valueOf(rs.getString("tvrtka_sifra_art")!=null));
+	 s.setTvrtkaSifraNestandardnogArtikla(rs.getString("tvrtka_sifra_art"));
   	 s.setStrankaNadoplatila(Boolean.valueOf(rs.getString("osnovno_osiguranje").equals(biz.sunce.dao.DAO.DA)
 														&& rs.getInt("iznos_sudjelovanja")>0));
 												
@@ -141,10 +141,10 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
   	 s.setSifRacuna(Integer.valueOf(rs.getInt("sifra")));
   	 s.setIznosSudjelovanja(Integer.valueOf(rs.getInt("iznos_sudjelovanja")));
 		
-		return s;
+	return s;
 	}//constructStavkuIzvjesca
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<HzzoStavkaIzvjescaVO> getGUIEditor() {
 		return null;
 	}
 
@@ -156,29 +156,23 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
 		return kolone.length;
 	}
 
-	public Class getColumnClass(int columnIndex) {
-		try
+	public Class<?> getColumnClass(int columnIndex) 
 	{
-	
-		switch(columnIndex)
+	 
+	switch(columnIndex)
 	{
-	
-		case 0: case 1: case 2: case 3:  return Class.forName("java.lang.String");
-		case 4: return Class.forName("java.lang.Integer");
-		case 5: case 6: case 7: case 8: case 9: return Class.forName("java.lang.String"); 
+		case 0: case 1: case 2: case 3:  return STRING_CLASS;
+		case 4: return INTEGER_CLASS;
+		case 5: case 6: case 7: case 8: case 9: return STRING_CLASS; 
 		default: 
 		return null;
 	}
-	}
-	catch(ClassNotFoundException cnfe)
-	{
-		return null;
-	}
+	 
 	}//getColumnClass
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(HzzoStavkaIzvjescaVO vo, int kolonas) {
 		if (vo==null) return null;
-		HzzoStavkaIzvjescaVO s=(HzzoStavkaIzvjescaVO)vo;
+		HzzoStavkaIzvjescaVO s=vo;
   
 			switch(kolonas)
 			{
@@ -207,11 +201,11 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
 			return null;
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(HzzoStavkaIzvjescaVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(HzzoStavkaIzvjescaVO vo, int kolona) {
 		return false;
 	}
 

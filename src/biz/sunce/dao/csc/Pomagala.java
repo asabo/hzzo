@@ -211,7 +211,7 @@ public final class Pomagala implements PomagaloDAO {
 					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
-			DAOFactory.freeConnection(conn);
+			DAOFactory.freeConnection(conn); conn=null;
 		}// finally
 	}// update
 

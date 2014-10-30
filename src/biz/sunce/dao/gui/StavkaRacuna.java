@@ -33,6 +33,7 @@ import biz.sunce.util.Labela;
 import biz.sunce.util.PretrazivanjeProzor;
 import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;
 import biz.sunce.util.StringUtils;
+import java.awt.GridBagLayout;
 
  
 /**
@@ -162,7 +163,9 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		consGridBagConstraints2.anchor = java.awt.GridBagConstraints.WEST;
 		consGridBagConstraints1.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints8.gridwidth = 1;
-		this.setLayout(new java.awt.GridBagLayout());
+		GridBagLayout gridBagLayout = new GridBagLayout();
+		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0};
+		this.setLayout(gridBagLayout);
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJlSifraStavke(), new GridBagConstraints(1, 0, 1, 1, 0.0,
 				0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
@@ -200,7 +203,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		if (jLabel == null) {
 			jLabel = new javax.swing.JLabel();
 			jLabel.setToolTipText("\u0161ifra stavke");
-			jLabel.setText("\u0161ifra stavke: ");
+			jLabel.setText("\u0161ifra stavke:");
 		}
 		return jLabel;
 	}
@@ -230,7 +233,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		if (jLabel1 == null) {
 			jLabel1 = new javax.swing.JLabel();
 			jLabel1.setToolTipText("naziv stavke");
-			jLabel1.setText("Naziv stavke: ");
+			jLabel1.setText("Naziv stavke:");
 		}
 		return jLabel1;
 	}
@@ -282,7 +285,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		if (jLabel2 == null) {
 			jLabel2 = new javax.swing.JLabel();
 			jLabel2.setToolTipText("koli\u010Dina");
-			jLabel2.setText("Kolièina: ");
+			jLabel2.setText("Koli\u010Dina:");
 		}
 		return jLabel2;
 	}
@@ -295,8 +298,8 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField getJtKolicina() {
 		if (jtKolicina == null) {
 			jtKolicina = new javax.swing.JTextField();
-			jtKolicina.setPreferredSize(new Dimension(70, 24));
-			jtKolicina.setMinimumSize(new java.awt.Dimension(60, 20));
+			jtKolicina.setPreferredSize(new Dimension(120, 24));
+			jtKolicina.setMinimumSize(new Dimension(100, 23));
 			jtKolicina
 					.setToolTipText("kolièina robe ili usluge, mora biti CIJELI pozitivan broj");
 			jtKolicina.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -328,7 +331,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel3() {
 		if (jLabel3 == null) {
 			jLabel3 = new javax.swing.JLabel();
-			jLabel3.setText("po cijeni: ");
+			jLabel3.setText("po cijeni:");
 		}
 		return jLabel3;
 	}
@@ -341,8 +344,8 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField getJtPoCijeni() {
 		if (jtPoCijeni == null) {
 			jtPoCijeni = new javax.swing.JTextField();
-			jtPoCijeni.setPreferredSize(new Dimension(90, 24));
-			jtPoCijeni.setMinimumSize(new java.awt.Dimension(80, 20));
+			jtPoCijeni.setPreferredSize(new Dimension(120, 24));
+			jtPoCijeni.setMinimumSize(new Dimension(90, 23));
 			jtPoCijeni.setToolTipText("cijena izražena od strane hzzo-a");
 			jtPoCijeni.addFocusListener(new java.awt.event.FocusAdapter() {
 				@Override
@@ -664,7 +667,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel4() {
 		if (jLabel4 == null) {
 			jLabel4 = new javax.swing.JLabel();
-			jLabel4.setText("HZZO šif. proizv:  ");
+			jLabel4.setText("HZZO \u0161if. proizv:");
 			jLabel4.setToolTipText("HZZO šifra proizvodjaèa, neobavezan podatak, ako ste naveli u zaglavlju raèuna šifru, ne trebate unositi podatak");
 		}
 		return jLabel4;
@@ -679,8 +682,8 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField getJtSifProizvodjaca() {
 		if (jtSifProizvodjaca == null) {
 			jtSifProizvodjaca = new javax.swing.JTextField();
-			jtSifProizvodjaca.setPreferredSize(new Dimension(90, 20));
-			jtSifProizvodjaca.setMinimumSize(new java.awt.Dimension(80, 20));
+			jtSifProizvodjaca.setPreferredSize(new Dimension(120, 20));
+			jtSifProizvodjaca.setMinimumSize(new Dimension(90, 20));
 			jtSifProizvodjaca
 					.setToolTipText("šifra proizvodjaèa po HZZO šifarniku, obavezan podatak");
 			jtSifProizvodjaca.setNextFocusableComponent(this.getJtKolicina());
@@ -788,7 +791,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel5() {
 		if (jLabel5 == null) {
 			jLabel5 = new javax.swing.JLabel();
-			jLabel5.setText("Šifra nestandardnog proizvoda: ");
+			jLabel5.setText("\u0160ifra nestandardnog proizvoda:");
 			jLabel5.setToolTipText("ako stranka nije uzela standardni proizvod, tu trebate unijeti SVOJU šifru tog proizvoda");
 		}
 		return jLabel5;

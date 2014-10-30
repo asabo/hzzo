@@ -10,8 +10,6 @@ import java.util.Date;
 import java.util.Hashtable;
 import java.util.prefs.Preferences;
 
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.PostavkeDAO;
 import biz.sunce.opticar.vo.PostavkaVO;
@@ -351,6 +349,7 @@ public final class PostavkeBean {
 			Logger.fatal("SQL iznimka pri pokusaju citanja postavke", e);
 		}
 
+		if (pvo!=null)
 		dbPostavke.put(naziv, vrijednost);
 
 		return vrijednost;

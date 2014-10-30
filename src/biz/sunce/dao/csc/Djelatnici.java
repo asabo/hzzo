@@ -30,7 +30,7 @@ import biz.sunce.util.Util;
 public class Djelatnici extends CacheabilniDAO<DjelatnikVO> implements
 		DjelatnikDAO {
 
-	private static final Class STRING_CLASS = String.class;
+ 
 	private static String[] zaglavlja = { "username", "ime", "prezime",
 			"administrator" };
 	String tablica = "DJELATNICI";
@@ -405,9 +405,9 @@ public class Djelatnici extends CacheabilniDAO<DjelatnikVO> implements
 		return null;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<DjelatnikVO> getGUIEditor() {
 		try {
-			return (GUIEditor) Class.forName(DAO.GUI_DAO_ROOT + ".Djelatnik")
+			return (GUIEditor<DjelatnikVO>) Class.forName(DAO.GUI_DAO_ROOT + ".Djelatnik")
 					.newInstance();
 		} catch (InstantiationException ie) {
 			Logger.log(

@@ -16,9 +16,9 @@ import biz.sunce.opticar.vo.ValueObject;
  */
 public interface DAO<VO extends ValueObject>
 {
-	public static Class STRING_CLASS= String.class;
-	public static Class INTEGER_CLASS= Integer.class;
-	public static Class BOOLEAN_CLASS= Boolean.class;
+	public static Class STRING_CLASS  = String.class;
+	public static Class INTEGER_CLASS = Integer.class;
+	public static Class BOOLEAN_CLASS = Boolean.class;
 
 	
 public void insert(Object objekt) throws SQLException;
@@ -33,7 +33,7 @@ public java.util.List<VO> findAll(Object kljuc)throws SQLException;
 public Class<VO> getVOClass()  throws ClassNotFoundException;
 
 //30.11.05. -asabo- dodana metoda za povrat gui editora
-public GUIEditor getGUIEditor();
+public GUIEditor<VO> getGUIEditor();
 
 
 //metode potrebne da bi se podaci DAO interfacea mogli prikazivati u GUI tablicama

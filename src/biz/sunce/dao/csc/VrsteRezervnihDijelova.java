@@ -175,7 +175,7 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 	}//delete
 
 	//08.01.06. -asabo- kreirano
-	public ValueObject read(Object kljuc) throws SQLException 
+	public VrstaRezervnogDijelaVO read(Object kljuc) throws SQLException 
 	{
 		Integer sifra = null;
 				if (kljuc instanceof Integer){
@@ -217,9 +217,9 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 	}//read
 
 	//08.01.06. -asabo- kreirano
-	public List findAll(Object kljuc) throws SQLException 
+	public List<VrstaRezervnogDijelaVO> findAll(Object kljuc) throws SQLException 
 	{
-		ArrayList list=new ArrayList(10);
+		ArrayList<VrstaRezervnogDijelaVO> list=new ArrayList<VrstaRezervnogDijelaVO>(10);
 		
 			String sKljuc = null;
 		
@@ -229,7 +229,7 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 			
 			
 						String upit=
-											"SELECT " 
+										"SELECT " 
 										+ "   sifra,"
 										+ "		naziv"
 										+ " FROM " 
@@ -259,18 +259,18 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 								// -asabo- nema CATCH-anja ...
 								finally
 								{
-								try{if(rs!=null) rs.close();}catch(SQLException sqle){}
+								try{if(rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
 								}
  
 		return list;
 	}//findAll
 
-	public Class getVOClass() throws ClassNotFoundException 
+	public Class<VrstaRezervnogDijelaVO> getVOClass() throws ClassNotFoundException 
 	{
-		return Class.forName("biz.sunce.opticar.vo.VrstaRezervnogDijelaVO");
+		return biz.sunce.opticar.vo.VrstaRezervnogDijelaVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<VrstaRezervnogDijelaVO> getGUIEditor() {
 		try {
 				//return (GUIEditor)Class.forName(DAO.GUI_DAO_ROOT+".TipTransakcije").newInstance();
 				return null;
@@ -303,24 +303,16 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 		return kolone.length;
 	}
 
-	public Class getColumnClass(int columnIndex) 
+	public Class<?> getColumnClass(int columnIndex) 
 	{
-		try
-		{
 		switch(columnIndex){
-		case 0:		return Class.forName("java.lang.Integer");  
-		case 1:		return Class.forName("java.lang.String");
+		case 0:		return INTEGER_CLASS;
+		case 1:		return STRING_CLASS;
 		default:	return null;		
-		}
-		}
-		catch(ClassNotFoundException cnfe)
-		{
-			Logger.fatal(tablica+" CSC - Integer ili String kao klase ne postoje?!?",cnfe);
-			return null;
 		}
 	}//getColumnClass
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(VrstaRezervnogDijelaVO vo, int kolonas) {
 		if (vo==null) return null;
 		VrstaRezervnogDijelaVO   rezDio=(VrstaRezervnogDijelaVO )vo;
 		switch(kolonas){
@@ -330,11 +322,11 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 	}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(VrstaRezervnogDijelaVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(VrstaRezervnogDijelaVO vo, int kolona) {
 		return false;
 	}
 

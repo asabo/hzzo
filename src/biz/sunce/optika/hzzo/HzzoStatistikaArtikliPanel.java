@@ -428,7 +428,7 @@ public final class HzzoStatistikaArtikliPanel extends JPanel implements
 					GlavniFrame.getInstanca(), DAOFactory.getInstance()
 							.getMjesta(), 10, 10, 130, 70, jtHzzoPodruznica);
 			SearchCriteria kr = new SearchCriteria();
-			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUDRUZNICE);
+			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUZNICE);
 
 			// filter ce ugradjivati upit u kriterij prije zvanja findAll
 			// metode...

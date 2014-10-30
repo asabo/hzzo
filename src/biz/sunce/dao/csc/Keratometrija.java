@@ -34,7 +34,7 @@ public final class Keratometrija implements KeratometrijaDAO
 			if (ul==null) 
 				throw new SQLException("Insert keratometrija, ulazna vrijednost je null!");
 			
-			String upit =
+			final String upit =
 								" INSERT INTO KERATOMETRIJA "
 							+	"		(ax,"					//1
 							+	"		baza1,"				//2
@@ -45,7 +45,7 @@ public final class Keratometrija implements KeratometrijaDAO
 							+	" VALUES"
 							+	" (?,?,?,?,?,?)";	//6 komada
 						
-			Connection conn 			= null;
+			Connection conn 		= null;
 			PreparedStatement ps 	= null;
    		
    		try 
@@ -92,7 +92,7 @@ public final class Keratometrija implements KeratometrijaDAO
 			if (ul==null) 
 				throw new SQLException("Update keratometrija, ulazna vrijednost je null!");
 			
-			String upit =
+			final String upit =
 								" update KERATOMETRIJA set "
 							+	"		ax=?,"					//1
 							+	"		baza1=?,"				//2
@@ -100,7 +100,7 @@ public final class Keratometrija implements KeratometrijaDAO
 							+	"		visus=?"				//4
 							+	" where sifPregleda=? and dl=?"; // primary key je takav...
 						
-			Connection conn 			= null;
+			Connection conn 		= null;
 			PreparedStatement ps 	= null;
    		
 			try 
@@ -146,17 +146,20 @@ public final class Keratometrija implements KeratometrijaDAO
 				} 
 				catch (SQLException e) {
 				Logger.fatal("Greska kod update-a keratometrije",e);
-				}finally{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}	
-				DAOFactory.freeConnection(conn);
 				return false;
-			}//finally
+				}
+			    finally
+			    {
+				try {if (ps!=null) ps.close();} catch (SQLException e1){}	
+				DAOFactory.freeConnection(conn);				
+			    }//finally
+			
 	}//update
 
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public KeratometrijaVO read(Object kljuc) throws SQLException {
 		Integer sifPregleda = null;
 			if (kljuc instanceof Integer){
 				sifPregleda=(Integer)kljuc;
@@ -210,7 +213,7 @@ public final class Keratometrija implements KeratometrijaDAO
 				return kvo;
 	}//read
 
-	public List findAll(Object kljuc) throws SQLException {
+	public List<KeratometrijaVO> findAll(Object kljuc) throws SQLException {
 		Integer sifPregleda = null;
 		if (kljuc instanceof Integer){
 			sifPregleda=(Integer)kljuc;
@@ -241,7 +244,7 @@ public final class Keratometrija implements KeratometrijaDAO
 				ps.setInt(1,sifPregleda.intValue());
 			}
 			
-			List lista= new ArrayList();
+			List<KeratometrijaVO> lista= new ArrayList<KeratometrijaVO>();
 								
 			try{
 				rs = ps.executeQuery();
@@ -279,8 +282,8 @@ public final class Keratometrija implements KeratometrijaDAO
 			return lista;
 	}//findAll
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return null;
+	public Class<KeratometrijaVO> getVOClass() throws ClassNotFoundException {
+		return KeratometrijaVO.class;
 	}
 	public String getColumnName(int rb) {
 		return null;
@@ -291,13 +294,13 @@ public final class Keratometrija implements KeratometrijaDAO
 	public Class getColumnClass(int columnIndex) {
 		return null;
 	}
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(KeratometrijaVO vo, int kolonas) {
 		return null;
 	}
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(KeratometrijaVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(KeratometrijaVO vo, int kolona) {
 		return false;
 	}
 	public int getRowCount() {
@@ -332,7 +335,7 @@ public final class Keratometrija implements KeratometrijaDAO
 		return k;	
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<KeratometrijaVO> getGUIEditor() {
 		return null;
 	}
 }

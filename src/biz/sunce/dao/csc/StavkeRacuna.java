@@ -51,6 +51,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 	public String narusavaLiObjektKonzistentnost(StavkaRacunaVO objekt) {
 		StavkaRacunaVO s = (StavkaRacunaVO) objekt;
 		boolean iso9999 = false;
+		
 		if (s == null)
 			return "ispravnost praznog objekta se ne može provjeravati";
 
@@ -161,10 +162,12 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			try {
 				if (ps != null)
 					ps.close();
+				 ps = null;
 			} catch (SQLException e1) {
 			}
 			if (conn != null)
 				DAOFactory.freeConnection(conn);
+			  conn = null;
 		}// finally
 
 	}// insert
@@ -307,11 +310,11 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 		finally {
 			try {
 				if (ps != null)
-					ps.close();
+					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
 			if (conn != null)
-				DAOFactory.freeConnection(conn);
+				DAOFactory.freeConnection(conn); conn=null;
 		}// finally
 	}// update
 

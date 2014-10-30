@@ -78,7 +78,7 @@ public final class Lijecnici implements LijecnikDAO {
 		} finally {
 			try {
 				if (ps != null)
-					ps.close();
+					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
 			DAOFactory.freeConnection(conn);
@@ -286,22 +286,21 @@ public final class Lijecnici implements LijecnikDAO {
 
 	// ----------------------------Metode vezae uz
 	// prikaz----------------------------
-	public Class getColumnClass(int columnIndex) {
-		try {
-			switch (columnIndex) {
+	public Class<?> getColumnClass(int columnIndex) {
+		 
+			switch (columnIndex)
+			{
 			case 0:
-				return Class.forName("java.lang.Integer");
+				return INTEGER_CLASS;
 			case 1:
 			case 2:
 			case 3:
-				return Class.forName("java.lang.String");// Oba case-a vracaju
+				return STRING_CLASS;// Oba case-a vracaju
 															// String
 			default:
 				return null;
 			}// switch
-		} catch (ClassNotFoundException cnfe) {
-			return null;
-		}
+		 
 	}// getColumnClass
 
 	public int getColumnCount() {
@@ -340,8 +339,8 @@ public final class Lijecnici implements LijecnikDAO {
 		}
 	}// getValueAt
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.LijecnikVO");
+	public Class<LijecnikVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.LijecnikVO.class;
 	}
 
 	public boolean isCellEditable(LijecnikVO vo, int kolona) {
@@ -369,9 +368,9 @@ public final class Lijecnici implements LijecnikDAO {
 		return l;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<LijecnikVO> getGUIEditor() {
 		try {
-			return (GUIEditor) Class.forName(DAO.GUI_DAO_ROOT + ".Lijecnik")
+			return (GUIEditor<LijecnikVO>) Class.forName(DAO.GUI_DAO_ROOT + ".Lijecnik")
 					.newInstance();
 		} catch (InstantiationException ie) {
 			Logger.log(

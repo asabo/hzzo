@@ -19,7 +19,6 @@ import biz.sunce.dao.MjestoDAO;
 import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.DrzavaVO;
 import biz.sunce.opticar.vo.MjestoVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.Logger;
 
 /**

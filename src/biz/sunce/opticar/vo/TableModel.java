@@ -62,11 +62,11 @@ public class TableModel<VO extends ValueObject> extends SabotovSortModel<VO> {
 				.getColumnCount();
 	}
 
-	public void dodajSlusaca(SlusacModelaTablice slusac) {
+	public void dodajSlusaca(SlusacModelaTablice<VO> slusac) {
 		if (slusac == null)
 			return;
 		if (slusaci == null)
-			slusaci = new ArrayList<SlusacModelaTablice>();
+			slusaci = new ArrayList<SlusacModelaTablice<VO>>();
 		slusaci.add(slusac);
 	}
 
@@ -152,7 +152,7 @@ public class TableModel<VO extends ValueObject> extends SabotovSortModel<VO> {
 		if (slusaci != null) {
 			int size = slusaci.size();
 			for (int i = 0; i < size; i++) {
-				SlusacModelaTablice sl = (SlusacModelaTablice) slusaci.get(i);
+				SlusacModelaTablice<VO> sl = (SlusacModelaTablice<VO>) slusaci.get(i);
 				sl.redakOznacen(tablica.getSelectedRow(), me, this);
 			}
 
@@ -164,7 +164,7 @@ public class TableModel<VO extends ValueObject> extends SabotovSortModel<VO> {
 		if (slusaci != null) {
 			int size = slusaci.size();
 			for (int i = 0; i < size; i++) {
-				SlusacModelaTablice sl = (SlusacModelaTablice) slusaci.get(i);
+				SlusacModelaTablice<VO> sl = (SlusacModelaTablice<VO>) slusaci.get(i);
 				sl.redakIzmjenjen(tablica.getSelectedRow(), tableEvent, this);
 			}
 
@@ -185,7 +185,7 @@ public class TableModel<VO extends ValueObject> extends SabotovSortModel<VO> {
 
 	DAO<VO> objekt;
 	List<VO> podaci;
-	List<SlusacModelaTablice> slusaci;
+	List<SlusacModelaTablice<VO>> slusaci;
 	JXTable tablica;
 	private Object filter;
 }

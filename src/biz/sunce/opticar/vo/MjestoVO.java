@@ -95,5 +95,5 @@ public class MjestoVO extends ValueObject
     DrzavaVO drzava;
     Integer zip;
     Integer sifPodruzniceHzzo;
-    public static final String KRITERIJ_PRETRAZIVANJA_PODRUDRUZNICE = "kriterij_podruznica";
+    public static final String KRITERIJ_PRETRAZIVANJA_PODRUZNICE = "kriterij_podruznica";
 }

@@ -108,9 +108,9 @@ public final class Logiranja implements LogiranjeDAO
 			} 
 			// nema catch-anja SQL exceptiona... neka se pozivatelj iznad jebe ...
 			finally{
-			try {if (ps!=null) ps.close();} catch (SQLException e1){}
+			try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
 			 
-			if (conn!=null) DAOFactory.freeConnection(conn);
+			if (conn!=null) DAOFactory.freeConnection(conn);  conn=null;
 			}//finally
 		
 	}//insert
@@ -237,16 +237,9 @@ public final class Logiranja implements LogiranjeDAO
 
 	public final Class getColumnClass(int columnIndex) 
 	{
-		try
-		{
+
 		switch(columnIndex){
-		default:	return Class.forName("java.util.String");
-		}
-		}
-		catch(ClassNotFoundException cnfe)
-		{
-			Logger.fatal(tablica+" CSC - String kao klasa ne postoji?!?",cnfe);
-			return null;
+		default:	return STRING_CLASS;
 		}
 	}//getColumnClass
 
@@ -265,7 +258,7 @@ public final class Logiranja implements LogiranjeDAO
 					return "(problem)";
 				}
 				return dvo!=null?dvo.getIme()+" "+dvo.getPrezime():"?!?";
-		case 1: return l.getLogin()==null?"nema logiranja":Util.convertCalendarToString(l.getLogin(),true);
+		case 1: return l.getLogin()==null?"nema logina":Util.convertCalendarToString(l.getLogin(),true);
 		case 2: return l.getLogout()==null?"nema logouta":Util.convertCalendarToString(l.getLogout(),true);
 		
 		default:	return null;

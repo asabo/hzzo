@@ -14,7 +14,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.SearchCriteria;
@@ -28,11 +27,9 @@ import biz.sunce.util.beans.PostavkeBean;
  * @author asabo
  * 
  */
-public final class LogiranjeFrame extends JFrame {
+public final class LogiranjeFrame extends JFrame 
+{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 2057412397723566508L;
 
 	private javax.swing.JPanel jContentPane = null;
@@ -56,10 +53,11 @@ public final class LogiranjeFrame extends JFrame {
 
 		Thread t = new Thread() {
 			public void run() {
+				setPriority(Thread.MIN_PRIORITY);
 				yield();
 				initialize();
+				yield();
 				update(getGraphics());
-				 
 			}
 		};
 
@@ -83,9 +81,18 @@ public final class LogiranjeFrame extends JFrame {
 		setFocusTraversalKeysEnabled(true);
 
 		JTextField jtKorisnickoIme = getJtKorisnickoIme();
-		String korIme = PostavkeBean.getPostavkaDB(
+		String korIme = null;
+		
+		try{
+		korIme=PostavkeBean.getPostavkaDB(
 				biz.sunce.optika.Konstante.POSTAVKE_KORISNICKO_IME, "korisnik");
-
+		}
+		catch(Exception e)
+		{
+			System.err.println("Problem: "+e.getMessage());
+		}
+		
+		if (korIme!=null)
 		jtKorisnickoIme.setText(korIme);
 
 		if (korIme.equals(""))

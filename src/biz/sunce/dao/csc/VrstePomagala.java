@@ -18,7 +18,6 @@ import biz.sunce.dao.DAO;
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.VrstePomagalaDAO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.opticar.vo.VrstaPomagalaVO;
 import biz.sunce.optika.Logger;
  
@@ -49,7 +48,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 							upit += (sifra=DAOFactory.vratiSlijedecuSlobodnuSifruZaTablicu(tablica,"sifra"))+",";																									
 							upit+=	"?)";	
 						
-			Connection conn 			= null;
+			Connection conn 		= null;
 			PreparedStatement ps 	= null;
 			ResultSet 		 rstemp = null;
 	   		
@@ -77,9 +76,9 @@ public final class VrstePomagala implements VrstePomagalaDAO
 				} 
 					// nema catch-anja SQL exceptiona... neka se pozivatelj iznad jebe ...
 				finally{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}
-				try{if(rstemp!=null) rstemp.close();}catch(SQLException sqle){}					
-				DAOFactory.freeConnection(conn);
+				try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+				try{if(rstemp!=null) rstemp.close();}catch(SQLException sqle){}	rstemp=null;			
+				DAOFactory.freeConnection(conn); conn=null;
 			}//finally
 		}//insert
 
@@ -98,7 +97,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 							+	"		     naziv=?"		//1
 							+	"  where sifra=?"; 		// primary key ...
 						
-			Connection conn 			= null;
+			Connection conn 		= null;
 			PreparedStatement ps 	= null;
    		
 			try 
@@ -108,7 +107,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 				ps=conn.prepareStatement(upit);
 				
 				ps.setString(1,ul.getNaziv());
-    		ps.setInt(2,ul.getSifra().intValue());
+				ps.setInt(2,ul.getSifra().intValue());
 					 
 				int kom=ps.executeUpdate();
 					
@@ -119,9 +118,8 @@ public final class VrstePomagala implements VrstePomagalaDAO
 				} 
 				//28.06.05. -asabo- NEMA CATCH-anja! - sve ide pozivatelju...  
 				finally{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}	
-				if (conn!=null) DAOFactory.freeConnection(conn);
-				return false;
+				try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+				if (conn!=null) DAOFactory.freeConnection(conn); conn=null;				 
 			}//finally
 	}//update
 
@@ -145,7 +143,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 				
 				upit+=" order by sifra";
 			
-				ResultSet 				rs	=	null;
+				ResultSet 			 rs	  =	null;
 				Connection 			 con  = null;
 						
 				rs=DAOFactory.performQuery(upit);
@@ -154,7 +152,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 								
 					try
 					{										
-						Integer sf=null;
+						 
 					  
 						if (rs.next())
 						 {						 	 
@@ -167,15 +165,15 @@ public final class VrstePomagala implements VrstePomagalaDAO
 					{
 					try{if (rs!=null) rs.close();}catch(SQLException sqle){}
 					if (con!=null) DAOFactory.freeConnection(con);	  						  												 					
-				}
+					}
 				return vpvo;
 	}//read
 
-	public List findAll(Object kljuc) throws SQLException 
+	public List<VrstaPomagalaVO> findAll(Object kljuc) throws SQLException 
 	{
 		Integer sifra = null;
 		
-		List lista=new ArrayList(3);
+		List<VrstaPomagalaVO> lista=new ArrayList<VrstaPomagalaVO>(3);
 		
 		if (kljuc instanceof Integer)
 		{
@@ -199,7 +197,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 					
 			upit+=" order by sifra";
 			
-  		ResultSet rs =	null;
+			ResultSet rs =	null;
 										
 			rs=DAOFactory.performQuery(upit);
 				 
@@ -218,14 +216,14 @@ public final class VrstePomagala implements VrstePomagalaDAO
 			//30.06.05. -asabo- nema CATCH-anja ...
 			finally
 			{
-			try{if (rs!=null) rs.close();}catch(SQLException sqle){}
+			try{if (rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
 			}
 	 
 			return lista;
 	}//findAll
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.VrstaPomagalaVO");
+	public Class<VrstaPomagalaVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.VrstaPomagalaVO.class;
 	}
 	public String getColumnName(int rb) {
 		return null;
@@ -233,7 +231,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 	public int getColumnCount() {
 		return 0;
 	}
-	public Class getColumnClass(int columnIndex) {
+	public Class<?> getColumnClass(int columnIndex) {
 		return null;
 	}
 	public Object getValueAt(VrstaPomagalaVO vo, int kolonas) {
@@ -260,7 +258,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 		return lvo;
 	}//constructVrstaPomagala
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<VrstaPomagalaVO> getGUIEditor() {
 		return null;
 	}//constructLeca
 
