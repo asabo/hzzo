@@ -4,6 +4,7 @@
  */
 package biz.sunce.optika.hzzo;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -75,6 +76,10 @@ public final class HzzoRacunPanel extends JPanel implements
 	private JXTable jtbStavkeRacuna = null;
 	private RacunDAO racuni = null;
 	private StavkaRacunaDAO stavke = null;
+	
+	//za slucaj da program azurira sudjelovanje, tu ce sjediti zadnja vrijednost
+	//koju cemo usporedjivati sa onom na formi i po tome znati jeli korisnik sam mjenjao ili nije
+	private String azuriranoSudjelovanje=null;
 
 	private RacunVO oznaceni = null;
 	private TableModel<StavkaRacunaVO> stavkeRacunaModel = null;
@@ -342,6 +347,9 @@ public final class HzzoRacunPanel extends JPanel implements
 				lp = ukupno % 100;
 				sUk = "" + kn + "." + (lp < 10 ? "0" + lp : "" + lp);
 				this.jlUkupno.setText("Ukupno: " + sUk);
+				
+				azurirajSudjelovanje(ukupno);
+				
 				this.jtbStavkeRacuna.packAll();
 			} else
 				this.jlUkupno.setText("");
@@ -395,7 +403,7 @@ public final class HzzoRacunPanel extends JPanel implements
 			// ovisno o tipu racuna
 			int iznSudjelovanja = 0, iznOsnovnogOsiguranja = 0;
 
-			iznSudjelovanja = rvo.getIznosSudjelovanja().intValue();
+			iznSudjelovanja = rvo.getIznosSudjelovanja()==null? 0 : rvo.getIznosSudjelovanja().intValue();
 
 			iznOsnovnogOsiguranja = iznosRacuna - iznSudjelovanja;
 
@@ -457,7 +465,7 @@ public final class HzzoRacunPanel extends JPanel implements
 	public void redakOznacen(int redak, MouseEvent event, TableModel posiljatelj) {
 		GUIEditor ed = (GUIEditor) this.jpStavkaRacuna;
 		List<ValueObject> data = posiljatelj.getData();
-		if (data!=null && data.size()>redak)
+		if (data!=null && redak>=0 && data.size()>redak)
 		 ed.napuniPodatke((ValueObject) data.get(redak));
 	}
 
@@ -641,6 +649,41 @@ public final class HzzoRacunPanel extends JPanel implements
 		return rez;
 	}// pohraniRacun
 
+	boolean azurirajIznosSudjelovanja = PostavkeBean.isAutomatskoRacunanjeSudjelovanja();
+	
+	private void azurirajSudjelovanje(int ukupno)
+	{
+		if (!azurirajIznosSudjelovanja)
+			return;
+
+		Racun rcp = (Racun) getJpRacunPanel();
+
+		String iznSudjForma = rcp.getJtIznosSudjelovanja().getText().trim();
+
+		if  (
+				(azuriranoSudjelovanje == null && iznSudjForma.equals(""))
+				|| (azuriranoSudjelovanje != null && iznSudjForma.equals(azuriranoSudjelovanje))
+		    ) 
+		   {
+			float iznos;
+
+			float sudj = (((float) ukupno) * 0.2f);
+
+			if (sudj < 5000.0)
+				sudj = 5000.0f;
+
+			int sudjInt = (int) (sudj + 0.5f);
+
+			iznos = ((float) sudjInt) / 100.0f;
+
+			String str = "" + iznos;
+
+			rcp.getJtIznosSudjelovanja().setText(str);
+			GUI.odradiUpozorenjeNaElementu(rcp.getJtIznosSudjelovanja(), "Automatski smo izmjenili iznos sudjelovanja!", Color.yellow);
+			azuriranoSudjelovanje = str;
+		}// if
+	}
+	
 	// provjerava jeli racun posjeduje sifru, ako ne
 	// poziva metodu za pohranjivanje racuna, povratkom koje ako je nazad doslo
 	// true
@@ -650,7 +693,8 @@ public final class HzzoRacunPanel extends JPanel implements
 
 			boolean rez = true;
 
-			GUIEditor ed = (GUIEditor) this.jpStavkaRacuna;
+			@SuppressWarnings("unchecked")
+			GUIEditor<StavkaRacunaVO> ed = (GUIEditor<StavkaRacunaVO>) this.jpStavkaRacuna;
 			StavkaRacunaVO srvo = null;
 
 			srvo = (StavkaRacunaVO) ed.vratiPodatke();
@@ -842,9 +886,16 @@ public final class HzzoRacunPanel extends JPanel implements
 	}// brisiStavkuIzRacuna
 
 	private void ucitajRacun(RacunVO rvo) {
-		GUIEditor ed = (GUIEditor) getJpRacunPanel();
+		@SuppressWarnings("unchecked")
+		GUIEditor<RacunVO> ed = (GUIEditor<RacunVO>) getJpRacunPanel();
 		ed.napuniPodatke(rvo);
 		osvjeziStavke();
+		
+		Racun rcp = (Racun) getJpRacunPanel();
+
+		String iznSudjForma = rcp.getJtIznosSudjelovanja().getText().trim();
+
+		azuriranoSudjelovanje = iznSudjForma;
 	}
 
 	// fizicko brisanje racuna u kojem nema stavki...

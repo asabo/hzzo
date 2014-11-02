@@ -2,7 +2,7 @@
  * Project opticari
  *
  */
-package biz.sunce.optika.hzzo;
+package biz.sunce.optika.hzzo.ispis;
 
 import java.awt.Font;
 import java.awt.FontMetrics;

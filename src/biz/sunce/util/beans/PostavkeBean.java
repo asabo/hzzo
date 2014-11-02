@@ -61,6 +61,7 @@ public final class PostavkeBean {
 	public static String TVRTKA_HZZO_BROJACI_OVISNI_O_GODINI = "hzzo_brojaci_ovisni_o_godini";
 
 	public static String ISPIS_U_GLAVNI_PRINTER= "ispis_u_glavni_printer";
+	public static String AUTOMATSKO_RACUNANJE_SUDJELOVANJA= "automatsko_rac_sudjelovanja";
 
 	public static String TVRTKA_MJESTO_RADA = "tvrtkaMjestoRada";
 
@@ -202,6 +203,11 @@ public final class PostavkeBean {
 				"D");
 	}
 	
+	public static final boolean isAutomatskoRacunanjeSudjelovanja() {
+		return getPostavkaDB(AUTOMATSKO_RACUNANJE_SUDJELOVANJA, "N").equals(
+				"D");
+	}
+	
 	public static final void setIspisUGlavniPrinter(boolean ispis) {
 		if (ispis)
 			setPostavkaDB(ISPIS_U_GLAVNI_PRINTER, "D");
@@ -209,6 +215,12 @@ public final class PostavkeBean {
 			setPostavkaDB(ISPIS_U_GLAVNI_PRINTER, "N");
 	}
 
+	public static final void setAutomatskoRacunanjeSudjelovanja(boolean vrijednost) {
+		if (vrijednost)
+			setPostavkaDB(AUTOMATSKO_RACUNANJE_SUDJELOVANJA, "D");
+		else
+			setPostavkaDB(AUTOMATSKO_RACUNANJE_SUDJELOVANJA, "N");
+	}
 
 	// naziv - naziv postavke, defaultVrijednost - vrijednost koju ce metoda
 	// vratiti ako podatka nema u registryju - userRelated - jeli korisnicki ili

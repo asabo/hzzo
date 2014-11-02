@@ -16,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-import say.swing.JFontChooser;
 import say.swing.JFontChooserPanel;
 import biz.sunce.optika.hzzo.HzzoPostavkeFrame;
 import biz.sunce.util.GUI;
@@ -35,9 +34,9 @@ public final class PostavkeFrame extends JFrame
  
 	private static final long serialVersionUID = 3756670833568648782L;
 
-	String[] tipoviRacuna = { "", "R-1", "R-2" };
+	final String[] tipoviRacuna = { "", "R-1", "R-2" };
 
-	Font arial = new Font("Arial", Font.PLAIN, 11);
+	final Font arial = new Font("Arial", Font.PLAIN, 11);
 	
 	private javax.swing.JPanel jContentPane = null;
 
@@ -89,15 +88,8 @@ public final class PostavkeFrame extends JFrame
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
-				biz.sunce.util.GUI.centrirajFrame(ja);
-				try {
-					sleep(500);
-				} catch (InterruptedException inter) {
-					return;
-				}
-				this.setPriority(Thread.MIN_PRIORITY);
-				yield();
-				
+				biz.sunce.util.GUI.centrirajFrame(ja);				
+				yield();				
 			}
 		};
 		
@@ -115,13 +107,12 @@ public final class PostavkeFrame extends JFrame
 		this.setContentPane(getJContentPane());
 
 		this.setTitle("Postavke");
-		biz.sunce.util.GUI.centrirajFrame(this);
-		Thread t = new Thread() {
+			Thread t = new Thread() {
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
 				validate();
-				setSize(365, 350);
+				setSize(365, 390);
 				yield();
 				centriraj();
 			}

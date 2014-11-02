@@ -128,6 +128,7 @@ public final class DAOFactory {
 				alive = false;
 			} catch (Throwable t) {
 				alive = false;
+				System.err.println("Problem pri podizanju konekcija: "+t);
 				System.exit(-1);
 			}
 		} // if DAOSource je CSC
@@ -255,7 +256,7 @@ public final class DAOFactory {
 	}
 
 	public DAOObjekt getProizvodjaciProizvoda() {
-		String nazivObjekta = "PROIZVODJACI_PROIZVODA";
+		final String nazivObjekta = "PROIZVODJACI_PROIZVODA";
 		return this.getDAOObjekt(nazivObjekta);
 	}
 
@@ -334,7 +335,8 @@ public final class DAOFactory {
 			// try{if (st!=null) st.close();}catch(SQLException e){}
 			try {
 				if (con != null)
-					freeConnection(con);
+					freeConnection(con); 
+					
 			} catch (SQLException e) {
 		 }			
 		}
@@ -342,8 +344,8 @@ public final class DAOFactory {
 		return rs;
 	}// performQuery
 
-	public static final void killFactory() {
-
+	public static final void killFactory() 
+	{
 		instance.destroy();
 		instance = null;
 	}
@@ -412,12 +414,12 @@ public final class DAOFactory {
 		} finally {
 			try {
 				if (stmt != null)
-					stmt.close();
+					stmt.close(); stmt=null;
 			} catch (SQLException e) {
 			}
 			try {
 				if (con != null)
-					DAOFactory.freeConnection(con);
+					DAOFactory.freeConnection(con); con=null;
 			} catch (SQLException sqle) {
 			}
 		}
@@ -432,10 +434,13 @@ public final class DAOFactory {
 			@Override
 			public void run() {
 				this.setName("CistacDbBrokera");
+				this.setPriority(Thread.MIN_PRIORITY);
 
+				yield();
 				if (broker != null)
 					try {
 						broker.destroy(10);
+						yield();
 					} catch (SQLException e) {
 
 						e.printStackTrace();
@@ -657,9 +662,13 @@ public final class DAOFactory {
 			}// if
 		} finally {
 			try {
+				//Statement st = rs.getStatement(); 
+				
 				if (rs != null)
 					rs.close();
 				rs=null;
+				
+				//if (st!=null) st.close(); st=null;
 			} catch (SQLException sqle) {
 			}
 		}

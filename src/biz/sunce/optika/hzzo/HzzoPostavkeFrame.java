@@ -17,28 +17,13 @@ import biz.sunce.optika.GlavniFrame;
 import biz.sunce.util.beans.PostavkeBean;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo
- * SWT/Swing GUI Builder, which is free for non-commercial
- * use. If Jigloo is being used commercially (ie, by a corporation,
- * company or business for any purpose whatever) then you
- * should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details.
- * Use of Jigloo implies acceptance of these licensing terms.
- * A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR
- * THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED
- * LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
- */
-/**
  * datum:2006.03.11
  * 
  * @author asabo
  * 
  */
-public final class HzzoPostavkeFrame extends JFrame {
-
-	/**
-	 * 
-	 */
+public final class HzzoPostavkeFrame extends JFrame 
+{
 	private static final long serialVersionUID = 2507311512874491318L;
 
 	private javax.swing.JPanel jContentPane = null;
@@ -58,7 +43,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 	private javax.swing.JTextField jtFaktorPovecanjaDuzinaRacun = null;
 	private javax.swing.JButton jbPohrani = null;
 
-	private PostavkeBean postavke = null;
+	//private PostavkeBean postavke = null;
 	private javax.swing.JCheckBox jcAutomatskoUgradjivanjePozivaNaBroj = null;
 	private javax.swing.JLabel jLabel7 = null;
 	private javax.swing.JTextField jtBrojRacunaZaDopunskoOsiguranje = null;
@@ -71,14 +56,15 @@ public final class HzzoPostavkeFrame extends JFrame {
 	private javax.swing.JCheckBox jcKontrolaOsobnihRacuna = null;
 	private javax.swing.JCheckBox jcBrojaciOvisniOGodini = null;
 	
-	Font font = new Font("Arial", Font.PLAIN, 11);
+	final Font font = new Font("Arial", Font.PLAIN, 11);
+	private JCheckBox jcAutomatskoRacunanjeSudjelovanja;
 
 	/**
 	 * This is the default constructor
 	 */
 	public HzzoPostavkeFrame(PostavkeBean postavke) {
 		super();
-		this.postavke = postavke;
+		//this.postavke = postavke;
 		initialize();
 		napuniFormu();
 		Thread t = new Thread() {
@@ -99,8 +85,9 @@ public final class HzzoPostavkeFrame extends JFrame {
 	 * @return void
 	 */
 	private void initialize() {
-		int faktor = GlavniFrame.getFaktor();		
-		this.setSize(405*faktor, 318*faktor);
+		//int faktor = GlavniFrame.getFaktor();		
+		int faktor=1;
+		this.setSize(505*faktor, 418*faktor);
 		this.setContentPane(getJContentPane());
 		this.setTitle("Hzzo postavke");
 		this.setIconImage(GlavniFrame.getImageIcon().getImage());
@@ -117,29 +104,59 @@ public final class HzzoPostavkeFrame extends JFrame {
 		if (jContentPane == null) {
 			jContentPane = new javax.swing.JPanel();
 			java.awt.GridBagConstraints consGridBagConstraints1 = new java.awt.GridBagConstraints();
+			consGridBagConstraints1.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints2 = new java.awt.GridBagConstraints();
+			consGridBagConstraints2.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
+			consGridBagConstraints3.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints4 = new java.awt.GridBagConstraints();
+			consGridBagConstraints4.gridwidth = 2;
+			consGridBagConstraints4.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints6 = new java.awt.GridBagConstraints();
+			consGridBagConstraints6.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints7 = new java.awt.GridBagConstraints();
+			consGridBagConstraints7.gridwidth = 2;
+			consGridBagConstraints7.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints5 = new java.awt.GridBagConstraints();
+			consGridBagConstraints5.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints8 = new java.awt.GridBagConstraints();
+			consGridBagConstraints8.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints10 = new java.awt.GridBagConstraints();
+			consGridBagConstraints10.gridwidth = 2;
+			consGridBagConstraints10.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints9 = new java.awt.GridBagConstraints();
+			consGridBagConstraints9.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
+			consGridBagConstraints11.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
+			consGridBagConstraints12.gridwidth = 2;
+			consGridBagConstraints12.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints13 = new java.awt.GridBagConstraints();
 			java.awt.GridBagConstraints consGridBagConstraints51 = new java.awt.GridBagConstraints();
+			consGridBagConstraints51.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints14 = new java.awt.GridBagConstraints();
+			consGridBagConstraints14.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints21 = new java.awt.GridBagConstraints();
+			consGridBagConstraints21.gridwidth = 3;
+			consGridBagConstraints21.insets = new Insets(0, 0, 2, 1);
 			java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
+			consGridBagConstraints22.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints31 = new java.awt.GridBagConstraints();
+			consGridBagConstraints31.gridwidth = 2;
+			consGridBagConstraints31.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints41 = new java.awt.GridBagConstraints();
+			consGridBagConstraints41.insets = new Insets(0, 0, 5, 1);
 			java.awt.GridBagConstraints consGridBagConstraints52 = new java.awt.GridBagConstraints();
+			consGridBagConstraints52.gridwidth = 2;
+			consGridBagConstraints52.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints61 = new java.awt.GridBagConstraints();
+			consGridBagConstraints61.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints71 = new java.awt.GridBagConstraints();
+			consGridBagConstraints71.insets = new Insets(0, 0, 5, 0);
 			java.awt.GridBagConstraints consGridBagConstraints15 = new java.awt.GridBagConstraints();
+			consGridBagConstraints15.insets = new Insets(0, 0, 5, 5);
 			java.awt.GridBagConstraints consGridBagConstraints16 = new java.awt.GridBagConstraints();
+			consGridBagConstraints16.insets = new Insets(0, 0, 5, 5);
 			consGridBagConstraints16.gridy = 10;
 			consGridBagConstraints16.gridx = 0;
 			consGridBagConstraints15.gridy = 9;
@@ -155,17 +172,17 @@ public final class HzzoPostavkeFrame extends JFrame {
 			consGridBagConstraints52.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints52.weightx = 1.0;
 			consGridBagConstraints52.gridy = 7;
-			consGridBagConstraints52.gridx = 2;
+			consGridBagConstraints52.gridx = 1;
 			consGridBagConstraints22.gridy = 6;
 			consGridBagConstraints22.gridx = 0;
 			consGridBagConstraints31.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints31.weightx = 1.0;
 			consGridBagConstraints31.gridy = 6;
-			consGridBagConstraints31.gridx = 2;
+			consGridBagConstraints31.gridx = 1;
 			consGridBagConstraints21.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints21.weightx = 1.0;
 			consGridBagConstraints21.gridy = 5;
-			consGridBagConstraints21.gridx = 2;
+			consGridBagConstraints21.gridx = 1;
 			consGridBagConstraints14.gridy = 5;
 			consGridBagConstraints14.gridx = 0;
 			consGridBagConstraints51.gridy = 8;
@@ -176,7 +193,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 			consGridBagConstraints12.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints12.weightx = 1.0;
 			consGridBagConstraints12.gridy = 4;
-			consGridBagConstraints12.gridx = 2;
+			consGridBagConstraints12.gridx = 1;
 			consGridBagConstraints11.gridy = 4;
 			consGridBagConstraints11.gridx = 0;
 			consGridBagConstraints11.anchor = java.awt.GridBagConstraints.EAST;
@@ -185,7 +202,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 			consGridBagConstraints10.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints10.weightx = 1.0;
 			consGridBagConstraints10.gridy = 3;
-			consGridBagConstraints10.gridx = 2;
+			consGridBagConstraints10.gridx = 1;
 			consGridBagConstraints9.gridy = 3;
 			consGridBagConstraints9.gridx = 0;
 			consGridBagConstraints9.anchor = java.awt.GridBagConstraints.EAST;
@@ -194,11 +211,11 @@ public final class HzzoPostavkeFrame extends JFrame {
 			consGridBagConstraints7.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints7.weightx = 1.0;
 			consGridBagConstraints7.gridy = 2;
-			consGridBagConstraints7.gridx = 2;
+			consGridBagConstraints7.gridx = 1;
 			consGridBagConstraints4.fill = java.awt.GridBagConstraints.HORIZONTAL;
 			consGridBagConstraints4.weightx = 1.0;
 			consGridBagConstraints4.gridy = 1;
-			consGridBagConstraints4.gridx = 2;
+			consGridBagConstraints4.gridx = 1;
 			consGridBagConstraints3.gridy = 1;
 			consGridBagConstraints3.gridx = 0;
 			consGridBagConstraints5.gridy = 1;
@@ -233,9 +250,15 @@ public final class HzzoPostavkeFrame extends JFrame {
 			jContentPane.add(getJLabel6(), consGridBagConstraints11);
 			jContentPane.add(getJtFaktorPovecanjaDuzinaRacun(),
 					consGridBagConstraints12);
+			GridBagConstraints gbc_jcAutomatskoRacunanjeSudjelovanja = new GridBagConstraints();
+			gbc_jcAutomatskoRacunanjeSudjelovanja.gridwidth = 2;
+			gbc_jcAutomatskoRacunanjeSudjelovanja.insets = new Insets(0, 0, 5, 5);
+			gbc_jcAutomatskoRacunanjeSudjelovanja.gridx = 2;
+			gbc_jcAutomatskoRacunanjeSudjelovanja.gridy = 9;
+			jContentPane.add(getJcAutomatskoRacunanjeSudjelovanja(), gbc_jcAutomatskoRacunanjeSudjelovanja);
 			jContentPane.add(getJbPohrani(), new GridBagConstraints(2, 11, 1,
 					1, 0.0, 0.0, GridBagConstraints.CENTER,
-					GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+					GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 			jContentPane.add(getJcAutomatskoUgradjivanjePozivaNaBroj(),
 					consGridBagConstraints51);
 			jContentPane.add(getJLabel7(), consGridBagConstraints14);
@@ -255,7 +278,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 					consGridBagConstraints16);
 			jContentPane.add(getJCheckBox1(), new GridBagConstraints(0, 11, 1,
 					1, 0.0, 0.0, GridBagConstraints.CENTER,
-					GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+					GridBagConstraints.NONE, new Insets(0, 0, 0, 5), 0, 0));
 			jContentPane.setToolTipText("Hzzo postavke");
 		}
 		return jContentPane;
@@ -309,6 +332,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtPomakTekstaUdesnoRacun() {
 		if (jtPomakTekstaUdesnoRacun == null) {
 			jtPomakTekstaUdesnoRacun = new javax.swing.JTextField();
+			jtPomakTekstaUdesnoRacun.setEnabled(false);
 			jtPomakTekstaUdesnoRacun
 					.setToolTipText("ako tekst na raèunu 'bježi' previše ulijevo... ");
 		}
@@ -349,6 +373,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtPomakTekstaDoljeRacun() {
 		if (jtPomakTekstaDoljeRacun == null) {
 			jtPomakTekstaDoljeRacun = new javax.swing.JTextField();
+			jtPomakTekstaDoljeRacun.setEnabled(false);
 			jtPomakTekstaDoljeRacun
 					.setToolTipText("ako tekst bježi prema gore i dolje");
 		}
@@ -389,6 +414,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtFaktorPovecanjaSirinaRacun() {
 		if (jtFaktorPovecanjaSirinaRacun == null) {
 			jtFaktorPovecanjaSirinaRacun = new javax.swing.JTextField();
+			jtFaktorPovecanjaSirinaRacun.setEnabled(false);
 			jtFaktorPovecanjaSirinaRacun
 					.setToolTipText("ako je tekst po širini prekratak ili preširok ovime se korigira");
 		}
@@ -416,6 +442,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 	private javax.swing.JTextField getJtFaktorPovecanjaDuzinaRacun() {
 		if (jtFaktorPovecanjaDuzinaRacun == null) {
 			jtFaktorPovecanjaDuzinaRacun = new javax.swing.JTextField();
+			jtFaktorPovecanjaDuzinaRacun.setEnabled(false);
 		}
 		return jtFaktorPovecanjaDuzinaRacun;
 	}
@@ -441,10 +468,10 @@ public final class HzzoPostavkeFrame extends JFrame {
 
 	private void pohraniHzzoPostavke() {
 		boolean rez = true;
-		int sifIsporucitelja = -1, pomakDesno = -1, pomakDolje = -1, pomakDesnoPotOc = -1, pomakDoljePotOc = -1;
+		int  pomakDesno = -1, pomakDolje = -1, pomakDesnoPotOc = -1, pomakDoljePotOc = -1;
 		float faktorSirina = -1.0f, faktorDuzina = -1.0f;
 
-		String sifIsp = this.jtHzzoBrojIsporucitelja.getText().trim();
+		//String sifIsp = this.jtHzzoBrojIsporucitelja.getText().trim();
 		String pomUd = this.jtPomakTekstaUdesnoRacun.getText().trim();
 		String pomDo = this.jtPomakTekstaDoljeRacun.getText().trim();
 
@@ -460,6 +487,7 @@ public final class HzzoPostavkeFrame extends JFrame {
 				.isSelected();
 		boolean brojaciOvisniOGodini = this.jcBrojaciOvisniOGodini.isSelected();
 		boolean ispisUGlavniPrinter = this.jcIspisUGlavniPrinter.isSelected();
+		boolean automatskoRacunanjeSudjelovanja = this.jcAutomatskoRacunanjeSudjelovanja.isSelected();
 
 		if (pomUd.length() > 0)
 			try {
@@ -558,6 +586,9 @@ public final class HzzoPostavkeFrame extends JFrame {
 
 		if (rez)
 			PostavkeBean.setIspisUGlavniPrinter(ispisUGlavniPrinter);
+		
+		if (rez)
+			PostavkeBean.setAutomatskoRacunanjeSudjelovanja(automatskoRacunanjeSudjelovanja);
 
 		// ako je sve proslo u redu, zatvaramo prozor...
 		if (rez)
@@ -565,6 +596,10 @@ public final class HzzoPostavkeFrame extends JFrame {
 	}// pohraniHzzoPostavke
 
 	private void napuniFormu() {
+		
+		if (!GlavniFrame.running)
+			return;
+		
 		this.jtHzzoBrojIsporucitelja.setText(PostavkeBean
 				.getHzzoSifraIsporucitelja());
 
@@ -598,6 +633,9 @@ public final class HzzoPostavkeFrame extends JFrame {
 
 		this.jcIspisUGlavniPrinter.setSelected(PostavkeBean
 				.isIspisUGlavniPrinter());
+		
+		this.jcAutomatskoRacunanjeSudjelovanja.setSelected(PostavkeBean.isAutomatskoRacunanjeSudjelovanja());
+		
 
 		String racDop = null;
 
@@ -796,4 +834,12 @@ public final class HzzoPostavkeFrame extends JFrame {
 		}
 		return jcIspisUGlavniPrinter;
 	}
-} // @jve:visual-info decl-index=0 visual-constraint="10,10"klasa
+	private JCheckBox getJcAutomatskoRacunanjeSudjelovanja() {
+		if (jcAutomatskoRacunanjeSudjelovanja == null) {
+			jcAutomatskoRacunanjeSudjelovanja = new JCheckBox("automatsko racunanje sudjelovanja");
+			jcAutomatskoRacunanjeSudjelovanja.setFont(new Font("Arial", Font.PLAIN, 11));
+			jcAutomatskoRacunanjeSudjelovanja.setToolTipText("dali ce program sam popunjavati iznos sudjelovanja");
+		}
+		return jcAutomatskoRacunanjeSudjelovanja;
+	}
+}

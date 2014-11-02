@@ -65,6 +65,10 @@ public final class GUI {
 
 	public static final void odradiUpozorenjeNaElementu(final JComponent komponenta,
 			final String poruka) {
+	odradiUpozorenjeNaElementu(komponenta, poruka, Color.red);
+	}
+	public static final void odradiUpozorenjeNaElementu(final JComponent komponenta,
+			final String poruka, final Color boja) {
 		new Thread() {
 			public void run() 
 			{
@@ -77,7 +81,7 @@ public final class GUI {
 					komponenta.getToolTipText(null);
 				}
 				
-					komponenta.setBackground(Color.red);
+					komponenta.setBackground(boja);
 				try {
 					sleep(500);
 				} catch (InterruptedException inte) {
@@ -91,7 +95,7 @@ public final class GUI {
 					return;
 				}
 
-				komponenta.setBackground(Color.red);
+				komponenta.setBackground(boja);
 				try {
 					sleep(500);
 				} catch (InterruptedException inte) {

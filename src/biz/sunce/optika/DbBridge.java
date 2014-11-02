@@ -9,16 +9,12 @@ package biz.sunce.optika;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- * @author 
- 
- */
+
 public final class DbBridge {
 	private static boolean alive = false;
 	private static Connection con = null;
 
 	static {
-
 		openConnection();
 	}// static
 

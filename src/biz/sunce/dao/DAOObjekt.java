@@ -38,11 +38,12 @@ import biz.sunce.optika.net.Kolona;
  */
 public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 
+	private static final char STATUS_INSERTED = 'I';
 	boolean imaCreated, imaUpdated;
 	private int[] kljucevi; // redni brojevi kolona
 	private String[] kolone;
-	List listaKljuceva = null;
-	List listaKolona = null;
+	List<Object> listaKljuceva = null;
+	List<Kolona> listaKolona = null;
 	private String naziv;
 	private String select, insert, update, read;
 	private int[] tipoviKolona; // java.sql.Types za svaku kolonu
@@ -68,16 +69,17 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		}
 	}
 
-	private java.util.Vector orderByKolone = null;
+	private java.util.Vector<OrderByZapis> orderByKolone = null;
 
+	@SuppressWarnings("unchecked")
 	public DAOObjekt(String naziv) throws Exception {
 		this.setNaziv(naziv);
-		this.listaKolona = (ArrayList) this.getTableColumns(naziv);
-		this.listaKljuceva = (ArrayList) this.getTablePrimaryKey(naziv);
+		this.listaKolona =  (List<Kolona>) this.getTableColumns(naziv);
+		this.listaKljuceva = (ArrayList<Object>) this.getTablePrimaryKey(naziv);
 		this.podesiRedneBrojeveKljucevaKolonama(this.listaKolona,
 				this.listaKljuceva); // da se zna ko je kome sta
 
-		int vel = ((ArrayList) this.listaKolona).size();
+		int vel = (this.listaKolona).size();
 
 		String[] kolone = new String[vel];
 		int[] tipoviKolona = new int[vel];
@@ -121,7 +123,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 
 		if (!updated) {
 			this.insert(vo);
-			inserted = vo.getStatus() == 'I'; // jeli insertiran objekt
+			inserted = vo.getStatus() == STATUS_INSERTED; // jeli insertiran objekt
 		}
 		return updated | inserted;
 	}// updateOrInsertObject
@@ -247,7 +249,8 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		if (orderByKolone != null) {
 			upit += " order by ";
 			OrderByZapis z;
-			for (int i = 0; i < orderByKolone.size(); i++) {
+			int kolSize = orderByKolone.size();
+			for (int i = 0; i < kolSize; i++) {
 				if (i > 0)
 					upit += ",";
 				z = (OrderByZapis) orderByKolone.get(i);
@@ -263,7 +266,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 				while (rs.next())
 					podaci.add(this.constructObject(rs));
 		} catch (Exception e) {
-			Logger.fatal("Greska kod DAOObjekt findAll ", e);
+			Logger.fatal("Greska kod DAOObjekt findAll(). Upit: "+upit, e);
 		} finally {
 			try {
 				if (rs != null)
@@ -277,6 +280,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 			}
 			if (conn != null)
 				DAOFactory.freeConnection(conn); conn=null;
+				upit=null;
 		}
 		return podaci;
 	}// findAll
@@ -309,7 +313,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		return this.kolone != null ? this.kolone[rb] : null;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<ValueObject> getGUIEditor() {
 		return null;
 	}
 
@@ -330,8 +334,8 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		return 0;
 	}
 
-	private Collection getTableColumns(String tableName) {
-		List listaKolona = new ArrayList();
+	private Collection<Kolona> getTableColumns(String tableName) {
+		List<Kolona> listaKolona = new ArrayList<Kolona>();
 
 		Connection con = null;
 		ResultSet rs = null;
@@ -380,24 +384,25 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		} finally {
 			try {
 				if (rs != null) {
-					rs.close();
+					rs.close(); rs=null;
 				}
 			} catch (SQLException sqle) {
 			}
 			try {
 				if (con != null) {
-					DAOFactory.freeConnection(con);
+					DAOFactory.freeConnection(con); con=null;
 				}
 			} catch (SQLException sqle) {
 			}
 		}
+		
 		return listaKolona;
 	} // getTableColumns
 
 	// vraca nazad popis kolona koje cine kljuc (tj. jedinstveno opisuju jedan
 	// redak)
 	private Collection getTablePrimaryKey(String tableName) {
-		List listaKolona = new ArrayList();
+		List<Kolona> listaKolona = new ArrayList<Kolona>();
 		Connection con = null;
 		ResultSet rs = null;
 
@@ -452,17 +457,18 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		} finally {
 			try {
 				if (rs != null) {
-					rs.close();
+					rs.close(); rs=null;
 				}
 			} catch (SQLException sqle) {
 			}
 			try {
 				if (con != null) {
-					DAOFactory.freeConnection(con);
+					DAOFactory.freeConnection(con); con=null;
 				}
 			} catch (SQLException sqle) {
 			}
 		}
+		
 		return listaKolona;
 	} // getTablePrimaryKey
 
@@ -474,7 +480,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		return null;
 	}
 
-	public Class getVOClass() throws ClassNotFoundException {
+	public Class<ValueObject> getVOClass() throws ClassNotFoundException {
 		return null;
 	}
 
@@ -538,7 +544,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 			int kom = ps.executeUpdate();
 
 			if (kom == 1)
-				objekt.setStatus('I'); // inserted...
+				objekt.setStatus(STATUS_INSERTED); // inserted...
 
 			// ulaz.setSifra(Integer.valueOf(sifra)); //28.02.06. -asabo- da se
 			// zna da je objekt uspjesno insertiran
@@ -547,11 +553,11 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		} finally {
 			try {
 				if (ps != null)
-					ps.close();
+					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
 			if (conn != null)
-				DAOFactory.freeConnection(conn);
+				DAOFactory.freeConnection(conn); conn=null;
 		}
 	}// insert
 
@@ -645,19 +651,21 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 	// tako da se doticnoj tablici moze 'izvana' izmjeniti izgled bez da se dira
 	// i strukturu vracenog teksta
 	// tablica vraca svoje zaglavlje, te podatke u tijelu
-	public String toHtmlTable() {
+	public String toHtmlTable() 
+	{
 		String html = "<table class='DAOTablica'>";
 		html += "<thead><tr>";
-		int kol = this.getColumnCount();
-		int red = this.getRowCount();
-		ArrayList l = null;
-
+		int kol = this.getColumnCount(); 
+		
+		StringBuilder sb=new StringBuilder(html);
+		
 		for (int i = 0; i < kol; i++)
-			html += "<td>" + this.getColumnName(i);
-		html += "</tr></thead>";
+			sb.append("<td>").append(this.getColumnName(i));
+		sb.append("</tr></thead>");
 
-		html += "</table>";
-		return html;
+		sb.append( "</table>" );
+		
+		return sb.toString();
 	}
 
 	public boolean update(ValueObject objekt) throws SQLException {
@@ -723,11 +731,11 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		} finally {
 			try {
 				if (ps != null)
-					ps.close();
+					ps.close(); ps=null;
 			} catch (SQLException e1) {
 			}
 			if (conn != null)
-				DAOFactory.freeConnection(conn);
+				DAOFactory.freeConnection(conn); conn=null;
 		}
 		return false;
 	}// update
@@ -737,7 +745,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		return false;
 	}// update
 
-	public java.util.Vector getOrderByKolone() {
+	public java.util.Vector<OrderByZapis> getOrderByKolone() {
 		return orderByKolone;
 	}
 
@@ -748,7 +756,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 	public void setOrderByKolona(String string, boolean asc) {
 
 		if (orderByKolone == null)
-			orderByKolone = new java.util.Vector(4);
+			orderByKolone = new java.util.Vector<OrderByZapis>(4);
 
 		OrderByZapis z = new OrderByZapis();
 		z.setKolona(string);

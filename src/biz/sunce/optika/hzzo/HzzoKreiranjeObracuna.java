@@ -51,6 +51,7 @@ import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
 public final class HzzoKreiranjeObracuna extends JFrame {
+	 
 	private static final long serialVersionUID = 8356663697758275577L;
 	private static HzzoKreiranjeObracuna instanca=null;
 
@@ -339,7 +340,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 		String osobniRacunZaDopunsko;
 		String osobniRacunZaOsnovno;
 		String brojPoliceDopunsko;
-		ArrayList stavke;
+		ArrayList<StavkaRacunaVO> stavke;
 		String sUkupno;
 		String sSudjelovanje;
 		String sTeretDopunsko;
@@ -377,7 +378,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					d = ":";
 					tvrtkaNaziv = new String(postavke.getTvrtkaNaziv()
 							.replaceAll("\\:", ";").trim()
-							.getBytes("iso8859-2"));
+							.getBytes(HZZO_CHARSET));
 					osobniRacunZaDopunsko = rvo.getBrojOsobnogRacunaDopunsko();
 					if (osobniRacunZaDopunsko == null)
 						osobniRacunZaDopunsko = "";
@@ -403,12 +404,12 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 						osobniRacunZaDopunsko = "";
 					int ukupniIznosPomagala = 0;
 					int ukupniIznosPoreza = 0;
-					PoreznaStopaVO stopa = null;
-					stavke = (ArrayList) stavkeDAO.findAll(rvo);
+					 
+					stavke = (ArrayList<StavkaRacunaVO>) stavkeDAO.findAll(rvo);
 					int stavkeSize = stavke.size();
 					for (int j = 0; j < stavkeSize; j++) {
 
-						svo = (StavkaRacunaVO) stavke.get(j);
+						svo = stavke.get(j);
 
 						int totalBezPDVa = RacuniUtil.getNettoIznosStavke(svo);
 						int totalStavka  = RacuniUtil.getBruttoIznosStavke(svo);
@@ -444,7 +445,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					int ukLp = ukupniIznosPomagala % 100;
 					sUkupno = ukKn + "."
 							+ (ukLp >= 10 ? "" + ukLp : "0" + ukLp);
-					int sudj = rvo.getIznosSudjelovanja().intValue();
+					int sudj = rvo.getIznosSudjelovanja()==null? 0 : rvo.getIznosSudjelovanja().intValue();
 					int teretDopunsko = 0;
 					int teretOsnovno = ukupniIznosPomagala - sudj;
 					if (!rvo.getOsnovnoOsiguranje().booleanValue()) {
@@ -506,8 +507,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					drzava = null;
 					sifProizvodjaca = rvo.getSifProizvodjaca() == null ? ""
 							: rvo.getSifProizvodjaca().trim();
-					String tvrtkaRacun = postavke.getTvrtkaRacun() == null ? ""
-							: postavke.getTvrtkaRacun().trim();
+					 
 					if (sifDrzave != null) {
 						inoBroj1 = rvo.getBrojInoBolesnickogLista1();
 						inoBroj2 = rvo.getBrojInoBolesnickogLista2();
@@ -530,7 +530,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					String vrstaPomagala = ""
 							+ rvo.getVrstaPomagala().intValue();
 
-					String rac = "60"
+					final String rac = "60"
 							+ d
 							+ sifIsporucitelja
 							+ d
@@ -581,8 +581,10 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					String datObracuna = Util.convertCalendarToString(rvo
 							.getDatumIzdavanja());
 					Short sifraVelicineObloge;
-					for (int j = 0; j < stavkeSize; j++) {
-						svo = (StavkaRacunaVO) stavke.get(j);
+					
+					for (int j = 0; j < stavkeSize; j++) 
+					{
+						svo =  stavke.get(j);
 
 						int vrijednost = RacuniUtil.getBruttoIznosStavke(svo);
 
@@ -612,9 +614,11 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 											+ rvo.getBrojOsobnogRacunaOsnovno()
 											+ " nema \u0161ifre proizvo\u0111a\u010Da!\nPopravite to pa ponovno kreirajte disketu! (krD)");
 						}
+						
 						String sIznos = sKn + "."
 								+ (sLp >= 10 ? "" + sLp : "0" + sLp);
-						String stavka = "61"
+						
+						final String stavka = "61"
 								+ d
 								+ brojPotvrdeHzzo
 								+ d
@@ -1434,7 +1438,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 	private JButton jbIspisiRacune;
 	public int pocSifra;
 	 
-	public static final String HZZO_CHARSET = "iso8859-2";
+	public static final String HZZO_CHARSET = "ISO-8859-2";
 	public static final String HZZO_DELIMITER = ":";
 	public static final String HZZO_SIFRA_RACUN = "60";
 	public static final String HZZO_SIFRA_STAVKA_POMAGALA = "61";

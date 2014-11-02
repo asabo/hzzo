@@ -393,11 +393,11 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					int ukupniIznosPoreza = 0;
 					PoreznaStopaVO stopa;
 
-					ArrayList stavke = (ArrayList) stavkeDAO.findAll(rvo);
+					ArrayList<StavkaRacunaVO> stavke = (ArrayList<StavkaRacunaVO>) stavkeDAO.findAll(rvo);
 
 					int stavkeSize = stavke.size();
 					for (int j = 0; j < stavkeSize; j++) {
-						svo = (StavkaRacunaVO) stavke.get(j);
+						svo = stavke.get(j);
 
 						int totalBezPDVa = RacuniUtil.getNettoIznosStavke(svo);
 						int totalStavka = RacuniUtil.getBruttoIznosStavke(svo);
@@ -416,7 +416,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					String sUkupno = ukKn + "."
 							+ (ukLp < 10 ? "0" + ukLp : "" + ukLp);
 
-					int sudj = rvo.getIznosSudjelovanja().intValue();
+					int sudj = rvo.getIznosSudjelovanja()==null? 0 : rvo.getIznosSudjelovanja().intValue();
 					int teretDopunsko = 0;
 					int teretOsnovno = ukupniIznosPomagala - sudj;
 
@@ -493,8 +493,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					DrzavaVO drzava = null;
 					String sifProizvodjaca = rvo.getSifProizvodjaca() != null ? rvo
 							.getSifProizvodjaca().trim() : "";
-					String tvrtkaRacun = postavke.getTvrtkaRacun() != null ? postavke
-							.getTvrtkaRacun().trim() : "";
+					 
 					// po sifri drzave znamo jeli racun za stranca ili
 					// domaceg... sifDrzave je null kod domacih
 					if (sifDrzave != null) {
@@ -576,7 +575,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					Short sifraVelicineObloge;
 
 					for (int j = 0; j < stavkeSize; j++) {
-						svo = (StavkaRacunaVO) stavke.get(j);
+						svo =   stavke.get(j);
 						int vrijednost = RacuniUtil.getBruttoIznosStavke(svo);
 
 						sKn = vrijednost / 100;
@@ -606,10 +605,10 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 											+ " nema šifre proizvoðaèa!\nPopravite to pa ponovno kreirajte disketu!");
 						}
 
-						String sIznos = sKn + "."
+						final String sIznos = sKn + "."
 								+ (sLp < 10 ? "0" + sLp : "" + sLp);
 
-						String stavka = "61"
+						final String stavka = "61"
 								+ d
 								+ brojPotvrdeHzzo
 								+ d
@@ -847,7 +846,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		// sad mi daj sve racune koji spadaju pod nas obracun
 		SearchCriteria kriterij = new SearchCriteria();
 		kriterij.setKriterij(HzzoObracunDAO.KRITERIJ_SVI_RACUNI_ZA_OBRACUN);
-		l = new ArrayList(3);
+		l = new ArrayList(4);
 		l.add(datumOd); // bio null, ne bio...
 		l.add(this.oznaceniObracun.getDatum()); // datum ovog obracuna je
 												// zavrsni dan koji se ukljucuje
@@ -889,7 +888,8 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		Calendar up = Calendar.getInstance();
 
 		if (l != null) {
-			for (int i = 0; i < l.size(); i++) {
+			int lsize = l.size();
+			for (int i = 0; i < lsize; i++) {
 				RacunVO rvo = (RacunVO) l.get(i);
 
 				cr.setTimeInMillis(rvo.getCreated());
@@ -936,4 +936,4 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		}
 		return jLabel3;
 	}
-} // @jve:visual-info decl-index=0 visual-constraint="10,10"
+}

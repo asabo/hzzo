@@ -261,9 +261,9 @@ public final class Racuni implements RacunDAO {
 						+ rvo.getBrojPoliceDopunsko()+":"+brDop;
 			}
 		}
-		if (rvo.getIznosSudjelovanja() == null
-				|| rvo.getIznosSudjelovanja().intValue() < 0)
-			return "iznos sudjelovanja nije ispravan!";
+		if (rvo.getIznosSudjelovanja() != null
+				&& rvo.getIznosSudjelovanja().intValue() < 0)
+			return "iznos sudjelovanja nije ispravan! : "+rvo.getIznosSudjelovanja();
 		if (rvo.getDatumIzdavanja().before(rvo.getDatumNarudzbe()))
 			return "datum isporuke je raniji od datuma narud\u017Ebe!";
 		if (PostavkeBean.isKontrolaOsobnogRacuna()
@@ -568,6 +568,7 @@ public final class Racuni implements RacunDAO {
 					: DAO.NE);
 			ps.setString(2, ul.getOsnovnoOsiguranje().booleanValue() ? DAO.DA
 					: DAO.NE);
+		 
 			ps.setInt(3, ul.getIznosSudjelovanja() != null ? ul
 					.getIznosSudjelovanja().intValue() : 0);
 			ps.setInt(4, ul.getIznosOsnovnogOsiguranja() != null ? ul

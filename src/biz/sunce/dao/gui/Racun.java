@@ -54,6 +54,7 @@ import biz.sunce.opticar.vo.MjestoVO;
 import biz.sunce.opticar.vo.ProizvodjacVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.VrstaPomagalaVO;
+import biz.sunce.optika.AzuriracPomagala;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.toedter.calendar.JDateChooser;
@@ -176,8 +177,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				this.getJtbDopunsko().isSelected());
 		this.postaviOsnovnoOsiguranje(true);
 		iskljuciIno();
-		System.gc(); // prilikom kreiranja nove forme racuna dobro bi bilo
-						// probati otpustiti resurse
+
 		this.getJtSifraProizvodjaca().setEnabled(false);
 		this.jtIznosSudjelovanja
 				.setNextFocusableComponent(this.jcRobaIsporucena);
@@ -190,8 +190,11 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
-				try {
-					sleep(500);
+				try {					
+					sleep(500);		
+					System.gc(); // prilikom kreiranja nove forme racuna dobro bi bilo
+					// probati otpustiti resurse, jer to je moment kad korisnik unosi podatke na formu, dakle 
+					//procesorski i memorijski nezahtjevna faza gdje se ne moze primjetiti eventualni GC
 				} catch (InterruptedException inte) {
 					return;
 				}
@@ -650,7 +653,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtKlijent.setPreferredSize(new Dimension(160, 25));
 			jtKlijent.setMinimumSize(new Dimension(160, 23));
 			jtKlijent
-					.setToolTipText("obavezan podatak, ime Vašeg klijenta za kojeg izraðujete raèun, ako Vam se ne pokaže na popisu, vodite raèuna da ste prvo unijeli ime pa prezime");
+					.setToolTipText("obavezan podatak, ime Vašeg klijenta za kojeg izraðujete raèun, ako Vam se ne pokaže na popisu, vodite raèuna da ste prvo unijeli ime, pa prezime");
 			jtKlijent.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					if (jtBrojIskaznice2.getText().trim().equals(""))
@@ -692,6 +695,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			krit.setKriterij(biz.sunce.dao.DAO.KRITERIJ_KLIJENT_LIMIT_1000);
 			this.pretrazivanjeKlijenti.setKriterij(krit);
 		}
+		
 		return jtKlijent;
 	}
 
@@ -705,6 +709,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jLabel2 = new javax.swing.JLabel();
 			jLabel2.setText("Datum narudžbe: ");
 		}
+		
 		return jLabel2;
 	}
 
@@ -838,9 +843,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.postaviOsnovnoOsiguranje(this.oznaceni.getOsnovnoOsiguranje()
 				.booleanValue());
 
-		String sudj = ""
-				+ ((float) this.oznaceni.getIznosSudjelovanja().intValue() / 100.0f);
+		String sudj = this.oznaceni.getIznosSudjelovanja()==null ? "": 
+			""+ ((float) this.oznaceni.getIznosSudjelovanja().intValue() / 100.0f);
 		this.jtIznosSudjelovanja.setText("" + sudj);
+		
 
 		if (this.oznaceni.getPozivNaBroj1() != null)
 			this.jtPozivNaBroj1.setText(this.oznaceni.getPozivNaBroj1());
@@ -1012,14 +1018,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			else
 				ukljuciIno();
 
-			// iako je prazna forma... jedna provjera vise, a osigurava me da ne
-			// unistim kakav podatak
-			// u nekoj konstalaciji odnosa koju nisam predvidio..
-			if (iznSudjelovanjaStr == null
-					|| iznSudjelovanjaStr.trim().equals(""))
-				this.jtIznosSudjelovanja.setText("0.00");
-
 		}// if oznaceni prazan
+
 		float iznosSudjelovanja = -1.0f;
 		try {
 			if (iznSudjelovanjaStr != null
@@ -1027,14 +1027,15 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				iznosSudjelovanja = Float.parseFloat(iznSudjelovanjaStr
 						.replaceAll("\\,", ".").trim());
 		} catch (NumberFormatException nfe) {
-			iznosSudjelovanja = -1.0f;
+			Logger.log("Problem sa parsiranjem iznosa sudjelovanja! "+iznSudjelovanjaStr, nfe);
+			iznosSudjelovanja = -2.0f;
 		}
 
-		if (iznosSudjelovanja != -1.0f)
+		if (iznosSudjelovanja >= 0.0f)
 			this.oznaceni.setIznosSudjelovanja(Integer
 					.valueOf((int) (iznosSudjelovanja * 100.0f + 0.005f)));
 		else
-			this.oznaceni.setIznosSudjelovanja(null);
+			this.oznaceni.setIznosSudjelovanja( null );
 
 		boolean osnovno = this.jtbOsnovno.isSelected();
 
@@ -1609,7 +1610,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	private javax.swing.JTextField getJtIznosSudjelovanja() {
+	public javax.swing.JTextField getJtIznosSudjelovanja() {
 		if (jtIznosSudjelovanja == null) {
 			jtIznosSudjelovanja = new javax.swing.JTextField();
 			jtIznosSudjelovanja
@@ -1617,7 +1618,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtIznosSudjelovanja
 					.setPreferredSize(new Dimension(120, 23));
 			jtIznosSudjelovanja.setMinimumSize(new java.awt.Dimension(120, 20));
-			jtIznosSudjelovanja.setText("0.00");
+			jtIznosSudjelovanja.setText("");
 			jtIznosSudjelovanja
 					.addFocusListener(new java.awt.event.FocusAdapter() {
 						public void focusGained(java.awt.event.FocusEvent e) {
