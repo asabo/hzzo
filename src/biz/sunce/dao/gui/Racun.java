@@ -28,17 +28,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpRequestRetryHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.BasicHttpContext;
-import org.apache.http.protocol.HttpContext;
-
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.DrzavaDAO;
 import biz.sunce.dao.GUIEditor;
@@ -57,12 +46,15 @@ import biz.sunce.opticar.vo.VrstaPomagalaVO;
 import biz.sunce.optika.AzuriracPomagala;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.optika.net.HZZOFetchUtil;
+import biz.sunce.optika.net.VrstaUpita;
 import biz.sunce.toedter.calendar.JDateChooser;
 import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.Labela;
 import biz.sunce.util.PretrazivanjeProzor;
 import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;
+import biz.sunce.util.StringUtils;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
@@ -82,13 +74,6 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera 
 		{
 
-	private static final String HZZO_WEBSITE = "http://www.hzzo-net.hr";
-	private static final String Y2 = "y";
-	private static final String X2 = "x";
-	private static final String UPOSID = "uposid";
-	private static final String UPOSFLID = "uposflid";
- 
-	private static final String ISO_8859_2 = "iso-8859-2";
 
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JToggleButton jtbOsnovno = null;
@@ -161,8 +146,6 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JComboBox jcVrstaPomagala = null;
 	private javax.swing.JCheckBox jcRobaIsporucena = null;
 
-	// broj kartice, zadnje povuceni preko neta
-	private String povuceniBroj = null;
 	private JPanel jpBrojBolesnickogL;
 	private JPanel jpBrojPotvrdeHzzo;
 	private JPanel jpBrojOsiguranjaKlijenta;
@@ -2518,7 +2501,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 						stariTT = jtBrojIskaznice2.getToolTipText();
 						jtBrojIskaznice1.setText(">>>");
 						proslo = false;
-						String[] rez = nadjiFlidIdDzo(br, vr);
+						String[] rez = HZZOFetchUtil.nadjiFlidIdDzo( br, vr, jtBrojIskaznice1, jtBrojIskaznice2 );
 						if (rez == null || rez.length != 3)
 							return;
 
@@ -2563,7 +2546,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 							jtBrojIskaznice2.setText(kartica);
 
 							proslo = true;
-							povuceniBroj = kartica;
+							HZZOFetchUtil.povuceniBroj = kartica;
 						}// if
 						if (dzo != null) {
 
@@ -2580,6 +2563,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 							postaviOsnovnoOsiguranje(dzo.length() != 8);
 
 							jtBrojPoliceDopunsko.setText(dzo);
+							
+							if ( !"".equals(dzo) )
+							 GUI.odradiUpozorenjeNaElementu(jtBrojPoliceDopunsko, "Automatski smo izmjenili broj police dopunskog osiguranja!", Color.yellow);
+
 							if (vrijediDo != null && vrijediDo.length() > 9)
 								jtBrojPoliceDopunsko
 										.setToolTipText("Vrijedi do: "
@@ -2609,211 +2596,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		return false;
 	} // brojIskaznice2FocusLost
 
-	enum VrstaUpita {
-		OIB("upoib", "status_osiguranja_NOVO"), 
-		MBO("upmbo", "mbo_NOVO"),
-		FLIDID(UPOSID, "id_flid_NOVO"), 
-		DZO("upodzo", "dzo_NOVO"); // po broju dop. osig.
 
-		private String naziv;
-		private String stranica;
 
-		VrstaUpita(String naziv, String stranica) {
-			this.naziv = naziv;
-			this.stranica = stranica;
-		}
-
-		public String naziv() {
-			return this.naziv;
-		}
-
-		public String stranica() {
-			return this.stranica;
-		}
-	};
-
-	/**
-	 * na temelju ispravnog OIB-a vrsi upit prema HZZO-u i pokušava povuæi
-	 * Flid-id te eventualno broj dopunskog, ako ga ima, od tamo..
-	 * 
-	 * @param broj
-	 * @return prvi param je flidId, drugi je broj DZO
-	 */
-	private String[] nadjiFlidIdDzo(String broj, VrstaUpita vrstaUpita) {
-
-		try {
-			String uri = HZZO_WEBSITE + "/cgi-bin/"
-					+ vrstaUpita.stranica() + ".cgi";// +"status_osiguranja_NOVO.cgi";
-
-			DefaultHttpClient httpclient = getHttpClient();
-			
-			//httpclient.getParams().setParameter(
-			//		CoreProtocolPNames.HTTP_CONTENT_CHARSET, UTF_8);
-
-			HttpPost post = new HttpPost(uri);
-			String refererStr = HZZO_WEBSITE +"/"+ vrstaUpita.stranica() + ".htm";
-			post.setHeader("referer", refererStr);
-			post.setHeader("DNT","1");
-			post.setHeader("Host","www.hzzo-net.hr");
-			post.setHeader("Connection","keep-alive");
-			post.setHeader("Accept-Language","hr-hr,hr;q=0.8,en-us;q=0.5,en;q=0.3");
-
-			List<NameValuePair> formparams = new ArrayList<NameValuePair>();
-
-			if (vrstaUpita != VrstaUpita.FLIDID) {
-
-				formparams
-						.add(new BasicNameValuePair(vrstaUpita.naziv(), broj));
-				formparams.add(new BasicNameValuePair(X2, "0"));
-				formparams.add(new BasicNameValuePair(Y2, "0"));
-			 
-			} else {
-				if (povuceniBroj != null && broj.endsWith(povuceniBroj))
-					return null;
-				String[] prm = broj.split("/");
-				formparams.add(new BasicNameValuePair(UPOSFLID, prm[0]));
-				formparams.add(new BasicNameValuePair(UPOSID, prm[1]));
-				formparams.add(new BasicNameValuePair(X2, "0"));
-				formparams.add(new BasicNameValuePair(Y2, "0"));
-				prm=null;
-			}
-
-			UrlEncodedFormEntity entity = new UrlEncodedFormEntity( formparams );
-			
-			post.setEntity(entity);
-				
-			HttpContext localContext = new BasicHttpContext();
-			
-			HttpResponse response = httpclient.execute(post, localContext);
-
-			StringBuilder sb = new StringBuilder(16384);
-
-			jtBrojIskaznice2
-					.setToolTipText("Pokušavamo se spojiti na HZZO-net.hr");
-			HttpEntity ent = response.getEntity();
-			String[] j = { ">", ">>", ">>>" };
-			int br = 0;
-
-			if (ent != null) {
-				InputStream instream = ent.getContent();
-				int l;
-				byte[] tmp = new byte[2048];
-				jtBrojIskaznice2
-						.setToolTipText("Prenosimo podatke sa HZZO-net.hr");
-				jtBrojIskaznice2.setBackground(Color.green);
-				jtBrojIskaznice1.setBackground(Color.green);
-
-				while ((l = instream.read(tmp)) != -1) {
-					sb.append(new String(tmp, 0, l, ISO_8859_2));
-
-					jtBrojIskaznice1.setText(j[br++ % 3]);
-				}// while
-
-				tmp = null;
-				String str = sb.toString();
-				sb.setLength(0);
-				sb = null;
-				
-				String token = "FLID/ID</td><td width=\"207\" bgcolor=\"#FFFFFF\" class=\"ispis\">";
-				int poc = str.indexOf(token) + token.length();
-
-				str = str.substring(poc);
-				int kr = str.indexOf("</td>");
-				String flidid = str.substring(0, kr);
-				flidid = flidid.replaceAll(" ", "");
-
-				String dzo = "";
-				String datDop = "";
-
-				String dzotoken = "Broj iskaznice DZO</td><td width=\"207\" class=\"ispis\">";
-				int dzopoc = str.indexOf(dzotoken) + dzotoken.length();
-
-				str = str.substring(dzopoc);
-				int dkr = str.indexOf("</td>");
-				dzo = str.substring(0, dkr);
-				dzo = dzo.replaceAll(" ", "");
-
-				// TODO: tu treba još ekstrahirati van datum do kad vrijedi
-				// dopunsko
-				// i vratiti ga kao treæi element polja
-				String dopdattok = ">Vrijedi od - do</td><td width=\"207\" bgcolor=\"#FFFFFF\" class=\"ispis\">";
-
-				int dpdatpoc = str.indexOf(dopdattok) + dopdattok.length();
-
-				str = str.substring(dpdatpoc);
-				int ddkr = str.indexOf("</td>");
-				datDop = str.substring(0, ddkr);
-				datDop = datDop.replaceAll(" ", "");
-				String[] datumi = datDop.split("-");
-				datDop = datumi != null && datumi.length == 2 ? datumi[1] : "";
-				String[] rez = new String[3];
-				rez[0] = flidid;
-				rez[1] = dzo;
-				rez[2] = datDop;
-
-				httpclient = null;
-				post = null;
-				j=null;
-
-				return rez;
-			}// if ent!=null
-
-		} catch (UnknownHostException unk) {
-			postaviPorukuZaFlidId("Nema dostupa na internet!", true);
-		} catch (Exception e) {
-			postaviPorukuZaFlidId("Problem pri dohvatu podataka", true);
-			e.printStackTrace();
-		}
-		return null;
-	} // nadjiFlidId
-
-	@SuppressWarnings("deprecation")
-	private DefaultHttpClient getHttpClient() {
-		DefaultHttpClient httpClient = new DefaultHttpClient();
-		httpClient.setHttpRequestRetryHandler(
-				new HttpRequestRetryHandler() {
-		     
-		    public boolean retryRequest(IOException exception, int executionCount, 
-		                                HttpContext context) {
-		        if (executionCount > 4) {
-		           System.out.println("Maximum tries reached for client http pool ");
-		                return false;
-		        }
-		        if (exception instanceof org.apache.http.NoHttpResponseException) {
-		        	System.out.println("No response from server on " + executionCount + " call");
-		            return true;
-		        }
-		        return false;
-		      }
-		   });
-		return httpClient;
-	}
-
-	private void postaviPorukuZaFlidId(final String poruka, final boolean greska) {
-		Thread t = new Thread() {
-			public void run() {
-				setPriority(Thread.MIN_PRIORITY);
-				String stariTT = jtBrojIskaznice2.getToolTipText();
-				jtBrojIskaznice2.setToolTipText(poruka);
-				if (greska) {
-					jtBrojIskaznice2.setBackground(Color.red);
-					jtBrojIskaznice1.setBackground(Color.red);
-					repaint();
-				}
-
-				try {
-					sleep(5000);
-				} catch (InterruptedException inte) {
-				}
-
-				jtBrojIskaznice2.setBackground(Color.WHITE);
-				jtBrojIskaznice1.setBackground(Color.WHITE);
-				jtBrojIskaznice2.setToolTipText(stariTT);
-			}// run
-		};
-		t.run();
-		// SwingUtilities.invokeLater(t);
-	}// postaviPorukuZaFlidId
+	
+	
 
 	private JLabel getJlSifraDopunskeAkt() {
 		if (jlSifraDopunskeAkt == null) {

@@ -836,7 +836,7 @@ public final class HzzoPostavkeFrame extends JFrame
 	}
 	private JCheckBox getJcAutomatskoRacunanjeSudjelovanja() {
 		if (jcAutomatskoRacunanjeSudjelovanja == null) {
-			jcAutomatskoRacunanjeSudjelovanja = new JCheckBox("automatsko racunanje sudjelovanja");
+			jcAutomatskoRacunanjeSudjelovanja = new JCheckBox("automatsko raèunanje sudjelovanja");
 			jcAutomatskoRacunanjeSudjelovanja.setFont(new Font("Arial", Font.PLAIN, 11));
 			jcAutomatskoRacunanjeSudjelovanja.setToolTipText("dali ce program sam popunjavati iznos sudjelovanja");
 		}

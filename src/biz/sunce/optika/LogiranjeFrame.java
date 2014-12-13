@@ -4,6 +4,7 @@
  */
 package biz.sunce.optika;
 
+import java.awt.Cursor;
 import java.awt.event.KeyEvent;
 import java.net.URL;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.SearchCriteria;
@@ -49,19 +51,21 @@ public final class LogiranjeFrame extends JFrame
 	 */
 	public LogiranjeFrame() {
 		super();
-		setContentPane(getJContentPane());
-
+		
 		Thread t = new Thread() {
 			public void run() {
-				setPriority(Thread.MIN_PRIORITY);
-				yield();
+				//setPriority(Thread.MIN_PRIORITY);
+				setContentPane(getJContentPane());
+				yield();				
+				
 				initialize();
 				yield();
-				update(getGraphics());
+				repaint();
 			}
 		};
 
-		t.start();
+		//SwingUtilities.invokeLater(t);
+	 t.start();
 	}
 
 	/**
@@ -72,6 +76,13 @@ public final class LogiranjeFrame extends JFrame
 
 	private void initialize() {
 
+				 		
+		Thread t = new Thread()
+		{
+		public void run()
+		{
+		setPriority(MIN_PRIORITY);
+		
 		setSize(300, 150);
 		setResizable(false);
 
@@ -80,7 +91,10 @@ public final class LogiranjeFrame extends JFrame
 
 		setFocusTraversalKeysEnabled(true);
 
+		pack();
+		 
 		JTextField jtKorisnickoIme = getJtKorisnickoIme();
+
 		String korIme = null;
 		
 		try{
@@ -95,25 +109,33 @@ public final class LogiranjeFrame extends JFrame
 		if (korIme!=null)
 		jtKorisnickoIme.setText(korIme);
 
+		
 		if (korIme.equals(""))
 			jtKorisnickoIme.requestFocusInWindow();
 		else {
 			getJtLozinka().requestFocusInWindow();
-		}
+		  }
+		 		
+		 ImageIcon myAppImage = loadIcon("sunce-hzzo.png");
 
-		addWindowListener(new java.awt.event.WindowAdapter() {
+		 if (myAppImage != null)
+			setIconImage(myAppImage.getImage());
+		 
+		
+		ja.addWindowListener(
+				new java.awt.event.WindowAdapter() {
 			@Override
 			public void windowClosing(java.awt.event.WindowEvent e) {
 				System.exit(-1);
 			}
-		});
+		  }
+		 );
+		 }//run
+		};
 		
-		ImageIcon myAppImage = loadIcon("sunce-hzzo.png");
-
-		if (myAppImage != null)
-			setIconImage(myAppImage.getImage());
-
-		pack();
+		//SwingUtilities.invokeLater(t);
+		t.start();
+			
 	}
 
 	private ImageIcon loadIcon(String strPath) {
@@ -253,45 +275,79 @@ public final class LogiranjeFrame extends JFrame
 			jbUlaz.setToolTipText("kada unesete korisnièko ime i lozinku kliknite keko biste se ulogirali");
 			jbUlaz.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					logirajKorisnika();
+					Thread t = new Thread()
+					{
+					 public void run()
+					 {
+					 setPriority(MIN_PRIORITY);
+				     busy();    
+					  logirajKorisnika();
+					 idle();
+					 } 
+					};
+					
+					SwingUtilities.invokeLater(t);					
 				}
 			});
 		}
 		return jbUlaz;
 	}
 
+	
+
+	final static Cursor curDefault = Cursor.getDefaultCursor();
+	final static Cursor curBusy = Cursor
+			.getPredefinedCursor(Cursor.WAIT_CURSOR);
+	
+	public final void busy() {
+		this.setCursor(curBusy);
+		this.setEnabled(false);
+	}
+
+	public final void idle() {
+		this.setCursor(curDefault);
+		this.setEnabled(true);
+	}
+	
 	private void logirajKorisnika() {
 		glavni.setEnabled(false);
+		try
+		{
+		busy();
+		jbUlaz.setEnabled(false);
+		
 		SearchCriteria krit = new SearchCriteria();
 		ArrayList<String> arl = new ArrayList<String>(2);
 		arl.add(jtKorisnickoIme.getText().trim());
 		arl.add(new String(jtLozinka.getPassword()));
 		krit.setPodaci(arl);
 
-		DjelatnikVO dvo = null;
+		DjelatnikVO dvo;
 
 		try {
 			dvo = (DjelatnikVO) DAOFactory.getInstance().getDjelatnici()
 					.read(krit);
 		} catch (SQLException e1) {
 			Logger.fatal("SQL iznimka kod trazenja podataka o djelatniku..", e1);
+			dvo=null;
 		}
 
 		if (dvo != null) {
-			GlavniFrame.setSifDjelatnika(dvo.getSifra().intValue());
-			LogiranjeVO lvo = new LogiranjeVO();
-			lvo.setSifDjelatnika(dvo.getSifra());
+			final DjelatnikVO fdvo = dvo;
+			
+			Thread t = new Thread()
+			{
+			 public void run()
+			 {
+				 setPriority(MIN_PRIORITY);
+			GlavniFrame.setSifDjelatnika(fdvo.getSifra().intValue());
+			
+			final LogiranjeVO lvo = new LogiranjeVO();
+			lvo.setSifDjelatnika(fdvo.getSifra());
 			lvo.setLogin(Calendar.getInstance());
 			lvo.setLogout(null);
+			GlavniFrame.setLogiranjeVO(lvo);
 
-			try {
-				DAOFactory.getInstance().getLogiranja().insert(lvo);
-				GlavniFrame.setLogiranjeVO(lvo);
-			} catch (SQLException e2) {
-				Logger.fatal(
-						"Problem pri zapisivanju èinjenice logiranja korisnika "
-								+ dvo.getIme() + " " + dvo.getPrezime(), e2);
-			}
 
 			synchronized (glavni) {
 				glavni.notify();
@@ -300,14 +356,38 @@ public final class LogiranjeFrame extends JFrame
 			glavni.setVisible(true);
 			glavni.setEnabled(true);
 			
+			
+				 	
+				try {
+				DAOFactory.getInstance().getLogiranja().insert(lvo);
+				yield();				
+			    } 
+				catch (SQLException e2) {
+				Logger.fatal(
+						"Problem pri zapisivanju èinjenice logiranja korisnika "
+								+ fdvo.getIme() + " " + fdvo.getPrezime(), e2);
+			    }
+			
 			PostavkeBean.setPostavkaDB(
 					biz.sunce.optika.Konstante.POSTAVKE_KORISNICKO_IME,
 					jtKorisnickoIme.getText().trim());
-			dispose();
+			 yield();
+			 dispose();
+			 }
+			};
+			
+			SwingUtilities.invokeLater(t);
+			
 		} else
 			JOptionPane.showMessageDialog(ja,
 					"Korisnièko ime ili lozinka nisu ispravni", "Upozorenje",
 					JOptionPane.WARNING_MESSAGE);
+		}
+		finally
+		{
+			jbUlaz.setEnabled(true);
+			idle();
+		}
 
 	}// logirajKorisnika
 
@@ -335,13 +415,6 @@ public final class LogiranjeFrame extends JFrame
 	public void setGlavni(GlavniFrame frame) {
 		glavni = frame;
 		glavni.setVisible(false);
-	}
-
-	public PostavkeBean getPostavke() {
-		if (postavke == null) {
-			postavke = new PostavkeBean();
-		}
-		return postavke;
 	}
 
 }

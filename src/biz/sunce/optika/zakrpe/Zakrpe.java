@@ -43,12 +43,12 @@ public final class Zakrpe{
 	
 	private static final String NOVE_CIJENE_01_01_2013 = "nove_cijene_01_01_2013";
 	String[] upiti = null;
-	private static final String verzijaZakrpe = "037";
-	private static final String poruka = "dodano praæenje administracije pomagala";
+	private static final String verzijaZakrpe = "038";
+	private static final String poruka = "podrska oko automatskog racunanja iznosa sudjelovanja";
 	private static final String zakrpa = "zakrpa" + verzijaZakrpe;
 
 	public Zakrpe() {
-		upiti = new String[19];
+		upiti = new String[20];
 
 		upiti[0] = "alter table racuni alter column broj_potvrde2 set data type varchar(10)";
 		upiti[1] = "alter table stavke_racuna drop constraint str_sifart";
@@ -72,6 +72,7 @@ public final class Zakrpe{
 		upiti[17] = "alter TABLE artikli add column   UPDATED timestamp";
 
 		upiti[18] = "alter TABLE artikli add column   UPDATED_BY int";
+		upiti[19] = "ALTER TABLE racuni ALTER COLUMN iznos_sudjelovanja NULL";
 		
 	}// konstruktor
 
@@ -112,7 +113,7 @@ public final class Zakrpe{
 			}// for i
 				// ako je zakrpa obavljena uspjesno
 			if (rez) {
-				boolean koristiSvaPomagala = GlavniFrame.isKoristiSvaPomagala();
+				boolean koristiSvaPomagala = GlavniFrame.isKoristiSvaPomagala(true);
 				String isoArtikliKljuc = "iso_artikli_"+(koristiSvaPomagala?"svi":"opt");
 				String isoArtikli=PostavkeBean.getPostavkaDB(isoArtikliKljuc, "nije");
 				

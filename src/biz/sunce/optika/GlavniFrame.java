@@ -71,7 +71,13 @@ import com.ansa.util.ZipUtil;
 import com.ansa.util.beans.ActivationBean;
 
 public final class GlavniFrame extends JFrame
- implements ComponentListener, SlusacModelaTablice<KlijentVO> {
+ implements ComponentListener, SlusacModelaTablice<KlijentVO> 
+{
+	private static final String FALSE = "false";
+	private static final String TRUE = "true";
+	private static final String AKTIVACIJA = "aktivacija";
+	private static final String PRAZAN_STRING = "";
+	private static final String NE = "ne";
 	private static final String DIREKTORIJ_ZA_KREIRANJE_DISKETE = "direktorij_za_kreiranje_diskete";
 	private static final String WORKING_ROOT = ".opticar";
 	public static final String ODABRANI_PRINTER = "odabrani_printer";
@@ -119,12 +125,22 @@ public final class GlavniFrame extends JFrame
 	public static final int getSifDjelatnika() {
 		
 		if (sifDjelatnika == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA) {
+			
+			Thread t = new Thread()
+			{
+			public void run()
+			{
 			LogiranjeFrame lf = new LogiranjeFrame();
 			lf.setGlavni(instanca);
 			lf.setVisible(true);
 
 			GUI.centrirajFrame(lf);
-
+			}
+			};
+			
+			//SwingUtilities.invokeLater(t);
+			t.start();
+			
 			try {
 				synchronized (instanca) {
 					instanca.wait();
@@ -690,7 +706,7 @@ public final class GlavniFrame extends JFrame
 			jmKlijenti = new javax.swing.JMenu();
 			jmKlijenti.add(getJmKarticaKlijenta());
 			jmKlijenti.setText("Klijenti");
-			jmKlijenti.setActionCommand("");
+			jmKlijenti.setActionCommand(PRAZAN_STRING);
 		}
 		return jmKlijenti;
 	}
@@ -918,9 +934,9 @@ public final class GlavniFrame extends JFrame
 	public final static String getWorkingHomeLocation() {
 
 		if (workingHomeLocation == null) {
-			String adr = PostavkeBean.getPostavkaSustava(DAO_DB_ADR, "");
+			String adr = PostavkeBean.getPostavkaSustava(DAO_DB_ADR, PRAZAN_STRING);
 
-			if (!adr.equals("")) {
+			if (!adr.equals(PRAZAN_STRING)) {
 				workingHomeLocation = adr;
 				return workingHomeLocation;
 			}
@@ -1322,16 +1338,16 @@ public final class GlavniFrame extends JFrame
 
 				// opceniti podaci potrebni za spajanje na web servis
 				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_KLIJENTA,
-						"" + act.getSifraKorisnika());
+						PRAZAN_STRING + act.getSifraKorisnika());
 
 				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_POSLOVNICE,
-						"" + act.getSifraPoslovnice());
-				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_TVRTKE, ""
+						PRAZAN_STRING + act.getSifraPoslovnice());
+				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_TVRTKE, PRAZAN_STRING
 						+ act.getSifraTvrtke());
 				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SYNCH_USERNAME,
-						"" + act.getUsername());
+						PRAZAN_STRING + act.getUsername());
 				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SYNCH_PASSWORD,
-						"" + act.getPassword());
+						PRAZAN_STRING + act.getPassword());
 
 				post.saveData();
 				String datValjOrig = datumValjanosti;
@@ -1392,7 +1408,7 @@ public final class GlavniFrame extends JFrame
 
 				// PostavkeBean.setPostavka("proizvod_aktiviran", "true",
 				// false);
-				PostavkeBean.setPostavkaDB("proizvod_aktiviran", "true");
+				PostavkeBean.setPostavkaDB("proizvod_aktiviran", TRUE);
 
 				JOptionPane
 						.showMessageDialog(
@@ -1400,7 +1416,7 @@ public final class GlavniFrame extends JFrame
 								"Program uspješno aktiviran! "
 										+ (datValjOrig != null ? " Datum valjanosti aktivacije: "
 												+ datValjOrig
-												: ""), "Obavijest",
+												: PRAZAN_STRING), "Obavijest",
 								JOptionPane.INFORMATION_MESSAGE);
 
 				// iskopcati stavku menija da se vise ne vidi...
@@ -1530,13 +1546,32 @@ public final class GlavniFrame extends JFrame
 	}
 
 	static Boolean koristiSvaPomagala = null;
+	static final String KORISTI = "koristi";
 
-	public static final boolean isKoristiSvaPomagala() {
-		if (koristiSvaPomagala == null && running) {
+	public static final boolean isKoristiSvaPomagala() 
+	{
+		return isKoristiSvaPomagala(false);
+	}
+	
+	public static final boolean isKoristiSvaPomagala(boolean ignoreRunning) 
+	{
+		if ( ignoreRunning && koristiSvaPomagala == null ) 
+		{
 			String postavka = PostavkeBean.getPostavkaDB(
 					Konstante.HZZO_POSTAVKA_SVA_POMAGALA, null);
-			final String p = "koristi";
-			if (postavka != null && p.equals(postavka))
+			
+			if (postavka != null && KORISTI.equals(postavka))
+				koristiSvaPomagala = Boolean.TRUE;
+			else
+				koristiSvaPomagala = Boolean.FALSE;
+		}
+		else
+		if ( running && koristiSvaPomagala == null ) 
+		{
+			String postavka = PostavkeBean.getPostavkaDB(
+					Konstante.HZZO_POSTAVKA_SVA_POMAGALA, null);
+			
+			if (postavka != null && KORISTI.equals(postavka))
 				koristiSvaPomagala = Boolean.TRUE;
 			else
 				koristiSvaPomagala = Boolean.FALSE;
@@ -1548,7 +1583,7 @@ public final class GlavniFrame extends JFrame
 	public static final void setKoristiSvaPomagala(boolean koristi) {
 
 		PostavkeBean.setPostavkaDB(Konstante.HZZO_POSTAVKA_SVA_POMAGALA,
-				koristi ? "koristi" : "ne");
+				koristi ? KORISTI : NE);
 		koristiSvaPomagala = Boolean.valueOf(koristi);
 	}
 
@@ -1577,7 +1612,7 @@ public final class GlavniFrame extends JFrame
 			post = PostavkeBean.getIntPostavkaSustava(
 					Konstante.POSTAVKE_SIFRA_KLIJENTA, -1);
 		if (post != -1)
-			PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_KLIJENTA, ""
+			PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_KLIJENTA, PRAZAN_STRING
 					+ post);
 		return post;
 	}
@@ -1591,7 +1626,7 @@ public final class GlavniFrame extends JFrame
 					Konstante.POSTAVKE_SIFRA_POSLOVNICE, -1);
 			if (post != -1)
 				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_POSLOVNICE,
-						"" + post);
+						PRAZAN_STRING + post);
 		}
 
 		return post;
@@ -1605,7 +1640,7 @@ public final class GlavniFrame extends JFrame
 			post = PostavkeBean.getIntPostavkaSustava(
 					Konstante.POSTAVKE_SIFRA_TVRTKE, -1);
 			if (post != -1)
-				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_TVRTKE, ""
+				PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SIFRA_TVRTKE, PRAZAN_STRING
 						+ post);
 		}
 
@@ -1616,11 +1651,11 @@ public final class GlavniFrame extends JFrame
 		// idemo na to da sve postavke budu zapisane u DB, samo nuzno u
 		// registrima
 		String p = PostavkeBean.getPostavkaDB(
-				Konstante.POSTAVKE_SYNCH_USERNAME, "");
+				Konstante.POSTAVKE_SYNCH_USERNAME, PRAZAN_STRING);
 
-		if (p.equals("")) {
+		if (p.equals(PRAZAN_STRING)) {
 			p = PostavkeBean.getPostavkaSustava(
-					Konstante.POSTAVKE_SYNCH_USERNAME, "");
+					Konstante.POSTAVKE_SYNCH_USERNAME, PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SYNCH_USERNAME, p);
 		}
 
@@ -1632,11 +1667,11 @@ public final class GlavniFrame extends JFrame
 		// idemo na to da sve postavke budu zapisane u DB, samo nuzno u
 		// registrima
 		String p = PostavkeBean.getPostavkaDB(
-				Konstante.POSTAVKE_SYNCH_PASSWORD, "");
+				Konstante.POSTAVKE_SYNCH_PASSWORD, PRAZAN_STRING);
 
-		if (p.equals("")) {
+		if (p.equals(PRAZAN_STRING)) {
 			p = PostavkeBean.getPostavkaSustava(
-					Konstante.POSTAVKE_SYNCH_PASSWORD, "");
+					Konstante.POSTAVKE_SYNCH_PASSWORD, PRAZAN_STRING);
 			PostavkeBean.setPostavkaDB(Konstante.POSTAVKE_SYNCH_PASSWORD, p);
 		}
 
@@ -1647,7 +1682,7 @@ public final class GlavniFrame extends JFrame
 
 		if (parametri != null)
 			for (String param : parametri) {
-				if (param.equalsIgnoreCase("aktivacija"))
+				if (param.equalsIgnoreCase(AKTIVACIJA))
 					return false;
 			}
 
@@ -1660,14 +1695,14 @@ public final class GlavniFrame extends JFrame
 		// idemo na to da sve postavke budu zapisane u DB, samo nuzno u
 		// registrima
 		final String proiz_akt = "proizvod_aktiviran";
-		String p = PostavkeBean.getPostavkaDB(proiz_akt, "");
+		String p = PostavkeBean.getPostavkaDB(proiz_akt, PRAZAN_STRING);
 
-		if (p.equals("")) {
-			p = PostavkeBean.getPostavkaSustava(proiz_akt, "false");
+		if (p.equals(PRAZAN_STRING)) {
+			p = PostavkeBean.getPostavkaSustava(proiz_akt, FALSE);
 			PostavkeBean.setPostavkaDB(proiz_akt, p);
 		}
 
-		return p != null && p.equals("true");
+		return p != null && p.equals(TRUE);
 	}
 
 	private void srediMenuStavkeSObziromNaPravaKorisnika() {
@@ -2397,8 +2432,8 @@ public final class GlavniFrame extends JFrame
 		 int wdt = this.getWidth();
 		 int hgt = this.getHeight();
 		 
-		 PostavkeBean.setPostavkaDB("sirina_prozora", ""+wdt);
-		 PostavkeBean.setPostavkaDB("visina_prozora", ""+hgt);
+		 PostavkeBean.setPostavkaDB("sirina_prozora", PRAZAN_STRING+wdt);
+		 PostavkeBean.setPostavkaDB("visina_prozora", PRAZAN_STRING+hgt);
 		  
 		 defSirina=wdt;
 		 defVisina=hgt;

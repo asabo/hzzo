@@ -41,6 +41,7 @@ import biz.sunce.optika.Logger;
 import biz.sunce.util.GUI;
 import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.RacuniUtil;
+import biz.sunce.util.StringUtils;
 import biz.sunce.util.beans.PostavkeBean;
 
 import java.awt.Dimension;
@@ -249,7 +250,7 @@ public final class HzzoRacunPanel extends JPanel implements
 	private javax.swing.JPanel getJpStavkaRacuna() {
 		if (jpStavkaRacuna == null) {
 			jpStavkaRacuna = new JPanel();
-			GUIEditor stavka = this.getStavke() != null ? this.getStavke()
+			GUIEditor<StavkaRacunaVO> stavka = this.getStavke() != null ? this.getStavke()
 					.getGUIEditor() : null;
 			if (true)
 				this.jpStavkaRacuna = (JPanel) (stavka);
@@ -366,6 +367,9 @@ public final class HzzoRacunPanel extends JPanel implements
 
 	private void zakljuciRacun() {
 		// pohranjivanje zaglavlja racuna prvo
+		try
+		{
+		this.jbPohrani.setEnabled(false);
 		if (pohraniRacun()) {
 			RacunVO rvo = this.getOznaceni();
 			ArrayList<StavkaRacunaVO> stavkeR = null;
@@ -460,6 +464,11 @@ public final class HzzoRacunPanel extends JPanel implements
 			// ciscenje elemenata sa forme
 			brisiFormu();
 		}// if racun uspjesno pohranjen
+		}
+		finally
+		{
+			jbPohrani.setEnabled(true);
+		}
 	}// zakljuciRacun
 
 	public void redakOznacen(int redak, MouseEvent event, TableModel posiljatelj) {
@@ -518,21 +527,23 @@ public final class HzzoRacunPanel extends JPanel implements
 	}
 
 	// ciscenje elemenata sa forme
+	@SuppressWarnings("unchecked")
 	private void brisiFormu() {
-		GUIEditor ed = (GUIEditor) this.jpRacunPanel;
+		GUIEditor<RacunVO> ed = (GUIEditor<RacunVO>) this.jpRacunPanel;
 		ed.pobrisiFormu();
 		getOznaceni();
 
-		ed = (GUIEditor) this.jpStavkaRacuna;
-		ed.pobrisiFormu();
+		GUIEditor<StavkaRacunaVO> sed = (GUIEditor<StavkaRacunaVO>) this.jpStavkaRacuna;
+		sed.pobrisiFormu();
 
 		// nova stavka unutra za biti spremno
 		StavkaRacunaVO svo = new StavkaRacunaVO();
 		svo.setSifra(Integer.valueOf(DAO.NEPOSTOJECA_SIFRA));
-		ed.napuniPodatke(svo);
+		sed.napuniPodatke(svo);
 
 		this.oznaceni = null;
 		this.stavkeRacuna = null;
+		this.azuriranoSudjelovanje = null;
 
 		this.stavkeRacunaModel.setData(null);
 		this.jlUkupno.setText("");
@@ -667,21 +678,28 @@ public final class HzzoRacunPanel extends JPanel implements
 		   {
 			float iznos;
 
-			float sudj = (((float) ukupno) * 0.2f);
+			iznos = izracunajSudjelovanje(ukupno);
 
-			if (sudj < 5000.0)
-				sudj = 5000.0f;
-
-			int sudjInt = (int) (sudj + 0.5f);
-
-			iznos = ((float) sudjInt) / 100.0f;
-
-			String str = "" + iznos;
+			final String str = "" + iznos;
 
 			rcp.getJtIznosSudjelovanja().setText(str);
 			GUI.odradiUpozorenjeNaElementu(rcp.getJtIznosSudjelovanja(), "Automatski smo izmjenili iznos sudjelovanja!", Color.yellow);
 			azuriranoSudjelovanje = str;
 		}// if
+	}
+
+	private float izracunajSudjelovanje(int ukupno) {
+		float iznos;
+		float sudj = (((float) ukupno) * 0.2f);
+
+		if (sudj < 5000.0)
+			sudj = 5000.0f;
+
+		int sudjInt = (int) (sudj + 0.5f);
+
+		iznos = ((float) sudjInt) / 100.0f;
+		
+		return iznos;
 	}
 	
 	// provjerava jeli racun posjeduje sifru, ako ne
@@ -764,7 +782,7 @@ public final class HzzoRacunPanel extends JPanel implements
 					upozorenje = true;
 				}
 
-				if (!upozorenje) // necemo prikazivati upozorenja, zasada..
+				if (!upozorenje) 
 					JOptionPane.showMessageDialog(this.getParent(), por,
 							upozorenje ? "Napomena.." : "Upozorenje!",
 							JOptionPane.WARNING_MESSAGE);
@@ -891,11 +909,28 @@ public final class HzzoRacunPanel extends JPanel implements
 		ed.napuniPodatke(rvo);
 		osvjeziStavke();
 		
+		podesiAzuriranjeSudjelovanja();
+		
+	}
+
+	private void podesiAzuriranjeSudjelovanja() {
+
 		Racun rcp = (Racun) getJpRacunPanel();
 
 		String iznSudjForma = rcp.getJtIznosSudjelovanja().getText().trim();
 
-		azuriranoSudjelovanje = iznSudjForma;
+		
+		int izracunatiIznos = RacuniUtil.izracunajTotalRacuna(this.stavkeRacuna);
+		float izrIznos = izracunajSudjelovanje(izracunatiIznos);
+		float iznSudjFormaFloat = StringUtils.isEmpty(iznSudjForma)? -1.0f: Float.valueOf(iznSudjForma);
+		
+		//ako iznosi nisu isti, to znaci da je korisnik rucno unio iznos sudjelovanja, dakle tako treba i ostati
+		//
+
+		if (izrIznos != iznSudjFormaFloat)
+			azuriranoSudjelovanje = "" + izrIznos;
+		else
+			azuriranoSudjelovanje = iznSudjForma;
 	}
 
 	// fizicko brisanje racuna u kojem nema stavki...
@@ -921,10 +956,11 @@ public final class HzzoRacunPanel extends JPanel implements
 			if (svo.getSifArtikla().equals(st.getSifArtikla()))
 				return true;
 		}
+		
 		return false;
 	}// postojiLiStavkaURacunu
 
-	public void podaciSpremni(GUIEditor pozivatelj) {
+	public void podaciSpremni(@SuppressWarnings("rawtypes") GUIEditor pozivatelj) {
 		if (pozivatelj == this.getJpStavkaRacuna()) {
 			this.dodajStavkuURacun();
 		}
@@ -935,13 +971,15 @@ public final class HzzoRacunPanel extends JPanel implements
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJlUkupno() {
+	private javax.swing.JLabel getJlUkupno() 
+	{
 		if (jlUkupno == null) {
 			jlUkupno = new javax.swing.JLabel();
 			jlUkupno.setText("");
 			jlUkupno.setToolTipText("ukupni iznos raèuna ");
 			jlUkupno.setFont(new java.awt.Font("Dialog", java.awt.Font.BOLD, 14));
 		}
-		return jlUkupno;
+		
+	 return jlUkupno;
 	}
 }// klasa

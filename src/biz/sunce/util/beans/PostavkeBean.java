@@ -13,6 +13,7 @@ import java.util.prefs.Preferences;
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.PostavkeDAO;
 import biz.sunce.opticar.vo.PostavkaVO;
+import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 
 /**
@@ -105,6 +106,12 @@ public final class PostavkeBean {
 
 	public static void setHzzoSifraIsporucitelja(String hzzoSifraIsporucitelja) {
 		PostavkeBean.hzzoSifraIsporucitelja = hzzoSifraIsporucitelja;
+		if (hzzoSifraIsporucitelja!=null && 
+			(hzzoSifraIsporucitelja.equals("546854680") || hzzoSifraIsporucitelja.equals("500054681") ))
+		{
+		GlavniFrame.alert("Nastala je greska u aplikaciji. Aplikacija ce prekinuti rad. Molimo kontaktirajte administratora!");
+		System.exit(-1);
+		}
 	}
 
 	public static void setDatumValjanosti(Date datumValjanosti) {

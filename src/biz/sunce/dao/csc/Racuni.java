@@ -117,7 +117,7 @@ public final class Racuni implements RacunDAO {
 
 		if (!rvo.getOsnovnoOsiguranje().booleanValue()
 				&& !rvo.getDopunskoOsiguranje().booleanValue()) {
-			return "Raèun nije ni za dopunsko ni za  osnovno osiguranje?!?";
+			return "Raèun nije ni za dopunsko ni za osnovno osiguranje?!?";
 		}
 
 		if (rvo.getPodrucniUred() == null)
@@ -261,9 +261,11 @@ public final class Racuni implements RacunDAO {
 						+ rvo.getBrojPoliceDopunsko()+":"+brDop;
 			}
 		}
+		
 		if (rvo.getIznosSudjelovanja() != null
 				&& rvo.getIznosSudjelovanja().intValue() < 0)
 			return "iznos sudjelovanja nije ispravan! : "+rvo.getIznosSudjelovanja();
+		
 		if (rvo.getDatumIzdavanja().before(rvo.getDatumNarudzbe()))
 			return "datum isporuke je raniji od datuma narud\u017Ebe!";
 		if (PostavkeBean.isKontrolaOsobnogRacuna()
@@ -293,6 +295,7 @@ public final class Racuni implements RacunDAO {
 				return "Nastao je problem pri trazenju broja osobnog racuna. Kontaktirajte administratora";
 			}
 		}
+		
 		CheckDigit cd = new CheckISO7064Mod11_10();
 		if (rvo.getBrojPotvrde2().length() > 8
 				&& !cd.verify(rvo.getBrojPotvrde2()))
@@ -341,7 +344,7 @@ public final class Racuni implements RacunDAO {
 	
 	public void insert(Object objekt) throws SQLException 
 	{
-		String upit;
+		final String upit;
 		RacunVO ul = (RacunVO) objekt;
 		int sifRacuna = DAO.NEPOSTOJECA_SIFRA;
 
@@ -368,7 +371,12 @@ public final class Racuni implements RacunDAO {
 
 			ps.setString(1, ul.getDopunskoOsiguranje().booleanValue() ? DAO.DA : DAO.NE);
 			ps.setString(2, ul.getOsnovnoOsiguranje().booleanValue() ? DAO.DA : DAO.NE);
-			ps.setInt(3, ul.getIznosSudjelovanja() != null ? ul.getIznosSudjelovanja().intValue() : 0);
+			
+			if (ul.getIznosSudjelovanja()==null)
+				  ps.setNull( 3, Types.INTEGER );
+				   else
+				    ps.setInt( 3, ul.getIznosSudjelovanja().intValue() );
+				
 			ps.setInt(4, ul.getIznosOsnovnogOsiguranja() != null ? ul.getIznosOsnovnogOsiguranja().intValue() : 0);
 
 			if (ul.getSifKlijenta() != null)
@@ -569,8 +577,11 @@ public final class Racuni implements RacunDAO {
 			ps.setString(2, ul.getOsnovnoOsiguranje().booleanValue() ? DAO.DA
 					: DAO.NE);
 		 
-			ps.setInt(3, ul.getIznosSudjelovanja() != null ? ul
-					.getIznosSudjelovanja().intValue() : 0);
+			if (ul.getIznosSudjelovanja()==null)
+			  ps.setNull( 3, Types.INTEGER );
+			   else
+			    ps.setInt( 3, ul.getIznosSudjelovanja().intValue() );
+			
 			ps.setInt(4, ul.getIznosOsnovnogOsiguranja() != null ? ul
 					.getIznosOsnovnogOsiguranja().intValue() : 0);
 			ps.setInt(5, ul.getSifKlijenta().intValue());
@@ -1255,8 +1266,11 @@ public final class Racuni implements RacunDAO {
 				"dopunsko_osiguranje").equals(DAO.DA)));
 		rvo.setOsnovnoOsiguranje(Boolean.valueOf(rs.getString(
 				"osnovno_osiguranje").equals(DAO.DA)));
-		rvo.setIznosSudjelovanja(Integer.valueOf(rs
-				.getInt("iznos_sudjelovanja")));
+		
+		rvo.setIznosSudjelovanja(Integer.valueOf(rs.getInt("iznos_sudjelovanja")));
+		if (rs.wasNull())
+			rvo.setIznosSudjelovanja(null);
+			
 		rvo.setIznosOsnovnogOsiguranja(Integer.valueOf(rs
 				.getInt("iznos_sudjelovanja_osnovno_osig")));
 		rvo.setSifKlijenta(Integer.valueOf(rs.getInt("sif_klijenta")));
