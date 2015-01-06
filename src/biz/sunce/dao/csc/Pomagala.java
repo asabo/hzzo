@@ -94,6 +94,14 @@ public final class Pomagala implements PomagaloDAO
    	
 		Connection conn = null;
 		PreparedStatement ps = null;
+		
+		boolean sacuvatiSistemskeVrijednosti = false;
+		
+		if (ul.getStatus()=='X')
+		{
+			ul.setStatus('A');
+			sacuvatiSistemskeVrijednosti=true;
+		}
 
 		try {
 			conn = DAOFactory.getConnection();
@@ -115,8 +123,17 @@ public final class Pomagala implements PomagaloDAO
 
 			ps.setString(5, op);
 			
-			ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
-			ps.setInt(7, GlavniFrame.getSifDjelatnika());
+			if (sacuvatiSistemskeVrijednosti)
+			{
+				ps.setTimestamp(6, new Timestamp( ul.getCreated() ) );
+				ps.setInt(7, ul.getCreatedBy() );
+			}
+			else
+			{
+			 ps.setTimestamp(6, new Timestamp(System.currentTimeMillis()));
+			 ps.setInt(7, GlavniFrame.getSifDjelatnika());
+			}
+			
 			ps.setTimestamp(8, null);
 			ps.setNull(9, Types.INTEGER);
 
@@ -165,6 +182,14 @@ public final class Pomagala implements PomagaloDAO
 
 		Connection conn = null;
 		PreparedStatement ps = null;
+		
+		boolean sacuvatiSistemskeVrijednosti=false;
+		
+		if (ul.getStatus()=='X')
+		{
+			ul.setStatus('A');
+			sacuvatiSistemskeVrijednosti=true;
+		}
 
 		try {
 			conn = DAOFactory.getConnection();
@@ -186,8 +211,16 @@ public final class Pomagala implements PomagaloDAO
 
 			ps.setString(4, op);
 
+			if (sacuvatiSistemskeVrijednosti)
+			{
+			ps.setTimestamp(5, new Timestamp( ul.getLastUpdated() ) );
+			ps.setInt(6, ul.getLastUpdatedBy() );
+			}
+			else
+			{
 			ps.setTimestamp(5, new Timestamp(System.currentTimeMillis()));
 			ps.setInt(6, GlavniFrame.getSifDjelatnika());
+			}
 			
 			ps.setString(7, ul.getSifraArtikla());
 
