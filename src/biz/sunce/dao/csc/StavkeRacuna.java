@@ -105,7 +105,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			"(sif_racuna,sif_artikla,kolicina,po_cijeni,porezna_stopa,sif_proizvodjaca,tvrtka_sifra_art)"
 			+ " VALUES (?,?,?,?,?,?,?)";
 	
-	public void insert(Object objekt) throws SQLException 
+	public void insert(StavkaRacunaVO objekt) throws SQLException 
 	{
 	 
 		StavkaRacunaVO ul = (StavkaRacunaVO) objekt;
@@ -263,7 +263,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 					" where sif_racuna=? and sif_artikla=?";
 	
 	// 23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
-	public boolean update(Object objekt) throws SQLException
+	public boolean update(StavkaRacunaVO objekt) throws SQLException
 	{
 		StavkaRacunaVO ul = (StavkaRacunaVO) objekt;
 

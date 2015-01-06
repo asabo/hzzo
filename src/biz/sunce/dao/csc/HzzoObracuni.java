@@ -86,7 +86,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 		return null;
 	}// narusavaLiObjektKonzistentnost
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(HzzoObracunVO objekt) throws SQLException {
 		String upit;
 		HzzoObracunVO ul = (HzzoObracunVO) objekt;
 
@@ -155,7 +155,7 @@ public final class HzzoObracuni implements HzzoObracunDAO {
 
 	
 	// 28.03.06. -asabo- kreirano
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(HzzoObracunVO objekt) throws SQLException {
 		HzzoObracunVO ul = (HzzoObracunVO) objekt;
 
 		if (ul == null)

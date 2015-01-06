@@ -181,7 +181,7 @@ public class Drzave extends CacheabilniDAO<DrzavaVO> implements DrzavaDAO {
 	 * 
 	 * @see biz.sunce.dao.DAO#insert(java.lang.Object)
 	 */
-	public void insert(Object obj) throws SQLException {
+	public void insert(DrzavaVO obj) throws SQLException {
 
 		DrzavaVO ulaz = (DrzavaVO) obj;
 		if (ulaz == null)
@@ -281,7 +281,7 @@ public class Drzave extends CacheabilniDAO<DrzavaVO> implements DrzavaDAO {
 	 * dakle ulazni objekt se MIJENJA, ne kreira se novi. (nema smisla drzati
 	 * stari i novi)
 	 */
-	public boolean update(Object obj) throws SQLException {
+	public boolean update(DrzavaVO obj) throws SQLException {
 		DrzavaVO ulaz = (DrzavaVO) obj;
 		if (ulaz == null)
 			throw new SQLException("ulazna vrijednost je null!");

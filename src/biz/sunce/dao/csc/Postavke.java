@@ -33,7 +33,7 @@ public final class Postavke implements PostavkeDAO {
 
 	private final Hashtable<String, PostavkaVO> cache = new Hashtable<String, PostavkaVO>();
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(PostavkaVO objekt) throws SQLException {
 		PostavkaVO ul = (PostavkaVO) objekt;
 
 		if (ul == null) {
@@ -95,7 +95,7 @@ public final class Postavke implements PostavkeDAO {
 		}// finally
 	}// insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(PostavkaVO objekt) throws SQLException {
 		PostavkaVO ul = (PostavkaVO) objekt;
 
 		if (ul == null) {

@@ -35,7 +35,7 @@ public class Djelatnici extends CacheabilniDAO<DjelatnikVO> implements
 			"administrator" };
 	String tablica = "DJELATNICI";
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(DjelatnikVO objekt) throws SQLException {
 		DjelatnikVO ulaz = (DjelatnikVO) objekt;
 
 		if (ulaz == null)
@@ -96,7 +96,7 @@ public class Djelatnici extends CacheabilniDAO<DjelatnikVO> implements
 		}
 	}
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(DjelatnikVO objekt) throws SQLException {
 		DjelatnikVO ulaz = (DjelatnikVO) objekt;
 
 		if (ulaz == null)

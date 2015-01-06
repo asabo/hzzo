@@ -27,7 +27,7 @@ import biz.sunce.optika.Logger;
 public final class Skiaskopija implements SkiaskopijaDAO 
 {
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(SkiaskopijaVO objekt) throws SQLException {
 		SkiaskopijaVO ul=(SkiaskopijaVO)objekt;
 
 			if (ul==null) 
@@ -97,7 +97,7 @@ public final class Skiaskopija implements SkiaskopijaDAO
 		}
 	}//insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(SkiaskopijaVO objekt) throws SQLException {
 		SkiaskopijaVO ul=(SkiaskopijaVO)objekt;
 		
 			if (ul==null) 
@@ -169,7 +169,7 @@ public final class Skiaskopija implements SkiaskopijaDAO
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public SkiaskopijaVO read(Object kljuc) throws SQLException {
 		Integer sifPregleda = null;
 			if (kljuc instanceof Integer){
 				sifPregleda=(Integer)kljuc;
@@ -297,15 +297,15 @@ public final class Skiaskopija implements SkiaskopijaDAO
 		return null;
 	}
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(SkiaskopijaVO vo, int kolonas) {
 		return null;
 	}
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(SkiaskopijaVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(SkiaskopijaVO vo, int kolona) {
 		return false;
 	}
 
@@ -338,7 +338,7 @@ public final class Skiaskopija implements SkiaskopijaDAO
 		return s;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<SkiaskopijaVO> getGUIEditor() {
 		return null;
 	}//constructSkiaskopijaOko
 }

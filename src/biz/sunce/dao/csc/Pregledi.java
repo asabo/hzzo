@@ -38,7 +38,7 @@ public final class Pregledi implements PregledDAO
 
 public static final String[] zaglavlja={"datum"};
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(PregledVO objekt) throws SQLException {
 
 		PregledVO ulaz=(PregledVO)objekt;
 
@@ -78,7 +78,8 @@ public static final String[] zaglavlja={"datum"};
 							+ "    suncaneNaocale)"				//26  -25.11.05. -asabo- dodano
 
 							+ " VALUES (";
-                                                        upit+=
+                            
+							upit+=
 							(sifra=DAOFactory.vratiSlijedecuSlobodnuSifruZaTablicu("PREGLEDI","sifra")) //16.01.06. -asabo- izmjenjeno
                                                         + " ,"
 							+ "  ?,?,?,?,?,?,?,?,?,?,"
@@ -194,13 +195,13 @@ public static final String[] zaglavlja={"datum"};
 		} catch (SQLException e) {
 			Logger.fatal("Greska kod inserta pregleda",e);
 		}finally{
-			try {if (rs2!=null) rs2.close();} catch (SQLException e1){}
-			try {if (ps!=null) ps.close();} catch (SQLException e1){}
-			if (conn!=null) DAOFactory.freeConnection(conn);
+			try {if (rs2!=null) rs2.close();} catch (SQLException e1){} rs2=null;
+			try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+			if (conn!=null) DAOFactory.freeConnection(conn); conn=null;
 		}
 	}//insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(PregledVO objekt) throws SQLException {
 
 		PregledVO ulaz=(PregledVO)objekt;
 
@@ -370,11 +371,11 @@ public static final String[] zaglavlja={"datum"};
 	}//update
 
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public PregledVO read(Object kljuc) throws SQLException {
 
 		PregledVO pregled	=	null;
 		Integer ulazSifra = null;
-		String 	ulazIme 	= null;
+		 
 		Calendar dat= null;
 
 		if (kljuc instanceof Integer){
@@ -624,7 +625,7 @@ public static final String[] zaglavlja={"datum"};
 	public int getRowCount() {
 		return 0;
 	}
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(PregledVO vo, int kolonas) {
 		if (vo==null) return null;
 			PregledVO pregled=(PregledVO)vo;
 
@@ -634,13 +635,13 @@ public static final String[] zaglavlja={"datum"};
 				default:	return null;
 			}
 	}
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.PregledVO");
+	public Class<PregledVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.PregledVO.class;
 	}
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(PregledVO vo, int kolona) {
 		return false;
 	}
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(PregledVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 

@@ -34,11 +34,11 @@ public final class Mjesta extends CacheabilniDAO<MjestoVO> implements MjestoDAO 
 			+ "			d.cc,m.zip," + "   m.sif_podr_ureda" + " FROM "
 			+ "			mjesta m,drzave d" + "	WHERE " + "			m.sifDrzave=d.sifra";
 
-	public void insert(Object obj) throws SQLException {
+	public void insert(MjestoVO obj) throws SQLException {
 		// nema potreba za implementacijom Davor
 	}
 
-	public boolean update(Object obj) throws SQLException {
+	public boolean update(MjestoVO obj) throws SQLException {
 		// nema potreba za implementacijom Davor
 		return false;
 	}

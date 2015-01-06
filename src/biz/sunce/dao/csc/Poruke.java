@@ -37,7 +37,7 @@ public final class Poruke implements PorukaDAO
 	 private String[] kolone={"datum","tip poruke","primatelj","vrsta poruke","kreirano","poslano"};
 	 private KlijentDAO klijenti;
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(PorukaVO objekt) throws SQLException
 	{
 		String upit;
 		PorukaVO ul=(PorukaVO)objekt;
@@ -109,7 +109,7 @@ public final class Poruke implements PorukaDAO
 		}//insert
 
 
-	public boolean update(Object objekt) throws SQLException
+	public boolean update(PorukaVO objekt) throws SQLException
 	{
 		PorukaVO ul=(PorukaVO)objekt;
 
@@ -172,7 +172,7 @@ public final class Poruke implements PorukaDAO
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException
+	public PorukaVO read(Object kljuc) throws SQLException
 	{
 		Integer sifra = null;
 					if (kljuc instanceof Integer){
@@ -338,7 +338,7 @@ public final class Poruke implements PorukaDAO
 			
 	}
 
-	public Object getValueAt(ValueObject vo, int kolona)
+	public Object getValueAt(PorukaVO vo, int kolona)
 	{
 
 		PorukaVO pvo=null;
@@ -386,11 +386,11 @@ public final class Poruke implements PorukaDAO
 		}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(PorukaVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(PorukaVO vo, int kolona) {
 		return false;
 	}
 

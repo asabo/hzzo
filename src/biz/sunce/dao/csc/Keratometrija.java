@@ -27,7 +27,7 @@ import biz.sunce.optika.Logger;
 public final class Keratometrija implements KeratometrijaDAO
 {
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(KeratometrijaVO objekt) throws SQLException
   {
 		KeratometrijaVO ul=(KeratometrijaVO)objekt;
 		
@@ -86,7 +86,7 @@ public final class Keratometrija implements KeratometrijaDAO
 			}
 		}//insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(KeratometrijaVO objekt) throws SQLException {
 		KeratometrijaVO ul=(KeratometrijaVO)objekt;
 		
 			if (ul==null) 

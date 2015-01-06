@@ -49,7 +49,8 @@ public final class LogiranjeFrame extends JFrame
 	/**
 	 * This is the default constructor
 	 */
-	public LogiranjeFrame() {
+	public LogiranjeFrame() 
+	{
 		super();
 		
 		Thread t = new Thread() {
@@ -74,9 +75,8 @@ public final class LogiranjeFrame extends JFrame
 	 * @return void
 	 */
 
-	private void initialize() {
-
-				 		
+	private void initialize() 
+	{			 		
 		Thread t = new Thread()
 		{
 		public void run()

@@ -20,7 +20,6 @@ import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.PomagaloDAO;
 import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.PomagaloVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.StringUtils;
@@ -32,14 +31,16 @@ import biz.sunce.util.StringUtils;
  * 
  */
 
-public final class Pomagala implements PomagaloDAO {
+public final class Pomagala implements PomagaloDAO 
+{
+
 	private static final String POMAGALO = ".Pomagalo";
 	private static final int CACHE_SIZE = 2048;
 
 	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
-	private final static String tablica = "artikli";
+	private final static String tablica = "artikli";	
+	private final static String[] kolone = { "sifra", "naziv" };
 	
-	private String[] kolone = { "sifra", "naziv" };
 	private final String select = "SELECT sifra, naziv,"
 			+ "porezna_stopa, status, po_cijeni," // 20.03.06. -asabo-
 			+ "ocno_pomagalo," // 12.04.06. -asabo- dodano
@@ -83,7 +84,7 @@ public final class Pomagala implements PomagaloDAO {
 			+ "(SIFRA,naziv,porezna_stopa,po_cijeni,ocno_pomagalo,created,created_by,updated,updated_by) " + // 12.04.06.
 			" VALUES (?,?,?,?,?,?,?,?,?)"; // ovoj je tablici sifra string i sastavni je dio inserta
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(PomagaloVO objekt) throws SQLException {
 		 
 		PomagaloVO ul = (PomagaloVO) objekt;
 
@@ -154,7 +155,7 @@ public final class Pomagala implements PomagaloDAO {
 			+ " where sifra=?"; // primary key ...
 	
 	// 07.01.06. -asabo- kreirano
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(PomagaloVO objekt) throws SQLException {
 		PomagaloVO ul = (PomagaloVO) objekt;
 
 		if (ul == null)
@@ -461,19 +462,19 @@ public final class Pomagala implements PomagaloDAO {
 		pom.setCijenaSPDVom(Integer.valueOf(rs.getInt("po_cijeni")));
 		pom.setOptickoPomagalo(Boolean.valueOf(rs.getString("ocno_pomagalo")
 				.equals(DAO.DA) ? true : false));
-		pom.setCreated(rs.getTimestamp("created").getTime());
-		pom.setCreatedBy(rs.getInt("created_by"));
-		Timestamp updated = rs.getTimestamp("updated");
+		pom.setCreated(rs.getTimestamp(CREATED).getTime());
+		pom.setCreatedBy(rs.getInt(CREATED_BY));
+		Timestamp updated = rs.getTimestamp(UPDATED);
 		if (updated!=null)
 		pom.setLastUpdated(updated.getTime());
 		else 
 			pom.setLastUpdated(0L);
-		pom.setLastUpdatedBy(rs.getInt("updated_by"));
+		pom.setLastUpdatedBy(rs.getInt(UPDATED_BY));
 		
 		return pom;
 	}// constructPredlozak
 
-	public void clearFromCache(ValueObject vo) {
+	public void clearFromCache(PomagaloVO vo) {
 		if (vo == null)
 			return;
 		String kljuc = "" + vo.getSifra();

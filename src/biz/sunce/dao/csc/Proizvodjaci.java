@@ -33,7 +33,7 @@ public final class Proizvodjaci extends CacheabilniDAO<ProizvodjacVO> implements
 	String tablica = "proizvodjaci p";
 	String kolone[] = { "Hzzo šifra", "Naziv" };
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(ProizvodjacVO objekt) throws SQLException {
 		String upit = "insert into proizvodjaci (sifra,naziv,hzzo_sifra) values(?,?,?)";
 
 		if (objekt == null || !(objekt instanceof ProizvodjacVO))
@@ -72,18 +72,18 @@ public final class Proizvodjaci extends CacheabilniDAO<ProizvodjacVO> implements
 			} finally {
 				try {
 					if (ps != null)
-						ps.close();
+						ps.close(); ps=null;
 				} catch (SQLException sqle) {
 				}
 				if (con != null)
-					DAOFactory.freeConnection(con);
+					DAOFactory.freeConnection(con); con=null;
 			}
 		else
 			throw new SQLException("Veza prema bazi podataka je null!");
 
 	}// insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(ProizvodjacVO objekt) throws SQLException {
 		String upit = "update proizvodjaci set naziv=?,hzzo_sifra=? where sifra=?";
 
 		if (objekt == null || !(objekt instanceof ProizvodjacVO))
@@ -123,12 +123,12 @@ public final class Proizvodjaci extends CacheabilniDAO<ProizvodjacVO> implements
 			} finally {
 				try {
 					if (ps != null)
-						ps.close();
+						ps.close(); ps=null;
 				} catch (SQLException sqle) {
 				}
 				ps = null;
 				if (con != null)
-					DAOFactory.freeConnection(con);
+					DAOFactory.freeConnection(con); con=null;
 			}
 		else
 			throw new SQLException("Veza prema bazi podataka je null!");
@@ -152,7 +152,7 @@ public final class Proizvodjaci extends CacheabilniDAO<ProizvodjacVO> implements
 			kriterij = (SearchCriteria) obj;
 		}
 
-		String upit = "SELECT " + "		p.sifra," + "		p.naziv,"
+		final String upit = "SELECT " + "		p.sifra," + "		p.naziv,"
 				+ "		p.proizvodi_stakla," + "		p.proizvodi_lece,"
 				+ "   p.hzzo_sifra" // 07.06.06. -asabo- dodano
 				+ " FROM " + tablica + " where sifra=" + ulaz.intValue();

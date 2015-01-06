@@ -38,7 +38,7 @@ public class Naocale implements NaocaleDAO
 	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	private final static String tablica="IZDANE_NAOCALE";
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(NaocaleVO objekt) throws SQLException
   {
 		NaocaleVO ul=(NaocaleVO)objekt;
 
@@ -71,7 +71,7 @@ public class Naocale implements NaocaleDAO
 
 							upit+=	",?,?,?,current_timestamp,null,?,null,?,?,?,?, ?,?,?,?,?)";	//8+5	 komada
 
-			Connection conn 			= null;
+			Connection conn 		= null;
 			PreparedStatement ps 	= null;
 			ResultSet 		 rstemp = null;
 
@@ -227,7 +227,7 @@ public class Naocale implements NaocaleDAO
 			}
 		}//insert
 
-	public boolean update(Object objekt) throws SQLException
+	public boolean update(NaocaleVO objekt) throws SQLException
 	{
 		NaocaleVO ul=(NaocaleVO)objekt;
 
@@ -376,8 +376,8 @@ public class Naocale implements NaocaleDAO
 				}
 				//28.06.05. -asabo- NEMA CATCH-anja! - sve ide pozivatelju...
 				finally{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}
-				if (conn!=null) DAOFactory.freeConnection(conn);
+				try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+				if (conn!=null) DAOFactory.freeConnection(conn); conn=null;
 				return false;
 			}//finally
 	}//update
@@ -385,7 +385,7 @@ public class Naocale implements NaocaleDAO
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public NaocaleVO read(Object kljuc) throws SQLException {
 		Integer sifra = null;
 			if (kljuc instanceof Integer){
 				sifra=(Integer)kljuc;
@@ -626,7 +626,7 @@ public class Naocale implements NaocaleDAO
 	public Class getColumnClass(int columnIndex) {
 		return String.class;
 	}
-	public Object getValueAt(ValueObject vo, int kolonas)
+	public Object getValueAt(NaocaleVO vo, int kolonas)
 	{
 		NaocaleVO nvo=(NaocaleVO)vo;
 
@@ -645,10 +645,10 @@ public class Naocale implements NaocaleDAO
 		}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(NaocaleVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(NaocaleVO vo, int kolona) {
 		return false;
 	}
 	public int getRowCount() {

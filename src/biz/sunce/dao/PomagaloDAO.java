@@ -5,7 +5,6 @@
 package biz.sunce.dao;
 
 import biz.sunce.opticar.vo.PomagaloVO;
-import biz.sunce.opticar.vo.ValueObject;
 
 /**
  * datum:2006.02.26
@@ -20,6 +19,6 @@ public interface PomagaloDAO extends JakiDAO<PomagaloVO>
 	 * cisti odredjeni objekt iz cache-a, ako doticni DAO implementira nekako kesiranje..
 	 * @param vo
 	 */
-	public void clearFromCache(ValueObject vo);
+	public void clearFromCache(PomagaloVO vo);
 
 }

@@ -26,7 +26,7 @@ import biz.sunce.optika.Logger;
 public final class Refraktometar implements RefraktometarDAO 
 {
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(RefraktometarVO objekt) throws SQLException {
 		RefraktometarVO ul=(RefraktometarVO)objekt;
 
 			if (ul==null) 
@@ -79,7 +79,7 @@ public final class Refraktometar implements RefraktometarDAO
 		}
 	}//insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(RefraktometarVO objekt) throws SQLException {
 		RefraktometarVO ul=(RefraktometarVO)objekt;
 		
 			if (ul==null) 
@@ -136,7 +136,7 @@ public final class Refraktometar implements RefraktometarDAO
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public RefraktometarVO read(Object kljuc) throws SQLException {
 	
 		Integer sifPregleda = null;
 		if (kljuc instanceof Integer){
@@ -158,7 +158,7 @@ public final class Refraktometar implements RefraktometarDAO
 		upit+=" order by sifPregleda";
 		
 		ResultSet rs					=	null;
-		rs=DAOFactory.performQuery(upit);
+		rs = DAOFactory.performQuery(upit);
 
 		RefraktometarVO rvo=null;
 		try
@@ -182,14 +182,14 @@ public final class Refraktometar implements RefraktometarDAO
 		return rvo;
 	}//read
 
-	public List findAll(Object kljuc) throws SQLException {
+	public List<RefraktometarVO> findAll(Object kljuc) throws SQLException {
 		
 		System.err.println("SABO nije implementirano");
 		return null;
 	}
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return null;
+	public Class<RefraktometarVO> getVOClass() {
+		return RefraktometarVO.class;
 	}
 
 	public String getColumnName(int rb) {
@@ -204,15 +204,15 @@ public final class Refraktometar implements RefraktometarDAO
 		return null;
 	}
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(RefraktometarVO vo, int kolonas) {
 		return null;
 	}
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(RefraktometarVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(RefraktometarVO vo, int kolona) {
 		return false;
 	}
 
@@ -241,7 +241,7 @@ public final class Refraktometar implements RefraktometarDAO
 		return r;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<RefraktometarVO> getGUIEditor() {
 		return null;
 	}
 }

@@ -34,7 +34,7 @@ public final class VrsteLeca implements VrsteLecaDAO
 	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	private final static String tablica="TIPOVI_LECA";
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(TipLeceVO objekt) throws SQLException
 	{
 		TipLeceVO ul=(TipLeceVO)objekt;
 		
@@ -105,13 +105,13 @@ public final class VrsteLeca implements VrsteLecaDAO
 				} 
 					// nema catch-anja SQL exceptiona... neka se pozivatelj iznad jebe ...
 				finally{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}
-				try{if(rstemp!=null) rstemp.close();}catch(SQLException sqle){}					
-				DAOFactory.freeConnection(conn);
+				try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+				try{if(rstemp!=null) rstemp.close();}catch(SQLException sqle){}	rstemp=null;			
+				DAOFactory.freeConnection(conn); conn=null;
 			}//finally
 		}//insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(TipLeceVO objekt) throws SQLException {
 		TipLeceVO ul=(TipLeceVO)objekt;
 		
 			if (ul==null) 
@@ -156,16 +156,15 @@ public final class VrsteLeca implements VrsteLecaDAO
 				} 
 				//28.06.05. -asabo- NEMA CATCH-anja! - sve ide pozivatelju...  
 				finally{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}	
-				DAOFactory.freeConnection(conn);
-				return false;
+				try {if (ps!=null) ps.close();} catch (SQLException e1){}	ps=null;
+				DAOFactory.freeConnection(conn); conn=null;
 			}//finally
 	}//update
 
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public TipLeceVO read(Object kljuc) throws SQLException {
 		Integer sifra = null;
 			if (kljuc instanceof Integer){
 				sifra=(Integer)kljuc;
@@ -194,13 +193,11 @@ public final class VrsteLeca implements VrsteLecaDAO
 								
 					try
 					{										
-						Integer sf=null;
-					  
+						 
 						if (rs.next())
 						 {						 	 
 							lvo=constructLeca(rs);
-							OsobineLeceVO tmp=null;
-						  
+							 
 						}//if rs.next					   
 					}
 					//28.06.05. -asabo- nema CATCH-anja ...
@@ -212,11 +209,11 @@ public final class VrsteLeca implements VrsteLecaDAO
 				return lvo;
 	}//read
 
-	public List findAll(Object kljuc) throws SQLException 
+	public List<TipLeceVO> findAll(Object kljuc) throws SQLException 
 	{
 		Integer sifra = null;
 		
-		List lista=new ArrayList();
+		List<TipLeceVO> lista=new ArrayList<TipLeceVO>();
 		
 		if (kljuc instanceof Integer)
 		{
@@ -263,14 +260,14 @@ public final class VrsteLeca implements VrsteLecaDAO
 			//30.06.05. -asabo- nema CATCH-anja ...
 			finally
 			{
-			try{if (rs!=null) rs.close();}catch(SQLException sqle){}
+			try{if (rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
 			}
 	 
 			return lista;
 	}//findAll
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.TipLeceVO");
+	public Class<TipLeceVO> getVOClass() throws ClassNotFoundException {
+		return TipLeceVO.class;
 	}
 	public String getColumnName(int rb) {
 		return null;
@@ -281,13 +278,13 @@ public final class VrsteLeca implements VrsteLecaDAO
 	public Class getColumnClass(int columnIndex) {
 		return null;
 	}
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(TipLeceVO vo, int kolonas) {
 		return null;
 	}
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(TipLeceVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(TipLeceVO vo, int kolona) {
 		return false;
 	}
 	public int getRowCount() {
@@ -313,9 +310,9 @@ public final class VrsteLeca implements VrsteLecaDAO
 		return lvo;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<TipLeceVO> getGUIEditor() {
 		return null;
-	}//constructLeca
+	}//
 	
 }//klasa
 

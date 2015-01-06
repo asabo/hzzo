@@ -47,7 +47,7 @@ public final class Transakcije implements TransakcijeDAO
 	}//getKlijenti
 
 
-		public void insert(Object objekt) throws SQLException
+		public void insert(TransakcijaVO objekt) throws SQLException
 		{
 			if (objekt==null)
 					throw new SQLException("Insert "+tablica+": ulazna vrijednost je null!");
@@ -120,7 +120,7 @@ public final class Transakcije implements TransakcijeDAO
 			}
 		}
 
-		public boolean update(Object objekt) throws SQLException
+		public boolean update(TransakcijaVO objekt) throws SQLException
 		{
 			TransakcijaVO ulaz=(TransakcijaVO)objekt;
 
@@ -190,7 +190,7 @@ public final class Transakcije implements TransakcijeDAO
 			return true;
 		}//update
 
-		public ValueObject read(Object kljuc) throws SQLException {
+		public TransakcijaVO read(Object kljuc) throws SQLException {
 			TransakcijaVO transakcija	=	null;
 			Integer ulazSifra 	= null;
 			String 	ulazIme 		= null;
@@ -245,12 +245,13 @@ public final class Transakcije implements TransakcijeDAO
 			} catch (SQLException e) {
 				Logger.fatal("SQL iznimka kod "+tablica+".read, upit:"+upit,e);
 			}	finally{
-				try {if (rs!=null) rs.close();} catch (SQLException sql){}
+				try {if (rs!=null) rs.close();} catch (SQLException sql){} rs=null;
 			}
+			
 			return transakcija;
 		}//read
 
-		public List findAll(Object kljuc) throws SQLException
+		public List<TransakcijaVO> findAll(Object kljuc) throws SQLException
 		{
 			Integer sifKupca=null;
 			SearchCriteria kriterij=null;
@@ -298,7 +299,7 @@ public final class Transakcije implements TransakcijeDAO
 				upit+=" order by created desc";
 
 			ResultSet rs = null;
-			List lista= new ArrayList();
+			List<TransakcijaVO> lista= new ArrayList<TransakcijaVO>();
 				try
 				{
 				rs=DAOFactory.performQuery(upit);
@@ -306,12 +307,13 @@ public final class Transakcije implements TransakcijeDAO
 					while (rs.next()){
 						lista.add(constructTransakcija(rs));
 				}
-			} catch (SQLException e) {
+			} 
+			catch (SQLException e) {
 			Logger.fatal("SQL iznimka kod "+tablica+".findAll",e);
 			}
 			finally{
 				try{if (rs!=null) rs.getStatement().close();}catch(SQLException e){}
-				try{if (rs!=null) rs.close();}catch(SQLException sqle){}
+				try{if (rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
 			}
 			return lista;
 		}//findAll
@@ -338,16 +340,13 @@ public final class Transakcije implements TransakcijeDAO
 
 //		----------------------------Metode vezane uz prikaz----------------------------
 		public Class getColumnClass(int columnIndex) {
-			try{
+			 
 			 switch(columnIndex){
 				case 0:
-				case 1:	case 2:	case 3: case 4:	return Class.forName("java.lang.String");//sva tri case-a vracaju String
+				case 1:	case 2:	case 3: case 4:	return STRING_CLASS; //sva tri case-a vracaju String
 				default:	return null;
 			 }//switch
-			}
-			catch (ClassNotFoundException cnfe){
-				return null;
-			}
+			 
 		 }//getColumnClass
 
 
@@ -369,12 +368,14 @@ public final class Transakcije implements TransakcijeDAO
 			return komada;
 		}
 
-		public Object getValueAt(ValueObject vo, int kolonas) {
+		public Object getValueAt(TransakcijaVO vo, int kolonas) {
 			if (vo==null) return null;
 			//"id","tip","odl./dol.","kreirana","odobrena"};
 
-					TransakcijaVO transakcija=(TransakcijaVO)vo;
-				switch(kolonas){
+				TransakcijaVO transakcija=(TransakcijaVO)vo;
+				
+				switch(kolonas)
+				{
 
 					case 0: return transakcija.getTipZahtjeva();
 					case 1:		return transakcija.isOdlazna()?"Odlazna":"Dolazna";
@@ -398,14 +399,14 @@ public final class Transakcije implements TransakcijeDAO
 				}
 		}//getValueAt
 
-		public Class getVOClass() throws ClassNotFoundException {
-			return Class.forName("biz.sunce.opticar.vo.TransakcijaVO");
+		public Class<TransakcijaVO> getVOClass() throws ClassNotFoundException {
+			return TransakcijaVO.class;
 		}
 
-		public boolean isCellEditable(ValueObject vo, int kolona) {
+		public boolean isCellEditable(TransakcijaVO vo, int kolona) {
 			return false;
 		}
-		public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+		public boolean setValueAt(TransakcijaVO vo, Object vrijednost, int kolona) {
 			return false;
 		}
 

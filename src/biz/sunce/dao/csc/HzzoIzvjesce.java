@@ -15,7 +15,6 @@ import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.HzzoStavkaIzvjescaVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.util.Util;
 
 /**
@@ -29,12 +28,12 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
 	 {
 	 "tip","naziv pomagala","proizvoðaè","broj potvrde","kolièina","ime","prezime","standardno pomagalo","osoba nadoplatila", "šifra nestd. pom."
 	 };
-	 ArrayList zadnjiL=null;
+	 ArrayList<HzzoStavkaIzvjescaVO> zadnjiL=null;
 	 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(HzzoStavkaIzvjescaVO objekt) throws SQLException {
 	}
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(HzzoStavkaIzvjescaVO objekt) throws SQLException {
 		return false;
 	}
 
@@ -56,6 +55,7 @@ public final class HzzoIzvjesce implements biz.sunce.dao.HzzoIzvjesce
 	
 	if (krit!=null)
 	{	
+	@SuppressWarnings("rawtypes")
 	ArrayList p=(ArrayList)krit.getPodaci();
 	Calendar dOd, dDo;
 	dOd=(Calendar) p.get(0);

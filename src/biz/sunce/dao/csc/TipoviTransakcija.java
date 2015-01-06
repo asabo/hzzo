@@ -33,13 +33,13 @@ public final class TipoviTransakcija implements TipoviTransakcijaDAO
 {
 	//da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	 private final static String tablica="TIPOVI_TRANSAKCIJA";
-	 private String[] kolone={"sifra","naziv"};
+	 private final static String[] kolone={"sifra","naziv"};
 
 	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
 		return null;
 	}
 
-	public void insert(Object objekt) throws SQLException 
+	public void insert(TipTransakcijeVO objekt) throws SQLException 
 	{
 	String upit;
 	TipTransakcijeVO ul=(TipTransakcijeVO)objekt;
@@ -108,7 +108,7 @@ public final class TipoviTransakcija implements TipoviTransakcijaDAO
 
 
 	//07.01.06. -asabo- kreirano
-	public boolean update(Object objekt) throws SQLException 
+	public boolean update(TipTransakcijeVO objekt) throws SQLException 
 	{
 		TipTransakcijeVO ul=(TipTransakcijeVO)objekt;
 		
@@ -177,7 +177,7 @@ public final class TipoviTransakcija implements TipoviTransakcijaDAO
 	}//delete
 
 	//08.01.06. -asabo- kreirano
-	public ValueObject read(Object kljuc) throws SQLException 
+	public TipTransakcijeVO read(Object kljuc) throws SQLException 
 	{
 		Integer sifra = null;
 				if (kljuc instanceof Integer){
@@ -267,12 +267,12 @@ public final class TipoviTransakcija implements TipoviTransakcijaDAO
 		return list;
 	}//findAll
 
-	public Class getVOClass() throws ClassNotFoundException 
+	public Class<TipTransakcijeVO> getVOClass() throws ClassNotFoundException 
 	{
-		return Class.forName("biz.sunce.opticar.vo.TipTransakcijeVO");
+		return TipTransakcijeVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<TipTransakcijeVO> getGUIEditor() {
 		try {
 				//return (GUIEditor)Class.forName(DAO.GUI_DAO_ROOT+".TipTransakcije").newInstance();
 				return null;
@@ -310,19 +310,19 @@ public final class TipoviTransakcija implements TipoviTransakcijaDAO
 		try
 		{
 		switch(columnIndex){
-		case 0:		return Class.forName("java.lang.Integer");  
-		case 1:		return Class.forName("java.lang.String");
+		case 0:		return INTEGER_CLASS;
+		case 1:		return STRING_CLASS;
 		default:	return null;		
 		}
 		}
-		catch(ClassNotFoundException cnfe)
+		catch(Exception cnfe)
 		{
 			Logger.fatal(tablica+" CSC - Integer ili String kao klase ne postoje?!?",cnfe);
 			return null;
 		}
 	}//getColumnClass
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(TipTransakcijeVO vo, int kolonas) {
 		if (vo==null) return null;
 		TipTransakcijeVO  ttvo=(TipTransakcijeVO)vo;
 	switch(kolonas){
@@ -332,11 +332,11 @@ public final class TipoviTransakcija implements TipoviTransakcijaDAO
 	}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(TipTransakcijeVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(TipTransakcijeVO vo, int kolona) {
 		return false;
 	}
 

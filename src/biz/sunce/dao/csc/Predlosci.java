@@ -17,7 +17,6 @@ import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.PredlosciDAO;
 import biz.sunce.opticar.vo.PredlozakVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 
@@ -32,11 +31,11 @@ public final class Predlosci implements PredlosciDAO
 	 private final static String tablica="PREDLOSCI";
 	 private String[] kolone={"sifra","tip podataka","naziv"};
 
-	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
+	public String narusavaLiObjektKonzistentnost(PredlozakVO objekt) {
 		return null;
 	}
 
-	public void insert(Object objekt) throws SQLException 
+	public void insert(PredlozakVO objekt) throws SQLException 
 	{
 	String upit;
 	PredlozakVO ul=(PredlozakVO)objekt;
@@ -108,7 +107,7 @@ public final class Predlosci implements PredlosciDAO
 
 
 	//07.01.06. -asabo- kreirano
-	public boolean update(Object objekt) throws SQLException 
+	public boolean update(PredlozakVO objekt) throws SQLException 
 	{
 		PredlozakVO ul=(PredlozakVO)objekt;
 		
@@ -183,7 +182,7 @@ public final class Predlosci implements PredlosciDAO
 	}//delete
 
 	//08.01.06. -asabo- kreirano
-	public ValueObject read(Object kljuc) throws SQLException 
+	public PredlozakVO read(Object kljuc) throws SQLException 
 	{
 		Integer sifra = null;
 				if (kljuc instanceof Integer){
@@ -328,20 +327,20 @@ public final class Predlosci implements PredlosciDAO
 		try
 		{
 		switch(columnIndex){
-		case 0:		return Class.forName("java.lang.Integer");  
-		case 1:		return Class.forName("java.lang.String");
-		case 2:		return Class.forName("java.lang.String");
+		case 0:		return INTEGER_CLASS;
+		case 1:		return STRING_CLASS;
+		case 2:		return STRING_CLASS;
 		default:	return null;		
 	  }
 		}
-		catch(ClassNotFoundException cnfe)
+		catch(Exception cnfe)
 		{
 			Logger.fatal(tablica+" CSC - Integer ili String kao klase ne postoje?!?",cnfe);
 			return null;
 		}
 	}//getColumnClass
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(PredlozakVO vo, int kolonas) {
 		if (vo==null) return null;
 	PredlozakVO  pvo=(PredlozakVO)vo;
 	switch(kolonas){
@@ -352,11 +351,11 @@ public final class Predlosci implements PredlosciDAO
 	}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(PredlozakVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(PredlozakVO vo, int kolona) {
 		return false;
 	}
 

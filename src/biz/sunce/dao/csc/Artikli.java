@@ -15,9 +15,7 @@ import biz.sunce.dao.ArtiklDAO;
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.opticar.vo.ArtiklVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.Logger;
-import biz.sunce.dao.SearchCriteria;
 
 /**
  * datum:2005.07.21
@@ -27,10 +25,10 @@ import biz.sunce.dao.SearchCriteria;
  */
 public final class Artikli implements ArtiklDAO {
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(ArtiklVO objekt) throws SQLException {
 	}
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(ArtiklVO objekt) throws SQLException {
 		return false;
 	}
 
@@ -174,15 +172,15 @@ public final class Artikli implements ArtiklDAO {
 		return null;
 	}
 
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(ArtiklVO vo, int kolonas) {
 		return null;
 	}
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(ArtiklVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(ArtiklVO vo, int kolona) {
 		return false;
 	}
 

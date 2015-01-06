@@ -16,13 +16,19 @@ import biz.sunce.opticar.vo.ValueObject;
  */
 public interface DAO<VO extends ValueObject>
 {
-	public static Class STRING_CLASS  = String.class;
-	public static Class INTEGER_CLASS = Integer.class;
-	public static Class BOOLEAN_CLASS = Boolean.class;
+	public static Class<String>  STRING_CLASS  = String.class;
+	public static Class<Integer> INTEGER_CLASS = Integer.class;
+	public static Class<Boolean> BOOLEAN_CLASS = Boolean.class;
+	
+	public static final String UPDATED_BY = "updated_by";
+	public static final String UPDATED = "updated";
+	public static final String CREATED = "created";
+	public static final String CREATED_BY = "created_by";
 
 	
-public void insert(Object objekt) throws SQLException;
-public boolean update (Object objekt)throws SQLException;
+public void insert(VO objekt) throws SQLException;
+public boolean update (VO objekt)throws SQLException;
+
 public void delete (Object kljuc)throws SQLException;
 
 public VO read (Object kljuc)throws SQLException;

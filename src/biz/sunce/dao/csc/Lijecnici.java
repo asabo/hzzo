@@ -32,7 +32,7 @@ public final class Lijecnici implements LijecnikDAO {
 	private static String[] zaglavlja = { "sifra", "ime", "prezime", "titula" };
 	String tablica = "LIJECNICI";
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(LijecnikVO objekt) throws SQLException {
 		LijecnikVO ulaz = (LijecnikVO) objekt;
 
 		if (objekt == null)
@@ -65,7 +65,7 @@ public final class Lijecnici implements LijecnikDAO {
 		ps.setString(1, ulaz.getIme());
 		ps.setString(2, ulaz.getPrezime());
 		ps.setString(3, ulaz.getTitula());
-		ps.setInt(4, GlavniFrame.getSifDjelatnika());
+		ps.setInt   (4, GlavniFrame.getSifDjelatnika());
 
 		try {
 
@@ -85,7 +85,7 @@ public final class Lijecnici implements LijecnikDAO {
 		}
 	}// insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(LijecnikVO objekt) throws SQLException {
 		LijecnikVO ulaz = (LijecnikVO) objekt;
 
 		if (ulaz == null)

@@ -31,7 +31,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	private final static String tablica="hzzo_vrste_pomagala";
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(VrstaPomagalaVO objekt) throws SQLException
 	{
 		VrstaPomagalaVO ul=(VrstaPomagalaVO)objekt;
 		int sifra=DAO.NEPOSTOJECA_SIFRA;
@@ -64,7 +64,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 				int kom=ps.executeUpdate();
 				
 				if (kom==1)
-				ul.setSifra(Integer.valueOf(sifra)); // po tome i pozivac zna da je insert uspio...
+				 ul.setSifra(Integer.valueOf(sifra)); // po tome i pozivac zna da je insert uspio...
 				else
 				{
 					Logger.fatal("neuspio insert zapisa u tablicu "+tablica,null);
@@ -82,7 +82,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 			}//finally
 		}//insert
 
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(VrstaPomagalaVO objekt) throws SQLException {
 		VrstaPomagalaVO ul=(VrstaPomagalaVO)objekt;
 		
 			if (ul==null) 
@@ -92,7 +92,7 @@ public final class VrstePomagala implements VrstePomagalaDAO
 		if (ul.getSifra()==null || ul.getSifra().intValue()==DAO.NEPOSTOJECA_SIFRA) 
 			throw new SQLException("Update "+tablica+", ulazna vrijednost sifre nije ispravna! sifra: "+ul.getSifra());
 			
-			String upit =
+			final String upit =
 								" update "+tablica+" set "
 							+	"		     naziv=?"		//1
 							+	"  where sifra=?"; 		// primary key ...
@@ -148,12 +148,11 @@ public final class VrstePomagala implements VrstePomagalaDAO
 						
 				rs=DAOFactory.performQuery(upit);
 				 
-			  VrstaPomagalaVO vpvo=null;
+			    VrstaPomagalaVO vpvo=null;
 								
 					try
 					{										
 						 
-					  
 						if (rs.next())
 						 {						 	 
 							vpvo=constructVrstaPomagala(rs);
@@ -163,8 +162,8 @@ public final class VrstePomagala implements VrstePomagalaDAO
 					//28.06.05. -asabo- nema CATCH-anja ...
 					finally
 					{
-					try{if (rs!=null) rs.close();}catch(SQLException sqle){}
-					if (con!=null) DAOFactory.freeConnection(con);	  						  												 					
+					try{if (rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
+					if (con!=null) DAOFactory.freeConnection(con);	con=null;		  												 					
 					}
 				return vpvo;
 	}//read
@@ -252,7 +251,6 @@ public final class VrstePomagala implements VrstePomagalaDAO
 		VrstaPomagalaVO lvo=new VrstaPomagalaVO();
 		
 		lvo.setSifra(Integer.valueOf(rs.getInt("sifra")));
-		
 		lvo.setNaziv(rs.getString("naziv"));				 
  
 		return lvo;

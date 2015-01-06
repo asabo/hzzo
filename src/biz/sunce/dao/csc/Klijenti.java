@@ -138,7 +138,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 	// -------------------------------- METODE VEZANE UZ
 	// PRIKAZ----------------------------------
 
-	public void insert(Object obj) throws SQLException {
+	public void insert(KlijentVO obj) throws SQLException {
 		KlijentVO ulaz = (KlijentVO) obj;
 		if (ulaz == null)
 			throw new SQLException("ulazna vrijednost je null!");
@@ -380,7 +380,7 @@ public final class Klijenti extends CacheabilniDAO<KlijentVO> implements Klijent
 		return klijent;
 	}
 
-	public boolean update(Object obj) throws SQLException {
+	public boolean update(KlijentVO obj) throws SQLException {
 		KlijentVO ulaz = (KlijentVO) obj;
 		if (ulaz == null)
 			throw new SQLException("ulazna vrijednost je null!");

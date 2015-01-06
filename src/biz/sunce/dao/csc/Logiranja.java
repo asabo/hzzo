@@ -15,12 +15,15 @@ import java.util.Calendar;
 import java.util.List;
 
  
+
+
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.DjelatnikDAO;
 import biz.sunce.dao.GUIEditor;
 import biz.sunce.dao.LogiranjeDAO;
 import biz.sunce.opticar.vo.DjelatnikVO;
 import biz.sunce.opticar.vo.LogiranjeVO;
+import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.Util;
@@ -56,7 +59,7 @@ public final class Logiranja implements LogiranjeDAO
 	}//narusavaLiObjektKonzistentnost
 	
 
-	public void insert(Object objekt) throws SQLException 
+	public void insert(LogiranjeVO objekt) throws SQLException 
 	{
 	String upit;
 	LogiranjeVO ul=(LogiranjeVO)objekt;
@@ -70,7 +73,7 @@ public final class Logiranja implements LogiranjeDAO
     "(sif_djelatnika,login,logout)"+
     " values (?,?,?)";
     
-		Connection 			conn	= null;
+		Connection 		conn	= null;
 		PreparedStatement ps 	= null;
  
  
@@ -117,7 +120,7 @@ public final class Logiranja implements LogiranjeDAO
 
 
 	//23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
-	public boolean update(Object objekt) throws SQLException 
+	public boolean update(LogiranjeVO objekt) throws SQLException 
 	{
 		String upit;
 		LogiranjeVO ul=(LogiranjeVO)objekt;
@@ -148,9 +151,9 @@ public final class Logiranja implements LogiranjeDAO
 				// nema catch-anja SQL exceptiona... neka se pozivatelj iznad jebe ...
 				finally
 				{
-				try {if (ps!=null) ps.close();} catch (SQLException e1){}
+				try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
 			 			
-				if (conn!=null) DAOFactory.freeConnection(conn);
+				if (conn!=null) DAOFactory.freeConnection(conn); conn=null;
 				}//finally
 	}//update
 	 
@@ -160,16 +163,16 @@ public final class Logiranja implements LogiranjeDAO
 	}//delete
 
 	//23.02.06. -asabo- kreirano
-	public ValueObject read(Object kljuc) throws SQLException 
+	public LogiranjeVO read(Object kljuc) throws SQLException 
 	{
 		return null;
 		// ne treba trenutno.. 
 	}//read
 
 	//08.01.06. -asabo- kreirano
-	public final List findAll(Object kljuc) throws SQLException 
+	public final List<LogiranjeVO> findAll(Object kljuc) throws SQLException 
 	{
-		ArrayList list=new ArrayList(30);
+		ArrayList<LogiranjeVO> list=new ArrayList<LogiranjeVO>(30);
 		 
 			String upit=select;
 	 
@@ -192,17 +195,17 @@ public final class Logiranja implements LogiranjeDAO
 				finally
 				{
 					try{if (rs!=null && rs.getStatement()!=null) rs.getStatement().close();}catch(SQLException sqle){}
-					try{if (rs!=null ) rs.close();}catch(SQLException sqle){}		  	
+					try{if (rs!=null ) rs.close();}catch(SQLException sqle){} rs=null;
 				}
   
 	}//findAll
 
-	public final Class getVOClass() throws ClassNotFoundException 
+	public final Class<LogiranjeVO> getVOClass() throws ClassNotFoundException 
 	{
-		return Class.forName("biz.sunce.opticar.vo.RacunVO");
+		return biz.sunce.opticar.vo.LogiranjeVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<LogiranjeVO> getGUIEditor() {
 		try {
 				//return (GUIEditor)Class.forName(DAO.GUI_DAO_ROOT+".Racun").newInstance();
 				return null;
@@ -235,6 +238,7 @@ public final class Logiranja implements LogiranjeDAO
 		return kolone.length;
 	}
 
+	@SuppressWarnings("unchecked")
 	public final Class getColumnClass(int columnIndex) 
 	{
 
@@ -243,7 +247,7 @@ public final class Logiranja implements LogiranjeDAO
 		}
 	}//getColumnClass
 
-	public final Object getValueAt(ValueObject vo, int kolonas) {
+	public final Object getValueAt(LogiranjeVO vo, int kolonas) {
 		if (vo==null) return null;
 		LogiranjeVO  l=(LogiranjeVO)vo;
 		//private String[] kolone={"sifra","datum","klijent","datum narudžbe","kreiran","kreirao","izmjenjen","izmjenio"};
@@ -265,11 +269,11 @@ public final class Logiranja implements LogiranjeDAO
 	}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(LogiranjeVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(LogiranjeVO vo, int kolona) {
 		return false;
 	}
 

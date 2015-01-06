@@ -49,10 +49,12 @@ import biz.sunce.opticar.install.Installer;
 import biz.sunce.opticar.vo.DjelatnikVO;
 import biz.sunce.opticar.vo.KlijentVO;
 import biz.sunce.opticar.vo.LogiranjeVO;
+import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
 import biz.sunce.opticar.vo.ValueObject;
+import biz.sunce.optika.azurirac.AzuriracPomagala;
 import biz.sunce.optika.hzzo.HzzoIzvjescePanel;
 import biz.sunce.optika.hzzo.HzzoKreiranjeObracuna;
 import biz.sunce.optika.hzzo.HzzoPostojeciRacuniPanel;
@@ -333,7 +335,9 @@ public final class GlavniFrame extends JFrame
 		//SwingUtilities.invokeLater(t);
 		t.start();
 
-		 AzuriracPomagala.azurirajPomagala(DAOFactory.getInstance().getPomagala());
+   		 AzuriracPomagala azurirac = new AzuriracPomagala();
+		
+		 azurirac.azurirajPomagalaUThreadu(DAOFactory.getInstance().getPomagala());
 		 
 		 running = true;
 		 
@@ -1981,9 +1985,9 @@ public final class GlavniFrame extends JFrame
 							daop.setSviElementiSeMoguBrisati(true);
 							setContentPane(daop);
 							yield();
-							daop.dodajSlusaca(new SlusacDaoObjektPanela() {
+							daop.dodajSlusaca(new SlusacDaoObjektPanela<PomagaloVO>() {
 
-								public void objektSpremljen(ValueObject objekt) {
+								public void objektSpremljen(PomagaloVO objekt) {
 
 									DAOFactory.getInstance().getPomagala()
 											.clearFromCache(objekt);

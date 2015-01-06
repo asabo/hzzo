@@ -4,12 +4,14 @@
  */
 package biz.sunce.dao;
 
+import biz.sunce.opticar.vo.PorukaSustavaVO;
+
 /**
  * datum:2006.02.23
  * @author asabo
  *
  */
-public interface PorukeSustavaDAO extends DAO
+public interface PorukeSustavaDAO extends DAO<PorukaSustavaVO>
 {
 public static final String[] RAZINE={"","informacija","upozorenje","nadzor sustava","kritièno"};
 public static final int DEFAULT_LOG_LEVEL=1;

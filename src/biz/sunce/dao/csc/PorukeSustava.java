@@ -36,7 +36,7 @@ public final class PorukeSustava implements PorukeSustavaDAO
 		return null;
 	}
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(PorukaSustavaVO objekt) throws SQLException
 	{
 	String upit;
 	PorukaSustavaVO ul=(PorukaSustavaVO)objekt;
@@ -83,16 +83,16 @@ public final class PorukeSustava implements PorukeSustavaDAO
 			}
 			// nema catch-anja SQL exceptiona... neka se pozivatelj iznad jebe ...
 			finally{
-			try {if (ps!=null) ps.close();} catch (SQLException e1){}
-			try{if(rstemp!=null) rstemp.close();}catch(SQLException sqle){}
-			if (conn!=null) DAOFactory.freeConnection(conn);
+			try {if (ps!=null) ps.close();} catch (SQLException e1){} ps=null;
+			try{if(rstemp!=null) rstemp.close();}catch(SQLException sqle){} rstemp=null;
+			if (conn!=null) DAOFactory.freeConnection(conn); conn=null;
 			}//finally
 
 	}//insert
 
 
 	//23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
-	public boolean update(Object objekt) throws SQLException
+	public boolean update(PorukaSustavaVO objekt) throws SQLException
 	{
 		 // ne moze se updateati...
 		  return false;
@@ -113,16 +113,16 @@ public final class PorukeSustava implements PorukeSustavaDAO
 	}//delete
 
 	//23.02.06. -asabo- kreirano
-	public ValueObject read(Object kljuc) throws SQLException
+	public PorukaSustavaVO read(Object kljuc) throws SQLException
 	{
 		 // konkretan jedan objekt ne moze se dobiti
 		 return null;
 	}//read
 
 	//08.01.06. -asabo- kreirano
-	public final List findAll(Object kljuc) throws SQLException
+	public final List<PorukaSustavaVO> findAll(Object kljuc) throws SQLException
 	{
-		ArrayList list=new ArrayList(10);
+		ArrayList<PorukaSustavaVO> list=new ArrayList<PorukaSustavaVO>(16);
 
 			String sKljuc = null;
 			Integer razinaKljuc=null;
@@ -169,18 +169,18 @@ public final class PorukeSustava implements PorukeSustavaDAO
 								// -asabo- nema CATCH-anja ...
 								finally
 								{
-								try{if(rs!=null) rs.close();}catch(SQLException sqle){}
+								try{if(rs!=null) rs.close();}catch(SQLException sqle){}  rs=null;
 								}
 
 		return list;
 	}//findAll
 
-	public final Class getVOClass() throws ClassNotFoundException
+	public final Class<PorukaSustavaVO> getVOClass() throws ClassNotFoundException
 	{
-		return Class.forName("biz.sunce.opticar.vo.PorukaSustavaVO");
+		return biz.sunce.opticar.vo.PorukaSustavaVO.class;
 	}
 
-	public GUIEditor getGUIEditor() {
+	public GUIEditor<PorukaSustavaVO> getGUIEditor() {
 		try {
 				//return (GUIEditor)Class.forName(DAO.GUI_DAO_ROOT+".TipTransakcije").newInstance();
 				return null;
@@ -228,7 +228,7 @@ public final class PorukeSustava implements PorukeSustavaDAO
 		}
 	}//getColumnClass
 
-	public final Object getValueAt(ValueObject vo, int kolonas) {
+	public final Object getValueAt(PorukaSustavaVO vo, int kolonas) {
 		if (vo==null) return null;
 		PorukaSustavaVO  poruka=(PorukaSustavaVO)vo;
 	switch(kolonas){
@@ -242,11 +242,11 @@ public final class PorukeSustava implements PorukeSustavaDAO
 	}
 	}//getValueAt
 
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(PorukaSustavaVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
 
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(PorukaSustavaVO vo, int kolona) {
 		return false;
 	}
 

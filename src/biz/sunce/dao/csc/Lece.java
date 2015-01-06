@@ -37,7 +37,7 @@ public final class Lece implements  LeceDAO
 	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	private final static String tablica="IZDANE_LECE";
 
-	public void insert(Object objekt) throws SQLException
+	public void insert(LeceVO objekt) throws SQLException
 	{
 		LeceVO ul=(LeceVO)objekt;
 
@@ -196,7 +196,7 @@ public final class Lece implements  LeceDAO
 			}
 		}//insert
 
-	public boolean update(Object objekt) throws SQLException
+	public boolean update(LeceVO objekt) throws SQLException
 	{
 		LeceVO ul=(LeceVO)objekt;
 
@@ -397,7 +397,7 @@ public final class Lece implements  LeceDAO
 	public void delete(Object kljuc) throws SQLException {
 	}
 
-	public ValueObject read(Object kljuc) throws SQLException {
+	public LeceVO read(Object kljuc) throws SQLException {
 		Integer sifra = null;
 			if (kljuc instanceof Integer){
 				sifra=(Integer)kljuc;
@@ -493,10 +493,10 @@ public final class Lece implements  LeceDAO
 				return lvo;
 	}//read
 
-	public List findAll(Object kljuc) throws SQLException {
+	public List<LeceVO> findAll(Object kljuc) throws SQLException {
 		Integer sifra = null;
 
-		List lista=new ArrayList();
+		List<LeceVO> lista=new ArrayList<LeceVO>();
 
 		// zasada se nije pojavila neka potreba traziti izdane naocale po nekom kriteriju
 		if (kljuc instanceof Integer){
@@ -545,8 +545,7 @@ public final class Lece implements  LeceDAO
 
 				ps=con.prepareStatement(upit2);
 
-				Integer sf=null;
-
+				
 				while (rs.next())
 				 {
 					lvo=constructLeca(rs);
@@ -585,10 +584,10 @@ public final class Lece implements  LeceDAO
 			//30.06.05. -asabo- nema CATCH-anja ...
 			finally
 			{
-			try{if (rs!=null) rs.close();}catch(SQLException sqle){}
-			try{if(rs2!=null) rs2.close();}	catch(SQLException sqle){}
-			try{if(ps!=null) ps.close(); ps=null;}	catch(SQLException sqle){}
-			if (con!=null) DAOFactory.freeConnection(con);
+			try{if (rs!=null) rs.close();}catch(SQLException sqle){} rs=null;
+			try{if(rs2!=null) rs2.close();}	catch(SQLException sqle){} rs2=null;
+			try{if(ps!=null) ps.close(); ps=null;}	catch(SQLException sqle){}  ps=null;
+			if (con!=null) DAOFactory.freeConnection(con); con=null;
 			}
 
 			return lista;
@@ -606,13 +605,13 @@ public final class Lece implements  LeceDAO
 	public Class getColumnClass(int columnIndex) {
 		return null;
 	}
-	public Object getValueAt(ValueObject vo, int kolonas) {
+	public Object getValueAt(LeceVO vo, int kolonas) {
 		return null;
 	}
-	public boolean setValueAt(ValueObject vo, Object vrijednost, int kolona) {
+	public boolean setValueAt(LeceVO vo, Object vrijednost, int kolona) {
 		return false;
 	}
-	public boolean isCellEditable(ValueObject vo, int kolona) {
+	public boolean isCellEditable(LeceVO vo, int kolona) {
 		return false;
 	}
 	public int getRowCount() {

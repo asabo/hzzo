@@ -48,7 +48,7 @@ public final class PorezneStope implements PoreznaStopaDAO {
 		return null;
 	}// jeliObjektNarusavaKonzistentnost
 
-	public void insert(Object objekt) throws SQLException {
+	public void insert(PoreznaStopaVO objekt) throws SQLException {
 		String upit;
 		PoreznaStopaVO ul = (PoreznaStopaVO) objekt;
 		int sifra = DAO.NEPOSTOJECA_SIFRA;
@@ -110,7 +110,7 @@ public final class PorezneStope implements PoreznaStopaDAO {
 	}// insert
 
 	// 23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(PoreznaStopaVO objekt) throws SQLException {
 		String upit;
 		PoreznaStopaVO ul = (PoreznaStopaVO) objekt;
 

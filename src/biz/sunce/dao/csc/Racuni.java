@@ -43,9 +43,9 @@ import com.modp.checkdigits.CheckISO7064Mod11_10;
  * @author asabo
  * 
  */
-public final class Racuni implements RacunDAO {
-	private static final Class<String> STRING_CLASS = String.class;
-	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
+public final class Racuni implements RacunDAO 
+{
+		// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	private final static String tablica = "racuni";
 	private final String kolone[] = { "br.oso.rn.osn.", "datum nar.",
 			"datum izd.", "klijent", "lije\u010Dnik", "podr. ured", "akt. ZZR",
@@ -342,7 +342,7 @@ public final class Racuni implements RacunDAO {
 			+ "broj_osobnog_racuna_dop,uzet_skuplji_model,vrsta_pomagala,roba_isporucena,status,sif_preporucio,datum_slijedeceg_prava,aktivnost_zzr,"
 			+ "aktivnost_dop,broj_potvrde_lijecnika) VALUES (";
 	
-	public void insert(Object objekt) throws SQLException 
+	public void insert(RacunVO objekt) throws SQLException 
 	{
 		final String upit;
 		RacunVO ul = (RacunVO) objekt;
@@ -523,7 +523,7 @@ public final class Racuni implements RacunDAO {
 					+ " where sifra=?";
 	
 	// 23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
-	public boolean update(Object objekt) throws SQLException {
+	public boolean update(RacunVO objekt) throws SQLException {
 		String upit;
 		RacunVO ul = (RacunVO) objekt;
 

@@ -2,7 +2,10 @@ package biz.sunce.dao;
 
 import java.util.Hashtable;
 
-public abstract class CacheabilniDAO<VO> {
+import biz.sunce.opticar.vo.ValueObject;
+
+public abstract class CacheabilniDAO<VO extends ValueObject> implements DAO<VO>
+{
 
 	Hashtable<Integer, VO> cache=new Hashtable<Integer, VO>(128);
 	

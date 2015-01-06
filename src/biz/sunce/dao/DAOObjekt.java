@@ -481,13 +481,10 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 	}
 
 	public Class<ValueObject> getVOClass() throws ClassNotFoundException {
-		return null;
+		return ValueObject.class;
 	}
 
-	// ne koristi se
-	public void insert(Object objekt) throws SQLException {
-	}
-
+	 
 	public void insert(ValueObject objekt) throws SQLException {
 		Connection conn = null;
 		PreparedStatement ps = null;
@@ -509,11 +506,11 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 			Object val = objekt.getValue(this.kolone[i]);
 
 			// poseban tretman za 'sistemske' kolone da se izbjegne varanje :)
-			if (this.kolone[i].equals("CREATED")) {
+			if (this.kolone[i].equals(CREATED)) {
 				Timestamp tstmp = new Timestamp(System.currentTimeMillis());
 				ps.setTimestamp(i + 1, tstmp);
 				continue;
-			} else if (this.kolone[i].equals("CREATED_BY")) {
+			} else if (this.kolone[i].equals(CREATED_BY)) {
 				ps.setInt(i + 1, GlavniFrame.getSifDjelatnika());
 				continue;
 			} else if (this.kolone[i].equals("STATUS")) {
@@ -571,7 +568,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 
 	// ima za zadatak upisati svim elementima liste kolone redne brojeve unutar
 	// liste kljucevi kako bi se znalo koja kolona sudjeluje u kljucu
-	private final void podesiRedneBrojeveKljucevaKolonama(List kolone,
+	private void podesiRedneBrojeveKljucevaKolonama(List kolone,
 			List kljucevi) {
 		if (kolone != null && kljucevi != null) {
 			for (int i = 0; i < kljucevi.size(); i++) {
@@ -682,13 +679,12 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 							true);
 			java.sql.Timestamp t = java.sql.Timestamp.valueOf(sqlcal);
 			try {
-				objekt.setValue("UPDATED", t);
-				objekt.setValue("UPDATED_BY", GlavniFrame.getDjelatnik()
-						.getSifra());
-				objekt.setValue("updated", t); // da budemo sigurni...
-				objekt.setValue("updated_by", GlavniFrame.getDjelatnik()
-						.getSifra());
-			} catch (Exception e) {
+				objekt.setValue(UPDATED, t);
+				objekt.setValue(UPDATED_BY, GlavniFrame.getDjelatnik()
+						.getSifra());		 
+			} 
+			catch (Exception e) {
+			Logger.warn("Problem kod postavljanja vrijednosti", e);
 			}
 		}
 
@@ -740,10 +736,7 @@ public class DAOObjekt implements DAOSaKontrolomKonzistencije<ValueObject> {
 		return false;
 	}// update
 
-	// nece se koristiti, vec update(ValueObject)
-	public boolean update(Object objekt) throws SQLException {
-		return false;
-	}// update
+	 
 
 	public java.util.Vector<OrderByZapis> getOrderByKolone() {
 		return orderByKolone;

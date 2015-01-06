@@ -29,15 +29,15 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 {
 	//da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	 private final static String tablica="VRSTE_REZERVNIH_DIJELOVA";
-	 private String[] kolone={"sifra","naziv"};
+	 private final static String[] kolone={"sifra","naziv"};
 
 	public String narusavaLiObjektKonzistentnost(ValueObject objekt) {
 		return null;
 	}
 
-	public void insert(Object objekt) throws SQLException 
+	public void insert(VrstaRezervnogDijelaVO objekt) throws SQLException 
 	{
-	String upit;
+	final String upit;
 	VrstaRezervnogDijelaVO  ul=(VrstaRezervnogDijelaVO )objekt;
 		
 	if (ul==null) 
@@ -51,7 +51,7 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 	(sifra=DAOFactory.vratiSlijedecuSlobodnuSifruZaTablicu(tablica,"sifra"))+
 	",?)";
 
-		Connection 			conn	= null;
+		Connection 		conn	= null;
 		PreparedStatement ps 	= null;
 		ResultSet 		 rstemp = null;
 		
@@ -104,7 +104,7 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 
 
 	//07.01.06. -asabo- kreirano
-	public boolean update(Object objekt) throws SQLException 
+	public boolean update(VrstaRezervnogDijelaVO objekt) throws SQLException 
 	{
 		VrstaRezervnogDijelaVO  ul=(VrstaRezervnogDijelaVO )objekt;
 		
@@ -353,6 +353,6 @@ public final class VrsteRezervnihDijelova implements VrsteRezervnihDijelovaDAO
 		rezDio.setNaziv(rs.getString("naziv"));
  
 		return rezDio;
-	}//constructPredlozak
+	}//
 
 }//VrsteRezervnihDijelova

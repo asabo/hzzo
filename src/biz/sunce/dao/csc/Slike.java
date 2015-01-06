@@ -76,7 +76,7 @@ public final class Slike implements SlikeDAO {
 	 * @see biz.sunce.dao.DAO#findAll() samo read metoda ce imati funkciju, ne i
 	 * findAll (zasada)
 	 */
-	public List findAll(Object kljuc) throws SQLException {
+	public List<SlikaVO> findAll(Object kljuc) throws SQLException {
 		return null;
 	}// findAll
 
@@ -88,7 +88,7 @@ public final class Slike implements SlikeDAO {
 	 * 
 	 * @see biz.sunce.dao.DAO#insert(java.lang.Object)
 	 */
-	public void insert(Object obj) throws SQLException {
+	public void insert(SlikaVO vo) throws SQLException {
 	}// insert
 
 	/*
@@ -189,7 +189,7 @@ public final class Slike implements SlikeDAO {
 	 * dakle ulazni objekt se MIJENJA, ne kreira se novi. (nema smisla drzati
 	 * stari i novi)
 	 */
-	public boolean update(Object obj) throws SQLException {
+	public boolean update(SlikaVO obj) throws SQLException {
 		return false;
 	}
 
