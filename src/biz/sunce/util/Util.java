@@ -8,7 +8,6 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public final class Util {
@@ -553,17 +552,15 @@ public final class Util {
 		} catch (ParseException e) {
 			return null;
 		}
-		return new Timestamp(result.getTime());
+		return result;
 	}
 
 	public static boolean isBefore(java.util.Date first, java.util.Date second) {
-		GregorianCalendar cal1 = new GregorianCalendar();
-		GregorianCalendar cal2 = new GregorianCalendar();
-		cal1.setTime(first);
-		cal2.setTime(second);
-		cal1 = new GregorianCalendar(cal1.get(1), cal1.get(2), cal1.get(5));
-		cal2 = new GregorianCalendar(cal2.get(1), cal2.get(2), cal2.get(5));
-		return cal1.getTime().before(cal2.getTime());
+		
+		if (first==null || second==null)
+			return false;
+		
+		return first.before(second);
 	}
 
 	public static Date now() {
