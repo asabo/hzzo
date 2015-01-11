@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.sql.Types;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -23,6 +25,7 @@ import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.util.StringUtils;
+import biz.sunce.util.Util;
 
 /**
  * datum:2006.01.31
@@ -342,6 +345,7 @@ public final class Pomagala implements PomagaloDAO
 
 		String sKljuc = null;
 		SearchCriteria krit = null;
+		Date dKljuc = null;
 
 		if (kljuc instanceof String) {
 			sKljuc = (String) kljuc;
@@ -358,11 +362,24 @@ public final class Pomagala implements PomagaloDAO
 			ocnoPomagaloDodatak = "";
 			sKljuc = (String) krit.getPodaci().get(0);
 		}
+		else
+	     if (krit!=null && krit.getKriterij()!=null && krit.getKriterij().equals(KRITERIJ_TIMESTAMP))
+	     {
+	    	 dKljuc = (Date)krit.getPodaci().get(0);
+	     }
 
 		if (sKljuc != null)
 			upit += " and (lower(naziv) like '%" + sKljuc.toLowerCase() + "%'"
 					+ "    or sifra like '%" + sKljuc.toUpperCase() + "%'"
 					+ "    ) " + ocnoPomagaloDodatak;
+		
+		if (dKljuc != null)
+		{
+			Calendar c = Calendar.getInstance();
+			c.setTime(dKljuc);
+			String calStr = Util.convertCalendarToStringForSQLQuery(c,true);
+			upit += " and (created>'"+ calStr + "' or updated>'" + calStr + "')";
+		}
 
 		upit += " order by sifra";
 

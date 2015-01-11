@@ -13,12 +13,12 @@ import java.util.List;
  *
  */
 
-public class SearchCriteria 
+public final class SearchCriteria 
 {
 public static final String KRITERIJ_KLJUC="kljuc";
 public static final String KRITERIJ_NAZIV="naziv";
 
-List podaci;
+List<Object> podaci;
 String kriterij;
  
 public String getKriterij() {
@@ -30,9 +30,9 @@ public void dodajPodatak(Object podatak)
 	getPodaci().add(podatak);
 }
 
-public List getPodaci() 
+public List<Object> getPodaci() 
 {
-	if (podaci==null) podaci=new ArrayList();
+	if (podaci==null) podaci=new ArrayList<Object>();
 	
 	return podaci;
 }
@@ -43,7 +43,7 @@ public void setKriterij(String string) {
 }
 
  
-public void setPodaci(List list) {
+public void setPodaci(List<Object> list) {
 	podaci = list;
 }
 

@@ -16,14 +16,14 @@ import biz.sunce.opticar.vo.ValueObject;
  */
 public interface DAO<VO extends ValueObject>
 {
-	public static Class<String>  STRING_CLASS  = String.class;
-	public static Class<Integer> INTEGER_CLASS = Integer.class;
-	public static Class<Boolean> BOOLEAN_CLASS = Boolean.class;
+public static final Class<String>  STRING_CLASS  = String.class;
+public static final Class<Integer> INTEGER_CLASS = Integer.class;
+public static final Class<Boolean> BOOLEAN_CLASS = Boolean.class;
 	
-	public static final String UPDATED_BY = "updated_by";
-	public static final String UPDATED = "updated";
-	public static final String CREATED = "created";
-	public static final String CREATED_BY = "created_by";
+public static final String UPDATED_BY = "updated_by";
+public static final String UPDATED = "updated";
+public static final String CREATED = "created";
+public static final String CREATED_BY = "created_by";
 
 	
 public void insert(VO objekt) throws SQLException;
@@ -71,23 +71,24 @@ public final static String NE="N";
 public final static String NULL="null";
 public final static int NEPOSTOJECA_SIFRA=-1;
 //23.05.05. -asabo-
-public static int PRVA_SIFRA=1;
-public static String DESNO="d";
-public static String LIJEVO="l";
+public static final int PRVA_SIFRA=1;
+public static final String DESNO="d";
+public static final String LIJEVO="l";
 
 //16.06.05. -asabo- dodana jedinica minuta unutar kojih se moze zakazati pregled
-public static int PREGLEDI_JEDINICA_MINUTA=15;
+public static final int PREGLEDI_JEDINICA_MINUTA=15;
 //17.08.05. -asabo- koliko dana unaprijed ce se gledati kojima se sve ljudima treba zakazati pregled
-public static int PREGLEDI_DANA_ZA_ZAKAZATI_PREGLED_UNAPRIJED_SE_GLEDA=10;
-public static int PREGLEDI_DANA_ZA_GLEDATI_RODJENDAN=7;
+public static final int PREGLEDI_DANA_ZA_ZAKAZATI_PREGLED_UNAPRIJED_SE_GLEDA=10;
+public static final int PREGLEDI_DANA_ZA_GLEDATI_RODJENDAN=7;
 
-public static int KONTROLA_ZA_MJESECI=12;
+public static final int KONTROLA_ZA_MJESECI=12;
 
-public static String KRITERIJ_KLIJENT_DATUM_RODJENJA="kr_kl_dat_rodj";
-public static String KRITERIJ_SLIKA_NAOCALE="kr_sl_naoc";
-public static String KRITERIJ_SLIKA_BOJE="kr_sl_boje";
-public static String KRITERIJ_KLIJENT_LIMIT_1000="kr_kl_limit_1000";
+public static final String KRITERIJ_KLIJENT_DATUM_RODJENJA="kr_kl_dat_rodj";
+public static final String KRITERIJ_TIMESTAMP="kr_timestamp";
+public static final String KRITERIJ_SLIKA_NAOCALE="kr_sl_naoc";
+public static final String KRITERIJ_SLIKA_BOJE="kr_sl_boje";
+public static final String KRITERIJ_KLIJENT_LIMIT_1000="kr_kl_limit_1000";
 
-public static String GUI_DAO_ROOT="biz.sunce.dao.gui";
+public static final String GUI_DAO_ROOT="biz.sunce.dao.gui";
 
 }//DAO
