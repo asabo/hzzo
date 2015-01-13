@@ -13,26 +13,26 @@ import java.util.List;
  *
  */
 
-public final class SearchCriteria 
+public final class SearchCriteria<O extends Object>
 {
 public static final String KRITERIJ_KLJUC="kljuc";
 public static final String KRITERIJ_NAZIV="naziv";
 
-List<Object> podaci;
+List<O> podaci;
 String kriterij;
  
 public String getKriterij() {
 	return kriterij;
 }
 
-public void dodajPodatak(Object podatak)
+public void dodajPodatak(O podatak)
 {
 	getPodaci().add(podatak);
 }
 
-public List<Object> getPodaci() 
+public List<O> getPodaci() 
 {
-	if (podaci==null) podaci=new ArrayList<Object>();
+	if (podaci==null) podaci=new ArrayList<O>();
 	
 	return podaci;
 }
@@ -43,7 +43,7 @@ public void setKriterij(String string) {
 }
 
  
-public void setPodaci(List<Object> list) {
+public void setPodaci(List<O> list) {
 	podaci = list;
 }
 

@@ -316,7 +316,7 @@ public final class LogiranjeFrame extends JFrame
 		busy();
 		jbUlaz.setEnabled(false);
 		
-		SearchCriteria krit = new SearchCriteria();
+		SearchCriteria<String> krit = new SearchCriteria<String>();
 		ArrayList<String> arl = new ArrayList<String>(2);
 		arl.add(jtKorisnickoIme.getText().trim());
 		arl.add(new String(jtLozinka.getPassword()));
