@@ -57,6 +57,7 @@ public final class PomagaloVO extends ValueObject implements Serializable {
 		optickoPomagalo = boolean1;
 	}
 
+ 
 	String sifraArtikla;
 	String naziv;
 	Integer poreznaSkupina;
