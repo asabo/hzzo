@@ -137,7 +137,7 @@ public final class Pomagala implements PomagaloDAO
 			 ps.setInt(7, GlavniFrame.getSifDjelatnika());
 			}
 			
-			ps.setTimestamp(8, null);
+			ps.setNull(8, Types.TIMESTAMP);
 			ps.setNull(9, Types.INTEGER);
 
 			int kom = ps.executeUpdate();
@@ -230,6 +230,7 @@ public final class Pomagala implements PomagaloDAO
 			int kom = ps.executeUpdate();
 
 			boolean updated = kom == 1;
+			
 			if (!updated)
 				Logger.log(
 						tablica

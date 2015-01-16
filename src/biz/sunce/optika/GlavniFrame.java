@@ -53,7 +53,6 @@ import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.SlusacModelaTablice;
 import biz.sunce.opticar.vo.TableModel;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.azurirac.AzuriracPomagala;
 import biz.sunce.optika.hzzo.HzzoIzvjescePanel;
 import biz.sunce.optika.hzzo.HzzoKreiranjeObracuna;
@@ -354,7 +353,7 @@ public final class GlavniFrame extends JFrame
 		
 		 UIDefaults defaults = UIManager.getDefaults();
 	        
-	        for(Enumeration e = defaults.keys(); e.hasMoreElements(); )
+	        for(Enumeration<Object> e = defaults.keys(); e.hasMoreElements(); )
 	        {
 	            Object key = e.nextElement();
 	            
