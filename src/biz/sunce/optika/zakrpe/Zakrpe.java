@@ -226,13 +226,13 @@ public final class Zakrpe{
 				if (artikl.equals(""))
 					artikl = zapis[2].trim();
 
-				rok7 = zapis[13];
+				rok7  = zapis[13];
 				rok18 = zapis[14];
-				rok = zapis[15];
+				rok   = zapis[15];
 
-				irok7 = vratiMjesece(rok7);
+				irok7  = vratiMjesece(rok7);
 				irok18 = vratiMjesece(rok18);
-				irok = vratiMjesece(rok);
+				irok   = vratiMjesece(rok);
 
 				cijena = zapis[16];
 				ps.setString(1, iso);
