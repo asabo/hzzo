@@ -81,7 +81,7 @@ public final class GlavniFrame extends JFrame
 	private static final String NE = "ne";
 	private static final String DIREKTORIJ_ZA_KREIRANJE_DISKETE = "direktorij_za_kreiranje_diskete";
 	private static final String WORKING_ROOT = ".opticar";
-	public static final String ODABRANI_PRINTER = "odabrani_printer";
+	public  static final String ODABRANI_PRINTER = "odabrani_printer";
 
 	private static SimpleDateFormat DATE_FORMATTER 
 	= new SimpleDateFormat(	"yyyy-MM-dd" );
@@ -123,7 +123,8 @@ public final class GlavniFrame extends JFrame
 		return faktor;
 	}
 	
-	public static final int getSifDjelatnika() {
+	public static final int getSifDjelatnika() 
+	{
 		
 		if (sifDjelatnika == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA) {
 			
@@ -307,11 +308,10 @@ public final class GlavniFrame extends JFrame
 							"Program ne može pristupiti podacima! Molimo provjerite jeli još jedan program pokrenut.\n Ako nije - kontaktirajte administratora sustava",
 							"Kritièno!", JOptionPane.WARNING_MESSAGE);
 			System.exit(-1);
-		} else {
-
-			Zakrpe zakrpa = new Zakrpe();
-			zakrpa.zakrpaj();
-
+		} 
+		else
+		{
+  
 			getPublicKey();
 
 			instanca.srediMenuStavkeSObziromNaPravaKorisnika();
@@ -322,14 +322,24 @@ public final class GlavniFrame extends JFrame
 
 		Thread.currentThread().setName("Sunce*HZZO - ");
 
-		Thread t = new Thread() {
-			public void run() {
-				setPriority(Thread.MIN_PRIORITY);
+
+		Thread t = new Thread() 
+		{
+			public void run() 
+			{
+				setPriority( Thread.MIN_PRIORITY );
+				setName("PostavljacInicijalnihPodataka");
 				yield();
 				getSifDjelatnika();
 				instanca.setResizable(true);
+
+				try{sleep(200);}catch(Exception e){}
+				
+				Zakrpe zakrpa = new Zakrpe();
+				zakrpa.zakrpaj();
+
 			}
-		};
+		}; 
 
 		//SwingUtilities.invokeLater(t);
 		t.start();

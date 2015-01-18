@@ -370,9 +370,12 @@ public final class Pomagala implements PomagaloDAO
 	     }
 
 		if (sKljuc != null)
-			upit += " and (lower(naziv) like '%" + sKljuc.toLowerCase() + "%'"
+		{
+		 sKljuc=sKljuc.trim().replaceAll("\'", "");
+		 upit += " and (lower(naziv) like '%" + sKljuc.toLowerCase() + "%'"
 					+ "    or sifra like '%" + sKljuc.toUpperCase() + "%'"
 					+ "    ) " + ocnoPomagaloDodatak;
+		}
 		
 		if (dKljuc != null)
 		{

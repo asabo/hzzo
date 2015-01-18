@@ -39,16 +39,18 @@ import com.ansa.util.ResourceLoader;
  * @author asabo zakrpa koja kreira tablicu sa adresama podruznica hzzo-a i
  *         dodaje cijenu artiklima
  */
-public final class Zakrpe{
-	
+public final class Zakrpe
+{	
 	private static final String NOVE_CIJENE_01_01_2013 = "nove_cijene_01_01_2013";
+	private static final String NOVE_CIJENE_01_01_2015 = "nove_cijene_01_01_2015";
+
 	String[] upiti = null;
 	private static final String verzijaZakrpe = "038";
-	private static final String poruka = "podrska oko automatskog racunanja iznosa sudjelovanja";
+	private static final String poruka = "ažurirane cijene optièkih pomagala od 01.01.15.";
 	private static final String zakrpa = "zakrpa" + verzijaZakrpe;
 
 	public Zakrpe() {
-		upiti = new String[20];
+		upiti = new String[19];
 
 		upiti[0] = "alter table racuni alter column broj_potvrde2 set data type varchar(10)";
 		upiti[1] = "alter table stavke_racuna drop constraint str_sifart";
@@ -72,7 +74,6 @@ public final class Zakrpe{
 		upiti[17] = "alter TABLE artikli add column   UPDATED timestamp";
 
 		upiti[18] = "alter TABLE artikli add column   UPDATED_BY int";
-		upiti[19] = "ALTER TABLE racuni ALTER COLUMN iznos_sudjelovanja NULL";
 		
 	}// konstruktor
 
@@ -80,7 +81,8 @@ public final class Zakrpe{
 		return verzijaZakrpe;
 	}
 
-	public boolean zakrpaj() {
+	public boolean zakrpaj() 
+	{
 		boolean rez = true;
 
 		// srediKontrolneBrojeve();
@@ -112,12 +114,14 @@ public final class Zakrpe{
 
 			}// for i
 				// ako je zakrpa obavljena uspjesno
-			if (rez) {
-				boolean koristiSvaPomagala = GlavniFrame.isKoristiSvaPomagala(true);
+			if (rez) 
+			{
+				boolean koristiSvaPomagala = GlavniFrame.isKoristiSvaPomagala();
 				String isoArtikliKljuc = "iso_artikli_"+(koristiSvaPomagala?"svi":"opt");
 				String isoArtikli=PostavkeBean.getPostavkaDB(isoArtikliKljuc, "nije");
 				
-				if (!koristiSvaPomagala && isoArtikli.equals("nije")){
+				if (!koristiSvaPomagala && isoArtikli.equals("nije"))
+				{
 					prebaciNoveOptickeArtikle();
 					PostavkeBean.setPostavkaDB(isoArtikliKljuc, "jest");
 				}
@@ -170,12 +174,18 @@ public final class Zakrpe{
 			prebaciNoveCijene();
 		}
 		
+		String noveCijeneOptikaOdradjene = PostavkeBean.getPostavkaDB(NOVE_CIJENE_01_01_2015, "nije");
+		if (noveCijeneOptikaOdradjene.equals("nije")){
+			prebaciNoveOptickeArtikle();
+		}
+		
 		return rez;
 	}// zakrpaj
 
-	String insArtPom = "insert into artikli (sifra,naziv,porezna_stopa,status,ocno_pomagalo,po_cijeni,rokdo7g,rokdo18g,rok) values"
+	final String insArtPom = "insert into artikli (sifra,naziv,porezna_stopa,status,ocno_pomagalo,po_cijeni,rokdo7g,rokdo18g,rok) values"
 			+ " (?,?,2,'U','N',?,?,?,?)";
-	String selArt = "select sifra from artikli where sifra=?";
+	
+	final String selArt = "select sifra from artikli where sifra=?";
 
 	private int prebaciNoveOrtopedskeArtikle() {
 		String zip = "biz/sunce/optika/zakrpe/data/novi_orto_artikli_iso.zip";
@@ -226,13 +236,13 @@ public final class Zakrpe{
 				if (artikl.equals(""))
 					artikl = zapis[2].trim();
 
-				rok7  = zapis[13];
+				rok7 = zapis[13];
 				rok18 = zapis[14];
-				rok   = zapis[15];
+				rok = zapis[15];
 
-				irok7  = vratiMjesece(rok7);
+				irok7 = vratiMjesece(rok7);
 				irok18 = vratiMjesece(rok18);
-				irok   = vratiMjesece(rok);
+				irok = vratiMjesece(rok);
 
 				cijena = zapis[16];
 				ps.setString(1, iso);
@@ -332,10 +342,11 @@ public final class Zakrpe{
 		return (int) (irok * faktor);
 	}
 
-	String insArt = "insert into artikli (sifra,naziv,porezna_stopa,status,ocno_pomagalo,po_cijeni) values"
-			+ " (?,?,2,'U','D',?)";
+	final String insArtOpt = "insert into artikli (sifra,naziv,porezna_stopa,status,ocno_pomagalo,po_cijeni) values"
+			+ " (?,?,?,'U','D',?)";
 
-	private void prebaciNoveOptickeArtikle() {
+	private void prebaciNoveOptickeArtikle() 
+	{
 		String zip = "biz/sunce/optika/zakrpe/data/novi_artikli_ISO.zip";
 		String file = "novi_artikli_ISO.csv";
 
@@ -343,36 +354,108 @@ public final class Zakrpe{
 
 		Connection con = null;
 		PreparedStatement ps = null;
-
+		PreparedStatement ps2 = null;
+		PreparedStatement psUpd = null;
+		
+		ResultSet rs = null;
+		
 		InputStream ins = loader.getCsvInputStreamFromZip(zip, file);
 
 		BufferedReader br = new BufferedReader(new InputStreamReader(ins));
 		String line=null;
 		String[] zapis;
 		String cijenaBroj = null;
+		
+		int insertirano=0, updateano=0;
+		
+		
 		try {
 			con = DAOFactory.getConnection();
-			ps = con.prepareStatement(insArt);
+
+			ps = con.prepareStatement( insArtOpt );
+			ps2 = con.prepareStatement( selArt );
+			psUpd = con.prepareStatement( updArt );
 
 			String iso, artikl, cijena;
-			while ((line = br.readLine()) != null) {
-				zapis = line.split(";");
-				iso = zapis[1];
+			boolean artiklPostoji = false;
+			int poreznaStopa;
+			int cijenaInt;
+			String poreznaStopaStr;
+			
+			
+			while ((line = br.readLine()) != null) 
+			{
+				zapis  = line.split(";");
+				
+				if (zapis.length<18)
+					continue;
+				
+				iso    = zapis[1];
 				artikl = zapis[5];
 				cijena = zapis[16];
-				ps.setString(1, iso);
-				ps.setString(2, artikl);
+				poreznaStopaStr = zapis[17];
+				
+				ps2.setString(1, iso);
+				rs=ps2.executeQuery();
+				
+				artiklPostoji=rs.next();
+				
 				cijenaBroj = cijena.replaceFirst("\\.", "")
 						.replaceFirst("\\,", ".").replaceAll("\\*", "");
-				ps.setInt(3, (int) (Float.valueOf(cijenaBroj) * 100.0f));
+				
+				cijenaInt = (int) (Float.valueOf(cijenaBroj) * 100.0f);
+				
+				poreznaStopa=12;
+				
+				if (poreznaStopaStr.equals("5%"))
+					poreznaStopa=12;
+				else
+					if (poreznaStopaStr.equals("25%"))
+						poreznaStopa=1;
+				 else if (poreznaStopaStr.equals("0%"))
+					poreznaStopa=2;
+				 else{
+					 System.err.println( " Nepoznata porezna stopa!!!" );
+				 Logger.log(" nepoznata porezna stopa: "+poreznaStopaStr);
+				 }
+			 	
+				rs.close();	rs=null;
+				
+				if ( artiklPostoji )
+				{
+					//naziv necemo mjenjati, nije ni bitan na kraju
+					psUpd.setInt(1, poreznaStopa);
+					psUpd.setInt(2, cijenaInt);
+					psUpd.setString(3, iso);
+					
+					int updated = psUpd.executeUpdate();
+
+					if (updated != 1)
+						Logger.warn("Nije uspjeo update ISO artikla"
+								+ iso + ":" + artikl + ":" + cijena, null);
+					else
+						updateano++;
+				}
+				else
+				{
+				ps.setString(1, iso);
+				ps.setString(2, artikl);
+				
+				ps.setInt(3, poreznaStopa);
+				
+				ps.setInt(4, cijenaInt);
 
 				int inserted = ps.executeUpdate();
 
 				if (inserted != 1)
 					Logger.warn("Nije uspjelo zapisivanje novog iso artikla"
 							+ iso + ":" + artikl + ":" + cijena, null);
-			}
-		} catch (NumberFormatException nfe) {
+				else 
+					insertirano++;
+				}
+			}//while
+		} 
+		catch (NumberFormatException nfe) {
 			Logger.warn("Problem sa brojem: "+ cijenaBroj, nfe);
 			System.out.println("Problem sa brojem:" + cijenaBroj);
 		} catch (IOException ioe) {
@@ -389,14 +472,29 @@ public final class Zakrpe{
 			} catch (SQLException sqle) {
 			}
 			try {
+				if (psUpd!=null) psUpd.close();
+			} catch (SQLException sqle) {
+			}
+			try {
+				if (ps2!=null) ps2.close();
+			} catch (SQLException sqle) {
+			}
+			try {
 				DAOFactory.freeConnection(con);
 			} catch (SQLException sqle) {
 			}
 		}
 
-	}// prebaciNoveArtikle
+		GlavniFrame.info("Ažurirali smo optièka pomagala, cjenik od 01.01.2015. Izmjenjenih cijena: "+updateano+" uneseno novih artikala: "+insertirano);
 
-	private void prebaciNoveCijene() {
+		PostavkeBean.setPostavkaDB(NOVE_CIJENE_01_01_2015, new Date().toString());
+
+	}// prebaciNoveOptickeArtikle
+
+	final String updArt = "update artikli set porezna_stopa=?,po_cijeni=? where sifra=?";
+	
+	private void prebaciNoveCijene() 
+	{
 		String zip = "biz/sunce/optika/zakrpe/data/cijene.zip";
 		String file = "cijene.dta";
 
@@ -411,7 +509,6 @@ public final class Zakrpe{
 		
 		Hashtable<String, PomagaloVO> pomagala=null;
 
-		String updArt = "update artikli set porezna_stopa=?,po_cijeni=? where sifra=?";
 		int izmjenjeno=0;
 		PomagaloVO pomagalo=null;
 		
@@ -436,6 +533,7 @@ public final class Zakrpe{
 
 				izmjenjeno+=updated;
 			}
+			
 			PostavkeBean.setPostavkaDB(NOVE_CIJENE_01_01_2013, new Date().toString());
 			
 			GlavniFrame.alert("Ukupno izmjenjeno cijena: "+izmjenjeno+"! Unosite li raèune od 2012.g. morat æete ruèno mijenjati cijene! Morat æete ponovno pokrenuti program!");
@@ -448,7 +546,7 @@ public final class Zakrpe{
 			Logger.warn("ClassNotFoundException kod  prebaciNoveCijene", e);
 		} finally {
 			try {
-				oins.close();
+				oins.close(); oins=null;
 			} catch (Exception e) {
 			}
 			try {
