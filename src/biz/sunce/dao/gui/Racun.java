@@ -861,8 +861,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 		if (this.oznaceni.getSifDrzave() != null) {
 			ukljuciIno();
-			this.jtBrojInoLista1.setText(this.oznaceni
-					.getBrojInoBolesnickogLista1());
+			String br1 = this.oznaceni
+					.getBrojInoBolesnickogLista1();
+			this.jtBrojInoLista1.setText(br1==null?"":br1);
 			this.jtBrojInoLista2.setText(this.oznaceni
 					.getBrojInoBolesnickogLista2());
 

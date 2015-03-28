@@ -3,6 +3,7 @@ package biz.sunce.optika.net;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
+
+import sun.net.ConnectionResetException;
 
 public final class HZZOFetchUtil 
 {
@@ -189,11 +192,16 @@ public final class HZZOFetchUtil
 			}// if ent!=null
 
 		} 
+		catch(SocketException socke)
+		{
+			postaviPorukuZaFlidId("Nema dostupa na internet!", true,jtBrojIskaznice1,jtBrojIskaznice2);
+		}
 		catch (UnknownHostException unk) 
 		{
 			postaviPorukuZaFlidId("Nema dostupa na internet!", true,jtBrojIskaznice1,jtBrojIskaznice2);
 		} 
-		catch (Exception e) {
+		catch (Exception e) 
+		{
 			postaviPorukuZaFlidId("Problem pri dohvatu podataka", true,jtBrojIskaznice1,jtBrojIskaznice2);
 			e.printStackTrace();
 		}

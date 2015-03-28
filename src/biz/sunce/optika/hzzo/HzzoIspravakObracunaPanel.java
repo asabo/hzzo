@@ -558,8 +558,9 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 							+ d
 							+ ""
 							+ d
-							+ (sifDrzave == null ? "" : inoBroj1 + "/"
-									+ inoBroj2) + d
+							+ (sifDrzave == null ? "" : 
+								( StringUtils.isEmpty(inoBroj1)?inoBroj2:(inoBroj1 + "/" + inoBroj2) )
+							  ) + d
 							+ (sifDrzave == null ? "" : drzava.getCc3()) + d
 							+ sifProizvodjaca + d + "0.00" + d + "0.00" + d
 							+ osobniRacunZaOsnovno + d

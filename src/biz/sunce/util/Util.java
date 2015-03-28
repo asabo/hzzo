@@ -429,6 +429,20 @@ public final class Util {
 		return rez;
 	}
 
+	public static final boolean tekstPodlijezeHzzoPravilimaAN(String tekst) {
+		boolean rez = true;
+		if (tekst == null)
+			return false;
+		String slova = "abcdefghijklmnopqrrstuvwxyz1234567890";
+		String slovaUp = slova.toUpperCase();
+		for (int i = 0; i < tekst.length(); i++)
+			if (slova.indexOf(tekst.charAt(i)) == -1
+					&& slovaUp.indexOf(tekst.charAt(i)) == -1)
+				return false;
+
+		return rez;
+	}
+	
 	public static final boolean tekstPodlijezeHzzoPravilimaNS(String tekst) {
 		boolean rez = true;
 		if (tekst == null)

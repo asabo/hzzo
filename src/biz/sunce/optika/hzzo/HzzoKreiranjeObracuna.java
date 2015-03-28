@@ -39,7 +39,6 @@ import biz.sunce.opticar.vo.MjestoVO;
 import biz.sunce.opticar.vo.PoreznaStopaVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.StavkaRacunaVO;
-import biz.sunce.opticar.vo.ValueObject;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.optika.hzzo.ispis.IspisRacunaDopunskoOsiguranje;
@@ -568,8 +567,8 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 							+ d
 							+ ""
 							+ d
-							+ (sifDrzave == null ? "" : inoBroj1 + "/"
-									+ inoBroj2) + d
+							+ (sifDrzave == null ? "" : (StringUtils.isEmpty(inoBroj1)?inoBroj2:(inoBroj1 + "/"
+									+ inoBroj2))) + d
 							+ (sifDrzave == null ? "" : drzava.getCc3()) + d
 							+ sifProizvodjaca + d + "0.00" + d + "0.00" + d
 							+ osobniRacunZaOsnovno + d

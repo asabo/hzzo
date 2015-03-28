@@ -31,6 +31,7 @@ import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.util.StringUtils;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
@@ -199,24 +200,34 @@ public final class Racuni implements RacunDAO
 						.getBrojOsobnogRacunaDopunsko()))
 			return "Broj osobnog ra\u010Duna za dopunsko osiguranje ne podlije\u017Ee HZZO pravilima!";
 		if (rvo.getSifDrzave() != null) {
-			if (rvo.getBrojInoBolesnickogLista1() == null
-					|| rvo.getBrojInoBolesnickogLista1().length() > 3)
+			if ( StringUtils.isEmpty( rvo.getBrojInoBolesnickogLista1() ) 				   
+					&& ( StringUtils.isEmpty(rvo.getBrojInoBolesnickogLista2()) || 
+						 !Util.tekstPodlijezeHzzoPravilimaAN(rvo.getBrojInoBolesnickogLista2())
+				     || rvo.getBrojInoBolesnickogLista2().length()!=20)
+			   )
+			{
+				return "Broj bolesnièkog lista INO osig. osobe nije ispravan (eur)!";
+			}
+			else
+			{
+			 if( rvo.getBrojInoBolesnickogLista1().length() > 3)
 				return "Prvi dio ino bolesni\u010Dkog broja osigurane osobe treba biti dug do max. 3 znaka";
-			if (rvo.getBrojInoBolesnickogLista2() == null
+			 if (rvo.getBrojInoBolesnickogLista2() == null
 					|| rvo.getBrojInoBolesnickogLista2().length() > 8)
 				return "Drugi dio ino bolesni\u010Dkog broja osigurane osobe treba biti dug do max. 8 znakova";
-			int sfp = -1;
-			try {
+			 int sfp = -1;
+			 try {
 				sfp = Integer.parseInt(rvo.getBrojInoBolesnickogLista1());
-			} catch (NumberFormatException nfe) {
+			 } catch (NumberFormatException nfe) {
 				return "prvi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan "+sfp;
-			}
-			try {
+			 }
+			 try {
 				sfp = Integer.parseInt(rvo.getBrojInoBolesnickogLista2());
-			} catch (NumberFormatException nfe) {
+			 } catch (NumberFormatException nfe) {
 				return "drugi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan";
-			}
-		}
+			 }
+		    }
+		} // if sifDrzave!=null
 		// zasada null lijecnik prolazi
 		// if (rvo.getBrojPotvrdePomagala()==null ||
 		// rvo.getBrojPotvrdePomagala().trim().equals("")){
