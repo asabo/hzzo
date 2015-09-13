@@ -433,8 +433,8 @@ public final class Util {
 		boolean rez = true;
 		if (tekst == null)
 			return false;
-		String slova = "abcdefghijklmnopqrrstuvwxyz1234567890";
-		String slovaUp = slova.toUpperCase();
+		final String slova = "abcdefghijklmnopqrrstuvwxyz1234567890";
+		final String slovaUp = slova.toUpperCase();
 		for (int i = 0; i < tekst.length(); i++)
 			if (slova.indexOf(tekst.charAt(i)) == -1
 					&& slovaUp.indexOf(tekst.charAt(i)) == -1)

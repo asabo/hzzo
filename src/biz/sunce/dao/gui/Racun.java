@@ -125,8 +125,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField jtBrojIskaznice2 = null;
 	private javax.swing.JCheckBox jcIno = null;
 	private javax.swing.JLabel jlBrojBolesnickogLista = null;
-	private javax.swing.JTextField jtBrojInoLista1 = null;
-	private javax.swing.JTextField jtBrojInoLista2 = null;
+	private javax.swing.JTextField jtBrojInoLista = null;
 	private javax.swing.JLabel jlDrzavaKlijenta = null;
 	private javax.swing.JTextField jtDrzavaInoOsobe = null;
 	private javax.swing.JLabel jLabel15 = null;
@@ -147,6 +146,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	/**
 	 * This is the default constructor
 	 */
+	@SuppressWarnings("deprecation")
 	public Racun() {
 		super();
 		initialize();
@@ -451,6 +451,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		gbc_jpBrojOsiguranjaKlijenta.gridy = 4;
 		add(getJpBrojOsiguranjaKlijenta(), gbc_jpBrojOsiguranjaKlijenta);
 		GridBagConstraints gbc_jpBrojBolesnickogL = new GridBagConstraints();
+		gbc_jpBrojBolesnickogL.fill = GridBagConstraints.HORIZONTAL;
 		gbc_jpBrojBolesnickogL.insets = new Insets(0, 2, 2, 0);
 		gbc_jpBrojBolesnickogL.anchor = GridBagConstraints.WEST;
 		gbc_jpBrojBolesnickogL.gridx = 5;
@@ -856,11 +857,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (this.oznaceni.getSifDrzave() != null) {
 			ukljuciIno();
 			String br1 = this.oznaceni
-					.getBrojInoBolesnickogLista1();
-			this.jtBrojInoLista1.setText(br1==null?"":br1);
-			this.jtBrojInoLista2.setText(this.oznaceni
-					.getBrojInoBolesnickogLista2());
-
+					.getBrojInoBolesnickogLista();
+			this.jtBrojInoLista.setText(br1==null?"":br1);
+			 
 			try {
 				this.oznacenaDrzava = (DrzavaVO) DAOFactory.getInstance()
 						.getDrzava().read(oznaceni.getSifDrzave());
@@ -933,8 +932,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	}// napuniPodatke
 
 	private void ukljuciIno() {
-		this.jtBrojInoLista1.setEnabled(true);
-		this.jtBrojInoLista2.setEnabled(true);
+		this.jtBrojInoLista.setEnabled(true);		 
 		this.jtDrzavaInoOsobe.setEnabled(true);
 		this.jlBrojBolesnickogLista.setEnabled(true);
 		this.jlDrzavaKlijenta.setEnabled(true);
@@ -942,8 +940,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	}
 
 	private void iskljuciIno() {
-		this.jtBrojInoLista1.setEnabled(false);
-		this.jtBrojInoLista2.setEnabled(false);
+		this.jtBrojInoLista.setEnabled(false);
 		this.jtDrzavaInoOsobe.setEnabled(false);
 		this.jlBrojBolesnickogLista.setEnabled(false);
 		this.jlDrzavaKlijenta.setEnabled(false);
@@ -973,6 +970,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		}
 	}// postaviOsnovnoOsiguranje
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public RacunVO vratiPodatke() {
 		// osnovna filozofija, ako je forma prazna, oznaceni==null, kreiramo
 		// novi objekt i vracamo ga a onaj iznad gleda po sifri jeli novi ili
@@ -1154,9 +1152,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 		// 01.04.06. -asabo- dodano
 		if (jcIno.isSelected()) {
-			this.oznaceni.setBrojInoBolesnickogLista1(this.jtBrojInoLista1
-					.getText().trim());
-			this.oznaceni.setBrojInoBolesnickogLista2(this.jtBrojInoLista2
+			this.oznaceni.setBrojInoBolesnickogLista(this.jtBrojInoLista
 					.getText().trim());
 			this.oznaceni
 					.setSifDrzave(this.oznacenaDrzava != null ? this.oznacenaDrzava
@@ -1314,8 +1310,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.jtPodruznica.setText(p);
 		this.jtNapomena.setText(p);
 		this.jcIno.setSelected(false);
-		this.jtBrojInoLista1.setText(p);
-		this.jtBrojInoLista2.setText(p);
+		this.jtBrojInoLista.setText(p);
 		this.jtBrojIskaznice1.setText(p);
 		this.jtBrojIskaznice2.setText(p);
 		this.jtDrzavaInoOsobe.setText(p);
@@ -1372,8 +1367,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.jtBrojIskaznice1.setEnabled(s);
 		this.jtBrojIskaznice2.setEnabled(s);
 		this.jcIno.setEnabled(s);
-		this.jtBrojInoLista1.setEnabled(s);
-		this.jtBrojInoLista2.setEnabled(s);
+		this.jtBrojInoLista.setEnabled(s);
 		this.jtDrzavaInoOsobe.setEnabled(s);
 		this.jtLijecnik.setEnabled(s);
 		this.jtBrojOsobnogRacunaOsnovno.setEnabled(s);
@@ -1689,6 +1683,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JTextField
 	 */
+	@SuppressWarnings("rawtypes")
 	public javax.swing.JTextField getJtPodruznica() {
 		if (jtPodruznica == null) {
 			jtPodruznica = new javax.swing.JTextField();
@@ -1955,7 +1950,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jcIno.setFont(arial);
 			jcIno.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
-					jtBrojInoLista1.requestFocusInWindow();
+					jtBrojInoLista.requestFocusInWindow();
 				}
 
 			});
@@ -1979,7 +1974,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JLabel getJlBrojBolesnickogLista() {
 		if (jlBrojBolesnickogLista == null) {
 			jlBrojBolesnickogLista = new javax.swing.JLabel();
-			jlBrojBolesnickogLista.setText("Br. bolesni\u010Dkog lista: ");
+			jlBrojBolesnickogLista.setToolTipText("broj europske kartice ili bolesnickog lista");
+			jlBrojBolesnickogLista.setText("Br. eur kartice / bolesn. lista");
 			jlBrojBolesnickogLista.setPreferredSize(new Dimension(136, 20));
 			jlBrojBolesnickogLista.setMinimumSize(new Dimension(132, 20));
 			jlBrojBolesnickogLista.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1994,32 +1990,16 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	private javax.swing.JTextField getJtBrojInoLista1() {
-		if (jtBrojInoLista1 == null) {
-			jtBrojInoLista1 = new javax.swing.JTextField();
-			jtBrojInoLista1.setPreferredSize(new Dimension(40, 24));
-			jtBrojInoLista1.setMinimumSize(new Dimension(40, 24));
-			jtBrojInoLista1.setMaximumSize(new Dimension(40, 24));
-			jtBrojInoLista1
-					.setToolTipText("prvi dio broja bolesnièkog lista stranca - 3 znamenke - obavezan podatak ");
+	private javax.swing.JTextField getJtBrojInoLista() {
+		if (jtBrojInoLista == null) {
+			jtBrojInoLista = new javax.swing.JTextField();
+			jtBrojInoLista.setPreferredSize(new Dimension(210, 24));
+			jtBrojInoLista.setMinimumSize(new Dimension(150, 24));
+			jtBrojInoLista.setMaximumSize(new Dimension(215, 24));
+			jtBrojInoLista
+					.setToolTipText("broj europske kartice ili bolesni\u010Dkog lista stranca, NNN/NNNNNNNNN ");
 		}
-		return jtBrojInoLista1;
-	}
-
-	/**
-	 * This method initializes jtBrojInoLista2
-	 * 
-	 * @return javax.swing.JTextField
-	 */
-	private javax.swing.JTextField getJtBrojInoLista2() {
-		if (jtBrojInoLista2 == null) {
-			jtBrojInoLista2 = new javax.swing.JTextField();
-			jtBrojInoLista2.setPreferredSize(new Dimension(120, 24));
-			jtBrojInoLista2.setMinimumSize(new Dimension(90, 24));
-			jtBrojInoLista2
-					.setToolTipText("drugi dio bolesnièkog lista stranca - 8 znamenki - obavezan podatak ");
-		}
-		return jtBrojInoLista2;
+		return jtBrojInoLista;
 	}
 
 	/**
@@ -2666,8 +2646,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			 
 			jpBrojBolesnickogL.setToolTipText("broj bolesni\u010Dkog lista");
 			jpBrojBolesnickogL.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-			jpBrojBolesnickogL.add(getJtBrojInoLista1());
-			jpBrojBolesnickogL.add(getJtBrojInoLista2());
+			jpBrojBolesnickogL.add(getJtBrojInoLista());
 			jpBrojBolesnickogL.setMinimumSize(new Dimension(172, 25));
 			jpBrojBolesnickogL.setPreferredSize(new Dimension(200, 25));
 		}

@@ -201,34 +201,51 @@ public final class Racuni implements RacunDAO
 				&& !Util.tekstPodlijezeHzzoPravilimaANS(rvo
 						.getBrojOsobnogRacunaDopunsko()))
 			return "Broj osobnog ra\u010Duna za dopunsko osiguranje ne podlije\u017Ee HZZO pravilima!";
+		
 		if (rvo.getSifDrzave() != null) {
-			if ( StringUtils.isEmpty( rvo.getBrojInoBolesnickogLista1() ) 				   
-					&& ( StringUtils.isEmpty(rvo.getBrojInoBolesnickogLista2()) || 
-						 !Util.tekstPodlijezeHzzoPravilimaAN(rvo.getBrojInoBolesnickogLista2())
-				     || rvo.getBrojInoBolesnickogLista2().length()!=20)
-			   )
+			if ( StringUtils.isEmpty( rvo.getBrojInoBolesnickogLista() ) )
 			{
-				return "Broj bolesnièkog lista INO osig. osobe nije ispravan (eur)!";
+				return "Broj bolesnièkog lista INO osig. osobe / europske kartice nije ispravan!";
 			}
-			else
+			else if (rvo.getBrojInoBolesnickogLista().contains("/")) {
+				String[] arr = rvo.getBrojInoBolesnickogLista().split("/");
+				String prvi  = arr[0];
+				String drugi = arr[1];
+				
+				 if( prvi.length() > 3)
+						return "Prvi dio ino bolesni\u010Dkog broja osigurane osobe treba biti dug do max. 3 znaka";
+			     if (drugi == null || drugi.length() > 8)
+						return "Drugi dio ino bolesni\u010Dkog broja osigurane osobe treba biti dug do max. 8 znakova";
+					
+					 int sfp = -1;
+					 try {
+						sfp = Integer.parseInt(prvi);
+					 } catch (NumberFormatException nfe) {
+						return "prvi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan "+sfp;
+					 }
+					 try {
+						sfp = Integer.parseInt(drugi);
+					 } catch (NumberFormatException nfe) {
+						return "drugi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan";
+					 }
+				
+			}
+			else // europski broj
 			{
-			 if( rvo.getBrojInoBolesnickogLista1().length() > 3)
-				return "Prvi dio ino bolesni\u010Dkog broja osigurane osobe treba biti dug do max. 3 znaka";
-			 if (rvo.getBrojInoBolesnickogLista2() == null
-					|| rvo.getBrojInoBolesnickogLista2().length() > 8)
-				return "Drugi dio ino bolesni\u010Dkog broja osigurane osobe treba biti dug do max. 8 znakova";
-			 int sfp = -1;
-			 try {
-				sfp = Integer.parseInt(rvo.getBrojInoBolesnickogLista1());
-			 } catch (NumberFormatException nfe) {
-				return "prvi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan "+sfp;
-			 }
-			 try {
-				sfp = Integer.parseInt(rvo.getBrojInoBolesnickogLista2());
-			 } catch (NumberFormatException nfe) {
-				return "drugi dio ino bolesni\u010Dkog broja osigurane osobe nije ispravan";
-			 }
-		    }
+				String eurBroj = rvo.getBrojInoBolesnickogLista();
+				if (eurBroj.length() != 20) {
+					return "broj europske kartice nije ispravne duljine";
+				}
+
+				// nemam zasad nikakav podatak o tome kako se kontrolni broj
+				// racuna da mozemo
+				// odraditi provjeru broja kartice, kad nadjem, tu ce biti
+				// kontrola
+				if (!Util.tekstPodlijezeHzzoPravilimaAN(eurBroj)) {
+					return "broj europske kartice ne podlijeze pravilu AN(20)";
+				}
+
+			}// eur broj
 		} // if sifDrzave!=null
 		// zasada null lijecnik prolazi
 		// if (rvo.getBrojPotvrdePomagala()==null ||
@@ -455,8 +472,8 @@ public final class Racuni implements RacunDAO
 			// 31.03.06. -asabo- dodano
 			if (ul.getSifDrzave() != null) {
 				ps.setInt(16, ul.getSifDrzave().intValue());
-				ps.setString(19, ul.getBrojInoBolesnickogLista1());
-				ps.setString(20, ul.getBrojInoBolesnickogLista2());
+				ps.setString(19, ul.getBrojInoBolesnickogLista());
+				ps.setString(20, "");
 			} else {
 				ps.setNull(16, Types.INTEGER);
 				ps.setNull(19, Types.VARCHAR);
@@ -699,8 +716,8 @@ public final class Racuni implements RacunDAO
 			// 31.03.06. -asabo- dodano
 			if (ul.getSifDrzave() != null) {
 				ps.setInt(17, ul.getSifDrzave().intValue());
-				ps.setString(20, ul.getBrojInoBolesnickogLista1());
-				ps.setString(21, ul.getBrojInoBolesnickogLista2());
+				ps.setString(20, ul.getBrojInoBolesnickogLista());
+				ps.setString(21, "");
 				// upd+=",sif_drzave="+ul.getSifDrzave().intValue()+",ino_broj_lista1='"+ul.getBrojInoBolesnickogLista1()+"',"+
 				// "ino_broj_lista2='"+ul.getBrojInoBolesnickogLista2()+"'";
 			} else {
@@ -1345,9 +1362,15 @@ public final class Racuni implements RacunDAO
 		// stringovi su bez provjere pa bio null-ne bio.. ok..
 		rvo.setBrojIskaznice1(rs.getString("broj_iskaznice1"));
 		rvo.setBrojIskaznice2(rs.getString("broj_iskaznice2"));
-		rvo.setBrojInoBolesnickogLista1(rs.getString("ino_broj_lista1"));
-		rvo.setBrojInoBolesnickogLista2(rs.getString("ino_broj_lista2"));
-
+		String brojInoLista = rs.getString("ino_broj_lista1");
+		rvo.setBrojInoBolesnickogLista(brojInoLista);
+		
+		//prelaz sa dva polja na 1 polje, kod updatea ce sve 'sjesti' u prvo polje i mir
+		if (brojInoLista!=null && brojInoLista.length()==3) {		
+			brojInoLista+="/"+rs.getString("ino_broj_lista2");
+			rvo.setBrojInoBolesnickogLista(brojInoLista);
+		}
+		
 		// 07.05.06. -asabo- dodano
 		rvo.setKupljenSkupljiArtikl(Boolean.valueOf(rs.getString(
 				"uzet_skuplji_model").equals(DAO.DA) ? true : false));

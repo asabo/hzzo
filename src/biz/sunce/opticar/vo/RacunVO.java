@@ -193,14 +193,9 @@ public final class RacunVO extends ValueObject
         napomena = string;
     }
 
-    public String getBrojInoBolesnickogLista1()
+    public String getBrojInoBolesnickogLista()
     {
-        return brojInoBolesnickogLista1;
-    }
-
-    public String getBrojInoBolesnickogLista2()
-    {
-        return brojInoBolesnickogLista2;
+        return brojInoBolesnickogLista;
     }
 
     public String getBrojIskaznice1()
@@ -218,16 +213,11 @@ public final class RacunVO extends ValueObject
         return sifDrzave;
     }
 
-    public void setBrojInoBolesnickogLista1(String string)
+    public void setBrojInoBolesnickogLista(String string)
     {
-        brojInoBolesnickogLista1 = string;
+        brojInoBolesnickogLista = string;
     }
-
-    public void setBrojInoBolesnickogLista2(String string)
-    {
-        brojInoBolesnickogLista2 = string;
-    }
-
+ 
     public void setBrojIskaznice1(String string)
     {
         brojIskaznice1 = string;
@@ -363,8 +353,7 @@ public final class RacunVO extends ValueObject
     Integer sifPodrucnogUreda;
     String brojIskaznice1;
     String brojIskaznice2;
-    String brojInoBolesnickogLista1;
-    String brojInoBolesnickogLista2;
+    String brojInoBolesnickogLista;
     Integer sifDrzave;
     Integer sifLijecnika;
     String napomena;

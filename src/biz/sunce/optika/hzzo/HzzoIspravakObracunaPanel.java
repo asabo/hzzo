@@ -489,7 +489,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					Integer sifDrzave = rvo.getSifDrzave(); // ako je null,
 															// osoba nije
 															// stranac...
-					String inoBroj1 = "", inoBroj2 = "";
+					String inoBroj = "";
 					DrzavaVO drzava = null;
 					String sifProizvodjaca = rvo.getSifProizvodjaca() != null ? rvo
 							.getSifProizvodjaca().trim() : "";
@@ -497,8 +497,8 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					// po sifri drzave znamo jeli racun za stranca ili
 					// domaceg... sifDrzave je null kod domacih
 					if (sifDrzave != null) {
-						inoBroj1 = rvo.getBrojInoBolesnickogLista1();
-						inoBroj2 = rvo.getBrojInoBolesnickogLista2();
+						inoBroj = rvo.getBrojInoBolesnickogLista();
+						
 						drzava = (DrzavaVO) DAOFactory.getInstance()
 								.getDrzava().read(sifDrzave);
 						if (drzava == null) {
@@ -558,9 +558,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 							+ d
 							+ ""
 							+ d
-							+ (sifDrzave == null ? "" : 
-								( StringUtils.isEmpty(inoBroj1)?inoBroj2:(inoBroj1 + "/" + inoBroj2) )
-							  ) + d
+							+ (sifDrzave == null ? "" : inoBroj) + d
 							+ (sifDrzave == null ? "" : drzava.getCc3()) + d
 							+ sifProizvodjaca + d + "0.00" + d + "0.00" + d
 							+ osobniRacunZaOsnovno + d

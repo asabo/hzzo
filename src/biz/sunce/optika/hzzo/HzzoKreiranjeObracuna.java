@@ -352,8 +352,8 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 		String aktivnostZZR;
 		String aktivnostDop;
 		Integer sifDrzave;
-		String inoBroj1;
-		String inoBroj2;
+		String inoBroj;
+		
 		DrzavaVO drzava;
 		String sifProizvodjaca;
 		String sifraPotvrdeLijecnika;
@@ -361,7 +361,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 		try {
 
 			try {
-				out = new BufferedWriter(new FileWriter(datoteka));
+				out = new BufferedWriter(new FileWriter(datoteka, false));
 			} catch (IOException e) {
 				Logger.log(
 						"IO iznimka kod poku\u0161aja otvaranja datoteke za kreiranje hzzo obra\u010Duna: dat:"
@@ -501,15 +501,15 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					sifDrzave = rvo.getSifDrzave();
 					sifraPotvrdeLijecnika = rvo.getBrojPotvrdePomagala() != null ? rvo
 							.getBrojPotvrdePomagala() : "";
-					inoBroj1 = "";
-					inoBroj2 = "";
+					inoBroj = "";
+					 
 					drzava = null;
 					sifProizvodjaca = rvo.getSifProizvodjaca() == null ? ""
 							: rvo.getSifProizvodjaca().trim();
 					 
 					if (sifDrzave != null) {
-						inoBroj1 = rvo.getBrojInoBolesnickogLista1();
-						inoBroj2 = rvo.getBrojInoBolesnickogLista2();
+						inoBroj = rvo.getBrojInoBolesnickogLista();
+						 
 						drzava = (DrzavaVO) DAOFactory.getInstance()
 								.getDrzava().read(sifDrzave);
 						if (drzava == null) {
@@ -567,8 +567,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 							+ d
 							+ ""
 							+ d
-							+ (sifDrzave == null ? "" : (StringUtils.isEmpty(inoBroj1)?inoBroj2:(inoBroj1 + "/"
-									+ inoBroj2))) + d
+							+ (sifDrzave == null ? "" : inoBroj) + d
 							+ (sifDrzave == null ? "" : drzava.getCc3()) + d
 							+ sifProizvodjaca + d + "0.00" + d + "0.00" + d
 							+ osobniRacunZaOsnovno + d
