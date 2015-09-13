@@ -45,8 +45,8 @@ public final class Zakrpe
 	private static final String NOVE_CIJENE_01_01_2015 = "nove_cijene_01_01_2015";
 
 	String[] upiti = null;
-	private static final String verzijaZakrpe = "038";
-	private static final String poruka = "ažurirane cijene optièkih pomagala od 01.01.15.";
+	private static final String verzijaZakrpe = "039";
+	private static final String poruka = "poboljsana komunikacija sa HZZO-om";
 	private static final String zakrpa = "zakrpa" + verzijaZakrpe;
 
 	public Zakrpe() {

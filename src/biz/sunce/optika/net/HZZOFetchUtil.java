@@ -27,6 +27,8 @@ public final class HZZOFetchUtil
 {
 	// broj kartice, zadnje povuceni preko neta
 	public static String povuceniBroj = null;
+	private static boolean zadnjaKomunikacijaGreska = false;
+	private static boolean zadnjaKomunikacijaNeuspjesna = false;
 	 
 	private static final String ISO_8859_2 = "iso-8859-2";
 	
@@ -230,6 +232,25 @@ public final class HZZOFetchUtil
 		return httpClient;
 	}
 	
+	public static boolean isZadnjaKomunikacijaGreska(){
+		return zadnjaKomunikacijaGreska;
+	}
+	
+	public static boolean isZadnjaKomunikacijaNeuspjesna(){
+		return zadnjaKomunikacijaNeuspjesna;
+	}
+	
+	public static boolean isProblemHzzo(){
+		return zadnjaKomunikacijaNeuspjesna || zadnjaKomunikacijaGreska;
+	}
+	
+	/*
+	 * ako je koumunikacija sa hzzo-om bila uspjesna ali hzzo nije vratio potrebnu informaciju
+	 */
+	public static void setZadnjaKomunikacijaNeuspjesna(boolean zadnjaKomunikacija){
+		 zadnjaKomunikacijaNeuspjesna = zadnjaKomunikacija;
+	}
+	
 	private static void postaviPorukuZaFlidId(final String poruka, final boolean greska, 
 			final JTextField jtBrojIskaznice1,
 			final JTextField jtBrojIskaznice2
@@ -241,9 +262,12 @@ public final class HZZOFetchUtil
 				String stariTT = jtBrojIskaznice2.getToolTipText();
 				jtBrojIskaznice2.setToolTipText(poruka);
 				if (greska) {
+					zadnjaKomunikacijaGreska = true;
 					jtBrojIskaznice2.setBackground(Color.red);
 					jtBrojIskaznice1.setBackground(Color.red);					
 				}
+				else
+					zadnjaKomunikacijaGreska = false;
 
 				try {
 					sleep(5000);

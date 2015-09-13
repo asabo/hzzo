@@ -12,13 +12,9 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -45,7 +41,6 @@ import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.opticar.vo.VrstaPomagalaVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
-import biz.sunce.optika.azurirac.AzuriracPomagala;
 import biz.sunce.optika.net.HZZOFetchUtil;
 import biz.sunce.optika.net.VrstaUpita;
 import biz.sunce.toedter.calendar.JDateChooser;
@@ -73,7 +68,6 @@ import com.toedter.calendar.SlusacDateChoosera;
 public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera 
 		{
-
 
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JToggleButton jtbOsnovno = null;
@@ -143,7 +137,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField jtBrojOsobnogRacunaDopunsko = null;
 	private javax.swing.JCheckBox jcStrankaUzelaSkupljiModel = null;
 	private javax.swing.JLabel jLabel18 = null;
-	private javax.swing.JComboBox jcVrstaPomagala = null;
+	private javax.swing.JComboBox<VrstaPomagalaVO> jcVrstaPomagala = null;
 	private javax.swing.JCheckBox jcRobaIsporucena = null;
 
 	private JPanel jpBrojBolesnickogL;
@@ -674,7 +668,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			this.pretrazivanjeKlijenti.dodajSlusaca(this);
 			this.pretrazivanjeKlijenti.setMaksimumZaPretrazivanje(11);
 			this.pretrazivanjeKlijenti.setMinimumZnakovaZaPretrazivanje(3);
-			SearchCriteria krit = new SearchCriteria();
+			SearchCriteria<Object> krit = new SearchCriteria<Object>();
 			krit.setKriterij(biz.sunce.dao.DAO.KRITERIJ_KLIJENT_LIMIT_1000);
 			this.pretrazivanjeKlijenti.setKriterij(krit);
 		}
@@ -924,7 +918,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 		// 14.05.06. -asabo- dodano, treba namjestiti combo obx sa vrstama
 		// pomagala na ispravnu vrijednost
-		JComboBox jcb = getJcVrstaPomagala();
+		JComboBox<VrstaPomagalaVO> jcb = getJcVrstaPomagala();
 		int kom = jcb.getItemCount();
 
 		for (int i = 0; i < kom; i++) {
@@ -2302,11 +2296,11 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JComboBox
 	 */
-	private javax.swing.JComboBox getJcVrstaPomagala() 
+	private javax.swing.JComboBox<VrstaPomagalaVO> getJcVrstaPomagala() 
 	{
 		if (jcVrstaPomagala == null) 
 		{
-			jcVrstaPomagala = new javax.swing.JComboBox();
+			jcVrstaPomagala = new javax.swing.JComboBox<VrstaPomagalaVO>();
 			jcVrstaPomagala.setPreferredSize(new java.awt.Dimension(121, 25));
 			jcVrstaPomagala.setMinimumSize(new java.awt.Dimension(121, 25));
 			jcVrstaPomagala.setFont(arial12);
@@ -2448,6 +2442,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		
 		SwingUtilities.invokeLater(t);
 	}
+	
+	Thread skupljacFlidIda = null;
 
 	/**
 	 * vraca true ako je pokrenio pretrazivanje
@@ -2488,6 +2484,19 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 			final VrstaUpita vr = vrsta;
 			final String br = broj;
+			
+			if (this.skupljacFlidIda!=null && this.skupljacFlidIda.isAlive())
+			{
+				int cekac = 10; 
+				while (cekac-->0 && this.skupljacFlidIda.isAlive()){
+					try{Thread.sleep(250);}catch(InterruptedException inte){cekac=0;}
+				}
+				
+			   if (this.skupljacFlidIda.isAlive())
+				   return false;
+			}
+
+			
 			Thread t = new Thread() {
 				public void run() {
 					setPriority(Thread.MIN_PRIORITY);
@@ -2503,23 +2512,27 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 						jtBrojIskaznice1.setText(">>>");
 						proslo = false;
 						String[] rez = HZZOFetchUtil.nadjiFlidIdDzo( br, vr, jtBrojIskaznice1, jtBrojIskaznice2 );
-						if (rez == null || rez.length != 3)
+						if (rez == null || rez.length != 3){
 							return;
+						}
 
 						String flidId = rez[0];
 						String dzo = rez[1];
 						String vrijediDo = rez[2];
 
-						if (flidId != null) {
+						if (!StringUtils.isEmpty(flidId)) {
 							String[] flid = flidId.split("/");
-							if (flid == null || flid.length != 2)
+							if (flid == null || flid.length != 2){
+								HZZOFetchUtil.setZadnjaKomunikacijaNeuspjesna(true);
 								return;
+								}
 							try {
 								Long.parseLong(flid[1]);
 							} catch (NumberFormatException nfe) {
 								if (vr == VrstaUpita.FLIDID) {
 									alert("Broj kartice nije ispravan!");
 									jtBrojPoliceDopunsko.setText("");
+									HZZOFetchUtil.setZadnjaKomunikacijaNeuspjesna(true);
 									postaviOsnovnoOsiguranje(true);
 								}
 
@@ -2548,10 +2561,24 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 							proslo = true;
 							HZZOFetchUtil.povuceniBroj = kartica;
+							HZZOFetchUtil.setZadnjaKomunikacijaNeuspjesna(false);
 						}// if
+						else {
+							jtBrojIskaznice1.setText(staro);
+							HZZOFetchUtil.setZadnjaKomunikacijaNeuspjesna(true);
+						}
+							
 						if (dzo != null) {
 
 							dzo = dzo.trim();
+							
+							try {
+								Long.parseLong(dzo);
+							} catch (NumberFormatException nfe) {
+								 HZZOFetchUtil.setZadnjaKomunikacijaNeuspjesna(true);
+								 return;
+								}
+							
 							if (dzo.length() == 7)
 								dzo = "0" + dzo;
 							else if (dzo.length() == 6)
@@ -2567,6 +2594,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 							
 							if ( !"".equals(dzo) )
 							 GUI.odradiUpozorenjeNaElementu(jtBrojPoliceDopunsko, "Automatski smo izmjenili broj police dopunskog osiguranja!", Color.yellow);
+							  else 
+								GUI.odradiUpozorenjeNaElementu(jtBrojPoliceDopunsko, "Korisnik nema policu dopunskog osiguranja!", Color.orange);			
 
 							if (vrijediDo != null && vrijediDo.length() > 9)
 								jtBrojPoliceDopunsko
@@ -2577,10 +2606,13 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 							// proslo=true;
 						}// if
 						else {
+							GUI.odradiUpozorenjeNaElementu(jtBrojPoliceDopunsko, "Korisnik nema policu dopunskog osiguranja!", Color.orange);
+
 							jtBrojPoliceDopunsko.setText("");
 							postaviOsnovnoOsiguranje(true);
 						}
 					} finally {
+						yield();
 						if (proslo != null && !proslo && staro != null)
 							jtBrojIskaznice1.setText(staro);
 						jtBrojIskaznice2.setToolTipText(stariTT);
@@ -2590,17 +2622,13 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				}// run
 			};
 
+			this.skupljacFlidIda = t;
 			// SwingUtilities.invokeLater(t);
 			t.start();
 			return true;
 		} //
 		return false;
 	} // brojIskaznice2FocusLost
-
-
-
-	
-	
 
 	private JLabel getJlSifraDopunskeAkt() {
 		if (jlSifraDopunskeAkt == null) {

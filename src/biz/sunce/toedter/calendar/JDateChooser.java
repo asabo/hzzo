@@ -29,10 +29,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.IDateEditor;
-import com.toedter.calendar.JCalendar;
-import com.toedter.calendar.JTextFieldDateEditor;
 import com.toedter.calendar.SlusacDateChoosera;
+
+ 
 
 // Referenced classes of package com.toedter.calendar:
 //            JTextFieldDateEditor, JCalendar, IDateEditor, JDayChooser, 
@@ -42,7 +41,7 @@ public final class JDateChooser extends JPanel implements ActionListener,
 		PropertyChangeListener, DatumskoPolje {
 	private static final long serialVersionUID = 0xc43c8c6c931ad5feL;
 	
-	protected IDateEditor dateEditor;
+	protected com.toedter.calendar.IDateEditor dateEditor;
 	protected JButton calendarButton;
 	protected JCalendar jcalendar;
 	protected JPopupMenu popup = new JPopupMenu() {
@@ -96,7 +95,7 @@ public final class JDateChooser extends JPanel implements ActionListener,
 		this(null, null, null, null);
 	}
 
-	public JDateChooser(IDateEditor dateEditor) {
+	public JDateChooser(com.toedter.calendar.IDateEditor dateEditor) {
 		this(null, null, null, dateEditor);
 	}
 
@@ -105,11 +104,11 @@ public final class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	public JDateChooser(Date date, String dateFormatString) {
-		this(date, dateFormatString, ((IDateEditor) (null)));
+		this(date, dateFormatString, ((com.toedter.calendar.IDateEditor) (null)));
 	}
 
 	public JDateChooser(Date date, String dateFormatString,
-			IDateEditor dateEditor) {
+			com.toedter.calendar.IDateEditor dateEditor) {
 		this(null, date, dateFormatString, dateEditor);
 	}
 
@@ -119,12 +118,12 @@ public final class JDateChooser extends JPanel implements ActionListener,
 	}
 
 	public JDateChooser(JCalendar jcal, Date date, String dateFormatString,
-			IDateEditor dateEditor) {
+			com.toedter.calendar.IDateEditor dateEditor) {
 		slusaci = new ArrayList(1);
 		setName("JDateChooser");
 		this.dateEditor = dateEditor;
 		if (this.dateEditor == null)
-			this.dateEditor = new JTextFieldDateEditor();
+			this.dateEditor =  new JTextFieldDateEditor();
 		this.dateEditor.addPropertyChangeListener("date", this);
 		if (jcal == null) {
 			jcalendar = new JCalendar(date);
@@ -314,7 +313,7 @@ public final class JDateChooser extends JPanel implements ActionListener,
 		return calendarButton;
 	}
 
-	public IDateEditor getDateEditor() {
+	public com.toedter.calendar.IDateEditor getDateEditor() {
 		return dateEditor;
 	}
 

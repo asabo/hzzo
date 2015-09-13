@@ -63,8 +63,7 @@ public final class HzzoRacunPanel extends JPanel implements
 	private static final long serialVersionUID = -5137132339677509200L;
 
 	private static final Calendar prviPrvi2013 = Calendar.getInstance();
-	private static final Font arial9 = new Font("Arial", Font.PLAIN, 9);
-	
+ 	
 	static{
 		prviPrvi2013.set(Calendar.YEAR, 2013);
 		prviPrvi2013.set(Calendar.MONTH, 0);
@@ -85,9 +84,7 @@ public final class HzzoRacunPanel extends JPanel implements
 	private RacunVO oznaceni = null;
 	private TableModel<StavkaRacunaVO> stavkeRacunaModel = null;
 	private ArrayList<StavkaRacunaVO> stavkeRacuna = null;
-	private javax.swing.JButton jbPohrani = null; // @jve:visual-info
-													// decl-index=0
-													// visual-constraint="771,611"
+	private javax.swing.JButton jbPohrani = null;  
 
 	private javax.swing.JButton jbDodaj = null;
 	private javax.swing.JPanel jpStavkaSaDodajGumbom = null;
@@ -346,7 +343,7 @@ public final class HzzoRacunPanel extends JPanel implements
 				String sUk;
 				kn = ukupno / 100;
 				lp = ukupno % 100;
-				sUk = "" + kn + "." + (lp < 10 ? "0" + lp : "" + lp);
+				sUk =  kn + "." + (lp < 10 ? "0" + lp : "" + lp);
 				this.jlUkupno.setText("Ukupno: " + sUk);
 				
 				azurirajSudjelovanje(ukupno);
@@ -576,7 +573,7 @@ public final class HzzoRacunPanel extends JPanel implements
 				GlavniFrame.alert(poruka);
 			else 
 				if (poruka!=null)
-					GlavniFrame.info(poruka+" - racun ce ipak biti proknjizen kao ispravan!");
+					GlavniFrame.info(poruka+" - raèun ce ipak biti proknji\u017Een kao ispravan!");
 			
 			if (!upozorenje)
 				return false;

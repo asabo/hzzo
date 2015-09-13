@@ -261,7 +261,7 @@ public final class AzuriracPomagala extends Thread
 				pomagaloDAO.insert(pomagalo);
 			}
 			else			
-			if (pomagaloDAO!=null && noviji(pomagalo,original))
+			if (pomagaloDAO!=null && noviji(pomagalo, original))
 			{
 				pomagalo.setStatus('X'); //da DAO zna da mora postovati sistemske podatke navedene u objektu
 				pomagaloDAO.update(pomagalo);

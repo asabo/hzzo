@@ -222,8 +222,10 @@ public final class KontrolneZnamenkeUtils {
    public static final boolean ispravanMBO(String mbo){
 	      if ( mbo==null || mbo.trim().length()==0 ) return false;
 	      mbo=mbo.trim();
+	      
+	      if (mbo.length()!=9) return false;
 
-	      int kb=kontrolnaZnamenkaZaMbo( mbo.substring( 0,mbo.length()-1 ) );
+	      int kb=kontrolnaZnamenkaZaMbo( mbo.substring( 0, mbo.length()-1 ) );
 
 	      int zadnji=mbo.charAt( mbo.length()-1 )-'0';
 

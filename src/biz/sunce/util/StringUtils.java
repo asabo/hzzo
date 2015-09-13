@@ -80,7 +80,7 @@ public final class StringUtils {
 		return izlaz.toString();
 	}
 
-	public static boolean isEmpty(String iznSudjForma) {
-		return iznSudjForma==null || iznSudjForma.trim().equals("");
+	public static boolean isEmpty(String ulaz) {
+		return ulaz==null || ulaz.trim().equals("");
 	}
 }

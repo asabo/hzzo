@@ -31,6 +31,8 @@ import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.opticar.vo.RacunVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.optika.net.HZZOFetchUtil;
+import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.StringUtils;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
@@ -91,7 +93,7 @@ public final class Racuni implements RacunDAO
 						.getBrojPoliceDopunsko().trim().length() != 8)) {
 			int vel = rvo.getBrojPoliceDopunsko() == null ? 0 : rvo
 					.getBrojPoliceDopunsko().trim().length();
-			return "Broj police dopunskog osiguranja nije ispravan. Duzina: "
+			return "Broj police dopunskog osiguranja nije ispravan. Du\u017Eina: "
 					+ vel + " a treba biti 8 znakova";
 		}
 		long broj = -1L;
@@ -102,7 +104,7 @@ public final class Racuni implements RacunDAO
 			try {
 				broj = Long.parseLong(rvo.getBrojPoliceDopunsko());
 			} catch (NumberFormatException nfe) {
-				return "Broj police dopunskog osiguranja nije ispravan jer sadrzi znakove koji nisu brojevi! "
+				return "Broj police dopunskog osiguranja nije ispravan jer sadr\u017Ei znakove koji nisu brojevi! "
 						+ rvo.getBrojPoliceDopunsko();
 			}
 
@@ -156,7 +158,8 @@ public final class Racuni implements RacunDAO
 			if (rvo.getBrojPotvrde2() != null
 					&& rvo.getBrojPotvrde2().startsWith("0"))
 				return "drugi dio broja potvrde ne smije imati vode\u0107u nulu!";
-		}
+		 } // if broj potvrde lijecnika prazan
+		
 		if (rvo.getPozivNaBroj1() != null && rvo.getPozivNaBroj1().length() > 2)
 			return "neispravan prvi dio poziva na broj";
 		if (rvo.getPozivNaBroj2() != null
@@ -180,9 +183,8 @@ public final class Racuni implements RacunDAO
 			if (sfp < 1)
 				return "\u0160ifra proizvo\u0111a\u010Da nije ispravno une\u0161ena!";
 		}
-		if (rvo.getBrojIskaznice2() != null
-				&& rvo.getBrojIskaznice2().length() > 8)
-			return "drugi dio broja osiguranja korisnika mo\u017Ee biti maksimalno 8 znakova";
+		
+
 		if (rvo.getBrojOsobnogRacunaOsnovno() != null
 				&& rvo.getBrojOsobnogRacunaOsnovno().trim().length() > 22)
 			return "Broj osobnog ra\u010Duna za osnovno osiguranje je prevelik!";
@@ -244,22 +246,46 @@ public final class Racuni implements RacunDAO
 			return "Potvrda lijeènika za pomagalo mora imati 13 ili 14 znakova!";
 		}
 
-		if (rvo.getBrojIskaznice1() == null
-				|| rvo.getBrojIskaznice1().length() > 3)
+		String brojIskaznice2 = rvo.getBrojIskaznice2();
+		if (StringUtils.isEmpty( brojIskaznice2 ) )
+			return "drugi dio broja iskaznice korisnika nije definiran!";
+		
+		try {
+			Long.parseLong(brojIskaznice2);
+		} catch (NumberFormatException nfe) {
+			return "drugi dio broja iskaznice osigurane osobe nije broj!";
+		}
+
+		//ako broj iskaznice nije ispravan, a bila je greska u komunikaciji sa hzzo-m, velika je sansa da u 
+		//tom polju stoji pohranjen mbo ili oib osobe, treba korisnnika propisno upozoriti
+		if ( brojIskaznice2.length() > 8 && HZZOFetchUtil.isProblemHzzo() )
+		{
+			if (KontrolneZnamenkeUtils.ispravanMBO(brojIskaznice2)){
+				return HZZOFetchUtil.isZadnjaKomunikacijaNeuspjesna() ?
+						"MBO osiguranika nije uspje\u0161no pretvoren u FLID/ID (korisnik nije vi\u0161e osiguran?)"
+						:"MBO osiguranika nije uspje\u0161no pretvoren u FLID/ID (HZZO servis nije u funkciji?)";
+			} 
+			else if (KontrolneZnamenkeUtils.ispravanOIB(brojIskaznice2)){
+				return HZZOFetchUtil.isZadnjaKomunikacijaNeuspjesna() ?
+				         "OIB osiguranika nije uspje\u0161no pretvoren u FLID/ID (korisnik nije vi\u0161e osiguran?)"
+						:"OIB osiguranika nije uspje\u0161no pretvoren u FLID/ID (HZZO servis nije u funkciji?)";
+			}
+		}
+		else if ( brojIskaznice2.length() > 9 )
+			return "Drugi dio broja iskaznice osigurane osobe treba biti dug do max. 9 znakova";
+		
+		if ( StringUtils.isEmpty(rvo.getBrojIskaznice1()) )
+			return "prvi dio broja iskaznice nije unesen!";
+		
+		if ( rvo.getBrojIskaznice1().length() > 3 )
 			return "Prvi dio broja iskaznice osigurane osobe treba biti dug do max. 3 znaka";
+		
 		try {
 			Integer.parseInt(rvo.getBrojIskaznice1());
 		} catch (NumberFormatException nfe) {
-			return "prvi dio broja iskaznice osigurane osobe nije ispravan";
+			return "prvi dio broja iskaznice osigurane osobe nije broj!";
 		}
-		try {
-			Integer.parseInt(rvo.getBrojIskaznice2());
-		} catch (NumberFormatException nfe) {
-			return "drugi dio broja iskaznice osigurane osobe nije ispravan";
-		}
-		if (rvo.getBrojIskaznice2() == null
-				|| rvo.getBrojIskaznice2().length() > 9)
-			return "Drugi dio broja iskaznice osigurane osobe treba biti dug do max. 9 znakova";
+		
 		if (rvo.getSifKlijenta() == null)
 			return "niste unijeli naziv klijenta za koga je ovaj ra\u010Dun izdan";
 		if (!rvo.getOsnovnoOsiguranje().booleanValue()
@@ -303,7 +329,7 @@ public final class Racuni implements RacunDAO
 				Logger.fatal(
 						"SQL iznimka kod trazenja racuna sa brojem osobnog racuna",
 						sqle);
-				return "Nastao je problem pri trazenju broja osobnog racuna. Kontaktirajte administratora";
+				return "Nastao je problem pri trazenju broja osobnog ra\u010Duna. Kontaktirajte administratora";
 			}
 		}
 		
@@ -315,6 +341,7 @@ public final class Racuni implements RacunDAO
 		if (rvo.getAktivnostZZR() == null
 				|| rvo.getAktivnostZZR().trim().equals(""))
 			return "Morate unijeti \u0161ifru aktivnosti";
+		
 		if (rvo.getAktivnostZZR() != null
 				&& rvo.getAktivnostZZR().length() > 0
 				&& (!Util.tekstPodlijezeHzzoPravilimaANS(rvo.getAktivnostZZR())
