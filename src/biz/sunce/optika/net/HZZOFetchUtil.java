@@ -21,7 +21,6 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
-import sun.net.ConnectionResetException;
 
 public final class HZZOFetchUtil 
 {
