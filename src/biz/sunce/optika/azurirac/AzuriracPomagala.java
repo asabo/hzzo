@@ -23,6 +23,7 @@ import biz.sunce.dao.SearchCriteria;
 import biz.sunce.opticar.vo.PomagaloVO;
 import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
+import biz.sunce.util.StringUtils;
 import biz.sunce.util.Util;
 import biz.sunce.util.beans.PostavkeBean;
 
@@ -61,6 +62,8 @@ public final class AzuriracPomagala extends Thread
 	@SuppressWarnings("deprecation")
 	private static String runURL(String src) 
 	{
+		if (true)
+			return "";
 		
 		HttpGet httpget = new HttpGet(src);
 		String responseBody = "";
@@ -91,7 +94,9 @@ public final class AzuriracPomagala extends Thread
 	@SuppressWarnings("deprecation")
 	private static String runPOST(String url, Date tst, String json, String user, int uid, int sifpos, int siftvr) 
 	{
-		
+		if (true)
+			return "";
+			
 		HttpPost     httppost = new HttpPost(url);
 		String   responseBody = "";
 		HttpResponse response = null;
@@ -173,11 +178,11 @@ public final class AzuriracPomagala extends Thread
 		String url = SERVER_URI+"?timestamp="+zadnjiSynchStr+"&u="+user;
 		String json = runURL( url );
 
-		List<PomagaloVO> pomagala = gson
-				.fromJson(json, token.getType());
+		List<PomagaloVO> pomagala = (List<PomagaloVO>) (StringUtils.isEmpty(json) ? null : gson
+				.fromJson(json, token.getType()));
 		yield();
 		 
-		rez = spremiPomagalaUBazu(pomagala, pomagaloDAO);
+		rez = pomagala == null ? false : spremiPomagalaUBazu(pomagala, pomagaloDAO);
 		
 		if( rez && pomagaloDAO!=null )
 		{
@@ -226,7 +231,7 @@ public final class AzuriracPomagala extends Thread
 		
 		String podaci = gson.toJson(pomagala);
 		
-		String json = runPOST(url, zadnjiSynch, podaci, user, sifkor, sifpos, siftvr);
+		String json = null; //runPOST(url, zadnjiSynch, podaci, user, sifkor, sifpos, siftvr);
 
 		yield();
 		 

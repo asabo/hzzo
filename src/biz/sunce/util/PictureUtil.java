@@ -5,6 +5,9 @@
 package biz.sunce.util;
 
 import java.io.*;
+
+import javax.imageio.ImageIO;
+
 import com.sun.image.codec.jpeg.*;
 
 /**
@@ -26,14 +29,10 @@ public class PictureUtil {
 			return null;
 
 		try {
-			com.sun.image.codec.jpeg.JPEGImageDecoder jpegD;
-			int velicina = ins.available();
-
-			jpegD = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(ins);
-
+			 
 			java.awt.image.BufferedImage slika;
 
-			slika = jpegD.decodeAsBufferedImage();
+			slika = ImageIO.read(ins);
 
 			ins.close();
 
@@ -85,7 +84,7 @@ public class PictureUtil {
 			//izlaznaSlika=null;
 			tx = null;
 			slika = null;
-			jpegD = null;
+			 
 			graf = null;
 		} catch (NullPointerException e) {
 			System.out.println(
@@ -388,14 +387,10 @@ public class PictureUtil {
 			return null;
 
 		try {
-			com.sun.image.codec.jpeg.JPEGImageDecoder jpegD;
-			int velicina = ins.available();
-
-			jpegD = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(ins);
-
+	
 			ins.close();
 
-			slika = jpegD.decodeAsBufferedImage();
+			slika = ImageIO.read(ins);
 			sirina = slika.getWidth();
 			duzina = slika.getHeight();
 
@@ -458,28 +453,24 @@ public class PictureUtil {
 			return null;
 
 		try {
-			com.sun.image.codec.jpeg.JPEGImageDecoder jpegD;
+ 
 			int velicina = ins.available();
 
 			if (velicina < 1)
 				return null;
 
-			jpegD = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(ins);
+			 
 
 			//24.08.2004. iz nekog razloga zna se dogoditi da dekoder ne moze dekodirati sliku iz baze
 			// pa smo ugradili try/catch i stavili da je slika=null
 			try {
-				slika = jpegD.decodeAsBufferedImage();
+				slika = ImageIO.read(ins);
 			} catch (Exception ex1) {
 				slika = null;
 			}
 
 		} catch (IOException ex) {
-		} catch (ImageFormatException ex) {
-			System.out.println(
-				"Greska u PictureResizer / metoda vratiKaoBufferedImage: " + ex);
-			return null;
-		} finally 
+		}  finally 
 		{
 			try {if (ins != null)ins.close();} catch (IOException ioe) {}
 		}
@@ -494,17 +485,7 @@ public class PictureUtil {
 		try {
 			out = new ByteArrayOutputStream(4096);
 
-			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
-
-			JPEGEncodeParam jpegParams = encoder.getDefaultJPEGEncodeParam(slika);
-			jpegParams.setQuality(kvaliteta, false); // kvaliteta slike - 38%
-			jpegParams.setXDensity(72);
-			jpegParams.setYDensity(72);
-			jpegParams.setDensityUnit(JPEGDecodeParam.DENSITY_UNIT_DOTS_INCH);
-			encoder.setJPEGEncodeParam(jpegParams);
-			encoder.encode(slika); // Encode image to JPEG and send to browser
-
-			encoder = null;
+			ImageIO.write(slika, "jpeg", out);
 		} catch (IOException ex) {
 			System.out.println("IO greska kod spremanja slike u Blob:" + ex);
 			return null;

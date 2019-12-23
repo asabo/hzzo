@@ -31,7 +31,6 @@ import javax.swing.event.ChangeListener;
 import com.toedter.calendar.DatumskoPolje;
 import com.toedter.calendar.SlusacDateChoosera;
 
- 
 
 // Referenced classes of package com.toedter.calendar:
 //            JTextFieldDateEditor, JCalendar, IDateEditor, JDayChooser, 

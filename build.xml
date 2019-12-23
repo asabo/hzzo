@@ -7,7 +7,7 @@
 <manifest>
 <attribute name="Built-By" value="${user.name}"/>
 <attribute name="Main-Class" value="biz.sunce.optika.GlavniFrame"/>
-<attribute name="Class-Path" value="lib/derby.jar lib/bouncy.jar lib/httpclient-4.1.2.jar lib/httpcore-4.1.2.jar lib/commons-codec-1.4.jar lib/commons-logging-1.1.1.jar lib/httpmime-4.1.2.jar lib/commons-compress-1.3.jar lib/hzzo_install.jar lib/swingx-0.9.3.jar lib/ansaDAO.jar"/>
+<attribute name="Class-Path" value="lib/derby.jar lib/bouncy.jar lib/httpclient-4.5.1-2.jar lib/httpcore-4.4.4.jar lib/commons-codec-1.4.jar lib/commons-logging-1.1.1.jar lib/httpmime-4.5.1-2.jar lib/commons-compress-1.3.jar lib/hzzo_install.jar lib/swingx-0.9.3.jar lib/ansaDAO.jar lib/gson-2.2.4.jar"/>
 <attribute name="Permissions" value="all-permissions"/>
 <attribute name="Codebase" value="*"/>
 <attribute name="Application-Name" value="Sunce*HZZO"/>

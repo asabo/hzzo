@@ -1,17 +1,12 @@
 package biz.sunce.util;
 
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 import biz.sunce.optika.Logger;
-
-import com.sun.image.codec.jpeg.ImageFormatException;
-import com.sun.image.codec.jpeg.JPEGCodec;
-import com.sun.image.codec.jpeg.JPEGDecodeParam;
-import com.sun.image.codec.jpeg.JPEGEncodeParam;
-import com.sun.image.codec.jpeg.JPEGImageEncoder;
 
 /**
  * <p>
@@ -38,15 +33,12 @@ public final class PictureResizer {
 			return null;
 
 		try {
-			com.sun.image.codec.jpeg.JPEGImageDecoder jpegD;
+			 
 			int velicina = ins.available();
 
-			jpegD = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(ins);
+			BufferedImage slika = ImageIO.read(ins);
 
-			java.awt.image.BufferedImage slika;
-
-			slika = jpegD.decodeAsBufferedImage();
-
+		 
 			ins.close();
 
 			sirina = slika.getWidth();
@@ -93,7 +85,7 @@ public final class PictureResizer {
 			// izlaznaSlika=null;
 			tx = null;
 			slika = null;
-			jpegD = null;
+			 
 			graf = null;
 		} catch (NullPointerException e) {
 			Logger.log("Null pointer greska kod smanjivanja slike: " + e
@@ -364,14 +356,11 @@ public final class PictureResizer {
 			return null;
 
 		try {
-			com.sun.image.codec.jpeg.JPEGImageDecoder jpegD;
-			int velicina = ins.available();
-
-			jpegD = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(ins);
-
+			 
+		 
 			ins.close();
 
-			slika = jpegD.decodeAsBufferedImage();
+			slika = ImageIO.read(ins);
 			sirina = slika.getWidth();
 			duzina = slika.getHeight();
 
@@ -425,14 +414,12 @@ public final class PictureResizer {
 			return null;
 
 		try {
-			com.sun.image.codec.jpeg.JPEGImageDecoder jpegD;
+			 
 			int velicina = ins.available();
 
 			if (velicina < 1)
 				return null;
-
-			jpegD = com.sun.image.codec.jpeg.JPEGCodec.createJPEGDecoder(ins);
-
+		
 			// 24.08.2004. iz nekog razloga zna se dogoditi da dekoder ne moze
 			// dekodirati sliku iz baze
 			// pa smo ugradili try/catch i stavili da je slika=null
@@ -444,10 +431,6 @@ public final class PictureResizer {
 			}
 
 		} catch (IOException ex) {
-		} catch (ImageFormatException ex) {
-			Logger.log("Greska u PictureResizer / metoda vratiKaoBufferedImage: "
-					+ ex);
-			return null;
 		} finally {
 			try {
 				if (ins != null)
@@ -465,18 +448,19 @@ public final class PictureResizer {
 		try {
 			out = new ByteArrayOutputStream(4096);
 
-			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//			JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(out);
+//
+//			JPEGEncodeParam jpegParams = encoder
+//					.getDefaultJPEGEncodeParam(slika);
+//			jpegParams.setQuality(kvaliteta, false); // kvaliteta slike - 38%
+//			jpegParams.setXDensity(72);
+//			jpegParams.setYDensity(72);
+//			jpegParams.setDensityUnit(JPEGDecodeParam.DENSITY_UNIT_DOTS_INCH);
+//			encoder.setJPEGEncodeParam(jpegParams);
+//			encoder.encode(slika); // Encode image to JPEG and send to browser
+			
+			ImageIO.write(slika, "jpeg", out);
 
-			JPEGEncodeParam jpegParams = encoder
-					.getDefaultJPEGEncodeParam(slika);
-			jpegParams.setQuality(kvaliteta, false); // kvaliteta slike - 38%
-			jpegParams.setXDensity(72);
-			jpegParams.setYDensity(72);
-			jpegParams.setDensityUnit(JPEGDecodeParam.DENSITY_UNIT_DOTS_INCH);
-			encoder.setJPEGEncodeParam(jpegParams);
-			encoder.encode(slika); // Encode image to JPEG and send to browser
-
-			encoder = null;
 		} catch (IOException ex) {
 			Logger.log("IO greska kod spremanja slike u polje byteova:" + ex);
 			return null;

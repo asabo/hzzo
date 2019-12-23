@@ -45,12 +45,12 @@ public final class Zakrpe
 	private static final String NOVE_CIJENE_01_01_2015 = "nove_cijene_01_01_2015";
 
 	String[] upiti = null;
-	private static final String verzijaZakrpe = "040";
-	private static final String poruka = "europska kartica dodana u racun";
+	private static final String verzijaZakrpe = "044";
+	private static final String poruka = "stavke racuna sada sadrze nadoplatu klijenta";
 	private static final String zakrpa = "zakrpa" + verzijaZakrpe;
 
 	public Zakrpe() {
-		upiti = new String[20];
+		upiti = new String[23];
 
 		upiti[0] = "alter table racuni alter column broj_potvrde2 set data type varchar(10)";
 		upiti[1] = "alter table stavke_racuna drop constraint str_sifart";
@@ -76,6 +76,10 @@ public final class Zakrpe
 		upiti[18] = "alter TABLE artikli add column   UPDATED_BY int";
 		
 		upiti[19] = "alter table racuni alter column ino_broj_lista1 set data type varchar(20)";
+		upiti[20] = "alter table racuni alter column broj_iskaznice2 set data type varchar(11)";
+
+		upiti[21] = "alter table stavke_racuna alter column sif_artikla set data type varchar(13)";
+		upiti[22] = "alter TABLE stavke_racuna add column   nadoplatio int NOT NULL default 0";
 		
 	}// konstruktor
 

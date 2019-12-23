@@ -341,6 +341,7 @@ public final class RacunVO extends ValueObject
     Integer sifKlijenta;
     Calendar datumNarudzbe;
     Calendar datum;
+    //Calendar datumIzdavanja; // nije isto kao i datum isporuke
     Date datumSlijedecegPrava;
     String pozivNaBroj1;
     String pozivNaBroj2;

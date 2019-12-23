@@ -18,6 +18,6 @@
 	<classpathentry kind="lib" path="lib/httpmime-4.5.1-2.jar"/>
 	<classpathentry kind="lib" path="lib/swingx-0.9.3.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/opticar_install"/>
-	<classpathentry kind="lib" path="Projekt_Opticar/lib/ansaDAO.jar"/>
+	<classpathentry kind="lib" path="lib/ansaDAO.jar"/>
 	<classpathentry kind="output" path="classes"/>
 </classpath>

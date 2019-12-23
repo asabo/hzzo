@@ -34,6 +34,8 @@ import biz.sunce.util.PretrazivanjeProzor;
 import biz.sunce.util.SlusacOznaceneLabelePretrazivanja;
 import biz.sunce.util.StringUtils;
 import java.awt.GridBagLayout;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
  
 /**
@@ -70,6 +72,8 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JTextField jtSifProizvodjaca = null;
 	private javax.swing.JTextField jtSifraProizvoda = null;
 	private javax.swing.JLabel jLabel5 = null;
+	private JLabel lblNadoplatio;
+	private JTextField jtNadoplatio;
 
 	/**
 	 * This is the default constructor
@@ -98,26 +102,27 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	 */
 	private void initialize() {
 		java.awt.GridBagConstraints consGridBagConstraints1 = new java.awt.GridBagConstraints();
+		consGridBagConstraints1.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints3 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints4 = new java.awt.GridBagConstraints();
-		consGridBagConstraints4.insets = new Insets(0, 0, 1, 0);
+		consGridBagConstraints4.insets = new Insets(0, 0, 5, 0);
 		java.awt.GridBagConstraints consGridBagConstraints5 = new java.awt.GridBagConstraints();
+		consGridBagConstraints5.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints6 = new java.awt.GridBagConstraints();
-		consGridBagConstraints6.insets = new Insets(0, 0, 1, 0);
+		consGridBagConstraints6.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints2 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints7 = new java.awt.GridBagConstraints();
-		consGridBagConstraints7.insets = new Insets(0, 0, 1, 0);
+		consGridBagConstraints7.insets = new Insets(0, 0, 5, 5);
 		java.awt.GridBagConstraints consGridBagConstraints8 = new java.awt.GridBagConstraints();
-		consGridBagConstraints8.insets = new Insets(0, 0, 1, 0);
+		consGridBagConstraints8.insets = new Insets(0, 0, 5, 0);
 		java.awt.GridBagConstraints consGridBagConstraints21 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints12 = new java.awt.GridBagConstraints();
 		consGridBagConstraints12.insets = new Insets(0, 0, 1, 0);
 		java.awt.GridBagConstraints consGridBagConstraints11 = new java.awt.GridBagConstraints();
 		java.awt.GridBagConstraints consGridBagConstraints22 = new java.awt.GridBagConstraints();
-		consGridBagConstraints22.insets = new Insets(0, 0, 1, 0);
+		consGridBagConstraints22.insets = new Insets(0, 0, 1, 5);
 		consGridBagConstraints22.gridy = 3;
-		consGridBagConstraints22.gridx = 0;
-		consGridBagConstraints22.gridwidth = 3;
+		consGridBagConstraints22.gridx = 2;
 		consGridBagConstraints22.anchor = java.awt.GridBagConstraints.EAST;
 		consGridBagConstraints12.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		consGridBagConstraints12.weightx = 1.0;
@@ -169,21 +174,32 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		this.add(getJLabel(), consGridBagConstraints1);
 		this.add(getJlSifraStavke(), new GridBagConstraints(1, 0, 1, 1, 0.0,
 				0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-				new Insets(0, 1, 0, 0), 0, 0));
+				new Insets(0, 1, 5, 5), 0, 0));
 		this.add(getJLabel1(), new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
 				GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL,
-				new Insets(0, 0, 0, 0), 0, 0));
+				new Insets(0, 0, 5, 5), 0, 0));
 		this.add(getJtNazivStavke(), consGridBagConstraints4);
 		this.add(getJLabel2(), consGridBagConstraints5);
 		this.add(getJtKolicina(), consGridBagConstraints6);
 		this.add(getJLabel3(), consGridBagConstraints7);
 		this.add(getJtPoCijeni(), consGridBagConstraints8);
 		this.add(getJLabel4(), new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0,
-						0, 0, 0), 0, 0));
+				GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 5, 5), 0, 0));
 		this.add(getJtSifProizvodjaca(), new GridBagConstraints(3, 0, 1, 1,
 				1.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE,
-				new Insets(0, 0, 1, 0), 0, 0));
+				new Insets(0, 0, 5, 0), 0, 0));
+		GridBagConstraints gbc_lblNadoplatio = new GridBagConstraints();
+		gbc_lblNadoplatio.anchor = GridBagConstraints.EAST;
+		gbc_lblNadoplatio.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNadoplatio.gridx = 0;
+		gbc_lblNadoplatio.gridy = 3;
+		add(getLblNadoplatio(), gbc_lblNadoplatio);
+		GridBagConstraints gbc_jtNadoplatio = new GridBagConstraints();
+		gbc_jtNadoplatio.anchor = GridBagConstraints.WEST;
+		gbc_jtNadoplatio.insets = new Insets(0, 0, 1, 5);
+		gbc_jtNadoplatio.gridx = 1;
+		gbc_jtNadoplatio.gridy = 3;
+		add(getJtNadoplatio(), gbc_jtNadoplatio);
 		this.add(getJtSifraProizvoda(), consGridBagConstraints12);
 		this.add(getJLabel5(), consGridBagConstraints22);
 		int faktor = GlavniFrame.getFaktor();
@@ -406,9 +422,12 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 
 		Integer k = this.oznaceni.getKolicina();
 		Integer c = this.oznaceni.getPoCijeni();
+		Integer dp = this.oznaceni.getDoplataKlijenta();
+		
 		this.jtKolicina.setText("" + (k != null ? "" + k.intValue() : ""));
 		this.jtPoCijeni.setText(""
 				+ (c != null ? "" + (c.intValue() / 100.0f) : ""));
+		this.jtNadoplatio.setText("" + (dp != null ? "" + (dp.intValue() / 100.0f) : ""));
 		this.jtSifProizvodjaca
 				.setText(this.oznaceni.getSifProizvodjaca() != null ? ""
 						+ this.oznaceni.getSifProizvodjaca().intValue() : "");
@@ -460,11 +479,12 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 						.getSifraArtikla() : null);
 
 		// kada je kolicina 0, korisnik zeli pobrisati stavku iz racuna
-		int kolicina = -1, poCijeni = 0, sifProizv = -1;
+		int kolicina = -1, poCijeni = 0, sifProizv = -1, nadoplatio = -1;
 		String kolicinaStr = this.jtKolicina.getText().trim();
 		String cijenaStr = this.jtPoCijeni.getText().trim();
 		String sifProizvStr = this.jtSifProizvodjaca.getText().trim();
 		String sifProizvodaStr = this.jtSifraProizvoda.getText().trim();
+		String nadoplatioStr = this.jtNadoplatio.getText().trim();
 
 		try {
 
@@ -492,7 +512,30 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 				// maknemo zarez i tocku i broj ocitamo kao cijeli... i onda
 				// nema gubitka lipe..
 				poCijeni = (Integer.parseInt(str));
-			}// if
+			}// if poCijeniStr
+			
+			if (!nadoplatioStr.equals("")) {
+				String str = nadoplatioStr;
+				str = str.replaceAll("\\,", ".");
+				String[] spl = str.split("\\.");
+				if (spl != null && spl.length == 1)
+					str = str + "00";
+				else if (spl != null && spl.length > 1) {
+					if (spl[1].length() == 0)
+						str = spl[0] + "00";
+					else if (spl[1].length() == 1)
+						str = spl[0] + spl[1] + "0";
+					else if (spl[1].length() == 2)
+						str = spl[0] + spl[1];
+					else if (spl[1].length() > 2)
+						str = spl[0] + spl[1].substring(0, 2);
+
+				}
+				str = str.replaceAll("\\.", "");
+				// maknemo zarez i tocku i broj ocitamo kao cijeli... i onda
+				// nema gubitka lipe..
+				 nadoplatio = (Integer.parseInt(str));
+			}// if nadoplatioStr
 
 			if (!sifProizvStr.equals(""))
 				sifProizv = Integer.parseInt(sifProizvStr);
@@ -502,12 +545,14 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 					+ kolicinaStr
 					+ " po cijeni: "
 					+ cijenaStr
-					+ " šifra proizvoðaèa: " + sifProizvStr;
+					+ " šifra proizvoðaèa: " + sifProizvStr
+					+ " nadoplatio: " + nadoplatioStr;
 			GlavniFrame.alert(por);
 			Logger.log(por, nfe);
 		}
 		this.oznaceni.setKolicina(Integer.valueOf(kolicina));
 		this.oznaceni.setPoCijeni(Integer.valueOf(poCijeni));
+		this.oznaceni.setDoplataKlijenta(nadoplatio==-1 ? null : Integer.valueOf(nadoplatio));
 		if (sifProizv > 0)
 			this.oznaceni.setSifProizvodjaca(Integer.valueOf(sifProizv));
 		else
@@ -561,6 +606,7 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 		this.jtPoCijeni.setEnabled(s);
 		this.jtSifProizvodjaca.setEnabled(s);
 		this.jtSifraProizvoda.setEnabled(s);
+		this.jtNadoplatio.setEnabled(s);
 	}
 
 	public boolean jeliIzmjenjen() {
@@ -791,9 +837,41 @@ public final class StavkaRacuna extends JPanel implements GUIEditor<StavkaRacuna
 	private javax.swing.JLabel getJLabel5() {
 		if (jLabel5 == null) {
 			jLabel5 = new javax.swing.JLabel();
-			jLabel5.setText("\u0160ifra nestandardnog proizvoda:");
+			jLabel5.setText("\u0160if. nest. proizvoda:");
 			jLabel5.setToolTipText("ako stranka nije uzela standardni proizvod, tu trebate unijeti SVOJU šifru tog proizvoda");
 		}
 		return jLabel5;
+	}
+	private JLabel getLblNadoplatio() {
+		if (lblNadoplatio == null) {
+			lblNadoplatio = new JLabel("Nadoplatio:");
+			lblNadoplatio.setToolTipText("brutto iznos koji je stranka nadoplatila za X komada tog artikla");
+		}
+		return lblNadoplatio;
+	}
+	private JTextField getJtNadoplatio() {
+		if (jtNadoplatio == null) {
+			jtNadoplatio = new JTextField();
+			jtNadoplatio.setToolTipText("brutto iznos koji je stranka nadoplatila za X komada tog artikla");
+			jtNadoplatio.setPreferredSize(new Dimension(120, 24));
+			jtNadoplatio.setMinimumSize(new Dimension(100, 23));
+			jtNadoplatio.addFocusListener(new java.awt.event.FocusAdapter() {
+				@Override
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtNadoplatio.selectAll(); // da olaksamo osobi unos druge
+											// kolicine
+				}
+			});
+			jtNadoplatio.addKeyListener(new java.awt.event.KeyAdapter() {
+				@Override
+				public void keyTyped(java.awt.event.KeyEvent e) {
+					if (e != null && e.getKeyChar() == KeyEvent.VK_ENTER
+							&& !jtNadoplatio.getText().trim().equals("")) {
+						posaljiObavijestOSpremnostiPodataka();
+					}
+				}
+			});
+		}
+		return jtNadoplatio;
 	}
 }

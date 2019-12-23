@@ -7,9 +7,6 @@ import biz.sunce.optika.GlavniFrame;
 import biz.sunce.optika.Logger;
 import biz.sunce.toedter.calendar.JDateChooser;
 
-import com.toedter.calendar.DatumskoPolje;
-import com.toedter.calendar.SlusacDateChoosera;
-
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -22,6 +19,9 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.*;
+
+import com.toedter.calendar.DatumskoPolje;
+import com.toedter.calendar.SlusacDateChoosera;
 
 public final class HzzoObracun extends JPanel
     implements GUIEditor<HzzoObracunVO>, SlusacDateChoosera, ItemListener
@@ -193,7 +193,7 @@ public final class HzzoObracun extends JPanel
     {
         if(podruznice == null)
         {
-            SearchCriteria krit = new SearchCriteria();
+            SearchCriteria<String> krit = new SearchCriteria<String>();
             ArrayList<String> l = new ArrayList<String>(1);
             l.add("");
             krit.setPodaci(l);
@@ -295,7 +295,7 @@ public final class HzzoObracun extends JPanel
         if(pod == null)
             Logger.log("POD je null kod HzzoObracun.ucitajPopisPodruznica");
 		else {
-			int podSize = pod==null?0:pod.size();
+			int podSize = pod==null ? 0 : pod.size();
 			
 			if (pod!=null && podSize==0)
         		Logger.log("POD je prazan kod HzzoObracun.ucitajPopisPodruznica");

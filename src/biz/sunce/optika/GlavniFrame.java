@@ -1588,6 +1588,8 @@ public final class GlavniFrame extends JFrame
 				koristiSvaPomagala = Boolean.TRUE;
 			else
 				koristiSvaPomagala = Boolean.FALSE;
+		} else {
+			return false;
 		}
 
 		return koristiSvaPomagala;

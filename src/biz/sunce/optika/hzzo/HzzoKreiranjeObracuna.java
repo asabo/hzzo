@@ -44,6 +44,7 @@ import biz.sunce.optika.Logger;
 import biz.sunce.optika.hzzo.ispis.IspisRacunaDopunskoOsiguranje;
 import biz.sunce.optika.hzzo.ispis.IspisRacunaOsnovnoOsiguranje;
 import biz.sunce.util.HtmlPrintParser;
+import biz.sunce.util.KontrolneZnamenkeUtils;
 import biz.sunce.util.RacuniUtil;
 import biz.sunce.util.StringUtils;
 import biz.sunce.util.Util;
@@ -308,7 +309,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 		// return;
 		// }
 
-		SearchCriteria kriterij = new SearchCriteria();
+		SearchCriteria<Object> kriterij = new SearchCriteria<Object>();
 		kriterij.setKriterij(HzzoObracunDAO.KRITERIJ_SVI_RACUNI_ZA_OBRACUN);
 		ArrayList<Object> l = new ArrayList<Object>(4);
 		l.add(datumOd);
@@ -528,6 +529,16 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 
 					String vrstaPomagala = ""
 							+ rvo.getVrstaPomagala().intValue();
+					
+					String maticniBrojKorisnika = "";
+					
+					if ((brojIskaznice2.length() == 11 && KontrolneZnamenkeUtils.ispravanOIB(brojIskaznice2))) {
+					maticniBrojKorisnika = brojIskaznice2;
+					brojIskaznice2 = "";
+					} else if (brojIskaznice2.length() == 9 && KontrolneZnamenkeUtils.ispravanMBO(brojIskaznice2)) {
+						maticniBrojKorisnika = brojIskaznice2;
+						brojIskaznice2 = "";
+					}
 
 					final String rac = "60"
 							+ d
@@ -565,7 +576,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 							+ d
 							+ brojIskaznice1
 							+ d
-							+ ""
+							+ maticniBrojKorisnika
 							+ d
 							+ (sifDrzave == null ? "" : inoBroj) + d
 							+ (sifDrzave == null ? "" : drzava.getCc3()) + d
@@ -591,7 +602,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 
 						String sifArt = svo.getSifArtikla();
 						boolean isoArt = sifArt != null
-								&& sifArt.length() == 12
+								&& (sifArt.length() == 12 || sifArt.length() == 13)
 								&& StringUtils.imaSamoBrojeve(sifArt);
 
 						String sfp = svo.getSifProizvodjaca() == null ? "" : ""

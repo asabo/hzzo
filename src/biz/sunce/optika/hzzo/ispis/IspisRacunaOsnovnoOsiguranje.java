@@ -428,7 +428,7 @@ public final class IspisRacunaOsnovnoOsiguranje implements Printable {
 			String sifraArtikla = st.getSifArtikla();
 
 			boolean iso9999 = sifraArtikla != null
-					&& sifraArtikla.length() == 12
+					&& (sifraArtikla.length() == 12 || sifraArtikla.length() == 13)
 					&& StringUtils.imaSamoBrojeve(sifraArtikla);
 			String sif = st.getSifArtikla();
 
@@ -445,7 +445,7 @@ public final class IspisRacunaOsnovnoOsiguranje implements Printable {
 				g.fillRect((int) (racX + 140 * omjerSir + 0.5f), cy-11, (int)(omjerSir*6*13.4f+0.5f), 11);
 				g.setColor(Color.black);
 				
-				g.drawString(sif, (int) (racX + 140 * omjerSir + 0.5f), cy);
+				g.drawString(sif, (int) (racX + 134 * omjerSir + 0.5f), cy);
 			}
 			// sifra proizvodjaca
 			if (!iso9999 && sfps != null && sfps.trim().length() > 0) {
@@ -684,7 +684,7 @@ public final class IspisRacunaOsnovnoOsiguranje implements Printable {
 				lijeviRub, y + 118);
 
 		g2.setFont(this.centuryGothicVelikiBold);
-		g2.drawString("RAÈUN ZA OSNOVNO", x + 349, y + 56);
+		g2.drawString("RAÈUN ZA OBVEZNO", x + 349, y + 56);
 		g2.drawString("ZDRAVSTVENO OSIGURANJE", x + 339, y + 71);
 
 		// ********************************************* RACUN

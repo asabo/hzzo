@@ -125,6 +125,7 @@ public final class DAOFactory {
 						username, password, 10, 100, null, 60000.0d);
 				alive = true;
 			} catch (Exception e) {
+				System.err.println("Iznimka pri podizanju konekcija: "+e);
 				alive = false;
 			} catch (Throwable t) {
 				alive = false;

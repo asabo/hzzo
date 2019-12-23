@@ -438,7 +438,7 @@ public final class IspisRacunaDopunskoOsiguranje implements Printable {
 			sfp = (st.getSifProizvodjaca() != null ? ""
 					+ st.getSifProizvodjaca().intValue() : "");
 
-			boolean iso9999 = sif != null && sif.length() == 12
+			boolean iso9999 = sif != null && (sif.length() == 12 || sif.length() == 13)
 					&& StringUtils.imaSamoBrojeve(sif);
 
 			// sifra pomagala
@@ -458,7 +458,7 @@ public final class IspisRacunaDopunskoOsiguranje implements Printable {
 				g.setColor(Color.black);
 
 				g.setFont(glavni);
-				g.drawString(sif, (int) (racX + 140 * omjerSir + 0.5f), cy);
+				g.drawString(sif, (int) (racX + 134 * omjerSir + 0.5f), cy);
 				g.setFont(mono);
 			}
 

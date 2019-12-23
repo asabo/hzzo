@@ -41,11 +41,11 @@ import biz.sunce.util.Util;
 public final class StavkeRacuna implements StavkaRacunaDAO {
 	// da se kasnije upit moze lakse preraditi za neku slicnu tablicu
 	private final static String tablica = "stavke_racuna";
-	private String[] kolone = { "šifra", "naziv", "kolièina", "kn" };
+	private String[] kolone = { "šifra", "naziv", "kolièina", "kn", "nadoplatio" };
 
 	private PomagaloDAO pomagala = null;
 
-	final String select = "select sr.sif_racuna,sr.sif_artikla,sr.kolicina,sr.po_cijeni,sr.porezna_stopa,sr.sif_proizvodjaca,sr.tvrtka_sifra_art";
+	final String select = "select sr.sif_racuna,sr.sif_artikla,sr.kolicina,sr.po_cijeni,sr.porezna_stopa,sr.sif_proizvodjaca,sr.tvrtka_sifra_art,sr.nadoplatio";
 	final String from = " from " + tablica + " sr";
 
 	public String narusavaLiObjektKonzistentnost(StavkaRacunaVO objekt) {
@@ -58,13 +58,13 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 		String sifArtikla = s.getSifArtikla();
 		int sifArtLen = sifArtikla == null ? -1 : sifArtikla.length();
 
-		if (sifArtikla == null || (sifArtLen != 12 && sifArtLen > 9))
+		if (sifArtikla == null || ((sifArtLen <12 || sifArtLen >13) && sifArtLen > 9))
 			return "šifra artikla u stavci raèuna nije ispravna!";
 
-		if (sifArtLen == 12 && !StringUtils.imaSamoBrojeve(sifArtikla)) {
+		if ((sifArtLen == 12 || sifArtLen == 13) && !StringUtils.imaSamoBrojeve(sifArtikla)) {
 			return "šifra artikla " + sifArtikla
 					+ " nije po ISO 9999 standardu";
-		} else if (sifArtLen == 12 && StringUtils.imaSamoBrojeve(sifArtikla))
+		} else if ((sifArtLen == 12 || sifArtLen == 13) && StringUtils.imaSamoBrojeve(sifArtikla))
 			iso9999 = true;
 
 		if (s.getKolicina() == null || s.getKolicina().intValue() <= 0)
@@ -72,6 +72,9 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 
 		if (s.getPoCijeni() == null || s.getPoCijeni().intValue() <= 0)
 			return "cijena u stavci raèuna nije ispravna!";
+		
+		if (s.getDoplataKlijenta() != null && s.getDoplataKlijenta().intValue() < 0)
+			return "doplata klijenta u stavci raèuna nije ispravna!";
 
 		if (s.getSifRacuna() == null)
 			return "stavka nije povezana na raèun!";
@@ -102,8 +105,8 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			+ tablica
 			+ " "
 			+ // INSERT da se ne zabunujemo vise
-			"(sif_racuna,sif_artikla,kolicina,po_cijeni,porezna_stopa,sif_proizvodjaca,tvrtka_sifra_art)"
-			+ " VALUES (?,?,?,?,?,?,?)";
+			"(sif_racuna,sif_artikla,kolicina,po_cijeni,porezna_stopa,sif_proizvodjaca,tvrtka_sifra_art,nadoplatio)"
+			+ " VALUES (?,?,?,?,?,?,?,?)";
 	
 	public void insert(StavkaRacunaVO objekt) throws SQLException 
 	{
@@ -136,7 +139,13 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 
 			ps.setString(7, ul.getEkstraSifProizvoda()); // 15.09.06. -asabo-
 															// dodano
-
+			
+			Integer dpk = ul.getDoplataKlijenta();
+			if (dpk == null)
+				ps.setNull(8, Types.INTEGER);
+			else
+				ps.setInt(8, dpk.intValue()); // 23.12.19. -asabo- dodano
+			
 			int kom = ps.executeUpdate();
 			// status updated ce se samo postaviti po defaultu...
 
@@ -179,7 +188,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			return;
 
 		String sifraArtikla = ul.getSifArtikla();
-		boolean iso9999 = sifraArtikla != null && sifraArtikla.length() == 12
+		boolean iso9999 = sifraArtikla != null && (sifraArtikla.length() == 12 || sifraArtikla.length() == 13)
 				&& StringUtils.imaSamoBrojeve(sifraArtikla);
 
 		if (iso9999)
@@ -258,8 +267,8 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			        "update "
 					+ tablica
 					+ " set "
-					+ " kolicina=?,po_cijeni=?,porezna_stopa=?, sif_proizvodjaca=?, tvrtka_sifra_art=? "
-					+ // 19.09.06 -asabo- dodana tvrtka_sifra_art
+					+ " kolicina=?,po_cijeni=?,porezna_stopa=?, sif_proizvodjaca=?, tvrtka_sifra_art=?, nadoplatio=? "
+					+ // 19.09.06 -asabo- dodana tvrtka_sifra_art, 23.12.19. dodan iznos nadoplate klijenta
 					" where sif_racuna=? and sif_artikla=?";
 	
 	// 23.02.06. -asabo- kreirano ali mislim da se nece koristiti ...
@@ -293,8 +302,12 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 
 			ps.setString(5, ul.getEkstraSifProizvoda()); // 15.09.06 -asabo-
 															// dodano
-			ps.setInt(6, ul.getSifRacuna().intValue());
-			ps.setString(7, ul.getSifArtikla());
+			
+			//23.12.19. -asabo- dodana doplata klijenta 
+			ps.setInt(6, ul.getDoplataKlijenta() == null ? 0 : ul.getDoplataKlijenta().intValue());
+			
+			ps.setInt(7, ul.getSifRacuna().intValue()); //where
+			ps.setString(8, ul.getSifArtikla());
 
 			int kom = ps.executeUpdate();
 
@@ -381,7 +394,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 
 		RacunVO racun = null;
 		Integer sifRacuna = null;
-		SearchCriteria krit = null; // 16.05.06. -asabo- dodano
+		SearchCriteria<StavkaRacunaVO> krit = null; // 16.05.06. -asabo- dodano
 
 		if (kljuc instanceof RacunVO)
 			racun = (RacunVO) kljuc;
@@ -404,7 +417,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			dOd = (Calendar) l.get(0);
 			dDo = (Calendar) l.get(1);
 
-			upit = "select r.sifra,r.datum_izdavanja,sr.sif_artikla,sr.sif_proizvodjaca as srsfp,sr.kolicina,a.naziv, k.ime, k.prezime, r.broj_potvrde1, r.broj_potvrde2,r.BROJ_OSOBNOG_RACUNA_OSN,r.osnovno_osiguranje,r.iznos_sudjelovanja,sr.po_cijeni,r.sif_lijecnika,0 as tvrtka_sifra_art"
+			upit = "select r.sifra,r.datum_izdavanja,sr.sif_artikla,sr.sif_proizvodjaca as srsfp,sr.kolicina,a.naziv, k.ime, k.prezime, r.broj_potvrde1, r.broj_potvrde2,r.BROJ_OSOBNOG_RACUNA_OSN,r.osnovno_osiguranje,r.iznos_sudjelovanja,sr.po_cijeni,r.sif_lijecnika,0 as tvrtka_sifra_art,sr.nadoplatio"
 					+ " from stavke_racuna sr,racuni r,artikli a,klijenti k"
 					+ " where r.sifra=sr.sif_racuna and k.sifra=r.sif_klijenta"
 					+ " and a.sifra=sr.sif_artikla and r.datum_izdavanja>='"
@@ -542,7 +555,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 		} catch (ClassNotFoundException cnfe) {
 			Logger.fatal(
 					tablica
-							+ " CSC - String, Integer ili Float kao klasa ne postoji?!?",
+							+ " CSC - String, Integer ili String kao klasa ne postoji?!?",
 					cnfe);
 			stringClass = null;
 			intClass = null;
@@ -559,6 +572,8 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 			return intClass;
 		case 3:
 			return stringClass;
+		case 4: 
+			return intClass;
 		default:
 			return stringClass;
 		}
@@ -590,6 +605,8 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 				return srediIznos(s.getPoCijeni().intValue());
 			else
 				return srediIznos(RacuniUtil.getBruttoIznosStavke(s));
+		case 4:
+				return srediIznos(s.getDoplataKlijenta()==null ? 0 : s.getDoplataKlijenta().intValue());
 
 		default:
 			return null;
@@ -646,6 +663,7 @@ public final class StavkeRacuna implements StavkaRacunaDAO {
 		svo.setEkstraSifProizvoda(rs.getString("tvrtka_sifra_art")); // 15.09.06.
 																		// -asabo-
 																		// dodano
+		svo.setDoplataKlijenta(Integer.valueOf(rs.getInt("nadoplatio"))); //23.12.19. -asabo- dodana nadoplata klijenta
 		svo.setSifraVelicineObloge(null);
 
 		int sfp = rs.getInt("sif_proizvodjaca");

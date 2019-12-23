@@ -66,9 +66,8 @@ import com.toedter.calendar.SlusacDateChoosera;
  * 
  */
 @SuppressWarnings("serial")
-public final class Racun extends JPanel implements GUIEditor<RacunVO>,
-		SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera 
-		{
+public final class Racun extends JPanel
+		implements GUIEditor<RacunVO>, SlusacOznaceneLabelePretrazivanja, SlusacDateChoosera {
 
 	private javax.swing.JLabel jLabel = null;
 	private javax.swing.JToggleButton jtbOsnovno = null;
@@ -89,10 +88,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField jtBrojPoliceDopunsko = null;
 	private javax.swing.JLabel jLabel7 = null;
 	private javax.swing.JTextField jtIznosSudjelovanja = null;
-	
+
 	Font arial = new Font("Arial", Font.PLAIN, 11);
 	Font arial12 = new Font("Arial", Font.PLAIN, 12);
-	
+
 	RacunVO oznaceni = null;
 	KlijentVO oznaceniKlijent = null;
 	MjestoVO oznacenaPodruznica = null;
@@ -100,8 +99,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	LijecnikVO oznaceniLijecnik = null;
 	ProizvodjacVO oznaceniProizvodjac = null;
 
-	PretrazivanjeProzor pretrazivanjeKlijenti = null,
-			pretrazivanjePodruznica = null, pretrazivanjeDrzave = null,
+	PretrazivanjeProzor pretrazivanjeKlijenti = null, pretrazivanjePodruznica = null, pretrazivanjeDrzave = null,
 			pretrazivanjeLijecnici = null;
 	private JTextField jtSifraAktivnostiDop;
 	private JLabel jlSifraDopunskeAkt;
@@ -151,28 +149,27 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	public Racun() {
 		super();
 		initialize();
-		this.getJtBrojPoliceDopunsko().setEnabled(
-				this.getJtbDopunsko().isSelected());
+		this.getJtBrojPoliceDopunsko().setEnabled(this.getJtbDopunsko().isSelected());
 		this.postaviOsnovnoOsiguranje(true);
 		iskljuciIno();
 
 		this.getJtSifraProizvodjaca().setEnabled(false);
-		this.jtIznosSudjelovanja
-				.setNextFocusableComponent(this.jcRobaIsporucena);
-		this.getJtIznosSudjelovanja().setNextFocusableComponent(
-				this.getJtBrojOsobnogRacunaOsnovno());
-		this.getJtBrojOsobnogRacunaOsnovno().setNextFocusableComponent(
-				this.getJcRobaIsporucena());
+		this.jtIznosSudjelovanja.setNextFocusableComponent(this.jcRobaIsporucena);
+		this.getJtIznosSudjelovanja().setNextFocusableComponent(this.getJtBrojOsobnogRacunaOsnovno());
+		this.getJtBrojOsobnogRacunaOsnovno().setNextFocusableComponent(this.getJcRobaIsporucena());
 
 		Thread t = new Thread() {
 			public void run() {
 				this.setPriority(Thread.MIN_PRIORITY);
 				yield();
-				try {					
-					sleep(500);		
-					System.gc(); // prilikom kreiranja nove forme racuna dobro bi bilo
-					// probati otpustiti resurse, jer to je moment kad korisnik unosi podatke na formu, dakle 
-					//procesorski i memorijski nezahtjevna faza gdje se ne moze primjetiti eventualni GC
+				try {
+					sleep(500);
+					System.gc(); // prilikom kreiranja nove forme racuna dobro
+									// bi bilo
+					// probati otpustiti resurse, jer to je moment kad korisnik
+					// unosi podatke na formu, dakle
+					// procesorski i memorijski nezahtjevna faza gdje se ne moze
+					// primjetiti eventualni GC
 				} catch (InterruptedException inte) {
 					return;
 				}
@@ -430,9 +427,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		consGridBagConstraints22.anchor = java.awt.GridBagConstraints.WEST;
 		gbc_jlBrojBolesnickogLista.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 8};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0};
+		gridBagLayout.columnWidths = new int[] { 0, 0, 0, 0, 0, 0, 8 };
+		gridBagLayout.rowWeights = new double[] { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 };
+		gridBagLayout.columnWeights = new double[] { 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0 };
 		this.setLayout(gridBagLayout);
 		java.awt.GridBagConstraints consGridBagConstraints115 = new java.awt.GridBagConstraints();
 		consGridBagConstraints115.insets = new Insets(0, 0, 2, 0);
@@ -462,7 +459,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getDatumNarudzbe(), consGridBagConstraints7);
 		this.add(getJLabel3(), consGridBagConstraints8);
 		this.add(getDatumIsporuke(), consGridBagConstraints9);
-		this.add(getJpnTipOsiguranja(), new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(getJpnTipOsiguranja(), new GridBagConstraints(1, 1, 3, 1, 0.0, 0.0, GridBagConstraints.CENTER,
+				GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
 		this.add(getJLabel4(), consGridBagConstraints12);
 		this.add(getJtSifraProizvodjaca(), consGridBagConstraints13);
 		this.add(getJLabel5(), consGridBagConstraints14);
@@ -484,8 +482,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getJtNapomena(), consGridBagConstraints21);
 		this.add(getJLabel11(), consGridBagConstraints111);
 		this.add(getJtAdresaPodruznice(), consGridBagConstraints22);
-		this.add(getJLabel12(), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.EAST, GridBagConstraints.HORIZONTAL, new Insets(0, 0, 2, 0), 0, 0));
-		this.add(getJcIno(), new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
+		this.add(getJLabel12(), new GridBagConstraints(0, 4, 1, 1, 0.0, 0.0, GridBagConstraints.EAST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 0, 2, 0), 0, 0));
+		this.add(getJcIno(), new GridBagConstraints(3, 4, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
 		this.add(getJlBrojBolesnickogLista(), gbc_jlBrojBolesnickogLista);
 		this.add(getJlDrzavaKlijenta(), gbc_jlDrzavaKlijenta);
 		this.add(getJtDrzavaInoOsobe(), consGridBagConstraints43);
@@ -497,39 +497,31 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.add(getJtBrojOsobnogRacunaDopunsko(), consGridBagConstraints52);
 		this.add(getJLabel18(), consGridBagConstraints116);
 		this.add(getJcVrstaPomagala(), consGridBagConstraints24);
-		this.add(getJcRobaIsporucena(), new GridBagConstraints(3, 11, 2, 1,
-				0.0, 0.0, GridBagConstraints.WEST, GridBagConstraints.NONE,
-				new Insets(0, 0, 1, 0), 0, 0));
-		this.add(getJlSifraAktivnost(), new GridBagConstraints(4, 1, 1, 1, 0.0,
-				0.0, GridBagConstraints.EAST, GridBagConstraints.NONE,
-				new Insets(0, 0, 2, 0), 0, 0));
-		this.add(getJtSifraAktivnosti(), new GridBagConstraints(5, 1, 1, 1,
-				0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
-		this.add(getJlBrojPotvrde(), new GridBagConstraints(4, 11, 1, 1, 0.0,
-				0.0, GridBagConstraints.EAST, GridBagConstraints.NONE,
-				new Insets(0, 0, 0, 0), 0, 0));
-		this.add(getJtBrojPotvrdeLijecnik(), new GridBagConstraints(5, 11, 1,
-				1, 0.0, 0.0, GridBagConstraints.WEST,
-				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 0), 0, 0));
-		this.add(getJlSifraDopunskeAkt(), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0,
-				GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
-		this.add(getJtSifraAktivnostiDop(), new GridBagConstraints(5, 0, 1, 1,
-				0.0, 0.0, GridBagConstraints.WEST,
+		this.add(getJcRobaIsporucena(), new GridBagConstraints(3, 11, 2, 1, 0.0, 0.0, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(0, 0, 1, 0), 0, 0));
+		this.add(getJlSifraAktivnost(), new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0, GridBagConstraints.EAST,
 				GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
- 
+		this.add(getJtSifraAktivnosti(), new GridBagConstraints(5, 1, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(getJlBrojPotvrde(), new GridBagConstraints(4, 11, 1, 1, 0.0, 0.0, GridBagConstraints.EAST,
+				GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
+		this.add(getJtBrojPotvrdeLijecnik(), new GridBagConstraints(5, 11, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
+				GridBagConstraints.HORIZONTAL, new Insets(0, 2, 0, 0), 0, 0));
+		this.add(getJlSifraDopunskeAkt(), new GridBagConstraints(4, 0, 1, 1, 0.0, 0.0, GridBagConstraints.EAST,
+				GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
+		this.add(getJtSifraAktivnostiDop(), new GridBagConstraints(5, 0, 1, 1, 0.0, 0.0, GridBagConstraints.WEST,
+				GridBagConstraints.NONE, new Insets(0, 0, 2, 0), 0, 0));
+
 		this.setPreferredSize(new Dimension(795, 400));
 		this.setMinimumSize(new Dimension(755, 408));
-		//this.setMaximumSize(new java.awt.Dimension(sir, duz));
+		// this.setMaximumSize(new java.awt.Dimension(sir, duz));
 		this.setBorder(javax.swing.BorderFactory.createTitledBorder(
-				new javax.swing.border.SoftBevelBorder(
-						javax.swing.border.SoftBevelBorder.RAISED),
-				"podaci o raèunu",
-				javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
-				javax.swing.border.TitledBorder.DEFAULT_POSITION, null, null));
+				new javax.swing.border.SoftBevelBorder(javax.swing.border.SoftBevelBorder.RAISED), "podaci o raèunu",
+				javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION,
+				null, null));
 		this.setToolTipText("podaci o raèunu");
 		this.setEnabled(false);
-		
+
 	}
 
 	/**
@@ -557,8 +549,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtbOsnovno.setSelected(true);
 			jtbOsnovno.setMnemonic(java.awt.event.KeyEvent.VK_O);
 			jtbOsnovno.setFont(arial12);
-			jtbOsnovno
-					.setToolTipText("kliknite ili pritisnite ALT-O ako radite raèun sa osnovnim osiguranjem");
+			jtbOsnovno.setToolTipText("kliknite ili pritisnite ALT-O ako radite raèun sa osnovnim osiguranjem");
 			jtbOsnovno.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					if (jtbOsnovno.isSelected()) {
@@ -585,13 +576,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtbDopunsko.setText("Dopunsko");
 			jtbDopunsko.setMnemonic(java.awt.event.KeyEvent.VK_D);
 			jtbDopunsko.setFont(arial12);
-			jtbDopunsko
-					.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);
-			jtbDopunsko
-					.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+			jtbDopunsko.setComponentOrientation(java.awt.ComponentOrientation.LEFT_TO_RIGHT);
+			jtbDopunsko.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 			jtbDopunsko.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
-			jtbDopunsko
-					.setToolTipText("kliknite ili pritisnite ALT-D ako radite raèun sa dopunskim osiguranjem");
+			jtbDopunsko.setToolTipText("kliknite ili pritisnite ALT-D ako radite raèun sa dopunskim osiguranjem");
 			jtbDopunsko.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
 					if (jtbDopunsko.isSelected()) {
@@ -631,8 +619,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtKlijent.setHorizontalAlignment(SwingConstants.LEFT);
 			jtKlijent.setPreferredSize(new Dimension(160, 25));
 			jtKlijent.setMinimumSize(new Dimension(160, 23));
-			jtKlijent
-					.setToolTipText("obavezan podatak, ime Vašeg klijenta za kojeg izraðujete raèun, ako Vam se ne pokaže na popisu, vodite raèuna da ste prvo unijeli ime, pa prezime");
+			jtKlijent.setToolTipText(
+					"obavezan podatak, ime Vašeg klijenta za kojeg izraðujete raèun, ako Vam se ne pokaže na popisu, vodite raèuna da ste prvo unijeli ime, pa prezime");
 			jtKlijent.addFocusListener(new java.awt.event.FocusAdapter() {
 				public void focusLost(java.awt.event.FocusEvent e) {
 					if (jtBrojIskaznice2.getText().trim().equals(""))
@@ -648,10 +636,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					if (jtKlijent.getText().trim().equals(""))
 						oznaceniKlijent = null;
 
-					if (oznaceniKlijent != null
-							&& !jtKlijent.getText().equals(
-									oznaceniKlijent.getIme() + " "
-											+ oznaceniKlijent.getPrezime()))
+					if (oznaceniKlijent != null && !jtKlijent.getText()
+							.equals(oznaceniKlijent.getIme() + " " + oznaceniKlijent.getPrezime()))
 						oznaceniKlijent = null;
 				}
 			});
@@ -662,10 +648,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 				}
 			});
-			KlijentDAO klijenti = GlavniFrame.running? DAOFactory.getInstance()
-					.getKlijenti():null;
-			this.pretrazivanjeKlijenti = new PretrazivanjeProzor(
-					GlavniFrame.getInstanca(), klijenti, 10, 20, 170, 100,
+			KlijentDAO klijenti = GlavniFrame.running ? DAOFactory.getInstance().getKlijenti() : null;
+			this.pretrazivanjeKlijenti = new PretrazivanjeProzor(GlavniFrame.getInstanca(), klijenti, 10, 20, 170, 100,
 					(Component) jtKlijent);
 			this.pretrazivanjeKlijenti.dodajSlusaca(this);
 			this.pretrazivanjeKlijenti.setMaksimumZaPretrazivanje(11);
@@ -674,7 +658,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			krit.setKriterij(biz.sunce.dao.DAO.KRITERIJ_KLIJENT_LIMIT_1000);
 			this.pretrazivanjeKlijenti.setKriterij(krit);
 		}
-		
+
 		return jtKlijent;
 	}
 
@@ -688,7 +672,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jLabel2 = new javax.swing.JLabel();
 			jLabel2.setText("Datum narudžbe: ");
 		}
-		
+
 		return jLabel2;
 	}
 
@@ -704,8 +688,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			datumNarudzbe.setDatum(Calendar.getInstance());
 			datumNarudzbe.setPreferredSize(new java.awt.Dimension(125, 20));
 			datumNarudzbe.setMinimumSize(new java.awt.Dimension(125, 20));
-			datumNarudzbe
-					.setToolTipText("datum naruèivanja pomagala, mora biti manji ili jednak datumu isporuke");
+			datumNarudzbe.setToolTipText("datum naruèivanja pomagala, mora biti manji ili jednak datumu isporuke");
 
 		}
 		return datumNarudzbe;
@@ -736,8 +719,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			datumIsporuke.setPreferredSize(new java.awt.Dimension(125, 20));
 			datumIsporuke.setMinimumSize(new java.awt.Dimension(125, 20));
 			datumIsporuke.setDatum(Calendar.getInstance());
-			datumIsporuke
-					.setToolTipText("datum isporuke robe, mora biti isti ili veæi od datuma narudžbe");
+			datumIsporuke.setToolTipText("datum isporuke robe, mora biti isti ili veæi od datuma narudžbe");
 			datumIsporuke.dodajSlusaca(this);
 		}
 		return datumIsporuke;
@@ -752,80 +734,58 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			return;
 		}
 		this.oznaceni = (RacunVO) ulaz;
-		postaviOsnovnoOsiguranje(this.oznaceni.getOsnovnoOsiguranje()
-				.booleanValue());
+		postaviOsnovnoOsiguranje(this.oznaceni.getOsnovnoOsiguranje().booleanValue());
 
 		try {
 			if (oznaceni.getSifKlijenta() != null)
-				oznaceniKlijent = (KlijentVO) DAOFactory.getInstance()
-						.getKlijenti().read(oznaceni.getSifKlijenta());
+				oznaceniKlijent = (KlijentVO) DAOFactory.getInstance().getKlijenti().read(oznaceni.getSifKlijenta());
 			else
 				oznaceniKlijent = null; // just in case
 		} catch (SQLException e) {
-			Logger.fatal(
-					"Greska kod Racun DAO napuniPodatke - klijent se ne moze ucitati ",
-					e);
-			JOptionPane.showMessageDialog(this.getParent(),
-					"Nastao je problem pri punjenju podataka o racunu!",
+			Logger.fatal("Greska kod Racun DAO napuniPodatke - klijent se ne moze ucitati ", e);
+			JOptionPane.showMessageDialog(this.getParent(), "Nastao je problem pri punjenju podataka o racunu!",
 					"Upozorenje", JOptionPane.WARNING_MESSAGE);
 		}
 		if (oznaceniKlijent != null)
-			this.jtKlijent.setText(this.oznaceniKlijent.getIme() + " "
-					+ this.oznaceniKlijent.getPrezime());
+			this.jtKlijent.setText(this.oznaceniKlijent.getIme() + " " + this.oznaceniKlijent.getPrezime());
 
 		try {
-			oznacenaPodruznica = (MjestoVO) DAOFactory.getInstance()
-					.getMjesta().read(oznaceni.getSifPodrucnogUreda());
+			oznacenaPodruznica = (MjestoVO) DAOFactory.getInstance().getMjesta().read(oznaceni.getSifPodrucnogUreda());
 			if (oznacenaPodruznica != null) {
 				this.jtPodruznica.setText(oznacenaPodruznica.getNaziv());
 
-				String hzzoKljuc = this.oznaceni.getAktivnostZZR().trim()
-						.toUpperCase().startsWith("A6") ? "hzzo_adr_"
+				String hzzoKljuc = this.oznaceni.getAktivnostZZR().trim().toUpperCase().startsWith("A6") ? "hzzo_adr_"
 						: "hzzozzr_adr_";
 				// 20.03.06. -asabo- dodano
 				// pogledati u bazu podataka postoji li zapis o adresi
 				// podruznice
-				this.jtAdresaPodruznice.setText(PostavkeBean
-						.getPostavkaDB(
-								hzzoKljuc
-										+ this.oznacenaPodruznica.getSifra()
-												.intValue(), ""));
-			}// if podruznica ispravna
+				this.jtAdresaPodruznice.setText(
+						PostavkeBean.getPostavkaDB(hzzoKljuc + this.oznacenaPodruznica.getSifra().intValue(), ""));
+			} // if podruznica ispravna
 		} catch (SQLException e) {
-			Logger.fatal(
-					"Greška kod Racun DAO napuniPodatke - podružnica se ne može uèitati ",
-					e);
-			JOptionPane.showMessageDialog(this.getParent(),
-					"Nastao je problem pri punjenju podataka o racunu!",
+			Logger.fatal("Greška kod Racun DAO napuniPodatke - podružnica se ne može uèitati ", e);
+			JOptionPane.showMessageDialog(this.getParent(), "Nastao je problem pri punjenju podataka o racunu!",
 					"Upozorenje", JOptionPane.WARNING_MESSAGE);
 		}
 
 		this.datumNarudzbe.setDatum(this.oznaceni.getDatumNarudzbe());
 		this.datumIsporuke.setDatum(this.oznaceni.getDatumIzdavanja());
 		this.jtSifraProizvodjaca
-				.setText(this.oznaceni.getSifProizvodjaca() != null ? this.oznaceni
-						.getSifProizvodjaca() : "");
-		this.jtBrojPotvrde1
-				.setText(this.oznaceni.getBrojPotvrde1() != null ? this.oznaceni
-						.getBrojPotvrde1() : "");
-		this.jtBrojPotvrde2
-				.setText(this.oznaceni.getBrojPotvrde2() != null ? this.oznaceni
-						.getBrojPotvrde2() : "");
+				.setText(this.oznaceni.getSifProizvodjaca() != null ? this.oznaceni.getSifProizvodjaca() : "");
+		this.jtBrojPotvrde1.setText(this.oznaceni.getBrojPotvrde1() != null ? this.oznaceni.getBrojPotvrde1() : "");
+		this.jtBrojPotvrde2.setText(this.oznaceni.getBrojPotvrde2() != null ? this.oznaceni.getBrojPotvrde2() : "");
 
 		// -as- 2009-05-13
 		this.jtSifraAktivnostiDop.setText(this.oznaceni.getAktivnostDop());
 
 		// bez obzira bilo dopunsko ili osnovno osiguranje, postavit cemo
 		// vrijednost elementa
-		this.jtBrojPoliceDopunsko
-				.setText(this.oznaceni.getBrojPoliceDopunsko());
-		this.postaviOsnovnoOsiguranje(this.oznaceni.getOsnovnoOsiguranje()
-				.booleanValue());
+		this.jtBrojPoliceDopunsko.setText(this.oznaceni.getBrojPoliceDopunsko());
+		this.postaviOsnovnoOsiguranje(this.oznaceni.getOsnovnoOsiguranje().booleanValue());
 
-		String sudj = this.oznaceni.getIznosSudjelovanja()==null ? "": 
-			""+ ((float) this.oznaceni.getIznosSudjelovanja().intValue() / 100.0f);
+		String sudj = this.oznaceni.getIznosSudjelovanja() == null ? ""
+				: "" + ((float) this.oznaceni.getIznosSudjelovanja().intValue() / 100.0f);
 		this.jtIznosSudjelovanja.setText("" + sudj);
-		
 
 		if (this.oznaceni.getPozivNaBroj1() != null)
 			this.jtPozivNaBroj1.setText(this.oznaceni.getPozivNaBroj1());
@@ -851,29 +811,22 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			this.jtBrojIskaznice2.setText(this.oznaceni.getBrojIskaznice2());
 
 		// 2009-03-17
-		this.jtBrojPotvrdeLijecnik.setText(this.oznaceni
-				.getBrojPotvrdePomagala());
+		this.jtBrojPotvrdeLijecnik.setText(this.oznaceni.getBrojPotvrdePomagala());
 		this.jtSifraAktivnosti.setText(this.oznaceni.getAktivnostZZR());
 
 		if (this.oznaceni.getSifDrzave() != null) {
 			ukljuciIno();
-			String br1 = this.oznaceni
-					.getBrojInoBolesnickogLista();
-			this.jtBrojInoLista.setText(br1==null?"":br1);
-			 
+			String br1 = this.oznaceni.getBrojInoBolesnickogLista();
+			this.jtBrojInoLista.setText(br1 == null ? "" : br1);
+
 			try {
-				this.oznacenaDrzava = (DrzavaVO) DAOFactory.getInstance()
-						.getDrzava().read(oznaceni.getSifDrzave());
-				this.jtDrzavaInoOsobe
-						.setText(this.oznacenaDrzava != null ? this.oznacenaDrzava
-								.getNaziv() : "?!?");
+				this.oznacenaDrzava = (DrzavaVO) DAOFactory.getInstance().getDrzava().read(oznaceni.getSifDrzave());
+				this.jtDrzavaInoOsobe.setText(this.oznacenaDrzava != null ? this.oznacenaDrzava.getNaziv() : "?!?");
 			} catch (SQLException e1) {
 				Logger.fatal("SQL iznimka kod trazenja države po šifri", e1);
-				JOptionPane
-						.showMessageDialog(
-								GlavniFrame.getInstanca(),
-								"Nastao je problem pri pretraživanju podataka. Provjerite poruke sustava!",
-								"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(GlavniFrame.getInstanca(),
+						"Nastao je problem pri pretraživanju podataka. Provjerite poruke sustava!", "Upozorenje!",
+						JOptionPane.WARNING_MESSAGE);
 			}
 
 		} else
@@ -882,18 +835,14 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		// 03.04.06. -asabo- dodano punjenje forme podacima o lijecniku
 		if (oznaceni.getSifLijecnika() != null)
 			try {
-				this.oznaceniLijecnik = (LijecnikVO) DAOFactory.getInstance()
-						.getLijecnici().read(oznaceni.getSifLijecnika());
-				this.jtLijecnik
-						.setText(this.oznaceniLijecnik != null ? this.oznaceniLijecnik
-								.toString() : "?!?");
+				this.oznaceniLijecnik = (LijecnikVO) DAOFactory.getInstance().getLijecnici()
+						.read(oznaceni.getSifLijecnika());
+				this.jtLijecnik.setText(this.oznaceniLijecnik != null ? this.oznaceniLijecnik.toString() : "?!?");
 			} catch (SQLException e1) {
 				Logger.fatal("SQL iznimka kod trazenja lijeènika po šifri", e1);
-				JOptionPane
-						.showMessageDialog(
-								GlavniFrame.getInstanca(),
-								"Nastao je problem pri pretraživanju podataka. Provjerite poruke sustava!",
-								"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(GlavniFrame.getInstanca(),
+						"Nastao je problem pri pretraživanju podataka. Provjerite poruke sustava!", "Upozorenje!",
+						JOptionPane.WARNING_MESSAGE);
 			}
 		else {
 			this.oznaceniLijecnik = null;
@@ -901,20 +850,16 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		}
 
 		// 09.04.06. -asabo- dodano
-		this.jtBrojOsobnogRacunaOsnovno.setText(this.oznaceni
-				.getBrojOsobnogRacunaOsnovno());
-		this.jtBrojOsobnogRacunaDopunsko.setText(this.oznaceni
-				.getBrojOsobnogRacunaDopunsko());
+		this.jtBrojOsobnogRacunaOsnovno.setText(this.oznaceni.getBrojOsobnogRacunaOsnovno());
+		this.jtBrojOsobnogRacunaDopunsko.setText(this.oznaceni.getBrojOsobnogRacunaDopunsko());
 
 		// 07.05.06. -asabo- dodano
-		this.jcStrankaUzelaSkupljiModel.setSelected(this.oznaceni
-				.getKupljenSkupljiArtikl() != null ? this.oznaceni
-				.getKupljenSkupljiArtikl().booleanValue() : false);
+		this.jcStrankaUzelaSkupljiModel.setSelected(this.oznaceni.getKupljenSkupljiArtikl() != null
+				? this.oznaceni.getKupljenSkupljiArtikl().booleanValue() : false);
 
 		// 02.07.06. -asabo- dodano
-		this.jcRobaIsporucena
-				.setSelected(this.oznaceni.getRobaIsporucena() != null ? this.oznaceni
-						.getRobaIsporucena().booleanValue() : false);
+		this.jcRobaIsporucena.setSelected(
+				this.oznaceni.getRobaIsporucena() != null ? this.oznaceni.getRobaIsporucena().booleanValue() : false);
 
 		// 14.05.06. -asabo- dodano, treba namjestiti combo obx sa vrstama
 		// pomagala na ispravnu vrijednost
@@ -923,17 +868,16 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 		for (int i = 0; i < kom; i++) {
 			VrstaPomagalaVO vpvo = (VrstaPomagalaVO) jcb.getItemAt(i);
-			if (vpvo.getSifra().intValue() == this.oznaceni.getVrstaPomagala()
-					.intValue()) {
+			if (vpvo.getSifra().intValue() == this.oznaceni.getVrstaPomagala().intValue()) {
 				jcb.setSelectedIndex(i);
 				break;
 			}
-		}// for i
+		} // for i
 
 	}// napuniPodatke
 
 	private void ukljuciIno() {
-		this.jtBrojInoLista.setEnabled(true);		 
+		this.jtBrojInoLista.setEnabled(true);
 		this.jtDrzavaInoOsobe.setEnabled(true);
 		this.jlBrojBolesnickogLista.setEnabled(true);
 		this.jlDrzavaKlijenta.setEnabled(true);
@@ -963,7 +907,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			this.jtbOsnovno.setSelected(false);
 			this.jtbDopunsko.setSelected(true);
 			this.jtBrojPoliceDopunsko.setEnabled(true);
-			this.jtBrojOsobnogRacunaDopunsko.setEnabled(true);			
+			this.jtBrojOsobnogRacunaDopunsko.setEnabled(true);
 			this.jtSifraAktivnostiDop.setEnabled(true);
 			this.jlBrojOsobRacZaDopOsig.setEnabled(true);
 			this.jlBrojDopunskogOsig.setEnabled(true);
@@ -980,8 +924,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		String iznSudjelovanjaStr = this.jtIznosSudjelovanja.getText();
 		if (this.oznaceni == null) {
 			this.oznaceni = new RacunVO();
-			this.oznaceni.setSifra(Integer
-					.valueOf(biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA));
+			this.oznaceni.setSifra(Integer.valueOf(biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA));
 			this.omoguci();
 
 			boolean osn = this.jtbOsnovno.isSelected();
@@ -995,24 +938,21 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			else
 				ukljuciIno();
 
-		}// if oznaceni prazan
+		} // if oznaceni prazan
 
 		float iznosSudjelovanja = -1.0f;
 		try {
-			if (iznSudjelovanjaStr != null
-					&& !iznSudjelovanjaStr.trim().equals(""))
-				iznosSudjelovanja = Float.parseFloat(iznSudjelovanjaStr
-						.replaceAll("\\,", ".").trim());
+			if (iznSudjelovanjaStr != null && !iznSudjelovanjaStr.trim().equals(""))
+				iznosSudjelovanja = Float.parseFloat(iznSudjelovanjaStr.replaceAll("\\,", ".").trim());
 		} catch (NumberFormatException nfe) {
-			Logger.log("Problem sa parsiranjem iznosa sudjelovanja! "+iznSudjelovanjaStr, nfe);
+			Logger.log("Problem sa parsiranjem iznosa sudjelovanja! " + iznSudjelovanjaStr, nfe);
 			iznosSudjelovanja = -2.0f;
 		}
 
 		if (iznosSudjelovanja >= 0.0f)
-			this.oznaceni.setIznosSudjelovanja(Integer
-					.valueOf((int) (iznosSudjelovanja * 100.0f + 0.005f)));
+			this.oznaceni.setIznosSudjelovanja(Integer.valueOf((int) (iznosSudjelovanja * 100.0f + 0.005f)));
 		else
-			this.oznaceni.setIznosSudjelovanja( null );
+			this.oznaceni.setIznosSudjelovanja(null);
 
 		boolean osnovno = this.jtbOsnovno.isSelected();
 
@@ -1027,12 +967,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		} else {
 			this.oznaceni.setOsnovnoOsiguranje(Boolean.valueOf(false));
 			this.oznaceni.setDopunskoOsiguranje(Boolean.valueOf(true));
-			this.oznaceni.setBrojPoliceDopunsko(this.jtBrojPoliceDopunsko
-					.getText().trim());
+			this.oznaceni.setBrojPoliceDopunsko(this.jtBrojPoliceDopunsko.getText().trim());
 		}
 		// 02.07.06. -asabo- dodano
-		this.oznaceni.setRobaIsporucena(Boolean.valueOf(this.jcRobaIsporucena
-				.isSelected()));
+		this.oznaceni.setRobaIsporucena(Boolean.valueOf(this.jcRobaIsporucena.isSelected()));
 
 		if (this.oznaceniKlijent != null)
 			this.oznaceni.setSifKlijenta(this.oznaceniKlijent.getSifra());
@@ -1064,15 +1002,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					// zapisati i njegov hzzo broj ako postoji
 					if (!jtBrojIskaznice1.getText().trim().equals("")
 							&& !jtBrojIskaznice2.getText().trim().equals("")) {
-						kvo.setHzzo(jtBrojIskaznice1.getText().trim() + "/"
-								+ jtBrojIskaznice2.getText().trim());
+						kvo.setHzzo(jtBrojIskaznice1.getText().trim() + "/" + jtBrojIskaznice2.getText().trim());
 					}
 
-					kvo.setSpol(new Character(
-							imePrezime[0] != null
-									&& (imePrezime[0].charAt(imPrLen - 1) == 'A' || imePrezime[0]
-											.charAt(imPrLen - 1) == 'a') ? KlijentVO.SPOL_ZENSKO
-									: KlijentVO.SPOL_MUSKO));
+					kvo.setSpol(new Character(imePrezime[0] != null
+							&& (imePrezime[0].charAt(imPrLen - 1) == 'A' || imePrezime[0].charAt(imPrLen - 1) == 'a')
+									? KlijentVO.SPOL_ZENSKO : KlijentVO.SPOL_MUSKO));
 					Calendar c = Calendar.getInstance();
 					kvo.setDatUpisa(c);
 					kvo.setSlijedeciPregled(Calendar.getInstance()); // just in
@@ -1081,59 +1016,42 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					kvo.setPrimaInfo(false);
 					kvo.setModified(true);
 					kvo.setCreated(System.currentTimeMillis());
-					Integer sifDj = GlavniFrame.running?Integer.valueOf(GlavniFrame
-							.getSifDjelatnika()):null;
+					Integer sifDj = GlavniFrame.running ? Integer.valueOf(GlavniFrame.getSifDjelatnika()) : null;
 					kvo.setCreatedBy(sifDj);
 
 					if (GlavniFrame.running)
-					 DAOFactory.getInstance().getKlijenti().insert(kvo);
+						DAOFactory.getInstance().getKlijenti().insert(kvo);
 
-					if (kvo.getSifra() == null
-							|| kvo.getSifra().intValue() == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA)
-						Logger.log("Insertiran novi klijent sa hzzo forme, greške nema, ali šifra mu je: "
-								+ kvo != null
-								&& kvo.getSifra() != null ? ""
-								+ kvo.getSifra().intValue() : "null");
+					if (kvo.getSifra() == null || kvo.getSifra().intValue() == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA)
+						Logger.log("Insertiran novi klijent sa hzzo forme, greške nema, ali šifra mu je: " + kvo != null
+								&& kvo.getSifra() != null ? "" + kvo.getSifra().intValue() : "null");
 
 					this.oznaceniKlijent = kvo;
-					this.jtKlijent.setText("" + kvo.getIme() + " "
-							+ kvo.getPrezime());
-					this.oznaceni.setSifKlijenta(this.oznaceniKlijent
-							.getSifra());
+					this.jtKlijent.setText("" + kvo.getIme() + " " + kvo.getPrezime());
+					this.oznaceni.setSifKlijenta(this.oznaceniKlijent.getSifra());
 				} catch (SQLException e) {
-					Logger.fatal(
-							"SQL iznimka kod pokušaja ubacivanja novog klijenta iz Hzzo forme",
-							e);
-					JOptionPane
-							.showMessageDialog(
-									GlavniFrame.getInstanca(),
-									"Nastao je problem pri pohranjivanju klijenta. Kontaktirajte administratora",
-									"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+					Logger.fatal("SQL iznimka kod pokušaja ubacivanja novog klijenta iz Hzzo forme", e);
+					JOptionPane.showMessageDialog(GlavniFrame.getInstanca(),
+							"Nastao je problem pri pohranjivanju klijenta. Kontaktirajte administratora", "Upozorenje!",
+							JOptionPane.WARNING_MESSAGE);
 				} catch (Exception e) {
-					Logger.fatal(
-							"Opæa iznimka kod pokušaja ubacivanja novog klijenta iz Hzzo forme",
-							e);
-					JOptionPane
-							.showMessageDialog(
-									GlavniFrame.getInstanca(),
-									"Nastao je problem pri pohranjivanju klijenta. Kontaktirajte administratora",
-									"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+					Logger.fatal("Opæa iznimka kod pokušaja ubacivanja novog klijenta iz Hzzo forme", e);
+					JOptionPane.showMessageDialog(GlavniFrame.getInstanca(),
+							"Nastao je problem pri pohranjivanju klijenta. Kontaktirajte administratora", "Upozorenje!",
+							JOptionPane.WARNING_MESSAGE);
 				}
-			}// ako ima barem dva podatka
-		}// else
+			} // ako ima barem dva podatka
+		} // else
 
 		this.oznaceni.setDatumNarudzbe(this.datumNarudzbe.getDatum());
 		this.oznaceni.setDatumIzdavanja(this.datumIsporuke.getDatum());
 		this.oznaceni.setSifProizvodjaca(this.jtSifraProizvodjaca.getText());
 		this.oznaceni.setBrojPotvrde1(this.jtBrojPotvrde1.getText());
 		this.oznaceni.setBrojPotvrde2(this.jtBrojPotvrde2.getText());
-		this.oznaceni
-				.setSifPodrucnogUreda(this.oznacenaPodruznica != null ? this.oznacenaPodruznica
-						.getSifra() : null);
+		this.oznaceni.setSifPodrucnogUreda(this.oznacenaPodruznica != null ? this.oznacenaPodruznica.getSifra() : null);
 		// da se ne mora pokretati DAOFactory i traziti koje je to mjesto...
 		this.oznaceni.setPodrucniUred(this.oznacenaPodruznica);
-		this.oznaceni.setBrojPotvrdePomagala(this.jtBrojPotvrdeLijecnik
-				.getText());
+		this.oznaceni.setBrojPotvrdePomagala(this.jtBrojPotvrdeLijecnik.getText());
 		this.oznaceni.setAktivnostZZR(this.jtSifraAktivnosti.getText());
 
 		if (!this.jtPozivNaBroj1.getText().trim().equals(""))
@@ -1153,11 +1071,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 		// 01.04.06. -asabo- dodano
 		if (jcIno.isSelected()) {
-			this.oznaceni.setBrojInoBolesnickogLista(this.jtBrojInoLista
-					.getText().trim());
-			this.oznaceni
-					.setSifDrzave(this.oznacenaDrzava != null ? this.oznacenaDrzava
-							.getSifra() : null);
+			this.oznaceni.setBrojInoBolesnickogLista(this.jtBrojInoLista.getText().trim());
+			this.oznaceni.setSifDrzave(this.oznacenaDrzava != null ? this.oznacenaDrzava.getSifra() : null);
 		} else {
 			this.oznaceni.setSifDrzave(null);// sa ovim se osiguravamo da vise
 												// ino nije ukljucen, a ostali
@@ -1214,67 +1129,45 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					krit.setPodaci(l);
 					// prvo treba provjeriti da slucajno lijecnik vec ne postoji
 					// u bazi, kod njih na to treba paziti
-					LijecnikVO lvo2 = (LijecnikVO) DAOFactory.getInstance()
-							.getLijecnici().read(krit);
+					LijecnikVO lvo2 = (LijecnikVO) DAOFactory.getInstance().getLijecnici().read(krit);
 
 					if (lvo2 != null) {
 						this.oznaceniLijecnik = lvo2;
-						this.jtLijecnik.setText("" + lvo2.getIme() + " "
-								+ lvo2.getPrezime());
-						this.oznaceni.setSifLijecnika(this.oznaceniLijecnik
-								.getSifra());
+						this.jtLijecnik.setText("" + lvo2.getIme() + " " + lvo2.getPrezime());
+						this.oznaceni.setSifLijecnika(this.oznaceniLijecnik.getSifra());
 					} else {
 						// insertiramo lijecnika u bazu podataka
 						DAOFactory.getInstance().getLijecnici().insert(lvo);
 
-						if (lvo.getSifra() == null
-								|| lvo.getSifra().intValue() == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA)
+						if (lvo.getSifra() == null || lvo.getSifra().intValue() == biz.sunce.dao.DAO.NEPOSTOJECA_SIFRA)
 							Logger.log("Insertiran novi lijeènik sa hzzo forme, greške nema, ali šifra mu je: "
-									+ lvo != null
-									&& lvo.getSifra() != null ? ""
-									+ lvo.getSifra().intValue() : "null");
+									+ lvo != null && lvo.getSifra() != null ? "" + lvo.getSifra().intValue() : "null");
 
 						this.oznaceniLijecnik = lvo;
-						this.jtLijecnik.setText("" + lvo.getIme() + " "
-								+ lvo.getPrezime());
-						this.oznaceni.setSifLijecnika(this.oznaceniLijecnik
-								.getSifra());
-					}// else nije nasao lijecnika sa tim imenom i prezimenom
+						this.jtLijecnik.setText("" + lvo.getIme() + " " + lvo.getPrezime());
+						this.oznaceni.setSifLijecnika(this.oznaceniLijecnik.getSifra());
+					} // else nije nasao lijecnika sa tim imenom i prezimenom
 				} catch (SQLException e) {
-					Logger.fatal(
-							"SQL iznimka kod pokušaja ubacivanja novog lijecnika iz Hzzo forme",
-							e);
-					JOptionPane
-							.showMessageDialog(
-									GlavniFrame.getInstanca(),
-									"Nastao je problem pri pohranjivanju lijeènika. Kontaktirajte administratora",
-									"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+					Logger.fatal("SQL iznimka kod pokušaja ubacivanja novog lijecnika iz Hzzo forme", e);
+					JOptionPane.showMessageDialog(GlavniFrame.getInstanca(),
+							"Nastao je problem pri pohranjivanju lijeènika. Kontaktirajte administratora",
+							"Upozorenje!", JOptionPane.WARNING_MESSAGE);
 				} catch (Exception e) {
-					Logger.fatal(
-							"Opæa iznimka kod pokušaja ubacivanja novog lijecnika iz Hzzo forme",
-							e);
-					JOptionPane
-							.showMessageDialog(
-									GlavniFrame.getInstanca(),
-									"Nastao je problem pri pohranjivanju lijeènika. Kontaktirajte administratora",
-									"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+					Logger.fatal("Opæa iznimka kod pokušaja ubacivanja novog lijecnika iz Hzzo forme", e);
+					JOptionPane.showMessageDialog(GlavniFrame.getInstanca(),
+							"Nastao je problem pri pohranjivanju lijeènika. Kontaktirajte administratora",
+							"Upozorenje!", JOptionPane.WARNING_MESSAGE);
 				}
-			}// ako ima barem dva podatka
-		}// else lijecnik nije odabran a postoji ime i prezime na formi
+			} // ako ima barem dva podatka
+		} // else lijecnik nije odabran a postoji ime i prezime na formi
 
 		// 09.04.06. -asabo- dodano
-		this.oznaceni
-				.setBrojOsobnogRacunaOsnovno(this.jtBrojOsobnogRacunaOsnovno
-						.getText().trim());
-		this.oznaceni
-				.setBrojOsobnogRacunaDopunsko(this.jtBrojOsobnogRacunaDopunsko
-						.getText().trim());
-		this.oznaceni.setKupljenSkupljiArtikl(Boolean
-				.valueOf(this.jcStrankaUzelaSkupljiModel.isSelected()));
+		this.oznaceni.setBrojOsobnogRacunaOsnovno(this.jtBrojOsobnogRacunaOsnovno.getText().trim());
+		this.oznaceni.setBrojOsobnogRacunaDopunsko(this.jtBrojOsobnogRacunaDopunsko.getText().trim());
+		this.oznaceni.setKupljenSkupljiArtikl(Boolean.valueOf(this.jcStrankaUzelaSkupljiModel.isSelected()));
 
 		// 14.05.06. -asabo- dodano
-		VrstaPomagalaVO vpvo = (VrstaPomagalaVO) this.jcVrstaPomagala
-				.getSelectedItem();
+		VrstaPomagalaVO vpvo = (VrstaPomagalaVO) this.jcVrstaPomagala.getSelectedItem();
 		this.oznaceni.setVrstaPomagala(vpvo.getSifra());
 
 		// -as- 2009-03-21
@@ -1282,15 +1175,13 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		this.oznaceni.setBrojPotvrdePomagala(bp.equals("") ? null : bp);
 
 		// -as- 2009-05-13
-		this.oznaceni.setAktivnostDop(osnovno ? null
-				: this.jtSifraAktivnostiDop.getText().trim());
+		this.oznaceni.setAktivnostDop(osnovno ? null : this.jtSifraAktivnostiDop.getText().trim());
 
 		return this.oznaceni;
 	}// vratiPodatke
 
 	public static void alert(String poruka) {
-		JOptionPane.showMessageDialog(GlavniFrame.getInstanca(), poruka,
-				"Upozorenje!", JOptionPane.WARNING_MESSAGE);
+		JOptionPane.showMessageDialog(GlavniFrame.getInstanca(), poruka, "Upozorenje!", JOptionPane.WARNING_MESSAGE);
 	}
 
 	public void pobrisiFormu() {
@@ -1398,8 +1289,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jpnTipOsiguranja.add(getJtbOsnovno(), null);
 			jpnTipOsiguranja.add(getJtbDopunsko(), null);
 			jpnTipOsiguranja.setPreferredSize(new Dimension(155, 27));
-			jpnTipOsiguranja
-					.setToolTipText("osiguranje može biti osnovno ili dopunsko");
+			jpnTipOsiguranja.setToolTipText("osiguranje može biti osnovno ili dopunsko");
 		}
 		return jpnTipOsiguranja;
 	}
@@ -1428,25 +1318,20 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jtSifraProizvodjaca == null) {
 			jtSifraProizvodjaca = new javax.swing.JTextField();
 			jtSifraProizvodjaca.setHorizontalAlignment(SwingConstants.LEFT);
-			jtSifraProizvodjaca
-					.setPreferredSize(new java.awt.Dimension(120, 20));
+			jtSifraProizvodjaca.setPreferredSize(new java.awt.Dimension(120, 20));
 			jtSifraProizvodjaca.setMinimumSize(new java.awt.Dimension(120, 20));
 
-			jtSifraProizvodjaca
-					.setToolTipText("ne koristi se vise!");
+			jtSifraProizvodjaca.setToolTipText("ne koristi se vise!");
 
-			jtSifraProizvodjaca
-					.addFocusListener(new java.awt.event.FocusAdapter() {
-						public void focusGained(java.awt.event.FocusEvent e) {
-							jtSifraProizvodjaca.selectAll();
-						}
-					});
+			jtSifraProizvodjaca.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtSifraProizvodjaca.selectAll();
+				}
+			});
 
-			ProizvodjaciDAO proizvodjaci = GlavniFrame.running?DAOFactory.getInstance()
-					.getProizvodjaci():null;
-			this.pretrazivanjeProizvodjaci = new PretrazivanjeProzor(
-					GlavniFrame.getInstanca(), proizvodjaci, 10, 20, 170, 100,
-					(Component) jtSifraProizvodjaca);
+			ProizvodjaciDAO proizvodjaci = GlavniFrame.running ? DAOFactory.getInstance().getProizvodjaci() : null;
+			this.pretrazivanjeProizvodjaci = new PretrazivanjeProzor(GlavniFrame.getInstanca(), proizvodjaci, 10, 20,
+					170, 100, (Component) jtSifraProizvodjaca);
 			this.pretrazivanjeProizvodjaci.dodajSlusaca(this);
 			this.pretrazivanjeProizvodjaci.setMaksimumZaPretrazivanje(8);
 
@@ -1477,8 +1362,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtBrojPotvrde1 = new javax.swing.JTextField();
 			jtBrojPotvrde1.setPreferredSize(new Dimension(45, 24));
 			jtBrojPotvrde1.setMinimumSize(new Dimension(45, 23));
-			jtBrojPotvrde1
-					.setToolTipText("šifra podruènog ureda, automatski æe se postaviti");
+			jtBrojPotvrde1.setToolTipText("šifra podruènog ureda, automatski æe se postaviti");
 		}
 		return jtBrojPotvrde1;
 	}
@@ -1504,34 +1388,35 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		}
 		return jtBrojPotvrde2;
 	}
-	
-	private Thread ispitivacHzzoBrojaPotvrde=null;
+
+	private Thread ispitivacHzzoBrojaPotvrde = null;
 	private final static CheckDigit cd = new CheckISO7064Mod11_10();
+
 	/*
-	 * spina poseban thread koji provjerava jeli broj ispravan, i ako nije odradjuje animaciju kojom 
-	 * upozorava korisnika na neispravnost broja. Nazalost, jos uvijek su u opticaju brojevi koji nisu ispravni
-	 * po ISO standardu, ali kao takvi su propisani i odobreni od HZZO-a, pa moraju proci.. 
+	 * spina poseban thread koji provjerava jeli broj ispravan, i ako nije
+	 * odradjuje animaciju kojom upozorava korisnika na neispravnost broja.
+	 * Nazalost, jos uvijek su u opticaju brojevi koji nisu ispravni po ISO
+	 * standardu, ali kao takvi su propisani i odobreni od HZZO-a, pa moraju
+	 * proci..
 	 */
 	private void provjeriIspravnostHzzoBrojaPotvrde() {
 
-		if (ispitivacHzzoBrojaPotvrde == null
-				|| !ispitivacHzzoBrojaPotvrde.isAlive()) {
+		if (ispitivacHzzoBrojaPotvrde == null || !ispitivacHzzoBrojaPotvrde.isAlive()) {
 			ispitivacHzzoBrojaPotvrde = new Thread() {
 				@Override
 				public void run() {
+					this.setPriority(MIN_PRIORITY);
 					final String broj = jtBrojPotvrde2.getText().trim();
-					
-					if (broj.length() > 8 && !cd.verify(broj)) 
-					{
-						GUI.odradiUpozorenjeNaElementu(jtBrojPotvrde2, "Neispavan broj potvrde!!!");						
+
+					if (broj.length() > 8 && !cd.verify(broj)) {
+						GUI.odradiUpozorenjeNaElementu(jtBrojPotvrde2, "Neispavan broj potvrde!!!");
 					}
 				}
 			};
 
 			ispitivacHzzoBrojaPotvrde.start();
-		}	
+		}
 	}
-
 
 	/**
 	 * This method initializes jLabel6
@@ -1555,12 +1440,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jtBrojPoliceDopunsko == null) {
 			jtBrojPoliceDopunsko = new javax.swing.JTextField();
 			jtBrojPoliceDopunsko.setHorizontalAlignment(SwingConstants.LEFT);
-			jtBrojPoliceDopunsko
-					.setToolTipText("broj kartice dopunskog osiguranja, 8 znakova, obavezan podatak ako radite raèun za dopunsko osiguranje");
-			jtBrojPoliceDopunsko.setPreferredSize(new java.awt.Dimension(120,
-					20));
-			jtBrojPoliceDopunsko
-					.setMinimumSize(new java.awt.Dimension(120, 20));
+			jtBrojPoliceDopunsko.setToolTipText(
+					"broj kartice dopunskog osiguranja, 8 znakova, obavezan podatak ako radite raèun za dopunsko osiguranje");
+			jtBrojPoliceDopunsko.setPreferredSize(new java.awt.Dimension(120, 20));
+			jtBrojPoliceDopunsko.setMinimumSize(new java.awt.Dimension(120, 20));
 		}
 		return jtBrojPoliceDopunsko;
 	}
@@ -1586,18 +1469,16 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	public javax.swing.JTextField getJtIznosSudjelovanja() {
 		if (jtIznosSudjelovanja == null) {
 			jtIznosSudjelovanja = new javax.swing.JTextField();
-			jtIznosSudjelovanja
-					.setToolTipText("iznos sudjelovanja na raèun klijenta ili dopunskog osiguranja ovisno o kojoj vrsti raèuna se radi, sudjelovanje klijenta ili iznos na teret dopunskog osiguranja");
-			jtIznosSudjelovanja
-					.setPreferredSize(new Dimension(120, 23));
+			jtIznosSudjelovanja.setToolTipText(
+					"iznos sudjelovanja na raèun klijenta ili dopunskog osiguranja ovisno o kojoj vrsti raèuna se radi, sudjelovanje klijenta ili iznos na teret dopunskog osiguranja");
+			jtIznosSudjelovanja.setPreferredSize(new Dimension(120, 23));
 			jtIznosSudjelovanja.setMinimumSize(new java.awt.Dimension(120, 20));
 			jtIznosSudjelovanja.setText("");
-			jtIznosSudjelovanja
-					.addFocusListener(new java.awt.event.FocusAdapter() {
-						public void focusGained(java.awt.event.FocusEvent e) {
-							jtIznosSudjelovanja.selectAll();
-						}
-					});
+			jtIznosSudjelovanja.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtIznosSudjelovanja.selectAll();
+				}
+			});
 		}
 		return jtIznosSudjelovanja;
 	}
@@ -1609,10 +1490,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 		if (izvornik instanceof KlijentVO) {
 			this.oznaceniKlijent = (KlijentVO) labela.getIzvornik();
-			this.jtKlijent
-					.setText(this.oznaceniKlijent != null ? this.oznaceniKlijent
-							.getIme() + " " + this.oznaceniKlijent.getPrezime()
-							: "?!?");
+			this.jtKlijent.setText(this.oznaceniKlijent != null
+					? this.oznaceniKlijent.getIme() + " " + this.oznaceniKlijent.getPrezime() : "?!?");
 
 			String hzzoBroj = this.oznaceniKlijent.getHzzo();
 			if (hzzoBroj != null && hzzoBroj.indexOf('/') != -1) {
@@ -1623,46 +1502,38 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					getJtLijecnik().requestFocusInWindow();
 					this.brojIskaznice2FocusLost(null, false);
 
-				}// if
-			}// if hzzoBroj postoji
-		}// if izvornik KlijentVO
+				} // if
+			} // if hzzoBroj postoji
+		} // if izvornik KlijentVO
 		else if (izvornik instanceof MjestoVO) {
 			this.oznacenaPodruznica = (MjestoVO) izvornik;
 			this.jtPodruznica.setText(this.oznacenaPodruznica.getNaziv());
 
-			String hzzoKljuc = jtSifraAktivnosti.getText().trim().toUpperCase()
-					.startsWith("A6") ? "hzzo_adr_" : "hzzozzr_adr_";
-			jtAdresaPodruznice.setText(PostavkeBean.getPostavkaDB(hzzoKljuc
-					+ oznacenaPodruznica.getSifra().intValue(), ""));
+			String hzzoKljuc = jtSifraAktivnosti.getText().trim().toUpperCase().startsWith("A6") ? "hzzo_adr_"
+					: "hzzozzr_adr_";
+			jtAdresaPodruznice
+					.setText(PostavkeBean.getPostavkaDB(hzzoKljuc + oznacenaPodruznica.getSifra().intValue(), ""));
 
 			Integer bp = this.oznacenaPodruznica.getSifPodruzniceHzzo();
 			if (bp != null) {
 				this.jtBrojPotvrde1.setText("" + bp.intValue());
-				// samo ako unutra nema NISTA
-				if (this.jtBrojIskaznice1.getText().trim().equals(""))
-					this.jtBrojIskaznice1.setText("" + bp.intValue());
-			}// if
+			} // if
 
 			this.jtKlijent.requestFocusInWindow();
 
-		}// if izvornik
+		} // if izvornik
 		else if (izvornik instanceof DrzavaVO) {
 			this.oznacenaDrzava = (DrzavaVO) labela.getIzvornik();
-			this.jtDrzavaInoOsobe
-					.setText(this.oznacenaDrzava != null ? this.oznacenaDrzava
-							.getNaziv() : "?!?");
+			this.jtDrzavaInoOsobe.setText(this.oznacenaDrzava != null ? this.oznacenaDrzava.getNaziv() : "?!?");
 			this.jtIznosSudjelovanja.requestFocusInWindow();
 		} else if (izvornik instanceof LijecnikVO) {
 			this.oznaceniLijecnik = (LijecnikVO) labela.getIzvornik();
-			this.jtLijecnik
-					.setText(this.oznaceniLijecnik != null ? this.oznaceniLijecnik
-							.toString() : "?!?");
+			this.jtLijecnik.setText(this.oznaceniLijecnik != null ? this.oznaceniLijecnik.toString() : "?!?");
 			this.jtBrojPotvrde2.requestFocusInWindow();
 		} else if (izvornik instanceof ProizvodjacVO) {
 			this.oznaceniProizvodjac = (ProizvodjacVO) izvornik;
 			Integer hz = this.oznaceniProizvodjac.getHzzoSifra();
-			this.jtSifraProizvodjaca.setText(hz != null ? "" + hz.intValue()
-					: "");
+			this.jtSifraProizvodjaca.setText(hz != null ? "" + hz.intValue() : "");
 		}
 	}
 
@@ -1698,10 +1569,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				}
 			});
 
-			MjestoDAO mjesta = GlavniFrame.running?DAOFactory.getInstance()
-					.getMjesta():null;
-			this.pretrazivanjePodruznica = new PretrazivanjeProzor(
-					GlavniFrame.getInstanca(), mjesta, 10, 20, 160, 60,
+			MjestoDAO mjesta = GlavniFrame.running ? DAOFactory.getInstance().getMjesta() : null;
+			this.pretrazivanjePodruznica = new PretrazivanjeProzor(GlavniFrame.getInstanca(), mjesta, 10, 20, 160, 60,
 					(Component) jtPodruznica);
 			SearchCriteria kr = new SearchCriteria();
 			kr.setKriterij(MjestoVO.KRITERIJ_PRETRAZIVANJA_PODRUZNICE);
@@ -1713,7 +1582,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			this.pretrazivanjePodruznica.setMaksimumZaPretrazivanje(8);
 			this.pretrazivanjePodruznica.dodajSlusaca(this);
 
-		}// if jtPodruznica==null
+		} // if jtPodruznica==null
 		return jtPodruznica;
 	}
 
@@ -1747,8 +1616,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jpPozivNaBroj.add(getJtPozivNaBroj2(), null);
 			jpPozivNaBroj.setPreferredSize(new Dimension(200, 25));
 			jpPozivNaBroj.setMinimumSize(new Dimension(166, 25));
-			jpPozivNaBroj
-					.setToolTipText("poziv na broj, sam æe se postaviti ako ste tako htjeli");
+			jpPozivNaBroj.setToolTipText("poziv na broj, sam æe se postaviti ako ste tako htjeli");
 		}
 		return jpPozivNaBroj;
 	}
@@ -1764,8 +1632,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtPozivNaBroj1.setPreferredSize(new Dimension(35, 24));
 			jtPozivNaBroj1.setMinimumSize(new Dimension(30, 22));
 			jtPozivNaBroj1.setToolTipText("prvi dio poziva na broj");
-			jtPozivNaBroj1
-					.setHorizontalAlignment(SwingConstants.LEFT);
+			jtPozivNaBroj1.setHorizontalAlignment(SwingConstants.LEFT);
 		}
 		return jtPozivNaBroj1;
 	}
@@ -1787,8 +1654,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 					// vrijednost upisanog
 					// poziva na broj
 					if (jtBrojOsobnogRacunaOsnovno.getText().trim().equals(""))
-						jtBrojOsobnogRacunaOsnovno.setText(jtPozivNaBroj2
-								.getText());
+						jtBrojOsobnogRacunaOsnovno.setText(jtPozivNaBroj2.getText());
 				}
 
 				public void focusGained(java.awt.event.FocusEvent e) {
@@ -1821,8 +1687,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JTextField getJtNapomena() {
 		if (jtNapomena == null) {
 			jtNapomena = new javax.swing.JTextField();
-			jtNapomena
-					.setToolTipText("napomena uz izdani raèun, bit æe ispisana na formularu");
+			jtNapomena.setToolTipText("napomena uz izdani raèun, bit æe ispisana na formularu");
 		}
 		return jtNapomena;
 	}
@@ -1850,27 +1715,20 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtAdresaPodruznice = new javax.swing.JTextField();
 			jtAdresaPodruznice.setHorizontalAlignment(SwingConstants.LEFT);
 			jtAdresaPodruznice.setPreferredSize(new Dimension(162, 22));
-			jtAdresaPodruznice
-					.setToolTipText("adresa HZZO podružnice za koju radite raèun");
-			jtAdresaPodruznice
-					.addFocusListener(new java.awt.event.FocusAdapter() {
-						public void focusLost(java.awt.event.FocusEvent e) {
-							String hzzoKljuc = jtSifraAktivnosti.getText()
-									.trim().toUpperCase().startsWith("A6") ? "hzzo_adr_"
-									: "hzzozzr_adr_";
-							if (oznacenaPodruznica != null
-									&& !jtAdresaPodruznice.getText().trim()
-											.equals(""))
-								PostavkeBean.setPostavkaDB(hzzoKljuc
-										+ oznacenaPodruznica.getSifra()
-												.intValue(), jtAdresaPodruznice
-										.getText().trim());
-						}
+			jtAdresaPodruznice.setToolTipText("adresa HZZO podružnice za koju radite raèun");
+			jtAdresaPodruznice.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusLost(java.awt.event.FocusEvent e) {
+					String hzzoKljuc = jtSifraAktivnosti.getText().trim().toUpperCase().startsWith("A6") ? "hzzo_adr_"
+							: "hzzozzr_adr_";
+					if (oznacenaPodruznica != null && !jtAdresaPodruznice.getText().trim().equals(""))
+						PostavkeBean.setPostavkaDB(hzzoKljuc + oznacenaPodruznica.getSifra().intValue(),
+								jtAdresaPodruznice.getText().trim());
+				}
 
-						public void focusGained(java.awt.event.FocusEvent e) {
-							jtAdresaPodruznice.selectAll();
-						}
-					});
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtAdresaPodruznice.selectAll();
+				}
+			});
 		}
 		return jtAdresaPodruznice;
 	}
@@ -1883,7 +1741,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	private javax.swing.JLabel getJLabel12() {
 		if (jLabel12 == null) {
 			jLabel12 = new javax.swing.JLabel();
-			jLabel12.setText("Broj osiguranja klijenta:");
+			jLabel12.setText("FLID-ID/MBO/OIB:");
 			jLabel12.setPreferredSize(new java.awt.Dimension(133, 20));
 			jLabel12.setMinimumSize(new java.awt.Dimension(133, 20));
 			jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -1902,7 +1760,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtBrojIskaznice1 = new javax.swing.JTextField();
 			jtBrojIskaznice1.setPreferredSize(new Dimension(40, 24));
 			jtBrojIskaznice1.setMinimumSize(new Dimension(40, 24));
-			jtBrojIskaznice1.setToolTipText("prvi dio, 3 broja");
+			jtBrojIskaznice1.setToolTipText("prvi dio, 3 broja, koristiti samo ako je FLID-ID");
 		}
 		return jtBrojIskaznice1;
 	}
@@ -1917,7 +1775,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtBrojIskaznice2 = new javax.swing.JTextField();
 			jtBrojIskaznice2.setPreferredSize(new Dimension(111, 24));
 			jtBrojIskaznice2.setMinimumSize(new Dimension(90, 24));
-			jtBrojIskaznice2.setToolTipText("drugi dio, 8 brojeva");
+			jtBrojIskaznice2.setToolTipText("drugi dio od FLID-ID, 8 brojeva (ako je FLID-ID), ili MBO ili OIB");
 			jtBrojIskaznice2.setNextFocusableComponent(getJtLijecnik());
 			jtBrojIskaznice2.addFocusListener(new FocusAdapter() {
 				@Override
@@ -1997,8 +1855,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtBrojInoLista.setPreferredSize(new Dimension(210, 24));
 			jtBrojInoLista.setMinimumSize(new Dimension(150, 24));
 			jtBrojInoLista.setMaximumSize(new Dimension(215, 24));
-			jtBrojInoLista
-					.setToolTipText("broj europske kartice ili bolesni\u010Dkog lista stranca, NNN/NNNNNNNNN ");
+			jtBrojInoLista.setToolTipText("broj europske kartice ili bolesni\u010Dkog lista stranca, NNN/NNNNNNNNN ");
 		}
 		return jtBrojInoLista;
 	}
@@ -2030,26 +1887,21 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtDrzavaInoOsobe.setPreferredSize(new Dimension(147, 25));
 			jtDrzavaInoOsobe.setMinimumSize(new java.awt.Dimension(120, 25));
 
-			jtDrzavaInoOsobe
-					.setToolTipText("država klijenta (ako je stranac) - obavezan podatak");
-			jtDrzavaInoOsobe
-					.addFocusListener(new java.awt.event.FocusAdapter() {
-						public void focusGained(java.awt.event.FocusEvent e) {
-							jtDrzavaInoOsobe.selectAll();
-						}
-					});
-			jtDrzavaInoOsobe
-					.addActionListener(new java.awt.event.ActionListener() {
-						public void actionPerformed(java.awt.event.ActionEvent e) {
-							if (jtDrzavaInoOsobe.getText().trim().equals(""))
-								oznacenaDrzava = null;
-						}
-					});
+			jtDrzavaInoOsobe.setToolTipText("država klijenta (ako je stranac) - obavezan podatak");
+			jtDrzavaInoOsobe.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtDrzavaInoOsobe.selectAll();
+				}
+			});
+			jtDrzavaInoOsobe.addActionListener(new java.awt.event.ActionListener() {
+				public void actionPerformed(java.awt.event.ActionEvent e) {
+					if (jtDrzavaInoOsobe.getText().trim().equals(""))
+						oznacenaDrzava = null;
+				}
+			});
 
-			DrzavaDAO drzava = GlavniFrame.running?DAOFactory.getInstance()
-					.getDrzava():null;
-			this.pretrazivanjeDrzave = new PretrazivanjeProzor(
-					GlavniFrame.getInstanca(), drzava, 10, 20, 170, 100,
+			DrzavaDAO drzava = GlavniFrame.running ? DAOFactory.getInstance().getDrzava() : null;
+			this.pretrazivanjeDrzave = new PretrazivanjeProzor(GlavniFrame.getInstanca(), drzava, 10, 20, 170, 100,
 					(Component) jtDrzavaInoOsobe);
 			this.pretrazivanjeDrzave.dodajSlusaca(this);
 			this.pretrazivanjeDrzave.setMaksimumZaPretrazivanje(7);
@@ -2083,8 +1935,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtLijecnik = new javax.swing.JTextField();
 			jtLijecnik.setPreferredSize(new Dimension(160, 23));
 			jtLijecnik.setMinimumSize(new java.awt.Dimension(160, 20));
-			jtLijecnik
-					.setToolTipText("lijeènik koji je izdao recept, ako ne dobijete ponudu na popisu, pazite da obavezno unesete prvo ime pa prezime lijeènika");
+			jtLijecnik.setToolTipText(
+					"lijeènik koji je izdao recept, ako ne dobijete ponudu na popisu, pazite da obavezno unesete prvo ime pa prezime lijeènika");
 			jtLijecnik.setNextFocusableComponent(getJtBrojPotvrde2());
 			jtLijecnik.addActionListener(new java.awt.event.ActionListener() {
 				public void actionPerformed(java.awt.event.ActionEvent e) {
@@ -2097,9 +1949,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				public void focusLost(java.awt.event.FocusEvent e) {
 					if (jtLijecnik.getText().trim().equals(""))
 						oznaceniLijecnik = null; // brisanje lijecnika..
-					if (oznaceniLijecnik != null
-							&& !oznaceniLijecnik.toString().equals(
-									jtLijecnik.getText().trim()))
+					if (oznaceniLijecnik != null && !oznaceniLijecnik.toString().equals(jtLijecnik.getText().trim()))
 						oznaceniLijecnik = null;
 				}
 
@@ -2108,11 +1958,9 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				}
 			});
 
-			LijecnikDAO lijecnici = GlavniFrame.running?DAOFactory.getInstance()
-					.getLijecnici():null;
-			this.pretrazivanjeLijecnici = new PretrazivanjeProzor(
-					GlavniFrame.getInstanca(), lijecnici, 10, 20, 170, 100,
-					(Component) jtLijecnik);
+			LijecnikDAO lijecnici = GlavniFrame.running ? DAOFactory.getInstance().getLijecnici() : null;
+			this.pretrazivanjeLijecnici = new PretrazivanjeProzor(GlavniFrame.getInstanca(), lijecnici, 10, 20, 170,
+					100, (Component) jtLijecnik);
 			this.pretrazivanjeLijecnici.dodajSlusaca(this);
 			this.pretrazivanjeLijecnici.setMinimumZnakovaZaPretrazivanje(3);
 			this.pretrazivanjeLijecnici.setMaksimumZaPretrazivanje(10);
@@ -2139,38 +1987,28 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	private javax.swing.JTextField getJtBrojOsobnogRacunaOsnovno() 
-	{
-		if (jtBrojOsobnogRacunaOsnovno == null) 
-		{
+	private javax.swing.JTextField getJtBrojOsobnogRacunaOsnovno() {
+		if (jtBrojOsobnogRacunaOsnovno == null) {
 			jtBrojOsobnogRacunaOsnovno = new javax.swing.JTextField();
 			jtBrojOsobnogRacunaOsnovno.setPreferredSize(new Dimension(120, 23));
-			jtBrojOsobnogRacunaOsnovno.setMinimumSize(new java.awt.Dimension(
-					120, 22));
-			jtBrojOsobnogRacunaOsnovno
-					.setToolTipText("broj osobnog raèuna za osnovno osiguranje, obavezan podatak, ako ne stavite ništa, upisat æe se broj raèuna");
-			jtBrojOsobnogRacunaOsnovno
-					.addFocusListener(new java.awt.event.FocusAdapter() {
-						public void focusLost(java.awt.event.FocusEvent e) {
-							// 11.05.06. -asabo- dodano kopiranje broja osobnog
-							// racuna..
-							if (jtbDopunsko.isSelected()
-									&& jtBrojOsobnogRacunaDopunsko.getText()
-											.trim().equals("")
-									&& !jtBrojOsobnogRacunaOsnovno.getText()
-											.trim().equals(""))
-								jtBrojOsobnogRacunaDopunsko
-										.setText(jtBrojOsobnogRacunaOsnovno
-												.getText().trim() + "");
-						}
+			jtBrojOsobnogRacunaOsnovno.setMinimumSize(new java.awt.Dimension(120, 22));
+			jtBrojOsobnogRacunaOsnovno.setToolTipText(
+					"broj osobnog raèuna za osnovno osiguranje, obavezan podatak, ako ne stavite ništa, upisat æe se broj raèuna");
+			jtBrojOsobnogRacunaOsnovno.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusLost(java.awt.event.FocusEvent e) {
+					// 11.05.06. -asabo- dodano kopiranje broja osobnog
+					// racuna..
+					if (jtbDopunsko.isSelected() && jtBrojOsobnogRacunaDopunsko.getText().trim().equals("")
+							&& !jtBrojOsobnogRacunaOsnovno.getText().trim().equals(""))
+						jtBrojOsobnogRacunaDopunsko.setText(jtBrojOsobnogRacunaOsnovno.getText().trim() + "");
+				}
 
-						public void focusGained(java.awt.event.FocusEvent e) {
-							jtBrojOsobnogRacunaOsnovno.selectAll();
-						}
-					}
-					);
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtBrojOsobnogRacunaOsnovno.selectAll();
+				}
+			});
 		}
-		
+
 		return jtBrojOsobnogRacunaOsnovno;
 	}
 
@@ -2179,14 +2017,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JLabel
 	 */
-	private javax.swing.JLabel getJlBrojOsobRacZaDopOsig() 
-	{
-		if (jlBrojOsobRacZaDopOsig == null) 
-		{
+	private javax.swing.JLabel getJlBrojOsobRacZaDopOsig() {
+		if (jlBrojOsobRacZaDopOsig == null) {
 			jlBrojOsobRacZaDopOsig = new javax.swing.JLabel();
 			jlBrojOsobRacZaDopOsig.setText("Broj osob. raè. za dop. osig:");
 		}
-		
+
 		return jlBrojOsobRacZaDopOsig;
 	}
 
@@ -2195,24 +2031,20 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JTextField
 	 */
-	private javax.swing.JTextField getJtBrojOsobnogRacunaDopunsko() 
-	{
+	private javax.swing.JTextField getJtBrojOsobnogRacunaDopunsko() {
 		if (jtBrojOsobnogRacunaDopunsko == null) {
 			jtBrojOsobnogRacunaDopunsko = new javax.swing.JTextField();
-			jtBrojOsobnogRacunaDopunsko
-					.setPreferredSize(new Dimension(161, 23));
-			jtBrojOsobnogRacunaDopunsko.setMinimumSize(new java.awt.Dimension(
-					120, 22));
+			jtBrojOsobnogRacunaDopunsko.setPreferredSize(new Dimension(161, 23));
+			jtBrojOsobnogRacunaDopunsko.setMinimumSize(new java.awt.Dimension(120, 22));
 			jtBrojOsobnogRacunaDopunsko
 					.setToolTipText("broj osobnog raèuna za dopunsko osiguranje, nije obavezan podatak");
-			jtBrojOsobnogRacunaDopunsko
-					.addFocusListener(new java.awt.event.FocusAdapter() {
-						public void focusGained(java.awt.event.FocusEvent e) {
-							jtBrojOsobnogRacunaDopunsko.selectAll();
-						}
-					});
+			jtBrojOsobnogRacunaDopunsko.addFocusListener(new java.awt.event.FocusAdapter() {
+				public void focusGained(java.awt.event.FocusEvent e) {
+					jtBrojOsobnogRacunaDopunsko.selectAll();
+				}
+			});
 		}
-	
+
 		return jtBrojOsobnogRacunaDopunsko;
 	}
 
@@ -2221,19 +2053,16 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JCheckBox
 	 */
-	private javax.swing.JCheckBox getJcStrankaUzelaSkupljiModel() 
-	{
-		if (jcStrankaUzelaSkupljiModel == null) 
-		{
+	private javax.swing.JCheckBox getJcStrankaUzelaSkupljiModel() {
+		if (jcStrankaUzelaSkupljiModel == null) {
 			jcStrankaUzelaSkupljiModel = new javax.swing.JCheckBox();
 			jcStrankaUzelaSkupljiModel.setText("stranka uzela skuplji model");
 			jcStrankaUzelaSkupljiModel
 					.setToolTipText("ako je stranka odabrala skuplji artikl od onoga koji je propisao HZZO");
-			jcStrankaUzelaSkupljiModel
-					.setMnemonic(java.awt.event.KeyEvent.VK_S);
+			jcStrankaUzelaSkupljiModel.setMnemonic(java.awt.event.KeyEvent.VK_S);
 			jcStrankaUzelaSkupljiModel.setVisible(false);
 		}
-	
+
 		return jcStrankaUzelaSkupljiModel;
 	}
 
@@ -2250,26 +2079,24 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		return jLabel18;
 	}
 
-	private void postaviVrstePomagalaNaPocetnuPoziciju() 
-	{
+	private void postaviVrstePomagalaNaPocetnuPoziciju() {
 		// ako korisnik koristi sva hzzo pomagala onda ne izdaje samo ocna
 		// pomagala
 		boolean svaPomagala = GlavniFrame.isKoristiSvaPomagala();
-		
+
 		int kom = jcVrstaPomagala.getItemCount();
 		VrstaPomagalaVO vpvo = null;
-		
-		for (int i = 0; i < kom; i++) 
-		{
+
+		for (int i = 0; i < kom; i++) {
 			vpvo = (VrstaPomagalaVO) jcVrstaPomagala.getItemAt(i);
 			if (svaPomagala && vpvo.getSifra().intValue() == 1)
 				jcVrstaPomagala.setSelectedIndex(i);
 			else if (!svaPomagala && vpvo.getSifra().intValue() == 4)
 				jcVrstaPomagala.setSelectedIndex(i);
-		}// for i
-		
+		} // for i
+
 		vpvo = null;
-	
+
 	}// postaviVrstePomagalaNaPocetnuPoziciju
 
 	/**
@@ -2277,22 +2104,19 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * 
 	 * @return javax.swing.JComboBox
 	 */
-	private javax.swing.JComboBox<VrstaPomagalaVO> getJcVrstaPomagala() 
-	{
-		if (jcVrstaPomagala == null) 
-		{
+	private javax.swing.JComboBox<VrstaPomagalaVO> getJcVrstaPomagala() {
+		if (jcVrstaPomagala == null) {
 			jcVrstaPomagala = new javax.swing.JComboBox<VrstaPomagalaVO>();
 			jcVrstaPomagala.setPreferredSize(new java.awt.Dimension(121, 25));
 			jcVrstaPomagala.setMinimumSize(new java.awt.Dimension(121, 25));
 			jcVrstaPomagala.setFont(arial12);
-			jcVrstaPomagala
-					.setToolTipText("ovisno o vrsti pomagala za koje izdajete raèun, odaberite opciju, oèna, ortopedska ili popravak");
+			jcVrstaPomagala.setToolTipText(
+					"ovisno o vrsti pomagala za koje izdajete raèun, odaberite opciju, oèna, ortopedska ili popravak");
 			try {
 				ArrayList<VrstaPomagalaVO> lista = (ArrayList<VrstaPomagalaVO>) DAOFactory.getInstance()
 						.getVrstePomagala().findAll(null);
 
-				if (lista != null) 
-				{
+				if (lista != null) {
 					int ls = lista.size();
 					for (int i = 0; i < ls; i++)
 						jcVrstaPomagala.addItem(lista.get(i));
@@ -2300,14 +2124,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 				postaviVrstePomagalaNaPocetnuPoziciju();
 				lista = null;
-			} 
-			catch (SQLException e) {
-				Logger.fatal(
-						"SQL iznimka kod povlacenja popisa vrsta pomagala", e);
+			} catch (SQLException e) {
+				Logger.fatal("SQL iznimka kod povlacenja popisa vrsta pomagala", e);
 				alert("problem pri kreiranju forme za unos racuna. Kontaktirajte administratora");
 			}
 		}
-		
+
 		return jcVrstaPomagala;
 	}
 
@@ -2320,8 +2142,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (jcRobaIsporucena == null) {
 			jcRobaIsporucena = new javax.swing.JCheckBox();
 			jcRobaIsporucena.setText("isporu\u010deno");
-			jcRobaIsporucena
-					.setToolTipText("ako stranka još nije primila robu, iskljuèite ovu opciju");
+			jcRobaIsporucena.setToolTipText("ako stranka još nije primila robu, iskljuèite ovu opciju");
 			jcRobaIsporucena.setFont(arial);
 			jcRobaIsporucena.setSelected(true);
 		}
@@ -2353,14 +2174,12 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtSifraAktivnosti.setPreferredSize(new Dimension(100, 21));
 			jtSifraAktivnosti.setText("A6900059");
 			jtSifraAktivnosti.setMinimumSize(new Dimension(100, 21));
-			jtSifraAktivnosti
-					.setToolTipText("\u0161ifra aktivnosti za hzzo/hzzo zzr");
+			jtSifraAktivnosti.setToolTipText("\u0161ifra aktivnosti za hzzo/hzzo zzr");
 		}
 		return jtSifraAktivnosti;
 	}
 
-	private JLabel getJlBrojPotvrde() 
-	{
+	private JLabel getJlBrojPotvrde() {
 		if (jlBrojPotvrde == null) {
 			jlBrojPotvrde = new JLabel();
 			jlBrojPotvrde.setText("Broj potvrde: ");
@@ -2368,10 +2187,8 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		return jlBrojPotvrde;
 	}
 
-	private JTextField getJtBrojPotvrdeLijecnik() 
-	{
-		if (jtBrojPotvrdeLijecnik == null) 
-		{
+	private JTextField getJtBrojPotvrdeLijecnik() {
+		if (jtBrojPotvrdeLijecnik == null) {
 			jtBrojPotvrdeLijecnik = new JTextField();
 			jtBrojPotvrdeLijecnik.setPreferredSize(new Dimension(33, 24));
 			jtBrojPotvrdeLijecnik
@@ -2396,15 +2213,11 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		if (brpotv.length() == 13) {
 			int kontrolni = Util.izracunajKontrolniBrojPotvrdeLijecnika(brpotv);
 			jtBrojPotvrdeLijecnik.setText(brpotv + kontrolni);
-		}
-		else
-			if (brpotv.length()==14)
-			{
-				if (!Util.brojPotvrdeLijecnikaIspravna(brpotv))
-				{
-					GUI.odradiUpozorenjeNaElementu(jtBrojPotvrdeLijecnik, "Broj potvrde lijecnika nije ispravan!");
-				}
+		} else if (brpotv.length() == 14) {
+			if (!Util.brojPotvrdeLijecnikaIspravna(brpotv)) {
+				GUI.odradiUpozorenjeNaElementu(jtBrojPotvrdeLijecnik, "Broj potvrde lijecnika nije ispravan!");
 			}
+		}
 	}// jtBrojPotvrdeLijecnikFocusLost
 
 	protected void brojIskaznice2KeyTyped(KeyEvent ke) {
@@ -2420,10 +2233,10 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				}
 			}
 		};
-		
+
 		SwingUtilities.invokeLater(t);
 	}
-	
+
 	SkupljacFlidIda skupljacFlidIda = null;
 
 	/**
@@ -2432,10 +2245,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 	 * @param arg0
 	 * @return
 	 */
-	protected boolean brojIskaznice2FocusLost(
-			FocusEvent arg0,
-			boolean izKeyTyped) 
-	{
+	protected boolean brojIskaznice2FocusLost(FocusEvent arg0, boolean izKeyTyped) {
 		String broj = this.jtBrojIskaznice2.getText().trim();
 		String flid = this.jtBrojIskaznice1.getText().trim();
 		boolean ispravanFlid = flid.length() == 2 || flid.length() == 3;
@@ -2450,9 +2260,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			vrsta = VrstaUpita.MBO;
 		else if (!izKeyTyped && broj.length() == 9)
 			alert("Ako pokušavate upisati MBO - nije ispravan!");
-		else if (!izKeyTyped
-				&& (broj.length() == 8 || broj.length() == 7 || broj.length() == 6)
-				&& ispravanFlid)
+		else if (!izKeyTyped && (broj.length() == 8 || broj.length() == 7 || broj.length() == 6) && ispravanFlid)
 			vrsta = VrstaUpita.FLIDID;
 
 		// ako je korisnik unio OIB na drugom mjestu, treba otiæi na HZZO-ove
@@ -2465,24 +2273,24 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 
 			final VrstaUpita vr = vrsta;
 			final String br = broj;
-			
-			if (this.skupljacFlidIda!=null && this.skupljacFlidIda.isAlive())
-			{
-				int cekac = 10; 
-				while (cekac-->0 && this.skupljacFlidIda.isAlive()){
-					try{Thread.sleep(250);}catch(InterruptedException inte){cekac=0;}
+
+			if (this.skupljacFlidIda != null && this.skupljacFlidIda.isAlive()) {
+				int cekac = 10;
+				while (cekac-- > 0 && this.skupljacFlidIda.isAlive()) {
+					try {
+						Thread.sleep(250);
+					} catch (InterruptedException inte) {
+						cekac = 0;
+					}
 				}
-				
-			   if (this.skupljacFlidIda.isAlive())
-				   return false;
+
+				if (this.skupljacFlidIda.isAlive())
+					return false;
 			}
 
-			
-			s
-
-			this.skupljacFlidIda = t;
+			this.skupljacFlidIda = null;
 			// SwingUtilities.invokeLater(t);
-			//t.start();
+			// t.start();
 			return true;
 		} //
 		return false;
@@ -2503,14 +2311,14 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 			jtSifraAktivnostiDop.setText("A6900737");
 			jtSifraAktivnostiDop.setMinimumSize(new Dimension(100, 21));
 			jtSifraAktivnostiDop.setPreferredSize(new Dimension(100, 21));
-			jtSifraAktivnostiDop
-					.setToolTipText("Ako je raèun za dopunsko osiguranje, tu navodite šifru aktivnosti za dop. osiguranje");
+			jtSifraAktivnostiDop.setToolTipText(
+					"Ako je raèun za dopunsko osiguranje, tu navodite šifru aktivnosti za dop. osiguranje");
 		}
 		return jtSifraAktivnostiDop;
 	}
 
 	public void datumIzmjenjen(DatumskoPolje pozivatelj) {
-		if (pozivatelj == this.datumIsporuke) {
+		if (pozivatelj == (DatumskoPolje) this.datumIsporuke) {
 			// ako je datum isporuke u buducnosti znaci da roba nije isporucena
 			// i iskljuciti cemo automatski jcRobaIsporucena
 			Calendar c = Calendar.getInstance();
@@ -2518,10 +2326,11 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 				this.jcRobaIsporucena.setSelected(false);
 		}
 	}
+
 	private JPanel getJpBrojBolesnickogL() {
 		if (jpBrojBolesnickogL == null) {
 			jpBrojBolesnickogL = new JPanel();
-			 
+
 			jpBrojBolesnickogL.setToolTipText("broj bolesni\u010Dkog lista");
 			jpBrojBolesnickogL.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
 			jpBrojBolesnickogL.add(getJtBrojInoLista());
@@ -2530,6 +2339,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		}
 		return jpBrojBolesnickogL;
 	}
+
 	private JPanel getJpBrojPotvrdeHzzo() {
 		if (jpBrojPotvrdeHzzo == null) {
 			jpBrojPotvrdeHzzo = new JPanel();
@@ -2543,6 +2353,7 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		}
 		return jpBrojPotvrdeHzzo;
 	}
+
 	private JPanel getJpBrojOsiguranjaKlijenta() {
 		if (jpBrojOsiguranjaKlijenta == null) {
 			jpBrojOsiguranjaKlijenta = new JPanel();
@@ -2556,4 +2367,4 @@ public final class Racun extends JPanel implements GUIEditor<RacunVO>,
 		}
 		return jpBrojOsiguranjaKlijenta;
 	}
-} 
+}

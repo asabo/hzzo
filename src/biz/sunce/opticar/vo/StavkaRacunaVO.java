@@ -77,6 +77,14 @@ public final class StavkaRacunaVO extends ValueObject {
 		this.sifraVelicineObloge = sifraVelicineObloge;
 	}
 
+	public Integer getDoplataKlijenta() {
+		return doplataKlijenta;
+	}
+
+	public void setDoplataKlijenta(Integer doplataKlijenta) {
+		this.doplataKlijenta = doplataKlijenta;
+	}
+
 	Integer sifRacuna;
 	String sifArtikla;
 	Integer kolicina;
@@ -85,4 +93,5 @@ public final class StavkaRacunaVO extends ValueObject {
 	Integer sifProizvodjaca;
 	String ekstraSifProizvoda;
 	Short sifraVelicineObloge;
+	private Integer doplataKlijenta;
 }
