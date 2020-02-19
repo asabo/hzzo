@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ansa.dao.ValueObject;
+
 import biz.sunce.dao.ArtiklDAO;
 import biz.sunce.dao.DAOFactory;
 import biz.sunce.dao.GUIEditor;
@@ -156,8 +158,8 @@ public final class Artikli implements ArtiklDAO {
 		return lista;
 	}// findAll
 
-	public Class getVOClass() throws ClassNotFoundException {
-		return Class.forName("biz.sunce.opticar.vo.AtriklVO");
+	public Class<ArtiklVO> getVOClass() throws ClassNotFoundException {
+		return biz.sunce.opticar.vo.ArtiklVO.class;
 	}
 
 	public String getColumnName(int rb) {
@@ -168,8 +170,8 @@ public final class Artikli implements ArtiklDAO {
 		return 0;
 	}
 
-	public Class getColumnClass(int columnIndex) {
-		return null;
+	public Class<ArtiklVO> getColumnClass(int columnIndex) {
+		return ArtiklVO.class;
 	}
 
 	public Object getValueAt(ArtiklVO vo, int kolonas) {

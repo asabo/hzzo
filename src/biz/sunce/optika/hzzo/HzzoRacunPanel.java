@@ -832,6 +832,9 @@ public final class HzzoRacunPanel extends JPanel implements
 					// ovdje ako bude trebalo mozemo postaviti
 					// srvo.setSifRacuna(DAO.NEPOSTOJECA_SIFRA) pa provjeriti
 					// jeli insert uspio sa getSifRacuna();
+					//nova stavka ako se unosi i ako nema postavljen iznos nadoplate, onda je taj iznos 0
+					if (srvo.getDoplataKlijenta()==null) srvo.setDoplataKlijenta(0);
+					
 					this.getStavke().insert(srvo);
 				} catch (SQLException e) {
 					Logger.fatal("SQL iznimka kod insertiranja stavke raèuna",

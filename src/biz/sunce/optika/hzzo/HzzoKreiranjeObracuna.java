@@ -404,6 +404,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 						osobniRacunZaDopunsko = "";
 					int ukupniIznosPomagala = 0;
 					int ukupniIznosPoreza = 0;
+					int ukupniIznosDoplateKlijenta = 0; // koliko je klijent ukupno nadoplatio sa porezima
 					 
 					stavke = (ArrayList<StavkaRacunaVO>) stavkeDAO.findAll(rvo);
 					int stavkeSize = stavke.size();
@@ -426,6 +427,7 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 									+ svo.getKolicina().intValue() + ":"
 									+ svo.getPoCijeni());
 						ukupniIznosPoreza += porez;
+						ukupniIznosDoplateKlijenta += svo.getDoplataKlijenta();
 					}// for j
 
 					if (ukupniIznosPomagala == 0) {
@@ -445,6 +447,13 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 					int ukLp = ukupniIznosPomagala % 100;
 					sUkupno = ukKn + "."
 							+ (ukLp >= 10 ? "" + ukLp : "0" + ukLp);
+					
+					ukKn = (ukupniIznosDoplateKlijenta / 100);
+					ukLp = ukupniIznosDoplateKlijenta % 100;
+					
+					String sUkupniIznosDoplateKlijenta =  ukKn + "."
+							+ (ukLp < 10 ? "0" + ukLp : "" + ukLp);
+					
 					int sudj = rvo.getIznosSudjelovanja()==null? 0 : rvo.getIznosSudjelovanja().intValue();
 					int teretDopunsko = 0;
 					int teretOsnovno = ukupniIznosPomagala - sudj;
@@ -539,57 +548,48 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 						maticniBrojKorisnika = brojIskaznice2;
 						brojIskaznice2 = "";
 					}
-
-					final String rac = "60"
-							+ d
-							+ sifIsporucitelja
-							+ d
-							+ tvrtkaNaziv
-							+ d
-							+ brojPotvrdeHzzo
-							+ d
-							+ Util.convertCalendarToString(rvo
-									.getDatumIzdavanja())
-							+ d
-							+ vrstaPomagala
-							+ d
-							+ Util.convertCalendarToString(rvo
-									.getDatumNarudzbe())
-							+ d
-							+ osobniRacunZaDopunsko
-							+ d
-							+ brojPoliceDopunsko
-							+ d
-							+ sUkupno
-							+ d
-							+ sSudjelovanje
-							+ d
-							+ sTeretDopunsko
-							+ d
-							+ sPorezDopunsko
-							+ d
-							+ sTeretOsnovno
-							+ d
-							+ sPorezOsnovno
-							+ d
-							+ brojIskaznice2
-							+ d
-							+ brojIskaznice1
-							+ d
-							+ maticniBrojKorisnika
-							+ d
-							+ (sifDrzave == null ? "" : inoBroj) + d
-							+ (sifDrzave == null ? "" : drzava.getCc3()) + d
-							+ sifProizvodjaca + d + "0.00" + d + "0.00" + d
-							+ osobniRacunZaOsnovno + d
-							+ (aktivnostZZR == null ? "" : aktivnostZZR) + d
-							+ (aktivnostDop == null ? "" : aktivnostDop) + ""
-							+ d + sifraPotvrdeLijecnika + d;
-
-					out.write(rac + "\r\n");
+					
+					String identifikatorEPotvrde  = ""; // zasada ne postoji 
 					String datObracuna = Util.convertCalendarToString(rvo
 							.getDatumIzdavanja());
+
+					final String rac = "60" + d
+							+ sifIsporucitelja + d
+							+ tvrtkaNaziv + d
+							+ brojPotvrdeHzzo + d
+							+ Util.convertCalendarToString(rvo
+									.getDatumIzdavanja()) + d
+							+ vrstaPomagala + d
+							+ Util.convertCalendarToString(rvo
+									.getDatumNarudzbe()) + d
+							+ osobniRacunZaDopunsko + d
+							+ brojPoliceDopunsko + d
+							+ sUkupno + d // 10 - ukupni iznos za pomagala s PDV-om 
+							+ sSudjelovanje + d
+							+ sTeretDopunsko + d
+							+ sPorezDopunsko + d
+							+ sTeretOsnovno + d
+							+ sPorezOsnovno + d
+							+ brojIskaznice2 + d
+							+ brojIskaznice1 + d
+							+ maticniBrojKorisnika + d
+							+ (sifDrzave == null ? "" : inoBroj) + d
+							+ (sifDrzave == null ? "" : drzava.getCc3()) + d //20
+							+ sifProizvodjaca + d 
+							+ "0.00" + d 
+							+ "0.00" + d 
+							+ osobniRacunZaOsnovno + d //24
+							+ (aktivnostZZR == null ? "" : aktivnostZZR) + d
+							+ (aktivnostDop == null ? "" : aktivnostDop) + "" + d
+							+ sifraPotvrdeLijecnika + d
+							+ identifikatorEPotvrde + d 
+							+ datObracuna + d 
+							+ sUkupniIznosDoplateKlijenta + d; // 29 - koliko je korisnik doplatio, sa PDV-om 
+
+					out.write(rac + "\r\n");
+
 					Short sifraVelicineObloge;
+					String identifikacijaIzdanogPomagala = "";
 					
 					for (int j = 0; j < stavkeSize; j++) 
 					{
@@ -599,6 +599,10 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 
 						sKn = vrijednost / 100;
 						sLp = vrijednost % 100;
+						
+						int iznosDoplate = svo.getDoplataKlijenta();
+						int dpKn = iznosDoplate / 100; 
+						int dpLp = iznosDoplate % 100; 
 
 						String sifArt = svo.getSifArtikla();
 						boolean isoArt = sifArt != null
@@ -624,33 +628,30 @@ public final class HzzoKreiranjeObracuna extends JFrame {
 											+ " nema \u0161ifre proizvo\u0111a\u010Da!\nPopravite to pa ponovno kreirajte disketu! (krD)");
 						}
 						
-						String sIznos = sKn + "."
+						final String sIznos = sKn + "."
 								+ (sLp >= 10 ? "" + sLp : "0" + sLp);
 						
-						final String stavka = "61"
-								+ d
-								+ brojPotvrdeHzzo
-								+ d
-								+ datObracuna
-								+ d
-								+ sifArt
-								+ d
-								+ svo.getKolicina().intValue()
-								+ ".00"
-								+ d
-								+ sIznos
-								+ d
-								+ sfp
-								+ d
-								+ sifraPotvrdeLijecnika
-								+ d
+						final String sIznosDoplateKlijenta = dpKn + "."
+								+ (dpLp < 10 ? "0" + dpLp : "" + dpLp);
+						
+						final String stavka = "61" + d
+								+ brojPotvrdeHzzo + d
+								+ datObracuna + d
+								+ svo.getSifArtikla() + d
+								+ svo.getKolicina().intValue()+ ".00"+ d
+								+ sIznos + d
+								+ sfp + d
+								+ sifraPotvrdeLijecnika + d
 								+ (sifraVelicineObloge == null ? ""
-										: sifraVelicineObloge.toString()) + d;
+										: sifraVelicineObloge.toString()) + d
+								+ identifikacijaIzdanogPomagala + d  //10 - zasad ne postoji
+								+ identifikatorEPotvrde + d  
+								+ sIznosDoplateKlijenta + d;
 
 						out.write(stavka + "\r\n");
-					}// for j
+					}// for j - stavke racuna
 
-				}// for i
+				}// for i - racuni
 
 			PostavkeBean p = new PostavkeBean();
 			String sSif = "";

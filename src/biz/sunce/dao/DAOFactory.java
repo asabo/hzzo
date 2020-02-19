@@ -120,6 +120,8 @@ public final class DAOFactory {
 			username = "opticar";
 			password = "pass";
 			try {
+
+				
 				// connString+=";create=true";
 				broker = new ConnectionBroker(DAODriverClass, connString,
 						username, password, 10, 100, null, 60000.0d);
@@ -328,7 +330,7 @@ public final class DAOFactory {
 			e.printStackTrace();
 			Logger.fatal("Iznimka kod DAOFactory.performQuery. Upit:" + upit, e);
 		} catch (Throwable t) {
-			System.out.println("Greska sustava pri DAOFactory.performQuery: "
+			System.err.println("Greska sustava pri DAOFactory.performQuery: "
 					+ t);
 			System.exit(-1);
 		} finally {

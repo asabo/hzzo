@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -375,11 +376,12 @@ public final class DobroDosliPanel extends JPanel implements
 
 	private String vratiPregledeZaObavitiKaoHtml() {
 		SearchCriteria sc = new SearchCriteria();
-		ArrayList l = new ArrayList();
-		l.add(sad);
-		sc.setPodaci(l);
+		ArrayList<Object> arl = new ArrayList<Object>();
+		arl.add(sad);
+		sc.setPodaci(arl);
+		List<PregledVO> l;
 		try {
-			l = (ArrayList) DAOFactory.getInstance().getPregledi().findAll(sc);
+			l = DAOFactory.getInstance().getPregledi().findAll(sc);
 		} catch (SQLException e) {
 			Logger.fatal(
 					"SQL iznimka kod citanja pregleda koji se danas trebaju obaviti",
@@ -387,11 +389,11 @@ public final class DobroDosliPanel extends JPanel implements
 			return "Problem nastao pri pokušaju èitanja podataka. Kontaktirajte administratora!";
 		}
 
-		String t = "<table>";
-		t += "<thead><tr style='font-weight:bold' align='bottom'><td>Klijent<td>Mjesto<td>Telefon<td>GSM<td>Vrijeme<td></tr></thead>";
+		StringBuilder t = new StringBuilder( "<table>" );
+		t.append( "<thead><tr style='font-weight:bold' align='bottom'><td>Klijent<td>Mjesto<td>Telefon<td>GSM<td>Vrijeme<td></tr></thead>");
 
 		for (int i = 0; i < l.size(); i++) {
-			PregledVO pvo = (PregledVO) l.get(i);
+			PregledVO pvo = l.get(i);
 			int sat, min;
 			KlijentVO kvo = pvo.getKlijent();
 			sat = pvo.getDatVrijeme().get(Calendar.HOUR_OF_DAY);
@@ -399,18 +401,18 @@ public final class DobroDosliPanel extends JPanel implements
 			String vrijeme = (sat < 10 ? "0" + sat : "" + sat) + ":"
 					+ (min < 10 ? "0" + min : "" + min);
 
-			t += "<tr><td>" + kvo.getIme() + " " + kvo.getPrezime() + "<td>"
+			t.append( "<tr><td>" + kvo.getIme() + " " + kvo.getPrezime() + "<td>"
 					+ kvo.getMjesto().getNaziv() + "<td>" + kvo.getTel()
-					+ "<td>" + kvo.getGsm() + "<td>" + vrijeme + "</tr>";
+					+ "<td>" + kvo.getGsm() + "<td>" + vrijeme + "</tr>" );
 		}// for i
 
-		t += "</table>";
-		return t;
+		t.append( "</table>" );
+		return t.toString();
 	}// vratiPregledeZaObavitiKaoHtml
 
 	private String vratiPregledeZaZakazatiKaoHtml() {
 		String t = "<table>";
-		ArrayList p = (ArrayList) trebaZakazatiModel.getData();
+		List<KlijentVO> p = trebaZakazatiModel.getData();
 		t += "<thead><tr style='font-weight:bold' align='bottom'><td>Klijent<td>Mjesto<td>Telefon<td>GSM<td>pregled zakazati<td></tr></thead>";
 
 		for (int i = 0; i < p.size(); i++) {

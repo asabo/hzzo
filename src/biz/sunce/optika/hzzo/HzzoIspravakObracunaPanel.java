@@ -391,8 +391,9 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 
 					int ukupniIznosPomagala = 0; // ukupni iznos racuna u nasem
 													// slucaju
-					int ukupniIznosDoplateKlijenta =0; // koliko je klijent ukupno nadoplatio sa porezima
+					int ukupniIznosDoplateKlijenta = 0; // koliko je klijent ukupno nadoplatio sa porezima
 					int ukupniIznosPoreza = 0;
+			
 					PoreznaStopaVO stopa;
 
 					ArrayList<StavkaRacunaVO> stavke = (ArrayList<StavkaRacunaVO>) stavkeDAO.findAll(rvo);
@@ -409,6 +410,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 
 						ukupniIznosPomagala += vrijednost;
 						ukupniIznosPoreza += porez;
+						ukupniIznosDoplateKlijenta += svo.getDoplataKlijenta();
 					} // for j
 
 					int ukKn = (ukupniIznosPomagala / 100);
@@ -585,11 +587,11 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 					for (int j = 0; j < stavkeSize; j++) {
 						svo =   stavke.get(j);
 						int vrijednost = RacuniUtil.getBruttoIznosStavke(svo);
-						int iznosDoplate = 0;
 
 						sKn = vrijednost / 100;
 						sLp = vrijednost % 100;
 						
+						int iznosDoplate = svo.getDoplataKlijenta();
 						int dpKn = iznosDoplate / 100; 
 						int dpLp = iznosDoplate % 100; 
 
