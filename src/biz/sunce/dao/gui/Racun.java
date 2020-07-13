@@ -174,7 +174,7 @@ public final class Racun extends JPanel
 					return;
 				}
 				yield();
-				jtBrojOsobnogRacunaOsnovno.requestFocusInWindow();
+				SwingUtilities.invokeLater( new Runnable() { public void run() { jtBrojOsobnogRacunaOsnovno.requestFocusInWindow();}});
 			}
 		};
 
@@ -1052,7 +1052,7 @@ public final class Racun extends JPanel
 		// da se ne mora pokretati DAOFactory i traziti koje je to mjesto...
 		this.oznaceni.setPodrucniUred(this.oznacenaPodruznica);
 		this.oznaceni.setBrojPotvrdePomagala(this.jtBrojPotvrdeLijecnik.getText());
-		this.oznaceni.setAktivnostZZR(this.jtSifraAktivnosti.getText());
+		this.oznaceni.setAktivnostZZR(this.jtSifraAktivnosti.getText().trim());
 
 		if (!this.jtPozivNaBroj1.getText().trim().equals(""))
 			this.oznaceni.setPozivNaBroj1(this.jtPozivNaBroj1.getText().trim());
@@ -1218,7 +1218,7 @@ public final class Racun extends JPanel
 		this.jcRobaIsporucena.setSelected(true); // uvijek ce biti ukljucen..
 
 		this.jtBrojPotvrdeLijecnik.setText(p);
-		this.jtSifraAktivnostiDop.setText("A6900737"); // defaultna vrijednost
+		this.jtSifraAktivnostiDop.setText("11201"); // defaultna vrijednost
 														// za vecinu korisnika
 
 		postaviVrstePomagalaNaPocetnuPoziciju();
@@ -2172,7 +2172,7 @@ public final class Racun extends JPanel
 		if (jtSifraAktivnosti == null) {
 			jtSifraAktivnosti = new JTextField();
 			jtSifraAktivnosti.setPreferredSize(new Dimension(100, 21));
-			jtSifraAktivnosti.setText("A6900059");
+			jtSifraAktivnosti.setText("10055");
 			jtSifraAktivnosti.setMinimumSize(new Dimension(100, 21));
 			jtSifraAktivnosti.setToolTipText("\u0161ifra aktivnosti za hzzo/hzzo zzr");
 		}
@@ -2308,7 +2308,7 @@ public final class Racun extends JPanel
 		if (jtSifraAktivnostiDop == null) {
 			jtSifraAktivnostiDop = new JTextField();
 			jtSifraAktivnostiDop.setHorizontalAlignment(SwingConstants.LEFT);
-			jtSifraAktivnostiDop.setText("A6900737");
+			jtSifraAktivnostiDop.setText("11201");
 			jtSifraAktivnostiDop.setMinimumSize(new Dimension(100, 21));
 			jtSifraAktivnostiDop.setPreferredSize(new Dimension(100, 21));
 			jtSifraAktivnostiDop.setToolTipText(

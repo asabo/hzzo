@@ -1104,7 +1104,7 @@ public final class Racuni implements RacunDAO
 						null);
 				return null;
 			}
-			if (osiguranje != null) {
+			/*if (osiguranje != null) {
 				int osig = osiguranje.intValue();
 				upit = upit + " and r.aktivnost_zzr like ";
 				switch (osig) {
@@ -1121,7 +1121,7 @@ public final class Racuni implements RacunDAO
 						"Pretraživanje raèuna za kreiranje hzzo obraèuna, osiguranje je null?!?",
 						null);
 				return null;
-			}
+			}*/
 
 		}// if kriterij KRITERIJ_SVI_RACUNI_ZA_OBRACUN postoji
 		else if (kriterij != null

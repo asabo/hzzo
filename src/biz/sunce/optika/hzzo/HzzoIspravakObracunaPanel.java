@@ -822,11 +822,11 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 	}
 
 	private void napuniRacuneUTablicu() {
-		ArrayList l = null;
+		ArrayList<Object> l = null;
 		SearchCriteria krit = new SearchCriteria();
 		krit.setKriterij(HzzoObracunDAO.KRITERIJ_SVI_OBRACUNI_ZA_PODRUZNICU_HZZO);
 
-		ArrayList li = new ArrayList(2);
+		ArrayList<Object> li = new ArrayList<Object>(2);
 
 		li.add(this.oznaceniObracun.getDatum());
 		li.add(this.oznaceniObracun.getSifPodruznice());
@@ -857,7 +857,7 @@ public final class HzzoIspravakObracunaPanel extends JPanel implements
 		// sad mi daj sve racune koji spadaju pod nas obracun
 		SearchCriteria kriterij = new SearchCriteria();
 		kriterij.setKriterij(HzzoObracunDAO.KRITERIJ_SVI_RACUNI_ZA_OBRACUN);
-		l = new ArrayList(4);
+		l = new ArrayList<Object>(4);
 		l.add(datumOd); // bio null, ne bio...
 		l.add(this.oznaceniObracun.getDatum()); // datum ovog obracuna je
 												// zavrsni dan koji se ukljucuje
